@@ -10,6 +10,10 @@ Databricks is a collaborative Jupyter notebook where workspace members can write
 
 ## Calculator
 
+## Tags
+
+Jupyter, Notebooks, Analytics
+
 # Francais
 
 ## Titre
@@ -22,3 +26,6 @@ Databricks est un carnet de notes Jupyter collaboratif où les membres de l'espa
 
 ## Calculatrice
 
+## Mots Clefs
+
+Jupyter, Carnet de Notes, Analytiques
