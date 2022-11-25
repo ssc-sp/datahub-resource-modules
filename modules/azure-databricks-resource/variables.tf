@@ -43,6 +43,11 @@ variable "key_vault_id" {
   type        = string
 }
 
+variable "databricks_workspace_id" {
+  description = "Databricks Workspace resource ID"
+  type        = string
+}
+
 variable "key_vault_cmk_name" {
   description = "Project CMK name"
   type        = string
@@ -52,4 +57,16 @@ variable "common_tags" {
   description = "Common tags map"
   type        = map(any)
 }
+
+variable "run_in_devops" {
+  description = "If this is being run in Azure DevOps, default to true"
+  type        = bool
+  default     = true
+}
+
+variable "admin_users"{
+  description = "List of admin user emails"
+  type = list(any)
+}
+
 

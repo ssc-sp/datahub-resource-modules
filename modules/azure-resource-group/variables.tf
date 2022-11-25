@@ -1,14 +1,14 @@
 # variables.tf
-variable "environment_name" {
-  description = "Short name for environment (e.g. dev, test, prod)"
-  type        = string
-  default     = "prod"
-}
-
 variable "environment_classification" {
   description = "Max level of security the environment hosts"
   type        = string
   default     = "PA"
+}
+
+variable "environment_name" {
+  description = "Short name for environment (e.g. dev, test, prod)"
+  type        = string
+  default     = "prod"
 }
 
 variable "project_cd" {
@@ -33,23 +33,7 @@ variable "resource_prefix" {
   default     = "fsdh"
 }
 
-variable "resource_group_name" {
-  description = "Resource group name"
-  type        = string
-}
-
-variable "key_vault_id" {
-  description = "Key vault ID"
-  type        = string
-}
-
-variable "key_vault_cmk_name" {
-  description = "Project CMK name"
-  type        = string
-}
-
 variable "common_tags" {
   description = "Common tags map"
   type        = map(any)
 }
-
