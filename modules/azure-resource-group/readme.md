@@ -1,4 +1,6 @@
-# Overview
+# [Module] Azure Resource Group
+
+## Overview
 
 This module is the initial module for a Datahub project. It creates a resource group in Azure along with any meta-resources that are required for the project.
 
@@ -7,6 +9,7 @@ This module is the initial module for a Datahub project. It creates a resource g
 ```hcl
 module "resource_group_module" {
   source             = "github.com/ssc-sp/datahub-resource-modules/modules/azure-resource-group"
+
   az_tenant_id       = var.az_tenant
   az_subscription_id = var.az_subscription
   project_cd         = var.project_cd
