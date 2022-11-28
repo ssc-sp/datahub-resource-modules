@@ -30,20 +30,10 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
-
-
 locals {
-  common_tags = {
-    sector             = "Science Program"
-    Environment        = "test"
-    clientOrganization = "TEST-TEST"
-  }
-
   databricks_admin_users = [
     { "email" = "not-in-use@ssc-spc-gc.ca" }
   ]
-
-  tf_backend_key = lower("fsdh-${var.project_cd}-terraform.tfstate")
 }
 
 module "resource_group_module" {
@@ -51,5 +41,5 @@ module "resource_group_module" {
   az_tenant_id       = var.az_tenant
   az_subscription_id = var.az_subscription
   project_cd         = var.project_cd
-  common_tags        = local.common_tags
+  common_tags        = var.common_tags
 }

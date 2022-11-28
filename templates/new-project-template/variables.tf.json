@@ -11,6 +11,14 @@
     "project_cd": {
       "type": "string",
       "default": "yan"
+    },
+    "common_tags": {
+      "type": "map",
+      "default": {
+        "sector": "Science Program",
+        "Environment": "test",
+        "clientOrganization": "TEST-TEST"
+      }
     }
   }
 }
