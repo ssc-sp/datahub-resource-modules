@@ -26,7 +26,7 @@
       "default": "fsdh"
     },
     "common_tags": {
-      "type": "map",
+      "type": "map(any)",
       "default": {}
     }
   }

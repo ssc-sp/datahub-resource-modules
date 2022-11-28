@@ -46,8 +46,6 @@ variable "resource_prefix" {
 
 variable "common_tags" {
   description = "Common tags map"
-  type = map(object({
-    value = string
-  }))
+  type = map(any)
   default = {}
 }
