@@ -6,7 +6,7 @@ data "azurerm_subscription" "az_subscription" {
 
 locals {
   resource_group_name     = lower("${var.resource_prefix}_proj_${var.project_cd}_rg")
-  resource_group_location = "canadacentral"
+  resource_group_location = "${var.az_location}"
   kv_name                 = lower("${var.resource_prefix}-proj-${var.project_cd}-kv")
   cmk_name                = "project-cmk"
 }
