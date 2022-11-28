@@ -1,0 +1,16 @@
+{
+  "variable": {
+    "az_subscription": {
+      "type": "string",
+      "default": "bc4bcb08-d617-49f4-b6af-69d6f10c240b"
+    },
+    "az_tenant": {
+      "type": "string",
+      "default": "8c1a4d93-d828-4d0e-9303-fd3bd611c822"
+    },
+    "project_cd": {
+      "type": "string",
+      "default": "yan"
+    }
+  }
+}
