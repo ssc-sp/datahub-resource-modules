@@ -23,13 +23,13 @@ variable "project_cd" {
 variable "environment_classification" {
   description = "Max level of security the environment hosts"
   type        = string
-  default     = "PA"
+  default     = "U"
 }
 
 variable "environment_name" {
   description = "Short name for environment (e.g. dev, test, prod)"
   type        = string
-  default     = "prod"
+  default     = "dev"
 }
 
 variable "az_location" {

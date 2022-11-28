@@ -38,8 +38,8 @@ locals {
 
 module "resource_group_module" {
   source             = "github.com/ssc-sp/datahub-resource-modules/modules/azure-resource-group"
-  az_tenant_id       = var.az_tenant
-  az_subscription_id = var.az_subscription
+  az_tenant_id       = var.az_tenant_id
+  az_subscription_id = var.az_subscription_id
   project_cd         = var.project_cd
   common_tags        = var.common_tags
 }

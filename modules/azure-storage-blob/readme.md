@@ -34,8 +34,8 @@ module "azure_storage_blob_module" {
 | resource_group_name        | The name of the existing resource group to create the resources | `string`                          | -                 |   yes    |
 | key_vault_id               | The ID of the existing key vault to store the secrets           | `string`                          | -                 |   yes    |
 | key_vault_cmk_name         | The name of the existing key vault key to encrypt the secrets   | `string`                          | -                 |   yes    |
-| environment_classification | Max level of security for the environment hosts                 | `string`                          | `"PA"`            |    no    |
-| environment_name           | The name of the environment                                     | `string`                          | `"prod"`          |    no    |
+| environment_classification | Max level of security for the environment hosts                 | `string`                          | `"U"`             |    no    |
+| environment_name           | The name of the environment                                     | `string`                          | `"dev"`           |    no    |
 | az_location                | The Azure location to create the resources in                   | `string`                          | `"canadacentral"` |    no    |
 | resource_prefix            | A prefix to add to all resources                                | `string`                          | `"fsdh"`          |    no    |
 | common_tags                | A map of common tags to apply to all project resources          | `map(object({ value = string }))` | `{}`              |    no    |

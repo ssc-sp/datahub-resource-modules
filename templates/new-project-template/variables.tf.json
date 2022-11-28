@@ -1,24 +1,33 @@
 {
   "variable": {
-    "az_subscription": {
-      "type": "string",
-      "default": "bc4bcb08-d617-49f4-b6af-69d6f10c240b"
+    "az_subscription_id": {
+      "type": "string"
     },
-    "az_tenant": {
-      "type": "string",
-      "default": "8c1a4d93-d828-4d0e-9303-fd3bd611c822"
+    "az_tenant_id": {
+      "type": "string"
     },
     "project_cd": {
+      "type": "string"
+    },
+    "environment_classification": {
       "type": "string",
-      "default": "yan"
+      "default": "PA"
+    },
+    "environment_name": {
+      "type": "string",
+      "default": "dev"
+    },
+    "az_location": {
+      "type": "string",
+      "default": "canadacentral"
+    },
+    "resource_prefix": {
+      "type": "string",
+      "default": "fsdh"
     },
     "common_tags": {
       "type": "map",
-      "default": {
-        "sector": "Science Program",
-        "Environment": "test",
-        "clientOrganization": "TEST-TEST"
-      }
+      "default": {}
     }
   }
 }
