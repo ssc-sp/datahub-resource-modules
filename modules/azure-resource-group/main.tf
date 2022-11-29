@@ -5,10 +5,6 @@ resource "azurerm_resource_group" "az_project_rg" {
   tags = merge(
     var.common_tags
   )
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "azurerm_key_vault" "az_proj_kv" {
@@ -27,10 +23,6 @@ resource "azurerm_key_vault" "az_proj_kv" {
     var.common_tags,
     { "environment_name" : var.environment_name }
   )
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "azurerm_key_vault_key" "az_proj_cmk" {
