@@ -37,7 +37,8 @@ resource "azurerm_key_vault" "az_proj_kv" {
       "Decrypt",
       "Sign",
       "Verify",
-      "Create"
+      "Create",
+      "Delete"
     ]
 
     secret_permissions = [
