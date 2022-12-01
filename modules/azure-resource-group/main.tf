@@ -38,12 +38,14 @@ resource "azurerm_key_vault" "az_proj_kv" {
       "Sign",
       "Verify",
       "Create",
-      "Delete"
+      "Delete",
+      "Purge"
     ]
 
     secret_permissions = [
       "List",
-      "Get"
+      "Get",
+      "Set"
     ]
   }
 }
