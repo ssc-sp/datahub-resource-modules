@@ -23,6 +23,28 @@ resource "azurerm_key_vault" "az_proj_kv" {
     var.common_tags,
     { "environment_name" : var.environment_name }
   )
+
+  access_policy {
+    tenant_id = var.az_tenant_id
+    object_id = data.azurerm_client_config.current.object_id
+
+    key_permissions = [
+      "Get",
+      "List",
+      "UnwrapKey",
+      "WrapKey",
+      "Encrypt",
+      "Decrypt",
+      "Sign",
+      "Verify",
+      "Create"
+    ]
+
+    secret_permissions = [
+      "List",
+      "Get"
+    ]
+  }
 }
 
 resource "azurerm_key_vault_key" "az_proj_cmk" {
@@ -30,18 +52,13 @@ resource "azurerm_key_vault_key" "az_proj_cmk" {
   key_vault_id = azurerm_key_vault.az_proj_kv.id
   key_type     = "RSA"
   key_size     = 2048
-  key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
 
-  depends_on = [azurerm_key_vault_access_policy.kv_creator_policy]
+  key_opts = [
+    "decrypt",
+    "encrypt",
+    "sign",
+    "unwrapKey",
+    "verify",
+    "wrapKey"
+  ]
 }
-
-resource "azurerm_key_vault_access_policy" "kv_creator_policy" {
-  key_vault_id = azurerm_key_vault.az_proj_kv.id
-  tenant_id    = var.az_tenant_id
-  object_id    = data.azurerm_client_config.current.object_id
-
-  key_permissions    = ["Get", "List", "UnwrapKey", "WrapKey", "Encrypt", "Decrypt", "Sign", "Verify", "Create"]
-  secret_permissions = ["List", "Get"]
-}
-
-
