@@ -13,3 +13,7 @@ module "azure_storage_blob_module" {
   environment_name    = var.environment_name
   az_location         = var.az_location
 }
+
+output "azure_storage_blob_container_url" {
+  value = module.azure_storage_blob_module.azure_storage_blob_container_url
+}
