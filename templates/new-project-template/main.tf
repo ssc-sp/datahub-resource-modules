@@ -48,3 +48,7 @@ module "resource_group_module" {
   project_cd         = var.project_cd
   common_tags        = var.common_tags
 }
+
+output "project_cd" {
+  value = module.resource_group_module.project_cd
+}
