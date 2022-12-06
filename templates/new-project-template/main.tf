@@ -52,3 +52,7 @@ module "resource_group_module" {
 output "project_cd" {
   value = module.resource_group_module.project_cd
 }
+
+output "new_project_template" {
+  value = "completed"
+}

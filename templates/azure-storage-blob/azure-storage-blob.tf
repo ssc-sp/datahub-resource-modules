@@ -17,3 +17,7 @@ module "azure_storage_blob_module" {
 output "azure_storage_blob_container_url" {
   value = module.azure_storage_blob_module.azure_storage_blob_container_url
 }
+
+output "azure_storage_blob_status" {
+  value = "Complete"
+}
