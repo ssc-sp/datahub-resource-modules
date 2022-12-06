@@ -16,9 +16,9 @@ $project_list = ($project_list_csv -split ",")
 foreach ($project in $project_list) {
     write-host "FSDH: Processing project $project"
     terraform --version
-    pushd $project
+    Push-Location $project
     terraform apply --auto-approve
-    popd
+    Pop-Location
 }
 
 

@@ -13,14 +13,14 @@ $project_list = ($project_list_csv -split ",")
 foreach ($project in $project_list) {
   write-host "FSDH: Processing project $project"
   terraform --version
-  pushd $project
+  Push-Location $project
   
   $storage = Get-AzStorageAccount -ResourceGroupName $(OUTPUT_QUEUE_RESOURCE_GROUP_NAME) -Name $(OUTPUT_QUEUE_STORAGE_ACCOUNT_NAME)
   $queue = Get-AzStorageQueue -Name $(OUTPUT_QUEUE_NAME) -Context $storage.Context
   $outputJson = terraform output --json
   $queueMessage = [Microsoft.Azure.Storage.Queue.CloudQueueMessage]::new($outputJson)
   $queue.CloudQueue.AddMessageAsync($queueMessage)
-  echo "Sent message to queue for $project"
+  Write-Output "Sent message to queue for $project"
   
-  popd
+  Pop-Location
 }
