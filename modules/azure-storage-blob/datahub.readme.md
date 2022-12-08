@@ -1,3 +1,9 @@
+--- 
+icon: fa-markdown
+calculator: /storagecalculator
+dhcard: DHStorageResource
+--- 
+
 # English
 
 ## Title
@@ -25,11 +31,3 @@ Le stockage de l'espace de travail fournit un accès au stockage en nuage et un 
 ## Mots Clefs
 
 Stockage, Nuage, Chargement, Partage, Téléchargement
-
-# Datahub internal card
-
-DHStorageResource
-
-# Calculator
-
-/storagecalculator
