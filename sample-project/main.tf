@@ -23,25 +23,12 @@ module "databricks" {
   source              = "../modules/azure-databricks"
   resource_group_name = module.resourceGroup.az_project_rg_name
   key_vault_id        = module.resourceGroup.az_project_kv_id
-  key_vault_cmk_name  = module.resourceGroup.az_project_cmk
+  key_vault_cmk_id    = module.resourceGroup.az_project_cmk_id
   az_tenant_id        = var.az_tenant
   az_subscription_id  = var.az_subscription
   project_cd          = var.project_cd
   common_tags         = local.common_tags
+  admin_users         = local.databricks_admin_users
+  az_databricks_sp    = var.az_databricks_sp
+  run_in_devops       = false
 }
-
-module "databricksResource" {
-  source                  = "../modules/azure-databricks-resource"
-  resource_group_name     = module.resourceGroup.az_project_rg_name
-  key_vault_id            = module.resourceGroup.az_project_kv_id
-  key_vault_cmk_name      = module.resourceGroup.az_project_cmk
-  az_tenant_id            = var.az_tenant
-  az_subscription_id      = var.az_subscription
-  project_cd              = var.project_cd
-  common_tags             = local.common_tags
-  admin_users             = local.databricks_admin_users
-  databricks_workspace_id = module.databricks.databricks_workspace_id
-  run_in_devops           = false
-}
-
-

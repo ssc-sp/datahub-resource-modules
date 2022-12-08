@@ -18,6 +18,10 @@ output "az_project_cmk" {
   value = azurerm_key_vault_key.az_proj_cmk.name
 }
 
+output "az_project_cmk_id" {
+  value = azurerm_key_vault_key.az_proj_cmk.id
+}
+
 output "current_subscription_display_name" {
   value = data.azurerm_subscription.az_subscription.display_name
 }
