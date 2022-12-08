@@ -30,5 +30,6 @@ module "databricks" {
   common_tags         = local.common_tags
   admin_users         = local.databricks_admin_users
   az_databricks_sp    = var.az_databricks_sp
+  storage_acct_name   = module.storage.storage_acct_name
   run_in_devops       = false
 }

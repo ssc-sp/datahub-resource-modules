@@ -69,5 +69,9 @@ variable "az_databricks_sp"{
   type = string
 }
 
+variable "storage_acct_name"{
+  description = "Name of the project storage account"
+  type = string
+}
 
 

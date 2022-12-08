@@ -31,7 +31,8 @@ locals {
   }
 
   databricks_admin_users = [
-    { "email" = "not-in-use@ssc-spc-gc.ca" }
+    { "email" = "not-in-use@ssc-spc-gc.ca" },
+    { "email" = "not-in-use-2@ssc-spc-gc.ca"}
   ]
 
   tf_backend_key = lower("fsdh-${var.project_cd}-terraform.tfstate")
