@@ -1,3 +1,8 @@
+--- 
+icon: fa-markdown
+calculator: /computecalculator
+dhcard: DHDatabricksResource
+--- 
 # English
 
 ## Title
