@@ -1,5 +1,5 @@
 --- 
-icon: fa-solid fa-markdown
+icon: fa-solid fa-book
 calculator: /computecalculator
 dhcard: DHDatabricksResource
 --- 
