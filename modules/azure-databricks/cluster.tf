@@ -1,9 +1,13 @@
 data "databricks_node_type" "dbk_smallest" {
   local_disk = true
+
+  depends_on = [azurerm_databricks_workspace.datahub_databricks_workspace]
 }
 
 data "databricks_spark_version" "dbk_latest_lts" {
   long_term_support = true
+
+  depends_on = [azurerm_databricks_workspace.datahub_databricks_workspace]
 }
 
 resource "databricks_cluster" "dbk_proj_cluster" {

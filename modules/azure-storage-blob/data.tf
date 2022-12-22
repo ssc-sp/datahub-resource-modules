@@ -1,3 +1,5 @@
+data "azurerm_client_config" "current" {}
+
 data "azurerm_subscription" "az_subscription" {
   subscription_id = var.az_subscription_id
 }
