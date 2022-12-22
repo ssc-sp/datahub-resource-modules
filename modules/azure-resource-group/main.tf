@@ -40,5 +40,5 @@ resource "azurerm_key_vault_key" "az_proj_cmk" {
   key_vault_id = azurerm_key_vault.az_proj_kv.id
   key_type     = "RSA"
   key_size     = 2048
-  key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey", "delete", "purge"]
+  key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
 }
