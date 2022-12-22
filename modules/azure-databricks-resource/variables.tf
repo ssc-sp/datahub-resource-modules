@@ -64,9 +64,9 @@ variable "run_in_devops" {
   default     = true
 }
 
-variable "admin_users"{
+variable "admin_users" {
   description = "List of admin user emails"
-  type = list(any)
+  type        = list(any)
 }
 
 

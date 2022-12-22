@@ -61,6 +61,6 @@ variable "resource_prefix" {
 
 variable "common_tags" {
   description = "Common tags map"
-  type = map(any)
+  type        = map(any)
   default     = {}
 }
