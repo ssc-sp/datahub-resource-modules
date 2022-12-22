@@ -1,5 +1,5 @@
 --- 
-icon: fa-markdown
+icon: fa-solid fa-hard-drive
 calculator: /storagecalculator
 dhcard: DHStorageResource
 --- 
