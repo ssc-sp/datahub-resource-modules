@@ -6,5 +6,5 @@ data "azurerm_subscription" "az_subscription" {
 
 locals {
   storage_account_name    = lower("${var.resource_prefix}proj${var.project_cd}${var.environment_name}")
-  resource_group_location = "canadacentral"
+  resource_group_location = var.az_location
 }

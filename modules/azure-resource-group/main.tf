@@ -13,12 +13,12 @@ resource "azurerm_resource_group" "az_project_rg" {
 
 resource "azurerm_key_vault" "az_proj_kv" {
   name                            = local.kv_name
-  location                        = local.resource_group_location
-  resource_group_name             = local.resource_group_name
+  location                        = azurerm_resource_group.az_project_rg.location
+  resource_group_name             = azurerm_resource_group.az_project_rg.name
   enabled_for_disk_encryption     = true
   tenant_id                       = var.az_tenant_id
   soft_delete_retention_days      = 90
-  purge_protection_enabled        = true
+  purge_protection_enabled        = false
   enabled_for_template_deployment = true
 
   sku_name = "standard"
@@ -40,7 +40,7 @@ resource "azurerm_key_vault_key" "az_proj_cmk" {
   key_vault_id = azurerm_key_vault.az_proj_kv.id
   key_type     = "RSA"
   key_size     = 2048
-  key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
+  key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey", "delete", "purge"]
 }
 
 # resource "azurerm_key_vault_access_policy" "kv_creator_policy" {
