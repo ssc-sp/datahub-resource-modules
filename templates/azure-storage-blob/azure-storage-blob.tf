@@ -19,5 +19,5 @@ output "azure_storage_blob_url" {
 }
 
 output "azure_storage_blob_status" {
-  value = "Complete"
+  value = "completed"
 }
