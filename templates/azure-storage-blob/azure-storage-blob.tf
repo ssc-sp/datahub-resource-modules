@@ -14,8 +14,8 @@ module "azure_storage_blob_module" {
   az_location         = var.az_location
 }
 
-output "azure_storage_blob_container_url" {
-  value = module.azure_storage_blob_module.azure_storage_blob_container_url
+output "azure_storage_blob_url" {
+  value = module.azure_storage_blob_module.azure_storage_blob_url
 }
 
 output "azure_storage_blob_status" {
