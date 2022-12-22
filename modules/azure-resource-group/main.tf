@@ -5,6 +5,10 @@ resource "azurerm_resource_group" "az_project_rg" {
   tags = merge(
     var.common_tags
   )
+
+  lifecycle {
+    prevent_destroy = false
+  }
 }
 
 resource "azurerm_key_vault" "az_proj_kv" {
@@ -24,30 +28,11 @@ resource "azurerm_key_vault" "az_proj_kv" {
     { "environment_name" : var.environment_name }
   )
 
-  access_policy {
-    tenant_id = var.az_tenant_id
-    object_id = data.azurerm_client_config.current.object_id
-
-    key_permissions = [
-      "Get",
-      "List",
-      "UnwrapKey",
-      "WrapKey",
-      "Encrypt",
-      "Decrypt",
-      "Sign",
-      "Verify",
-      "Create",
-      "Delete",
-      "Purge"
-    ]
-
-    secret_permissions = [
-      "List",
-      "Get",
-      "Set"
-    ]
+  lifecycle {
+    prevent_destroy = false
   }
+
+  depends_on = [azurerm_resource_group.az_project_rg]
 }
 
 resource "azurerm_key_vault_key" "az_proj_cmk" {
@@ -55,13 +40,5 @@ resource "azurerm_key_vault_key" "az_proj_cmk" {
   key_vault_id = azurerm_key_vault.az_proj_kv.id
   key_type     = "RSA"
   key_size     = 2048
-
-  key_opts = [
-    "decrypt",
-    "encrypt",
-    "sign",
-    "unwrapKey",
-    "verify",
-    "wrapKey"
-  ]
+  key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey", "delete", "purge"]
 }

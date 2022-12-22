@@ -14,6 +14,11 @@ variable "az_subscription" {
 variable "az_tenant" {
   default = "8c1a4d93-d828-4d0e-9303-fd3bd611c822"
 }
+
+variable "az_databricks_sp" {
+  default = "22aaf48e-092a-47d6-9fc5-d24d762753d4"
+}
+
 variable "project_cd" {
   default = "test"
 }
@@ -26,8 +31,7 @@ locals {
   }
 
   databricks_admin_users = [
-    { "email" = "not-in-use@ssc-spc-gc.ca" }
+    { "email" = "not-in-use-1@ssc-spc.gc.ca" },
+    { "email" = "not-in-use-2@ssc-spc.gc.ca" }
   ]
-
-  tf_backend_key = lower("fsdh-${var.project_cd}-terraform.tfstate")
 }

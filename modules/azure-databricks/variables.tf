@@ -43,8 +43,8 @@ variable "key_vault_id" {
   type        = string
 }
 
-variable "key_vault_cmk_name" {
-  description = "Project CMK name"
+variable "key_vault_cmk_id" {
+  description = "Project CMK ID"
   type        = string
 }
 
@@ -52,4 +52,26 @@ variable "common_tags" {
   description = "Common tags map"
   type        = map(any)
 }
+
+variable "run_in_devops" {
+  description = "If this is being run in Azure DevOps, default to true"
+  type        = bool
+  default     = true
+}
+
+variable "admin_users"{
+  description = "List of admin user emails"
+  type = list(any)
+}
+
+variable "az_databricks_sp"{
+  description = "Object ID of enterprise application AzureDatabricks"
+  type = string
+}
+
+variable "storage_acct_name"{
+  description = "Name of the project storage account"
+  type = string
+}
+
 
