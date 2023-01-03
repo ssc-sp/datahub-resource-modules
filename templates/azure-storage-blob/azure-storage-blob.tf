@@ -9,7 +9,7 @@ module "azure_storage_blob_module" {
   az_tenant_id       = var.az_tenant_id
   az_subscription_id = var.az_subscription_id
   project_cd         = var.project_cd
-  common_tags         = var.common_tags
+  common_tags        = var.common_tags
 
   environment_name = var.environment_name
   az_location      = var.az_location
