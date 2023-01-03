@@ -59,19 +59,19 @@ variable "run_in_devops" {
   default     = true
 }
 
-variable "admin_users"{
+variable "admin_users" {
   description = "List of admin user emails"
-  type = list(any)
+  type        = list(any)
 }
 
-variable "az_databricks_sp"{
+variable "az_databricks_sp" {
   description = "Object ID of enterprise application AzureDatabricks"
-  type = string
+  type        = string
 }
 
-variable "storage_acct_name"{
+variable "storage_acct_name" {
   description = "Name of the project storage account"
-  type = string
+  type        = string
 }
 
 
