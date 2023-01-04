@@ -24,13 +24,13 @@ output "azure_databricks_module_status" {
 }
 
 output "azure_databricks_workspace_id" {
-  value = module.azure_databricks_module.databricks_workspace_id
+  value = module.azure_databricks_module.azure_databricks_workspace_id
 }
 
 output "azure_databricks_workspace_url" {
-  value = module.azure_databricks_module.databricks_workspace_url
+  value = module.azure_databricks_module.azure_databricks_workspace_url
 }
 
 output "azure_databricks_workspace_name" {
-  value = module.azure_databricks_module.databricks_workspace_name
+  value = module.azure_databricks_module.azure_databricks_workspace_name
 }
