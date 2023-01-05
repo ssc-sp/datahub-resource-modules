@@ -53,6 +53,6 @@ resource "azurerm_key_vault_access_policy" "current_runner_access_policy" {
   ]
   secret_permissions = [
     "Get",
-    "set",
+    "Set",
   ]
 }
