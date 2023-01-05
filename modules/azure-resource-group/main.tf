@@ -43,16 +43,33 @@ resource "azurerm_key_vault_key" "az_proj_cmk" {
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
 }
 
-resource "azurerm_key_vault_access_policy" "example" {
+resource "azurerm_key_vault_access_policy" "current_runner_access_policy" {
   key_vault_id = azurerm_key_vault.az_proj_kv.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = data.azurerm_client_config.current.object_id
 
   key_permissions = [
+    "Create",
+    "Delete",
     "Get",
+    "List",
+    "Purge",
+    "Decrypt",
+    "Encrypt",
+    "Sign",
+    "UnwrapKey",
+    "Verify",
+    "WrapKey",
   ]
 
   secret_permissions = [
     "Get",
+    "List",
+    "Set",
+    "Delete",
+    "Purge",
+    "Recover",
+    "Backup",
+    "Restore",
   ]
 }
