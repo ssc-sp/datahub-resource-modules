@@ -41,6 +41,8 @@ resource "azurerm_key_vault_key" "az_proj_cmk" {
   key_type     = "RSA"
   key_size     = 2048
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
+
+  depends_on = [azurerm_key_vault_access_policy.current_runner_access_policy]
 }
 
 resource "azurerm_key_vault_access_policy" "current_runner_access_policy" {
