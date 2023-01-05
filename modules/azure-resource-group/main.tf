@@ -49,27 +49,14 @@ resource "azurerm_key_vault_access_policy" "current_runner_access_policy" {
   object_id    = data.azurerm_client_config.current.object_id
 
   key_permissions = [
-    "Create",
-    "Delete",
-    "Get",
-    "List",
-    "Purge",
-    "Decrypt",
-    "Encrypt",
-    "Sign",
-    "UnwrapKey",
-    "Verify",
-    "WrapKey",
+    "get", "list", "update", "create", "import", "delete", "recover", "backup", "restore",
   ]
 
   secret_permissions = [
-    "Get",
-    "List",
-    "Set",
-    "Delete",
-    "Purge",
-    "Recover",
-    "Backup",
-    "Restore",
+    "get", "list", "delete", "recover", "backup", "restore", "set",
+  ]
+
+  certificate_permissions = [
+    "get", "list", "update", "create", "import", "delete", "recover", "backup", "restore", "deleteissuers", "getissuers", "listissuers", "managecontacts", "manageissuers", "setissuers",
   ]
 }
