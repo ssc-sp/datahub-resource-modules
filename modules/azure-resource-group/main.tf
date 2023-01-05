@@ -36,7 +36,7 @@ resource "azurerm_key_vault" "az_proj_kv" {
 }
 
 resource "azurerm_key_vault_key" "az_proj_cmk" {
-  name         = local.cmk_name
+  name         = azurerm_key_vault.az_proj_kv.name
   key_vault_id = azurerm_key_vault.az_proj_kv.id
   key_type     = "RSA"
   key_size     = 2048
