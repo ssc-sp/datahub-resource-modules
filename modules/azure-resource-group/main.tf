@@ -51,6 +51,7 @@ resource "azurerm_key_vault_access_policy" "current_runner_access_policy" {
   object_id    = data.azurerm_client_config.current.object_id
 
   key_permissions = [
+    "Create",
     "Get",
     "UnwrapKey",
     "WrapKey"
