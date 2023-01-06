@@ -52,7 +52,10 @@ resource "azurerm_key_vault_access_policy" "current_runner_access_policy" {
 
   key_permissions = [
     "Get",
+    "UnwrapKey",
+    "WrapKey"
   ]
+
   secret_permissions = [
     "Get",
     "Set",
