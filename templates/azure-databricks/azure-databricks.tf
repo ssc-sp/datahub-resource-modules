@@ -11,6 +11,10 @@ module "azure_databricks_module" {
   az_subscription_id = var.az_subscription_id
   project_cd         = var.project_cd
 
+  environment_name           = var.environment_name
+  environment_classification = var.environment_classification
+  resource_prefix            = var.resource_prefix
+
   common_tags = var.common_tags
   admin_users = var.databricks_admin_users
 
