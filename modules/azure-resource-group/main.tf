@@ -54,7 +54,8 @@ resource "azurerm_key_vault_access_policy" "current_runner_access_policy" {
     "Create",
     "Get",
     "UnwrapKey",
-    "WrapKey"
+    "WrapKey",
+    "Delete"
   ]
 
   secret_permissions = [
