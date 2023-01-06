@@ -18,7 +18,7 @@ resource "azurerm_key_vault" "az_proj_kv" {
   enabled_for_disk_encryption     = true
   tenant_id                       = var.az_tenant_id
   soft_delete_retention_days      = 90
-  purge_protection_enabled        = false
+  purge_protection_enabled        = true
   enabled_for_template_deployment = true
 
   sku_name = "standard"
