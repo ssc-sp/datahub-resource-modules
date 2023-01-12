@@ -1,7 +1,7 @@
 ---
 icon: fa-solid fa-messages-question
-link: https://github.com/ssc-sp/datahub-portal/discussions
-dhcard: DHContactUsResource
+documentationUrl: https://github.com/ssc-sp/datahub-portal/discussions
+actionUrl: https://github.com/ssc-sp/datahub-portal/discussions/new/choose
 ---
 
 # English
