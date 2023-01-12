@@ -10,11 +10,11 @@ dhcard: DHDatabricksResource
 
 Databricks Notebooks
 
-## Catalogue Subtitle
+## Catalog Subtitle
 
 Why use Databricks Notebooks?
 
-## Catalogue Description
+## Catalog Description
 
 Databricks is a collaborative Jupyter notebook where workspace members can write and execute Python or R scripts in the cloud. The interactive Jupyter notebook enables to validate, add algorithms, visualizations and enrich datasets shared in the workspace.
 
