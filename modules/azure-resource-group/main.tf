@@ -18,7 +18,7 @@ resource "azurerm_key_vault" "az_proj_kv" {
   enabled_for_disk_encryption     = true
   tenant_id                       = var.az_tenant_id
   soft_delete_retention_days      = 90
-  purge_protection_enabled        = false
+  purge_protection_enabled        = true
   enabled_for_template_deployment = true
 
   sku_name = "standard"
@@ -41,4 +41,21 @@ resource "azurerm_key_vault_key" "az_proj_cmk" {
   key_type     = "RSA"
   key_size     = 2048
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
+}
+
+resource "azurerm_key_vault_access_policy" "kv_policy_creator" {
+  key_vault_id = azurerm_key_vault.az_proj_kv.id
+  tenant_id    = var.az_tenant_id
+  object_id    = data.azurerm_client_config.current.object_id
+
+  key_permissions    = ["Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey"]
+  secret_permissions = ["Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"]
+}
+
+resource "azurerm_key_vault_access_policy" "kv_policy_datahub_sp" {
+  key_vault_id = azurerm_key_vault.az_proj_kv.id
+  tenant_id    = var.az_tenant_id
+  object_id    = var.datahub_app_object_id
+
+  secret_permissions = ["List", "Get"]
 }

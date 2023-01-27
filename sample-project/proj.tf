@@ -23,6 +23,10 @@ variable "project_cd" {
   default = "test"
 }
 
+variable "datahub_app_object_id" {
+  default = "d34005c9-92b4-48fd-9d39-d1e881c0d3da"
+}
+
 locals {
   common_tags = {
     sector             = "Science Program"
@@ -33,5 +37,9 @@ locals {
   databricks_admin_users = [
     { "email" = "not-in-use-1@ssc-spc.gc.ca" },
     { "email" = "not-in-use-2@ssc-spc.gc.ca" }
+  ]
+
+  storage_contributor_users = [
+    { "email" = "not-in-use-1@ssc-spc.gc.ca", "oid" = "6580c942-fe69-4795-94bf-a5937656869e" }
   ]
 }
