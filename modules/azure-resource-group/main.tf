@@ -20,8 +20,7 @@ resource "azurerm_key_vault" "az_proj_kv" {
   soft_delete_retention_days      = 90
   purge_protection_enabled        = true
   enabled_for_template_deployment = true
-
-  sku_name = "standard"
+  sku_name                        = "standard"
 
   tags = merge(
     var.common_tags,
@@ -31,8 +30,6 @@ resource "azurerm_key_vault" "az_proj_kv" {
   lifecycle {
     prevent_destroy = false
   }
-
-  depends_on = [azurerm_resource_group.az_project_rg]
 }
 
 resource "azurerm_key_vault_key" "az_proj_cmk" {
@@ -41,6 +38,8 @@ resource "azurerm_key_vault_key" "az_proj_cmk" {
   key_type     = "RSA"
   key_size     = 2048
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
+
+  depends_on = [azurerm_key_vault_access_policy.kv_policy_creator]
 }
 
 resource "azurerm_key_vault_access_policy" "kv_policy_creator" {

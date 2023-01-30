@@ -34,6 +34,8 @@ locals {
     clientOrganization = "TEST-TEST"
   }
 
+  environment_name = "test"
+
   databricks_admin_users = [
     { "email" = "not-in-use-1@ssc-spc.gc.ca" },
     { "email" = "not-in-use-2@ssc-spc.gc.ca" }

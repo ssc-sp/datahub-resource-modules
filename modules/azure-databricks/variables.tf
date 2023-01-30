@@ -2,7 +2,7 @@
 variable "environment_name" {
   description = "Short name for environment (e.g. dev, test, prod)"
   type        = string
-  default     = "prod"
+  default     = "dev"
 }
 
 variable "environment_classification" {
