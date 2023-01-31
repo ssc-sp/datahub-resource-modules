@@ -3,6 +3,9 @@
     "databricks_admin_users": {
       "type": "list(any)",
       "default": [{ "email": "not-in-use@ssc-spc-gc.ca" }]
+    },
+    "az_databricks_sp": {
+      "type": "string"
     }
   }
 }

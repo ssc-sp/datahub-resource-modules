@@ -29,3 +29,7 @@ output "current_subscription_display_name" {
 output "project_cd" {
   value = var.project_cd
 }
+
+output "resource_group_name" {
+  value = azurerm_resource_group.az_project_rg.name
+}
