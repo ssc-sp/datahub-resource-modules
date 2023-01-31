@@ -64,3 +64,12 @@ variable "common_tags" {
   type        = map(any)
   default     = {}
 }
+
+variable "storage_contributor_users" {
+  description = "A list of users to be assigned the role of Storage Blob Data Contributor"
+  type        = list(any)
+  default     = []
+}
+
+
+

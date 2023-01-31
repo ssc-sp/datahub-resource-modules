@@ -17,6 +17,11 @@ variable "project_cd" {
   type        = string
 }
 
+variable "datahub_app_object_id" {
+  description = "The SP object ID used by the datahub app for granting KV access"
+  type        = string
+}
+
 # ==============================================
 #     Optional Variables
 # ==============================================
