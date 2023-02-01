@@ -3,7 +3,7 @@ terraform {
     resource_group_name  = "sp-datahub-iac-rg"
     storage_account_name = "sscdataterraformbackend"
     container_name       = "fsdh-project-v2"
-    key                  = "fsdh-test.tfstate"
+    key                  = "fsdh-sw2.tfstate"
   }
 }
 
@@ -20,7 +20,7 @@ variable "az_databricks_sp" {
 }
 
 variable "project_cd" {
-  default = "test"
+  default = "sw2"
 }
 
 variable "datahub_app_object_id" {
@@ -30,8 +30,8 @@ variable "datahub_app_object_id" {
 locals {
   common_tags = {
     sector             = "Science Program"
-    Environment        = "test"
-    clientOrganization = "TEST-TEST"
+    Environment        = "sw2"
+    clientOrganization = "SW2-SW2"
   }
 
   databricks_admin_users = [

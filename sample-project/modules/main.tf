@@ -1,7 +1,7 @@
 data "azurerm_client_config" "current" {}
 
 module "resourceGroup" {
-  source                = "../modules/azure-resource-group"
+  source                = "../../modules/azure-resource-group"
   az_tenant_id          = var.az_tenant
   az_subscription_id    = var.az_subscription
   project_cd            = var.project_cd
@@ -10,7 +10,8 @@ module "resourceGroup" {
 }
 
 module "storage" {
-  source                    = "../modules/azure-storage-blob"
+  source                    = "../../modules/azure-storage-blob"
+  depends_on                = [module.resourceGroup]
   resource_group_name       = module.resourceGroup.az_project_rg_name
   key_vault_id              = module.resourceGroup.az_project_kv_id
   key_vault_cmk_name        = module.resourceGroup.az_project_cmk
@@ -22,7 +23,7 @@ module "storage" {
 }
 
 module "databricks" {
-  source              = "../modules/azure-databricks"
+  source              = "../../modules/azure-databricks"
   resource_group_name = module.resourceGroup.az_project_rg_name
   key_vault_id        = module.resourceGroup.az_project_kv_id
   key_vault_cmk_id    = module.resourceGroup.az_project_cmk_id
