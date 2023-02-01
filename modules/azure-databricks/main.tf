@@ -5,7 +5,7 @@ resource "azurerm_databricks_workspace" "datahub_databricks_workspace" {
   location                              = local.resource_group_location
   sku                                   = "premium"
   customer_managed_key_enabled          = true
-  managed_services_cmk_key_vault_key_id = var.key_vault_cmk_id
+  infrastructure_encryption_enabled     = true
 
   tags = merge(
     var.common_tags,

@@ -36,7 +36,7 @@ resource "azurerm_key_vault" "az_proj_kv" {
 }
 
 resource "azurerm_key_vault_key" "az_proj_cmk" {
-  name         = azurerm_key_vault.az_proj_kv.name
+  name         = local.cmk_name
   key_vault_id = azurerm_key_vault.az_proj_kv.id
   key_type     = "RSA"
   key_size     = 2048
@@ -47,20 +47,17 @@ resource "azurerm_key_vault_key" "az_proj_cmk" {
 
 resource "azurerm_key_vault_access_policy" "current_runner_access_policy" {
   key_vault_id = azurerm_key_vault.az_proj_kv.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
+  tenant_id    = var.az_tenant_id
   object_id    = data.azurerm_client_config.current.object_id
 
-  key_permissions = [
-    "Create",
-    "Get",
-    "UnwrapKey",
-    "WrapKey",
-    "Delete",
-    "Recover",
-  ]
+  key_permissions    = ["Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey"]
+  secret_permissions = ["Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"]
+}
 
-  secret_permissions = [
-    "Get",
-    "Set",
-  ]
+resource "azurerm_key_vault_access_policy" "kv_policy_datahub_sp" {
+  key_vault_id = azurerm_key_vault.az_proj_kv.id
+  tenant_id    = var.az_tenant_id
+  object_id    = var.datahub_app_object_id
+
+  secret_permissions = ["List", "Get"]
 }

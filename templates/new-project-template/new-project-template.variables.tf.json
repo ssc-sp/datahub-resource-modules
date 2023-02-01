@@ -28,6 +28,9 @@
     "common_tags": {
       "type": "map(any)",
       "default": {}
+    },
+    "datahub_app_object_id": {
+      "type": "string"
     }
   }
 }

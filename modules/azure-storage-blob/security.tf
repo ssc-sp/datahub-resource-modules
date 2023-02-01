@@ -61,3 +61,9 @@ resource "null_resource" "proj_storage_creator_role" {
   }
 }
 
+resource "azurerm_key_vault_secret" "storage_key_secret" {
+  name         = local.storage_key_secret
+  value        = azurerm_storage_account.datahub_storageaccount.primary_access_key
+  key_vault_id = var.key_vault_id
+}
+

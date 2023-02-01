@@ -17,6 +17,11 @@ variable "project_cd" {
   type        = string
 }
 
+variable "datahub_app_object_id" {
+  description = "The SP object ID used by the datahub app for granting KV access"
+  type        = string
+}
+
 # ==============================================
 #     Optional Variables
 # ==============================================
@@ -49,3 +54,23 @@ variable "common_tags" {
   type        = map(any)
   default     = {}
 }
+
+variable "monthly_budget" {
+  description = "Monthly budget for the resource group"
+  type        = number
+  default     = 0
+}
+
+variable "default_alert_email" {
+  description = "Default alert email regardless of project"
+  type        = string
+  default     = "dataSolutions-solutiondedonnees@ssc-spc.gc.ca"
+}
+
+variable "project_alert_email_list" {
+  description = "A list of email addresses to receive project level notification emails"
+  type        = list(string)
+  default     = []
+}
+
+
