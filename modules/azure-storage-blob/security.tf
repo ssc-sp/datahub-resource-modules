@@ -50,15 +50,10 @@ data "azurerm_storage_account_sas" "datahub_storageaccount_sas" {
   }
 }
 
-resource "null_resource" "proj_storage_creator_role" {
-  provisioner "local-exec" {
-    interpreter = ["pwsh", "-Command"]
-    command     = <<-EOT
-      az role assignment create --role "Storage Blob Data Contributor" --assignee "${data.azurerm_client_config.current.object_id}" --scope "${azurerm_storage_account.datahub_storageaccount.id}"
-    EOT
-
-    on_failure = fail
-  }
+resource "azurerm_role_assignment" "proj_storage_creator_role" {
+  scope                = azurerm_storage_account.datahub_storageaccount.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = data.azurerm_client_config.current.object_id
 }
 
 resource "azurerm_key_vault_secret" "storage_key_secret" {

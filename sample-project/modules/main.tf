@@ -6,7 +6,8 @@ module "resourceGroup" {
   az_subscription_id    = var.az_subscription
   project_cd            = var.project_cd
   datahub_app_object_id = var.datahub_app_object_id
-  common_tags           = local.common_tags
+  environment_name      = var.environment_name
+  common_tags           = var.common_tags
 }
 
 module "storage" {
@@ -18,8 +19,8 @@ module "storage" {
   az_tenant_id              = var.az_tenant
   az_subscription_id        = var.az_subscription
   project_cd                = var.project_cd
-  storage_contributor_users = local.storage_contributor_users
-  common_tags               = local.common_tags
+  storage_contributor_users = var.storage_contributor_users
+  common_tags               = var.common_tags
 }
 
 module "databricks" {
@@ -30,8 +31,8 @@ module "databricks" {
   az_tenant_id        = var.az_tenant
   az_subscription_id  = var.az_subscription
   project_cd          = var.project_cd
-  common_tags         = local.common_tags
-  admin_users         = local.databricks_admin_users
+  common_tags         = var.common_tags
+  admin_users         = var.databricks_admin_users
   az_databricks_sp    = var.az_databricks_sp
   storage_acct_name   = module.storage.storage_acct_name
   run_in_devops       = false
