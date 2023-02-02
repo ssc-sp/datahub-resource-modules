@@ -1,5 +1,6 @@
 ---
 icon: fa-solid fa-messages-question
+status: stable
 readMore: https://github.com/ssc-sp/datahub-portal
 documentationUrl: https://github.com/ssc-sp/datahub-portal/discussions
 actionUrl: https://github.com/ssc-sp/datahub-portal/discussions/new/choose
