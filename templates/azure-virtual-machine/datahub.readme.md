@@ -2,6 +2,7 @@
 icon: fa-solid fa-computer
 calculator: /calculators/vm
 dhcard: DHVirtualMachineResource
+status: alpha
 readMore: /resources
 ---
 
