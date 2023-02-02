@@ -2,6 +2,7 @@
 icon: fa-solid fa-book
 calculator: /computecalculator
 dhcard: DHDatabricksResource
+status: stable
 readMore: /resources
 ---
 
