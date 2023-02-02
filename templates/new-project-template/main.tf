@@ -54,6 +54,9 @@ module "resource_group_module" {
   project_cd            = var.project_cd
   environment_name      = var.environment_name
   datahub_app_object_id = var.datahub_app_object_id
+
+  # optional variables
+  monthly_budget        = var.monthly_budget
   common_tags           = var.common_tags
 }
 

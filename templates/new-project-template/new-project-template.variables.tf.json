@@ -31,6 +31,10 @@
     },
     "datahub_app_object_id": {
       "type": "string"
+    },
+    "monthly_budget": {
+      "type": "number",
+      "default": 0
     }
   }
 }

@@ -36,7 +36,24 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
 
   notification {
     enabled        = true
-    threshold      = 90.0
+    threshold      = 80.0
+    operator       = "EqualTo"
+    threshold_type = "Actual"
+
+    contact_emails = concat([var.default_alert_email], var.project_alert_email_list)
+
+    contact_groups = [
+      azurerm_monitor_action_group.datahub_proj_action_group_email.id,
+    ]
+
+    contact_roles = [
+      "Owner",
+    ]
+  }
+
+  notification {
+    enabled        = true
+    threshold      = 100.0
     operator       = "EqualTo"
     threshold_type = "Actual"
 
