@@ -50,6 +50,9 @@
     },
     "az_databricks_sp": {
       "type": "string"
+    },
+    "storage_size_limit_tb":{
+      "type": "number"
     }
   }
 }

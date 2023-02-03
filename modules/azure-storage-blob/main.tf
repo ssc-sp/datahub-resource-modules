@@ -31,3 +31,4 @@ resource "azurerm_storage_container" "datahub_default" {
   container_access_type = "private"
 }
 
+

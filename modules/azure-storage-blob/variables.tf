@@ -71,5 +71,10 @@ variable "storage_contributor_users" {
   default     = []
 }
 
+variable "storage_size_limit_tb" {
+  description = "Storage account size limit for alerts"
+  type        = number
+  default     = 0
+}
 
 

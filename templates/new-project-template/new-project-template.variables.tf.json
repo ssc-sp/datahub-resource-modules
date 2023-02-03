@@ -35,6 +35,9 @@
     "monthly_budget": {
       "type": "number",
       "default": 0
+    },
+    "storage_size_limit_tb": {
+      "type": "number"
     }
   }
 }
