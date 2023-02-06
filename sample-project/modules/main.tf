@@ -7,6 +7,7 @@ module "resourceGroup" {
   project_cd            = var.project_cd
   datahub_app_object_id = var.datahub_app_object_id
   environment_name      = var.environment_name
+  monthly_budget        = var.monthly_budget
   common_tags           = var.common_tags
 }
 
