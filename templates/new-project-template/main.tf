@@ -6,7 +6,7 @@ terraform {
     }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.29"
+      version = "~> 3.40"
     }
     null = {
       source = "hashicorp/null"
@@ -37,7 +37,6 @@ provider "azurerm" {
 
   }
 }
-
 
 data "azurerm_client_config" "current" {}
 

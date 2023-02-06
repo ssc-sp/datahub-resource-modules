@@ -61,3 +61,15 @@ resource "azurerm_key_vault_access_policy" "kv_policy_datahub_sp" {
 
   secret_permissions = ["List", "Get"]
 }
+
+resource "null_resource" "set_default_resource_group" {
+   triggers = {
+    always_run = "${timestamp()}"
+  }
+
+  provisioner "local-exec" {
+    interpreter = ["pwsh", "-Command"]
+    command     = "az configure --defaults group=${azurerm_resource_group.az_project_rg.name}"
+    on_failure  = fail
+  }
+}

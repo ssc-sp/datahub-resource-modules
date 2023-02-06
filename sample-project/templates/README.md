@@ -4,4 +4,4 @@
 2. Init: `terraform init --config-backend=project.tfbackend`
 3. Validate: `terraform validate`
 4. Apply: `terraform apply -auto-approve`
-5. Destroy: `./sample-destroy.ps sw1 -Force -NoPrompt`
+5. Destroy: `./sample-destroy.ps -Force -NoPrompt`

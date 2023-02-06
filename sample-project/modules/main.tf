@@ -19,7 +19,9 @@ module "storage" {
   az_tenant_id              = var.az_tenant
   az_subscription_id        = var.az_subscription
   project_cd                = var.project_cd
+  environment_name          = var.environment_name
   storage_contributor_users = var.storage_contributor_users
+  storage_size_limit_tb     = var.storage_size_limit_tb
   common_tags               = var.common_tags
 }
 
