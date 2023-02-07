@@ -57,7 +57,7 @@ resource "azurerm_key_vault_access_policy" "current_runner_access_policy" {
 resource "azurerm_key_vault_access_policy" "kv_policy_datahub_sp" {
   key_vault_id = azurerm_key_vault.az_proj_kv.id
   tenant_id    = var.az_tenant_id
-  object_id    = var.datahub_app_object_id
+  object_id    = var.datahub_app_sp_oid
 
   secret_permissions = ["List", "Get"]
 }

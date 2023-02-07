@@ -1,12 +1,12 @@
 data "azurerm_client_config" "current" {}
 
 module "resourceGroup" {
-  source                = "../../modules/azure-resource-group"
-  az_tenant_id          = var.az_tenant
-  az_subscription_id    = var.az_subscription
-  project_cd            = var.project_cd
-  datahub_app_object_id = var.datahub_app_object_id
-  common_tags           = local.common_tags
+  source             = "../../modules/azure-resource-group"
+  az_tenant_id       = var.az_tenant
+  az_subscription_id = var.az_subscription
+  project_cd         = var.project_cd
+  datahub_app_sp_oid = var.datahub_app_sp_oid
+  common_tags        = local.common_tags
 }
 
 module "storage" {

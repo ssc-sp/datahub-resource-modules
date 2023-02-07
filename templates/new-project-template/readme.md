@@ -17,6 +17,7 @@ You will need to generate the following variables in a file when copying the tem
 | az_subscription_id         | The Azure subscription ID                              | `string`                          | -                 |   yes    |
 | az_tenant_id               | The Azure tenant ID                                    | `string`                          | -                 |   yes    |
 | project_cd                 | The unique project identifer                           | `string`                          | -                 |   yes    |
+| datahub_app_sp_oid         | The object ID of the service principal to use          | `string`                          | -                 |   yes    |
 | environment_classification | Max level of security for the environment hosts        | `string`                          | `"U"`             |    no    |
 | environment_name           | The name of the environment                            | `string`                          | `"dev"`           |    no    |
 | az_location                | The Azure location to create the resources in          | `string`                          | `"canadacentral"` |    no    |

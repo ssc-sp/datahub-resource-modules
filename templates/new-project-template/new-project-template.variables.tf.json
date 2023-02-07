@@ -29,7 +29,7 @@
       "type": "map(any)",
       "default": {}
     },
-    "datahub_app_object_id": {
+    "datahub_app_sp_oid": {
       "type": "string"
     }
   }

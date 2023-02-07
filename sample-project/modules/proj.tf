@@ -23,7 +23,7 @@ variable "project_cd" {
   default = "sw2"
 }
 
-variable "datahub_app_object_id" {
+variable "datahub_app_sp_oid" {
   default = "d34005c9-92b4-48fd-9d39-d1e881c0d3da"
 }
 
