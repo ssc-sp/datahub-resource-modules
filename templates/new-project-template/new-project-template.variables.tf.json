@@ -9,6 +9,9 @@
     "project_cd": {
       "type": "string"
     },
+    "datahub_app_sp_oid": {
+      "type": "string"
+    },
     "environment_classification": {
       "type": "string",
       "default": "PA"
@@ -28,9 +31,6 @@
     "common_tags": {
       "type": "map(any)",
       "default": {}
-    },
-    "datahub_app_sp_oid": {
-      "type": "string"
     }
   }
 }
