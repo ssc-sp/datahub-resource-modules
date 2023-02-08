@@ -2,8 +2,9 @@ resource "azurerm_automation_account" "az_project_automation_acct" {
   name                = local.automation_acct_name
   resource_group_name = azurerm_resource_group.az_project_rg.name
   location            = local.resource_group_location
+  sku_name            = "Basic"
 
-  sku_name = "Basic"
+  identity { type = "SystemAssigned" }
 }
 
 resource "azurerm_automation_runbook" "az_project_cost_runbook" {
@@ -18,13 +19,13 @@ resource "azurerm_automation_runbook" "az_project_cost_runbook" {
 
   draft {
     parameters {
-      key      = "resource_group_name"
+      key      = "key_vault_name"
       type     = "string"
       position = 0
     }
   }
 
-  content = data.local_file.az_project_cost_runbook_script.content
+  content = data.template_file.az_project_cost_runbook_script.rendered
 }
 
 resource "azurerm_automation_webhook" "az_project_cost_runbook_webhook" {
@@ -35,6 +36,6 @@ resource "azurerm_automation_webhook" "az_project_cost_runbook_webhook" {
   enabled                 = true
   runbook_name            = azurerm_automation_runbook.az_project_cost_runbook.name
   parameters = {
-    resource_group_name = azurerm_resource_group.az_project_rg.name
+    key_vault_name = azurerm_key_vault.az_proj_kv.name
   }
 }

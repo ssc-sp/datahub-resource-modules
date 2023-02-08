@@ -14,7 +14,10 @@ locals {
   webhook_expiry_time     = "2025-12-31T00:00:00Z"
 }
 
-data "local_file" "az_project_cost_runbook_script" {
-  filename = "${path.module}/rg-disable-cmk.ps1"
+data "template_file" "az_project_cost_runbook_script" {
+  template = file("${path.module}/rg-disable-cmk.ps1")
+  vars = {
+    key_vault_name = azurerm_key_vault.az_proj_kv.name
+  }
 }
 

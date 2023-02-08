@@ -23,7 +23,7 @@ resource "azurerm_monitor_action_group" "datahub_proj_action_group_cost" {
     automation_account_id   = azurerm_automation_account.az_project_automation_acct.id
     runbook_name            = local.cost_runbook_name
     webhook_resource_id     = azurerm_automation_runbook.az_project_cost_runbook.id
-    is_global_runbook       = true
+    is_global_runbook       = false
     service_uri             = azurerm_automation_webhook.az_project_cost_runbook_webhook.uri
     use_common_alert_schema = true
   }
