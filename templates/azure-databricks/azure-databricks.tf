@@ -18,8 +18,8 @@ module "azure_databricks_module" {
   common_tags = var.common_tags
   admin_users = var.databricks_admin_users
 
-  az_databricks_sp = var.az_databricks_sp
-  run_in_devops    = false
+  azure_databricks_enterprise_oid = var.azure_databricks_enterprise_oid
+  run_in_devops                   = false
 
 }
 

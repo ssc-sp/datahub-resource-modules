@@ -15,7 +15,7 @@ variable "az_tenant" {
   default = "8c1a4d93-d828-4d0e-9303-fd3bd611c822"
 }
 
-variable "az_databricks_sp" {
+variable "azure_databricks_enterprise_oid" {
   default = "22aaf48e-092a-47d6-9fc5-d24d762753d4"
 }
 

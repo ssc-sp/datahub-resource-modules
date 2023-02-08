@@ -4,7 +4,7 @@
       "type": "list(any)",
       "default": [{ "email": "not-in-use@ssc-spc-gc.ca" }]
     },
-    "az_databricks_sp": {
+    "azure_databricks_enterprise_oid": {
       "type": "string"
     }
   }
