@@ -64,7 +64,7 @@ variable "admin_users" {
   type        = list(any)
 }
 
-variable "az_databricks_sp" {
+variable "azure_databricks_enterprise_oid" {
   description = "Object ID of enterprise application AzureDatabricks"
   type        = string
 }
