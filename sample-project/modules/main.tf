@@ -1,14 +1,14 @@
 data "azurerm_client_config" "current" {}
 
 module "resourceGroup" {
-  source                = "../../modules/azure-resource-group"
-  az_tenant_id          = var.az_tenant
-  az_subscription_id    = var.az_subscription
-  project_cd            = var.project_cd
-  datahub_app_object_id = var.datahub_app_object_id
-  environment_name      = var.environment_name
-  monthly_budget        = var.monthly_budget
-  common_tags           = var.common_tags
+  source             = "../../modules/azure-resource-group"
+  az_tenant_id       = var.az_tenant
+  az_subscription_id = var.az_subscription
+  project_cd         = var.project_cd
+  datahub_app_sp_oid = var.datahub_app_sp_oid
+  environment_name   = var.environment_name
+  monthly_budget     = var.monthly_budget
+  common_tags        = var.common_tags
 }
 
 module "storage" {
@@ -34,8 +34,8 @@ module "databricks" {
   az_tenant_id                    = var.az_tenant
   az_subscription_id              = var.az_subscription
   project_cd                      = var.project_cd
-  common_tags                     = local.common_tags
-  admin_users                     = local.databricks_admin_users
+  common_tags                     = var.common_tags
+  admin_users                     = var.databricks_admin_users
   azure_databricks_enterprise_oid = var.azure_databricks_enterprise_oid
   storage_acct_name               = module.storage.storage_acct_name
   run_in_devops                   = false
