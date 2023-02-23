@@ -42,7 +42,7 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
   amount     = var.monthly_budget
   time_grain = "Monthly"
 
-  time_period { start_date = "2023-04-01T00:00:00Z" }
+  time_period { start_date = formatdate("YYYY-MM-01'T'00:00:00Z", timestamp()) }
 
   filter {
     dimension {
@@ -81,6 +81,10 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
     contact_emails = concat([var.default_alert_email], var.project_alert_email_list)
     contact_groups = [azurerm_monitor_action_group.datahub_proj_action_group_cost.id]
     contact_roles  = ["Owner"]
+  }
+
+  lifecycle {
+    ignore_changes = [time_period]
   }
 }
 
