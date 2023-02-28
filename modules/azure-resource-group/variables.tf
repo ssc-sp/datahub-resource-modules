@@ -64,7 +64,7 @@ variable "monthly_budget" {
 variable "default_alert_email" {
   description = "Default alert email regardless of project"
   type        = string
-  default     = "dataSolutions-solutiondedonnees@ssc-spc.gc.ca"
+  default     = "fsdh-notifications-dhsf-notifications@ssc-spc.gc.ca"
 }
 
 variable "project_alert_email_list" {

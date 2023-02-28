@@ -54,10 +54,30 @@ resource "azurerm_key_vault_access_policy" "current_runner_access_policy" {
   secret_permissions = ["Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"]
 }
 
+resource "azurerm_key_vault_access_policy" "automation_acct_access_policy" {
+  key_vault_id = azurerm_key_vault.az_proj_kv.id
+  tenant_id    = var.az_tenant_id
+  object_id    = azurerm_automation_account.az_project_automation_acct.identity[0].principal_id
+
+  key_permissions = ["List", "Update"]
+}
+
 resource "azurerm_key_vault_access_policy" "kv_policy_datahub_sp" {
   key_vault_id = azurerm_key_vault.az_proj_kv.id
   tenant_id    = var.az_tenant_id
   object_id    = var.datahub_app_sp_oid
 
   secret_permissions = ["List", "Get"]
+}
+
+resource "null_resource" "set_default_resource_group" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+
+  provisioner "local-exec" {
+    interpreter = ["pwsh", "-Command"]
+    command     = "az configure --defaults group=${azurerm_resource_group.az_project_rg.name}"
+    on_failure  = fail
+  }
 }

@@ -6,7 +6,7 @@ terraform {
     }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.29"
+      version = "~> 3.40"
     }
     null = {
       source = "hashicorp/null"
@@ -38,7 +38,6 @@ provider "azurerm" {
   }
 }
 
-
 data "azurerm_client_config" "current" {}
 
 locals {
@@ -54,7 +53,10 @@ module "resource_group_module" {
   project_cd         = var.project_cd
   environment_name   = var.environment_name
   datahub_app_sp_oid = var.datahub_app_sp_oid
-  common_tags        = var.common_tags
+
+  # optional variables
+  monthly_budget = var.monthly_budget
+  common_tags    = var.common_tags
 }
 
 output "project_cd" {

@@ -1,15 +1,12 @@
 {
   "variable": {
-    "az_subscription_id": {
+    "az_subscription": {
       "type": "string"
     },
-    "az_tenant_id": {
+    "az_tenant": {
       "type": "string"
     },
     "project_cd": {
-      "type": "string"
-    },
-    "datahub_app_sp_oid": {
       "type": "string"
     },
     "environment_classification": {
@@ -32,11 +29,29 @@
       "type": "map(any)",
       "default": {}
     },
+    "datahub_app_sp_oid": {
+      "type": "string"
+    },
     "monthly_budget": {
       "type": "number",
       "default": 0
     },
-    "storage_size_limit_tb": {
+    "storage_contributor_users": {
+      "type": "list(any)",
+      "default": []
+    },
+    "databricks_admin_users": {
+      "type": "list(any)",
+      "default": [
+        {
+          "email": "not-in-use@ssc-spc-gc.ca"
+        }
+      ]
+    },
+    "azure_databricks_enterprise_oid": {
+      "type": "string"
+    },
+    "storage_size_limit_tb":{
       "type": "number"
     }
   }
