@@ -38,20 +38,9 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
 
   name              = "${local.resource_group_name}-budget"
   resource_group_id = azurerm_resource_group.az_project_rg.id
-
-  amount     = var.monthly_budget
-  time_grain = "Monthly"
-
+  amount            = var.monthly_budget
+  time_grain        = "Monthly"
   time_period { start_date = formatdate("YYYY-MM-01'T'00:00:00Z", timestamp()) }
-
-  filter {
-    dimension {
-      name = "ResourceId"
-      values = [
-        azurerm_monitor_action_group.datahub_proj_action_group_email.id,
-      ]
-    }
-  }
 
   notification {
     threshold      = 80.0
@@ -74,7 +63,7 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
   }
 
   notification {
-    threshold      = 150.0
+    threshold      = 100.0
     operator       = "EqualTo"
     threshold_type = "Actual"
 

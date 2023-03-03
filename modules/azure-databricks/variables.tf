@@ -64,6 +64,18 @@ variable "admin_users" {
   type        = list(any)
 }
 
+variable "project_lead_users" {
+  description = "List of admin user emails"
+  type        = list(any)
+  default     = []
+}
+
+variable "project_users" {
+  description = "List of admin user emails"
+  type        = list(any)
+  default     = []
+}
+
 variable "azure_databricks_enterprise_oid" {
   description = "Object ID of enterprise application AzureDatabricks"
   type        = string
