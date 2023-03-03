@@ -5,6 +5,7 @@ resource "azurerm_automation_account" "az_project_automation_acct" {
   sku_name            = "Basic"
 
   identity { type = "SystemAssigned" }
+  tags = local.project_tags
 }
 
 resource "azurerm_automation_runbook" "az_project_cost_stop_runbook" {
@@ -18,6 +19,7 @@ resource "azurerm_automation_runbook" "az_project_cost_stop_runbook" {
   runbook_type            = "PowerShell"
 
   content = data.template_file.az_project_disable_cmk_script.rendered
+  tags    = local.project_tags
 }
 
 resource "azurerm_automation_runbook" "az_project_cost_check_runbook" {
@@ -39,6 +41,7 @@ resource "azurerm_automation_runbook" "az_project_cost_check_runbook" {
   }
 
   content = data.template_file.az_project_cost_check_script.rendered
+  tags    = local.project_tags
 }
 
 resource "azurerm_automation_webhook" "az_project_cost_runbook_webhook" {
@@ -67,7 +70,7 @@ resource "azurerm_automation_schedule" "daily_cost_check" {
   interval                = 1
   timezone                = "America/Toronto"
   start_time              = formatdate("YYYY-MM-DD'T'07:00:00Z", timeadd(timestamp(), "24h"))
-  description = "DataHub Schedule to check RG spend daily"
+  description             = "DataHub Schedule to check RG spend daily"
 
   lifecycle {
     ignore_changes = [start_time]

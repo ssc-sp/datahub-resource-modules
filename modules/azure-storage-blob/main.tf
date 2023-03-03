@@ -15,10 +15,7 @@ resource "azurerm_storage_account" "datahub_storageaccount" {
     last_access_time_enabled = "true"
   }
 
-  tags = merge(
-    var.common_tags,
-    { "environment_name" : var.environment_name }
-  )
+  tags = local.project_tags
 
   lifecycle {
     prevent_destroy = false
