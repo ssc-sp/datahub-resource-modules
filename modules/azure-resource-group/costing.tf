@@ -8,9 +8,7 @@ resource "azurerm_monitor_action_group" "datahub_proj_action_group_email" {
     email_address = var.default_alert_email
   }
 
-  tags = merge(
-    var.common_tags
-  )
+  tags = local.project_tags
 }
 
 resource "azurerm_monitor_action_group" "datahub_proj_action_group_cost" {
@@ -28,9 +26,7 @@ resource "azurerm_monitor_action_group" "datahub_proj_action_group_cost" {
     use_common_alert_schema = true
   }
 
-  tags = merge(
-    var.common_tags
-  )
+  tags = local.project_tags
 }
 
 resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {

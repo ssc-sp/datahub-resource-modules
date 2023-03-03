@@ -13,6 +13,7 @@ locals {
   cost_check_runbook_name = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-cost-check-runbook")
   cmk_name                = "project-cmk"
   webhook_expiry_time     = "2025-12-31T00:00:00Z"
+  project_tags            = merge(var.common_tags, { "project_cd" : var.project_cd, "env" : var.environment_name })
 }
 
 data "template_file" "az_project_disable_cmk_script" {
