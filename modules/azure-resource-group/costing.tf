@@ -69,7 +69,7 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
   }
 
   lifecycle {
-    ignore_changes = [time_period]
+    ignore_changes = [time_period, amount, time_grain, time_period]
   }
 }
 
