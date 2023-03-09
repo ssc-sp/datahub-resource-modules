@@ -50,7 +50,7 @@ resource "azurerm_key_vault_access_policy" "current_runner_access_policy" {
   tenant_id    = var.az_tenant_id
   object_id    = data.azurerm_client_config.current.object_id
 
-  key_permissions    = ["Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey"]
+  key_permissions    = ["Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "GetRotationPolicy"]
   secret_permissions = ["Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"]
 }
 
