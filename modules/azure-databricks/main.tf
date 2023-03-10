@@ -7,11 +7,5 @@ resource "azurerm_databricks_workspace" "datahub_databricks_workspace" {
   customer_managed_key_enabled          = true
   infrastructure_encryption_enabled     = true
 
-  tags = merge(
-    var.common_tags,
-    {
-      env = var.environment_name,
-      displayName : local.databricks_name
-    }
-  )
+  tags = local.project_tags
 }

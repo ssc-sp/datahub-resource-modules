@@ -8,9 +8,7 @@ resource "azurerm_monitor_action_group" "datahub_proj_action_group_email" {
     email_address = var.default_alert_email
   }
 
-  tags = merge(
-    var.common_tags
-  )
+  tags = local.project_tags
 }
 
 resource "azurerm_monitor_action_group" "datahub_proj_action_group_cost" {
@@ -22,15 +20,13 @@ resource "azurerm_monitor_action_group" "datahub_proj_action_group_cost" {
     name                    = "rg_cost_limit"
     automation_account_id   = azurerm_automation_account.az_project_automation_acct.id
     runbook_name            = local.cost_runbook_name
-    webhook_resource_id     = azurerm_automation_runbook.az_project_cost_runbook.id
+    webhook_resource_id     = azurerm_automation_runbook.az_project_cost_stop_runbook.id
     is_global_runbook       = false
     service_uri             = azurerm_automation_webhook.az_project_cost_runbook_webhook.uri
     use_common_alert_schema = true
   }
 
-  tags = merge(
-    var.common_tags
-  )
+  tags = local.project_tags
 }
 
 resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
@@ -38,20 +34,9 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
 
   name              = "${local.resource_group_name}-budget"
   resource_group_id = azurerm_resource_group.az_project_rg.id
-
-  amount     = var.monthly_budget
-  time_grain = "Monthly"
-
+  amount            = var.monthly_budget
+  time_grain        = "Monthly"
   time_period { start_date = formatdate("YYYY-MM-01'T'00:00:00Z", timestamp()) }
-
-  filter {
-    dimension {
-      name = "ResourceId"
-      values = [
-        azurerm_monitor_action_group.datahub_proj_action_group_email.id,
-      ]
-    }
-  }
 
   notification {
     threshold      = 80.0
@@ -74,7 +59,7 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
   }
 
   notification {
-    threshold      = 150.0
+    threshold      = 51.0
     operator       = "EqualTo"
     threshold_type = "Actual"
 
@@ -84,7 +69,7 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
   }
 
   lifecycle {
-    ignore_changes = [time_period]
+    ignore_changes = [time_period, amount, time_grain, time_period]
   }
 }
 

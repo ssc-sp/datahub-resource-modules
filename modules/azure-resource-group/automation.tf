@@ -5,9 +5,10 @@ resource "azurerm_automation_account" "az_project_automation_acct" {
   sku_name            = "Basic"
 
   identity { type = "SystemAssigned" }
+  tags = local.project_tags
 }
 
-resource "azurerm_automation_runbook" "az_project_cost_runbook" {
+resource "azurerm_automation_runbook" "az_project_cost_stop_runbook" {
   name                    = local.cost_runbook_name
   resource_group_name     = azurerm_resource_group.az_project_rg.name
   location                = local.resource_group_location
@@ -17,15 +18,30 @@ resource "azurerm_automation_runbook" "az_project_cost_runbook" {
   description             = "Cost limiting runbook for project ${var.project_cd}"
   runbook_type            = "PowerShell"
 
+  content = data.template_file.az_project_disable_cmk_script.rendered
+  tags    = local.project_tags
+}
+
+resource "azurerm_automation_runbook" "az_project_cost_check_runbook" {
+  name                    = local.cost_check_runbook_name
+  resource_group_name     = azurerm_resource_group.az_project_rg.name
+  location                = local.resource_group_location
+  automation_account_name = azurerm_automation_account.az_project_automation_acct.name
+  log_verbose             = true
+  log_progress            = true
+  description             = "Cost checking runbook for project ${var.project_cd}"
+  runbook_type            = "PowerShell"
+
   draft {
     parameters {
-      key      = "key_vault_name"
+      key      = "trigger_percent"
       type     = "string"
       position = 0
     }
   }
 
-  content = data.template_file.az_project_cost_runbook_script.rendered
+  content = data.template_file.az_project_cost_check_script.rendered
+  tags    = local.project_tags
 }
 
 resource "azurerm_automation_webhook" "az_project_cost_runbook_webhook" {
@@ -34,8 +50,40 @@ resource "azurerm_automation_webhook" "az_project_cost_runbook_webhook" {
   automation_account_name = azurerm_automation_account.az_project_automation_acct.name
   expiry_time             = local.webhook_expiry_time
   enabled                 = true
-  runbook_name            = azurerm_automation_runbook.az_project_cost_runbook.name
+  runbook_name            = azurerm_automation_runbook.az_project_cost_stop_runbook.name
   parameters = {
     key_vault_name = azurerm_key_vault.az_proj_kv.name
+  }
+}
+
+resource "azurerm_role_assignment" "automation_acct_assignment" {
+  scope                = azurerm_resource_group.az_project_rg.id
+  role_definition_name = "Billing Reader"
+  principal_id         = azurerm_automation_account.az_project_automation_acct.identity[0].principal_id
+}
+
+resource "azurerm_automation_schedule" "daily_cost_check" {
+  name                    = "schedule-${local.cost_check_runbook_name}"
+  resource_group_name     = azurerm_resource_group.az_project_rg.name
+  automation_account_name = azurerm_automation_account.az_project_automation_acct.name
+  frequency               = "Day"
+  interval                = 1
+  timezone                = "America/Toronto"
+  start_time              = formatdate("YYYY-MM-DD'T'07:00:00Z", timeadd(timestamp(), "24h"))
+  description             = "DataHub Schedule to check RG spend daily"
+
+  lifecycle {
+    ignore_changes = [start_time]
+  }
+}
+
+resource "azurerm_automation_job_schedule" "daily_cost_check_job_schedule" {
+  resource_group_name     = azurerm_resource_group.az_project_rg.name
+  automation_account_name = azurerm_automation_account.az_project_automation_acct.name
+  schedule_name           = azurerm_automation_schedule.daily_cost_check.name
+  runbook_name            = azurerm_automation_runbook.az_project_cost_check_runbook.name
+
+  parameters = {
+    trigger_percent = "100"
   }
 }

@@ -2,9 +2,7 @@ resource "azurerm_resource_group" "az_project_rg" {
   name     = local.resource_group_name
   location = local.resource_group_location
 
-  tags = merge(
-    var.common_tags
-  )
+  tags = local.project_tags
 
   lifecycle {
     prevent_destroy = false
@@ -23,10 +21,7 @@ resource "azurerm_key_vault" "az_proj_kv" {
 
   sku_name = "standard"
 
-  tags = merge(
-    var.common_tags,
-    { "environment_name" : var.environment_name }
-  )
+  tags = local.project_tags
 
   lifecycle {
     prevent_destroy = false
