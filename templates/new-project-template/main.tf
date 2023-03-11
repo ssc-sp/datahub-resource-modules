@@ -55,8 +55,8 @@ module "resource_group_module" {
   datahub_app_sp_oid = var.datahub_app_sp_oid
 
   # optional variables
-  monthly_budget = var.monthly_budget
-  common_tags    = var.common_tags
+  budget_amount = var.budget_amount
+  common_tags   = var.common_tags
 }
 
 output "project_cd" {

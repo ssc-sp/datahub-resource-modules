@@ -32,7 +32,7 @@
     "datahub_app_sp_oid": {
       "type": "string"
     },
-    "monthly_budget": {
+    "budget_amount": {
       "type": "number",
       "default": 0
     },
@@ -51,7 +51,7 @@
     "azure_databricks_enterprise_oid": {
       "type": "string"
     },
-    "storage_size_limit_tb":{
+    "storage_size_limit_tb": {
       "type": "number"
     }
   }
