@@ -32,7 +32,7 @@
       "type": "map(any)",
       "default": {}
     },
-    "monthly_budget": {
+    "budget_amount": {
       "type": "number",
       "default": 0
     },

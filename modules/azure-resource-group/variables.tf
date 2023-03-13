@@ -55,8 +55,8 @@ variable "common_tags" {
   default     = {}
 }
 
-variable "monthly_budget" {
-  description = "Monthly budget for the resource group"
+variable "budget_amount" {
+  description = "Budget amount for the resource group"
   type        = number
   default     = 0
 }
