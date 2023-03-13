@@ -73,4 +73,8 @@ variable "project_alert_email_list" {
   default     = []
 }
 
+variable "aad_admin_group_oid" {
+  description = "The admin group OID in AAD for managing the datahub app"
+  type        = string
+}
 
