@@ -38,6 +38,9 @@
     },
     "storage_size_limit_tb": {
       "type": "number"
+    },
+    "aad_admin_group_oid": {
+      "type": "string"
     }
   }
 }
