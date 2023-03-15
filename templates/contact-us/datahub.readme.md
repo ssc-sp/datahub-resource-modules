@@ -3,14 +3,17 @@ icon: fa-solid fa-messages-question
 status: stable
 readMore: https://github.com/ssc-sp/datahub-portal
 documentationUrl: https://github.com/ssc-sp/datahub-portal/discussions
-actionUrl: https://github.com/ssc-sp/datahub-portal/discussions/new/choose
+actionUrlEn: https://github.com/ssc-sp/datahub-portal/discussions/new/choose
+actionUrlFr: https://github.com/ssc-sp/datahub-portal/discussions/new/choose
+actionDescriptionEn: Github Discussions
+actionDescriptionFr: Discussions Github
 ---
 
 # English
 
 ## Title
 
-Other Tools
+Community
 
 ## Catalog Subtitle
 
@@ -28,7 +31,7 @@ Contact, Feedback, Suggestion, Feature, Vote
 
 ## Titre
 
-Autres Outils
+Communauté
 
 ## Sous-Titre du Catalogue
 
