@@ -20,8 +20,8 @@ resource "databricks_group" "project_users" {
 
 resource "databricks_group" "project_lead" {
   display_name               = "project_lead"
-  allow_cluster_create       = true
-  allow_instance_pool_create = true
+  allow_cluster_create       = false
+  allow_instance_pool_create = false
   databricks_sql_access      = true
   workspace_access           = true
 

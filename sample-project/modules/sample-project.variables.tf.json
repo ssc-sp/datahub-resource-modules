@@ -48,6 +48,14 @@
         }
       ]
     },
+    "databricks_lead_users": {
+      "type": "list(any)",
+      "default": []
+    },
+    "databricks_project_users": {
+      "type": "list(any)",
+      "default": []
+    },
     "azure_databricks_enterprise_oid": {
       "type": "string"
     },
