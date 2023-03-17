@@ -40,4 +40,6 @@ module "databricks" {
   azure_databricks_enterprise_oid = var.azure_databricks_enterprise_oid
   storage_acct_name               = module.storage.storage_acct_name
   run_in_devops                   = false
+  project_lead_users              = var.databricks_lead_users
+  project_users                   = var.databricks_project_users
 }
