@@ -1,8 +1,8 @@
 locals {
   datahub_policy_regular = {
     "dbus_per_hour" : { "type" : "range", "maxValue" : 12 },
-    "node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4s_v3", "Standard_D8s_v3", "Standard_D16s_v3"], "defaultValue" : "Standard_D4s_v3" },
-    "driver_node_type_id" : { "type" : "fixed", "value" : "Standard_D4s_v3" },
+    "node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4ds_v5", "Standard_D8ds_v5", "Standard_D16ds_v5"], "defaultValue" : "Standard_D4ds_v5" },
+    "driver_node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4ds_v5", "Standard_D8ds_v5", "Standard_D16ds_v5"], "defaultValue" : "Standard_D4ds_v5" },
     "data_security_mode" : { "type" : "fixed", "value" : "LEGACY_PASSTHROUGH" },
     "autotermination_minutes" : { "type" : "fixed", "value" : 10 },
     "autoscale.min_workers" : { "type" : "fixed", "value" : 1 },
@@ -14,8 +14,8 @@ locals {
 
   datahub_policy_small = {
     "dbus_per_hour" : { "type" : "range", "maxValue" : 4 },
-    "node_type_id" : { "type" : "fixed", "value" : "Standard_D4s_v3", "hidden" : false },
-    "driver_node_type_id" : { "type" : "fixed", "value" : "Standard_D4s_v3" },
+    "node_type_id" : { "type" : "fixed", "value" : "Standard_D4ds_v5", "hidden" : false },
+    "driver_node_type_id" : { "type" : "fixed", "value" : "Standard_D4ds_v5" },
     "data_security_mode" : { "type" : "fixed", "value" : "LEGACY_PASSTHROUGH" },
     "autotermination_minutes" : { "type" : "fixed", "value" : 10 },
     "autoscale.min_workers" : { "type" : "fixed", "value" : 1 },
@@ -27,6 +27,8 @@ locals {
 
   datahub_policy_large = {
     "dbus_per_hour" : { "type" : "range", "maxValue" : 64 },
+    "node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4ds_v5", "Standard_D8ds_v5", "Standard_D16ds_v5", "Standard_D32ds_v5", "Standard_D48ds_v5", "Standard_D64ds_v5"], "defaultValue" : "Standard_D8ds_v5" },
+    "driver_node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4ds_v5", "Standard_D8ds_v5", "Standard_D16ds_v5", "Standard_D32ds_v5", "Standard_D48ds_v5", "Standard_D64ds_v5"], "defaultValue" : "Standard_D8ds_v5" },
     "autotermination_minutes" : { "type" : "fixed", "value" : 10 },
     "data_security_mode" : { "type" : "fixed", "value" : "LEGACY_PASSTHROUGH" },
     "autoscale.min_workers" : { "type" : "fixed", "value" : 1 },
