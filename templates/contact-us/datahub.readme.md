@@ -3,10 +3,10 @@ icon: fa-solid fa-messages-question
 status: stable
 readMore: https://github.com/ssc-sp/datahub-portal
 documentationUrl: https://github.com/ssc-sp/datahub-portal/discussions
-actionUrlEn: https://github.com/ssc-sp/datahub-portal/discussions/new/choose
-actionUrlFr: https://github.com/ssc-sp/datahub-portal/discussions/new/choose
-actionDescriptionEn: Github Discussions
-actionDescriptionFr: Discussions Github
+actionUrlEn: https://github.com/ssc-sp/datahub-portal/discussions
+actionUrlFr: https://github.com/ssc-sp/datahub-portal/discussions
+actionDescriptionEn: Open Github Discussions
+actionDescriptionFr: Ouvrir Discussions Github
 ---
 
 # English
