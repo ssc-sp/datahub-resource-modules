@@ -34,11 +34,6 @@ resource "databricks_permissions" "regular_policy_usage" {
     group_name       = databricks_group.project_lead.display_name
     permission_level = "CAN_USE"
   }
-
-  access_control {
-    group_name       = databricks_group.project_users.display_name
-    permission_level = "CAN_USE"
-  }
 }
 
 resource "databricks_permissions" "small_policy_usage" {
@@ -46,11 +41,6 @@ resource "databricks_permissions" "small_policy_usage" {
 
   access_control {
     group_name       = databricks_group.project_lead.display_name
-    permission_level = "CAN_USE"
-  }
-
-  access_control {
-    group_name       = databricks_group.project_users.display_name
     permission_level = "CAN_USE"
   }
 }
