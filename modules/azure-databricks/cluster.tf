@@ -16,8 +16,8 @@ data "databricks_spark_version" "dbk_latest_lts" {
 resource "databricks_cluster" "dbk_proj_cluster" {
   cluster_name            = "main_cluster"
   spark_version           = data.databricks_spark_version.dbk_latest_lts.id
-  node_type_id            = "Standard_D4s_v3"
-  driver_node_type_id     = "Standard_D4s_v3"
+  node_type_id            = "Standard_D4ds_v5"
+  driver_node_type_id     = "Standard_D4ds_v5"
   autotermination_minutes = 10
   num_workers             = 1
   policy_id               = databricks_cluster_policy.regular_cluster_policy.id
