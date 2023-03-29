@@ -35,9 +35,24 @@ resource "null_resource" "datahub_proj_storage_alert" {
     on_failure  = fail
   }
 
-  provisioner "local-exec" {
+  provisioner "local-exec" { # Run config: az configure --defaults group=<project resource group>
     when        = destroy
     interpreter = ["pwsh", "-Command"]
-    command     = "az monitor metrics alert delete -n alertUsedCapacity"
+    command     = "az monitor metrics alert delete -n alertUsedCapacity "
+  }
+
+  depends_on = [null_resource.az_configure_rg]
+}
+
+resource "null_resource" "az_configure_rg" {
+  provisioner "local-exec" {
+    interpreter = ["pwsh", "-Command"]
+    command     = "az configure --defaults group=${var.resource_group_name}"
+    on_failure  = fail
+  }
+
+  triggers = {
+    always_run = "${timestamp()}"
   }
 }
+
