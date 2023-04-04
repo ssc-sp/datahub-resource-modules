@@ -50,6 +50,12 @@ You can also directly access files without mounting the storage first
 spark.read.format("csv").load("abfss://container@account.dfs.core.windows.net/sample.csv").collect()
 ```
 
+# Run R
+You can test R with the following sample script:
+```
+%r
+temp <-2
+```
 ## References
 
 - See [Databricks Storage Documentation](https://docs.microsoft.com/en-us/azure/databricks/data/data-sources/azure/azure-storage) for more details
