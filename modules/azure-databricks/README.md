@@ -54,7 +54,13 @@ spark.read.format("csv").load("abfss://container@account.dfs.core.windows.net/sa
 You can test R with the following sample script:
 ```
 %r
-temp <-2
+
+print("hello world")
+
+# SparkR
+library(SparkR)
+sparkR.session()
+collect(read.df('/mnt/fsdh-dbk-main-mount/sample.csv', source = "csv"))
 ```
 ## References
 
