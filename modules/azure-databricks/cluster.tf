@@ -22,14 +22,6 @@ resource "databricks_cluster" "dbk_proj_cluster" {
   num_workers             = 1
   policy_id               = databricks_cluster_policy.regular_cluster_policy.id
 
-  spark_conf = {
-    "spark.databricks.cluster.profile" : "serverless",
-    "spark.databricks.passthrough.enabled" : "true",
-    "spark.databricks.delta.preview.enabled" : "true",
-    "spark.databricks.pyspark.enableProcessIsolation" : "true",
-    "spark.databricks.repl.allowedLanguages" : "python,sql,r"
-  }
-
   autoscale {
     min_workers = 1
     max_workers = 2
