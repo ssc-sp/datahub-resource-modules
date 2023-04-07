@@ -1,4 +1,5 @@
 locals {
+  # To make existing clusters to support R, run: terraform taint module.azure_databricks_module.databricks_cluster.dbk_proj_cluster
   datahub_policy_regular = {
     "dbus_per_hour" : { "type" : "range", "maxValue" : 12 },
     "node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4ds_v5", "Standard_D8ds_v5", "Standard_D16ds_v5"], "defaultValue" : "Standard_D4ds_v5" },
