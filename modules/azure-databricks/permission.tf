@@ -42,3 +42,12 @@ resource "databricks_permissions" "large_policy_usage" {
     permission_level = "CAN_USE"
   }
 }
+
+resource "databricks_permissions" "regular_policy_usage_spot" {
+  cluster_policy_id = databricks_cluster_policy.regular_cluster_policy.id
+
+  access_control {
+    group_name       = databricks_group.project_lead.display_name
+    permission_level = "CAN_USE"
+  }
+}
