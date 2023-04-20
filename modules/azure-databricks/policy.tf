@@ -49,7 +49,8 @@ locals {
     "spark_conf.spark.databricks.repl.allowedLanguages" : { "type" : "fixed", "value" : "python,sql,r", "hidden" : true },
   }
 
-  datahub_policy_regular_spot = {
+  datahub_policy_regular_job_spot = {
+    "cluster_type" : { "type" : "fixed", "value" : "job" },
     "dbus_per_hour" : { "type" : "range", "maxValue" : 12 },
     "node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4ds_v5", "Standard_D8ds_v5", "Standard_D16ds_v5"], "defaultValue" : "Standard_D4ds_v5" },
     "driver_node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4ds_v5", "Standard_D8ds_v5", "Standard_D16ds_v5"], "defaultValue" : "Standard_D4ds_v5" },
@@ -89,6 +90,6 @@ resource "databricks_cluster_policy" "large_cluster_policy" {
 }
 
 resource "databricks_cluster_policy" "regular_spot_cluster_policy" {
-  name       = "Datahub Regular Cluster (Spot)"
-  definition = jsonencode(local.datahub_policy_regular_spot)
+  name       = "Datahub Job Cluster (Spot Regular)"
+  definition = jsonencode(local.datahub_policy_regular_job_spot)
 }
