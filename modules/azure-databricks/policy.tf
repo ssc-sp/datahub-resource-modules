@@ -5,7 +5,7 @@ locals {
     "dbus_per_hour" : { "type" : "range", "maxValue" : 12 },
     "node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4ds_v5", "Standard_D8ds_v5", "Standard_D16ds_v5"], "defaultValue" : "Standard_D4ds_v5" },
     "driver_node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4ds_v5", "Standard_D8ds_v5", "Standard_D16ds_v5"], "defaultValue" : "Standard_D4ds_v5" },
-    "autotermination_minutes" : { "type" : "fixed", "value" : 10 },
+    "autotermination_minutes" : { "type" : "range", "defaultValue" : 10, "maxValue" : 60 }
     "autoscale.min_workers" : { "type" : "fixed", "value" : 0 },
     "autoscale.max_workers" : { "type" : "range", "maxValue" : 4, "defaultValue" : 2 },
     "custom_tags.project_code" : { "type" : "fixed", "value" : "${var.project_cd}" },
@@ -21,7 +21,7 @@ locals {
     "dbus_per_hour" : { "type" : "range", "maxValue" : 4 },
     "node_type_id" : { "type" : "fixed", "value" : "Standard_D4ds_v5", "hidden" : false },
     "driver_node_type_id" : { "type" : "fixed", "value" : "Standard_D4ds_v5" },
-    "autotermination_minutes" : { "type" : "fixed", "value" : 10 },
+    "autotermination_minutes" : { "type" : "range", "defaultValue" : 10, "maxValue" : 120 }
     "autoscale.min_workers" : { "type" : "fixed", "value" : 0 },
     "autoscale.max_workers" : { "type" : "range", "maxValue" : 2, "defaultValue" : 2 },
     "custom_tags.project_code" : { "type" : "fixed", "value" : "${var.project_cd}" },

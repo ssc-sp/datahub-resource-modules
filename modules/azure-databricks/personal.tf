@@ -19,7 +19,7 @@ data "http" "post_personal_policy_change" {
     policy_id                          = "${data.databricks_cluster_policy.personal.id}",
     name                               = "Personal Compute",
     policy_family_id                   = "personal-vm",
-    policy_family_definition_overrides = "{\"autotermination_minutes\":{\"type\":\"unlimited\",\"defaultValue\":10,\"isOptional\":true,\"hidden\":true}}"
+    policy_family_definition_overrides = "{\"autotermination_minutes\":{\"type\":\"range\",\"defaultValue\":60,\"isOptional\":true,\"maxValue\":1440,\"hidden\":false}}"
     }
   )
 }
