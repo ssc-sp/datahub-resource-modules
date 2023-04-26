@@ -14,6 +14,10 @@ output "az_project_kv_id" {
   value = azurerm_key_vault.az_proj_kv.id
 }
 
+output "az_project_kv_url" {
+  value = azurerm_key_vault.az_proj_kv.vault_uri
+}
+
 output "az_project_cmk" {
   value = azurerm_key_vault_key.az_proj_cmk.name
 }

@@ -4,6 +4,7 @@ module "azure_databricks_module" {
   resource_group_name = module.resource_group_module.az_project_rg_name
   key_vault_id        = module.resource_group_module.az_project_kv_id
   key_vault_cmk_id    = module.resource_group_module.az_project_cmk_id
+  key_vault_url       = module.resource_group_module.az_project_kv_url
   storage_acct_name   = module.azure_storage_blob_module.storage_acct_name
 
   # optional variables

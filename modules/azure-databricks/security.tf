@@ -6,6 +6,14 @@ resource "azurerm_key_vault_access_policy" "kv_databricks_policy" {
   key_permissions = ["Get", "UnwrapKey", "WrapKey"]
 }
 
+resource "databricks_secret_scope" "kv_secret_scope" {
+  name = "datahub"
+
+  keyvault_metadata {
+    resource_id = var.key_vault_id
+    dns_name    = var.key_vault_url
+  }
+}
 
 resource "azurerm_databricks_workspace_customer_managed_key" "datahub_databricks_proj_cmk" {
   workspace_id     = azurerm_databricks_workspace.datahub_databricks_workspace.id
