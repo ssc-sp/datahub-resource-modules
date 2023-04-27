@@ -2,9 +2,10 @@ module "azure_storage_blob_module" {
   source     = "github.com/ssc-sp/datahub-resource-modules/modules/azure-storage-blob"
   depends_on = [module.resource_group_module]
 
-  resource_group_name = module.resource_group_module.az_project_rg_name
-  key_vault_id        = module.resource_group_module.az_project_kv_id
-  key_vault_cmk_name  = module.resource_group_module.az_project_cmk
+  resource_group_name         = module.resource_group_module.az_project_rg_name
+  key_vault_id                = module.resource_group_module.az_project_kv_id
+  key_vault_cmk_name          = module.resource_group_module.az_project_cmk
+  az_databricks_uai_principal = module.resource_group_module.az_databricks_uai_principal
 
   # optional variables
   az_tenant_id              = var.az_tenant_id

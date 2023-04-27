@@ -22,6 +22,14 @@ output "az_project_cmk" {
   value = azurerm_key_vault_key.az_proj_cmk.name
 }
 
+output "az_databricks_uai" {
+  value = azurerm_user_assigned_identity.dbk_uai.id
+}
+
+output "az_databricks_uai_principal" {
+  value = azurerm_user_assigned_identity.dbk_uai.principal_id
+}
+
 output "az_project_cmk_id" {
   value = azurerm_key_vault_key.az_proj_cmk.id
 }

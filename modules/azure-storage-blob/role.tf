@@ -5,3 +5,10 @@ resource "azurerm_role_assignment" "storage_contributor_assignment" {
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = each.value.oid
 }
+
+resource "azurerm_role_assignment" "storage_contributor_assignment_uai" {
+  scope                = azurerm_storage_account.datahub_storageaccount.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = var.az_databricks_uai_principal
+}
+

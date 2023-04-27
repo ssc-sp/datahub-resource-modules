@@ -91,4 +91,10 @@ variable "storage_acct_name" {
   type        = string
 }
 
+variable "az_databricks_uai" {
+  description = "User assigned managed identity for the databricks"
+  type        = string
+}
+
+
 
