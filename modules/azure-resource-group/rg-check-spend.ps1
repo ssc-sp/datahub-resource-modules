@@ -11,7 +11,7 @@ Connect-AzAccount -Identity -Subscription "${subscription_id}"
 
 $budgetAmount = (Get-AzConsumptionBudget -name $budget_name).Amount
 $currentSpendMain = (Get-AzConsumptionBudget -name $budget_name).currentspend.amount
-$currentSpendDbr = (Get-AzConsumptionBudget -name fsdh_proj_sw5_sand_rg-budget-dbr).currentspend.amount
+$currentSpendDbr = (Get-AzConsumptionBudget -name fsdh_proj_sw5_sand_rg-dbr).currentspend.amount
 
 Write-Output "Current spend for RG: $resource_group_name is $currentSpendMain + $currentSpendDbr (trigger is $trigger_percent percent)"
 if (($currentSpendMain * $currentSpendDbr )-ge ($budgetAmount * $trigger_percent / 100)) {
