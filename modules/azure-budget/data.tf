@@ -31,7 +31,7 @@ data "template_file" "az_project_cost_check_script" {
     subscription_id     = var.az_subscription_id
     key_vault_name      = azurerm_key_vault.az_proj_kv.name
     resource_group_name = local.resource_group_name
-    budget_name         = azurerm_consumption_budget_resource_group.az_project_rg_budget.0.name
+    budget_name         = azurerm_consumption_budget_subscription.az_project_budget_all.0.name
     trigger_percent     = 100
   }
 }

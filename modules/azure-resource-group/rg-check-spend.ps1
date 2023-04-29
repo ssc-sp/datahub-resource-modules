@@ -9,11 +9,12 @@ $budget_name = "${budget_name}"
 
 Connect-AzAccount -Identity -Subscription "${subscription_id}"
 
-$currentSpend = (Get-AzConsumptionBudget -ResourceGroupName $resource_group_name -name $budget_name).currentspend.amount
-$budgetAmount = (Get-AzConsumptionBudget -ResourceGroupName $resource_group_name -name $budget_name).Amount
+$budgetAmount = (Get-AzConsumptionBudget -name $budget_name).Amount
+$currentSpendMain = (Get-AzConsumptionBudget -name $budget_name).currentspend.amount
+$currentSpendDbr = (Get-AzConsumptionBudget -name fsdh_proj_sw5_sand_rg-budget-dbr).currentspend.amount
 
-Write-Output "Current spend for RG: $resource_group_name is $currentSpend (trigger is $trigger_percent percent)"
-if ($currentSpend -ge ($budgetAmount * $trigger_percent / 100)) {
+Write-Output "Current spend for RG: $resource_group_name is $currentSpendMain + $currentSpendDbr (trigger is $trigger_percent percent)"
+if (($currentSpendMain * $currentSpendDbr )-ge ($budgetAmount * $trigger_percent / 100)) {
     Write-Output "Disabling CMK in AKV $key_vault_name"
 
     Update-AzKeyVaultKey -VaultName "$key_vault_name" -Name 'project-cmk' -Enable $false
