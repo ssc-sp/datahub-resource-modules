@@ -91,4 +91,16 @@ variable "storage_acct_name" {
   type        = string
 }
 
+variable "budget_amount" {
+  description = "Budget amount for the resource group"
+  type        = number
+  default     = 0
+}
+
+variable "budget_start_date" {
+  description = "The start date of budget"
+  type        = string
+  default     = "2023-04-01T00:00:00Z"
+}
+
 

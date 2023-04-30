@@ -33,6 +33,7 @@ module "databricks" {
   key_vault_id                    = module.resourceGroup.az_project_kv_id
   key_vault_cmk_id                = module.resourceGroup.az_project_cmk_id
   key_vault_url                   = module.resourceGroup.az_project_kv_url
+  budget_amount                   = var.budget_amount
   az_tenant_id                    = var.az_tenant
   az_subscription_id              = var.az_subscription
   project_cd                      = var.project_cd

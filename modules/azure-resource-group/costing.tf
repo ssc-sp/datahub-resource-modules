@@ -29,41 +29,10 @@ resource "azurerm_monitor_action_group" "datahub_proj_action_group_cost" {
   tags = local.project_tags
 }
 
-resource "azurerm_consumption_budget_subscription" "az_project_budget_all" {
-  count = var.budget_amount > 0 ? 1 : 0
-
-  name            = "${local.resource_group_name}-all"
-  subscription_id = data.azurerm_subscription.az_subscription.id
-  amount          = var.budget_amount
-  time_grain      = "Annually"
-  time_period { start_date = "2023-04-01T00:00:00Z" }
-
-  notification {
-    threshold      = 100.0
-    operator       = "EqualTo"
-    threshold_type = "Actual"
-
-    contact_emails = concat([var.default_alert_email], var.project_alert_email_list)
-    contact_groups = [azurerm_monitor_action_group.datahub_proj_action_group_email.id]
-    contact_roles  = ["Owner"]
-  }
-
-  filter {
-    dimension {
-      name   = "ResourceGroupName"
-      values = [azurerm_resource_group.az_project_rg.name, local.databricks_rg_name]
-    }
-  }
-
-  lifecycle {
-    ignore_changes = [time_period, time_grain]
-  }
-}
-
 resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
   count = var.budget_amount > 0 ? 1 : 0
 
-  name              = "${local.resource_group_name}-main"
+  name              = "${local.resource_group_name}-budget"
   resource_group_id = azurerm_resource_group.az_project_rg.id
   amount            = var.budget_amount
   time_grain        = "Annually"
@@ -75,8 +44,6 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
     operator       = "EqualTo"
     threshold_type = "Actual"
 
-    contact_emails = concat([var.default_alert_email], var.project_alert_email_list)
-    contact_groups = [azurerm_monitor_action_group.datahub_proj_action_group_email.id]
     contact_roles  = ["Owner"]
   }
 
