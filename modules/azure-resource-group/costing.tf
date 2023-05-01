@@ -52,28 +52,3 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
   }
 }
 
-resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget_dbr" {
-  count = var.budget_amount > 0 ? 1 : 0
-
-  name              = "${local.resource_group_name}-dbr"
-  resource_group_id = "/subscriptions/bc4bcb08-d617-49f4-b6af-69d6f10c240b/resourceGroups/fsdh-dbk-sw5-sand-rg"
-  amount            = var.budget_amount
-  time_grain        = "Annually"
-  time_period { start_date = var.budget_start_date }
-
-  notification {
-    enabled        = false
-    threshold      = 100.0
-    operator       = "EqualTo"
-    threshold_type = "Actual"
-
-    contact_emails = concat([var.default_alert_email], var.project_alert_email_list)
-    contact_groups = [azurerm_monitor_action_group.datahub_proj_action_group_email.id]
-    contact_roles  = ["Owner"]
-  }
-
-  lifecycle {
-    ignore_changes = [time_period, time_grain]
-  }
-}
-

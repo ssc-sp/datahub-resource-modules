@@ -1,5 +1,7 @@
 data "databricks_cluster_policy" "personal" {
   name = "Personal Compute"
+
+  depends_on = [azurerm_databricks_workspace.datahub_databricks_workspace]
 }
 
 resource "databricks_token" "terraform_pat" {
