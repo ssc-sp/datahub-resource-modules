@@ -9,3 +9,9 @@ resource "azurerm_databricks_workspace" "datahub_databricks_workspace" {
 
   tags = local.project_tags
 }
+
+resource "databricks_workspace_conf" "datahub_databricks_workspace_conf" {
+  custom_config = {
+    "enableTokensConfig" : true
+  }
+}

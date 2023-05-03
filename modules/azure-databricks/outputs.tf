@@ -9,3 +9,11 @@ output "azure_databricks_workspace_name" {
 output "azure_databricks_workspace_url" {
   value = azurerm_databricks_workspace.datahub_databricks_workspace.workspace_url
 }
+
+output "azure_databricks_managed_rg_name" {
+  value = azurerm_databricks_workspace.datahub_databricks_workspace.managed_resource_group_name
+}
+
+output "azure_databricks_managed_rg_id" {
+  value = azurerm_databricks_workspace.datahub_databricks_workspace.managed_resource_group_id
+}

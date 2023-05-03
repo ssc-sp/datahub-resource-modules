@@ -13,6 +13,7 @@ data "databricks_spark_version" "dbk_latest_lts" {
   depends_on = [azurerm_databricks_workspace.datahub_databricks_workspace]
 }
 
+# Serverless cluster profile: "spark.databricks.cluster.profile" : "serverless",
 resource "databricks_cluster" "dbk_proj_cluster" {
   cluster_name            = "main_cluster"
   spark_version           = data.databricks_spark_version.dbk_latest_lts.id
@@ -23,7 +24,6 @@ resource "databricks_cluster" "dbk_proj_cluster" {
   policy_id               = databricks_cluster_policy.regular_cluster_policy.id
 
   spark_conf = {
-    "spark.databricks.cluster.profile" : "serverless",
     "spark.databricks.passthrough.enabled" : "true",
     "spark.databricks.delta.preview.enabled" : "true",
     "spark.databricks.pyspark.enableProcessIsolation" : "true",
@@ -31,7 +31,7 @@ resource "databricks_cluster" "dbk_proj_cluster" {
   }
 
   autoscale {
-    min_workers = 1
+    min_workers = 0
     max_workers = 2
   }
 }

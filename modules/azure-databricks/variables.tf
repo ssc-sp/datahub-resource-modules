@@ -43,6 +43,11 @@ variable "key_vault_id" {
   type        = string
 }
 
+variable "key_vault_url" {
+  description = "Key vault URL"
+  type        = string
+}
+
 variable "key_vault_cmk_id" {
   description = "Project CMK ID"
   type        = string
@@ -84,6 +89,18 @@ variable "azure_databricks_enterprise_oid" {
 variable "storage_acct_name" {
   description = "Name of the project storage account"
   type        = string
+}
+
+variable "budget_amount" {
+  description = "Budget amount for the resource group"
+  type        = number
+  default     = 0
+}
+
+variable "budget_start_date" {
+  description = "The start date of budget"
+  type        = string
+  default     = "2023-04-01T00:00:00Z"
 }
 
 

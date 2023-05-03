@@ -6,6 +6,7 @@ data "azurerm_subscription" "az_subscription" {
 
 locals {
   resource_group_name     = lower("${var.resource_prefix}_proj_${var.project_cd}_${var.environment_name}_rg")
+  databricks_rg_name      = lower("${var.resource_prefix}-dbk-${var.project_cd}-${var.environment_name}-rg")
   resource_group_location = var.az_location
   kv_name                 = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-kv")
   automation_acct_name    = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-auto")
@@ -27,10 +28,10 @@ data "template_file" "az_project_disable_cmk_script" {
 data "template_file" "az_project_cost_check_script" {
   template = file("${path.module}/rg-check-spend.ps1")
   vars = {
-    subscription_id     = var.az_subscription_id
-    key_vault_name      = azurerm_key_vault.az_proj_kv.name
-    resource_group_name = local.resource_group_name
-    budget_name         = azurerm_consumption_budget_resource_group.az_project_rg_budget.0.name
-    trigger_percent     = 100
+    subscription_id = var.az_subscription_id
+    key_vault_name  = azurerm_key_vault.az_proj_kv.name
+    budget_name     = azurerm_consumption_budget_resource_group.az_project_rg_budget.0.name
+    budget_name_dbr = "${local.databricks_rg_name}-budget"
+    trigger_percent = 100
   }
 }
