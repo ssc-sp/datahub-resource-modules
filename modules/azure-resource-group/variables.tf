@@ -78,3 +78,9 @@ variable "aad_admin_group_oid" {
   type        = string
 }
 
+variable "budget_start_date" {
+  description = "The start date of budget"
+  type        = string
+  default     = "2023-04-01T00:00:00Z"
+}
+
