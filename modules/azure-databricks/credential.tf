@@ -9,6 +9,29 @@ resource "azurerm_databricks_access_connector" "dbk_main_access_connector" {
   }
 }
 
+resource "databricks_metastore" "dbk_main_metastore" {
+  name = "primary"
+  storage_root = format("abfss://%s@%s.dfs.core.windows.net/",
+    azurerm_storage_container.unity_catalog.name,
+  azurerm_storage_account.unity_catalog.name)
+  owner         = "uc admins"
+  force_destroy = false
+}
+
+resource "databricks_metastore_assignment" "dbk_main_metastore_assignment" {
+  metastore_id = databricks_metastore.dbk_main_metastore.id
+  workspace_id = azurerm_databricks_workspace.datahub_databricks_workspace.id
+}
+
+resource "databricks_metastore_data_access" "dbk_main_metastore_access" {
+  metastore_id = databricks_metastore.dbk_main_metastore.id
+  name         = "fsdh-main-metastore-access"
+  azure_managed_identity {
+    access_connector_id = azurerm_databricks_access_connector.dbk_main_access_connector.id
+  }
+  is_default = true
+}
+
 resource "databricks_storage_credential" "dbk_main_credential" {
   name = lower("${var.resource_prefix}-dbk-${var.project_cd}-${var.environment_name}-credential")
   azure_managed_identity {
