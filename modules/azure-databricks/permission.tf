@@ -1,17 +1,13 @@
-resource "databricks_permissions" "main_cluster_usage_lead" {
-  cluster_id = databricks_cluster.dbk_proj_cluster.cluster_id
-
-  access_control {
-    group_name       = databricks_group.project_lead.display_name
-    permission_level = "CAN_MANAGE"
-  }
-}
-
-resource "databricks_permissions" "main_cluster_usage_users" {
+resource "databricks_permissions" "main_cluster_usage" {
   cluster_id = databricks_cluster.dbk_proj_cluster.cluster_id
 
   access_control {
     group_name       = databricks_group.project_users.display_name
+    permission_level = "CAN_RESTART"
+  }
+
+  access_control {
+    group_name       = databricks_group.project_lead.display_name
     permission_level = "CAN_RESTART"
   }
 }
