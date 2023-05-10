@@ -10,17 +10,15 @@ resource "azurerm_databricks_access_connector" "dbk_main_access_connector" {
 }
 
 resource "databricks_metastore" "dbk_main_metastore" {
-  name = "primary"
-  storage_root = format("abfss://%s@%s.dfs.core.windows.net/",
-    azurerm_storage_container.unity_catalog.name,
-  azurerm_storage_account.unity_catalog.name)
+  name          = "primary"
+  storage_root  = format("abfss://%s@%s.dfs.core.windows.net/", local.datahub_unity_catalog_container, var.storage_acct_name)
   owner         = "uc admins"
   force_destroy = false
 }
 
 resource "databricks_metastore_assignment" "dbk_main_metastore_assignment" {
   metastore_id = databricks_metastore.dbk_main_metastore.id
-  workspace_id = azurerm_databricks_workspace.datahub_databricks_workspace.id
+  workspace_id = azurerm_databricks_workspace.datahub_databricks_workspace.workspace_id
 }
 
 resource "databricks_metastore_data_access" "dbk_main_metastore_access" {
