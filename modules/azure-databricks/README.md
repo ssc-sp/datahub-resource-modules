@@ -24,7 +24,7 @@ R example:
 
 library(SparkR)
 sparkR.session()
-df <- collect(read.df("dbfs:/mnt/fsdh-dbk-main-mount/sample.csv", source = "csv"))
+df <- read.df("dbfs:/mnt/fsdh-dbk-main-mount/sample.csv", source = "csv")
 head(df, 3)
 ```
 
