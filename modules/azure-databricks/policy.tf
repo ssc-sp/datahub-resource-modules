@@ -94,7 +94,6 @@ locals {
   }
 }
 
-
 resource "databricks_cluster_policy" "regular_cluster_policy" {
   name       = "Datahub Regular Cluster"
   definition = jsonencode(local.datahub_policy_regular)
@@ -115,7 +114,7 @@ resource "databricks_cluster_policy" "regular_spot_cluster_policy" {
   definition = jsonencode(local.datahub_policy_regular_job_spot)
 }
 
-resource "databricks_cluster_policy" "docker_test_cluster_policy" {
-  name       = "Datahub Docker Cluster (Test)"
+resource "databricks_cluster_policy" "docker_small_cluster_policy" {
+  name       = "Datahub Docker Cluster (Small)"
   definition = jsonencode(local.datahub_policy_small_docker)
 }
