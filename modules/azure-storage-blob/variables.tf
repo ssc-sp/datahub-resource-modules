@@ -71,6 +71,12 @@ variable "storage_contributor_users" {
   default     = []
 }
 
+variable "storage_reader_users" {
+  description = "A list of users to be assigned the role of Storage Blob Data Reader"
+  type        = list(any)
+  default     = []
+}
+
 variable "storage_size_limit_tb" {
   description = "Storage account size limit for alerts"
   type        = number

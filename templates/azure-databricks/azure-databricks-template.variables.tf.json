@@ -16,6 +16,10 @@
       "type": "list(any)",
       "default": []
     },
+    "databricks_project_guests": {
+      "type": "list(any)",
+      "default": []
+    },
     "azure_databricks_enterprise_oid": {
       "type": "string"
     }

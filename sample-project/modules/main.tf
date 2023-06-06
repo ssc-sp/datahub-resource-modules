@@ -23,6 +23,7 @@ module "storage" {
   project_cd                = var.project_cd
   environment_name          = var.environment_name
   storage_contributor_users = var.storage_contributor_users
+  storage_reader_users      = var.storage_reader_users
   storage_size_limit_tb     = var.storage_size_limit_tb
   common_tags               = var.common_tags
 }
