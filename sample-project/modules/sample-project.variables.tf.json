@@ -40,6 +40,10 @@
       "type": "list(any)",
       "default": []
     },
+    "storage_reader_users": {
+      "type": "list(any)",
+      "default": []
+    },
     "databricks_admin_users": {
       "type": "list(any)",
       "default": [
@@ -53,6 +57,10 @@
       "default": []
     },
     "databricks_project_users": {
+      "type": "list(any)",
+      "default": []
+    },
+    "databricks_project_guests": {
       "type": "list(any)",
       "default": []
     },

@@ -70,13 +70,19 @@ variable "admin_users" {
 }
 
 variable "project_lead_users" {
-  description = "List of admin user emails"
+  description = "List of lead user emails"
   type        = list(any)
   default     = []
 }
 
 variable "project_users" {
-  description = "List of admin user emails"
+  description = "List of regular user emails"
+  type        = list(any)
+  default     = []
+}
+
+variable "project_guest_users" {
+  description = "List of guest user emails"
   type        = list(any)
   default     = []
 }
