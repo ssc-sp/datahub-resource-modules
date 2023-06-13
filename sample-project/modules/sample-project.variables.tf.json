@@ -72,6 +72,9 @@
     },
     "aad_admin_group_oid": {
       "type": "string"
+    },
+    "ssl_cert_kv_id": {
+      "type": "string"
     }
   }
 }

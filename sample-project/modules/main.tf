@@ -46,3 +46,16 @@ module "databricks" {
   project_lead_users              = var.databricks_lead_users
   project_users                   = var.databricks_project_users
 }
+
+module "webapp" {
+  source              = "../../modules/azure-app-service"
+  resource_group_name = module.resourceGroup.az_project_rg_name
+  key_vault_id        = module.resourceGroup.az_project_kv_id
+  key_vault_cmk_id    = module.resourceGroup.az_project_cmk_id
+  key_vault_url       = module.resourceGroup.az_project_kv_url
+  az_tenant_id        = var.az_tenant
+  az_subscription_id  = var.az_subscription
+  project_cd          = var.project_cd
+  common_tags         = var.common_tags
+  ssl_cert_kv_id      = var.ssl_cert_kv_id
+}
