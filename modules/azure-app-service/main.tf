@@ -32,6 +32,22 @@ resource "azurerm_linux_web_app" "datahub_proj_shiny_app" {
     }
   }
 
+  # auth_settings_v2 {
+  #   auth_enabled           = true
+  #   require_authentication = true
+  #   require_https          = true
+
+  #   active_directory_v2 {
+  #     client_id = "TBD"
+  #     client_secret_setting_name = "AzureAdClientSecret"
+  #     tenant_auth_endpoint       = "https://sts.windows.net/${data.azurerm_client_config.current.tenant_id}/v2.0"
+  #   }
+
+  #   login {
+  #     token_store_enabled = true
+  #   }
+  # }
+
   identity {
     type = "SystemAssigned"
   }
