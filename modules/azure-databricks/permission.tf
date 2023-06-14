@@ -12,7 +12,7 @@ resource "databricks_permissions" "main_cluster_usage" {
   }
 
   access_control {
-    group_name       = databricks_group.project_lead.display_name
+    group_name       = databricks_group.project_guest.display_name
     permission_level = "CAN_ATTACH_TO"
   }
 }

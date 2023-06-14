@@ -45,4 +45,5 @@ module "databricks" {
   run_in_devops                   = false
   project_lead_users              = var.databricks_lead_users
   project_users                   = var.databricks_project_users
+  project_guest_users             = var.databricks_project_guests
 }
