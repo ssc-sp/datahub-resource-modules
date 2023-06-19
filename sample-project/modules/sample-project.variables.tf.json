@@ -75,6 +75,9 @@
     },
     "ssl_cert_kv_id": {
       "type": "string"
+    },    
+    "sp_client_id": {
+      "type": "string"
     }
   }
 }

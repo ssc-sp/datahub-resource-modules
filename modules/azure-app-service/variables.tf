@@ -110,3 +110,9 @@ variable "ssl_cert_kv_id" {
   description = "AKV ID hosting SSL cert"
   type        = string
 }
+
+variable "sp_client_id" {
+  description = "Client ID of the Azure Service Principal for register login redirect URI"
+  type        = string
+}
+

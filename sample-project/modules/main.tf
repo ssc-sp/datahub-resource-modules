@@ -58,4 +58,5 @@ module "webapp" {
   project_cd          = var.project_cd
   common_tags         = var.common_tags
   ssl_cert_kv_id      = var.ssl_cert_kv_id
+  sp_client_id        = var.sp_client_id
 }
