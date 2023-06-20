@@ -116,3 +116,9 @@ variable "sp_client_id" {
   type        = string
 }
 
+variable "sp_add_redirect_uri" {
+  description = "If we add redirect URI to the app registration"
+  type        = bool
+  default     = true
+}
+
