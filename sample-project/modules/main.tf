@@ -44,4 +44,7 @@ module "databricks" {
   run_in_devops                   = false
   project_lead_users              = var.databricks_lead_users
   project_users                   = var.databricks_project_users
+  dbr_metastore_id                = var.dbr_metastore_id
+
+
 }

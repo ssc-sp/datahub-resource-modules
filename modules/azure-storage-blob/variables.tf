@@ -76,11 +76,3 @@ variable "storage_size_limit_tb" {
   type        = number
   default     = 0
 }
-
-variable "az_databricks_uai_principal" {
-  description = "User assigned managed identity for the databricks"
-  type        = string
-}
-
-
-

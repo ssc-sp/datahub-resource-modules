@@ -91,11 +91,6 @@ variable "storage_acct_name" {
   type        = string
 }
 
-variable "az_databricks_uai" {
-  description = "User assigned managed identity for the databricks"
-  type        = string
-}
-
 variable "budget_amount" {
   description = "Budget amount for the resource group"
   type        = number
@@ -107,3 +102,9 @@ variable "budget_start_date" {
   type        = string
   default     = "2023-04-01T00:00:00Z"
 }
+
+variable "dbr_metastore_id" {
+  description = "The ID of the account level metastore"
+  type        = string
+}
+

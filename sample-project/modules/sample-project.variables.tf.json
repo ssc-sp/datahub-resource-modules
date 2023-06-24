@@ -64,6 +64,9 @@
     },
     "aad_admin_group_oid": {
       "type": "string"
+    },
+    "dbr_metastore_id": {
+      "type": "string"
     }
   }
 }
