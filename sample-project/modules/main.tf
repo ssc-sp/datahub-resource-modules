@@ -23,6 +23,7 @@ module "storage" {
   project_cd                = var.project_cd
   environment_name          = var.environment_name
   storage_contributor_users = var.storage_contributor_users
+  storage_reader_users      = var.storage_reader_users
   storage_size_limit_tb     = var.storage_size_limit_tb
   common_tags               = var.common_tags
 }
@@ -44,7 +45,6 @@ module "databricks" {
   run_in_devops                   = false
   project_lead_users              = var.databricks_lead_users
   project_users                   = var.databricks_project_users
+  project_guest_users             = var.databricks_project_guests
   dbr_metastore_id                = var.dbr_metastore_id
-
-
 }

@@ -5,4 +5,3 @@ resource "azurerm_role_assignment" "storage_contributor_assignment" {
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = each.value.oid
 }
-

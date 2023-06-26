@@ -12,6 +12,7 @@ module "azure_storage_blob_module" {
   az_subscription_id        = var.az_subscription_id
   project_cd                = var.project_cd
   storage_contributor_users = var.storage_contributor_users
+  storage_reader_users      = var.storage_reader_users
   storage_size_limit_tb     = var.storage_size_limit_tb
   common_tags               = var.common_tags
 

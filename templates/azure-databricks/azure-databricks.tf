@@ -20,9 +20,10 @@ module "azure_databricks_module" {
 
   common_tags = var.common_tags
 
-  admin_users        = var.databricks_admin_users
-  project_lead_users = var.databricks_project_lead_users
-  project_users      = var.databricks_project_users
+  admin_users         = var.databricks_admin_users
+  project_lead_users  = var.databricks_project_lead_users
+  project_users       = var.databricks_project_users
+  project_guest_users = var.databricks_project_guests
 
   azure_databricks_enterprise_oid = var.azure_databricks_enterprise_oid
   run_in_devops                   = false

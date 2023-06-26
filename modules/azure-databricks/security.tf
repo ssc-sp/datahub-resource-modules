@@ -3,7 +3,8 @@ resource "azurerm_key_vault_access_policy" "kv_databricks_policy" {
   tenant_id    = var.az_tenant_id
   object_id    = var.azure_databricks_enterprise_oid
 
-  key_permissions = ["Get", "UnwrapKey", "WrapKey"]
+  key_permissions    = ["Get", "UnwrapKey", "WrapKey"]
+  secret_permissions = ["List", "Get"]
 }
 
 resource "databricks_secret_scope" "kv_secret_scope" {

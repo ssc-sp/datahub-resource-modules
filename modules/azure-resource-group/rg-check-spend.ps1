@@ -12,9 +12,15 @@ Connect-AzAccount -Identity -Subscription "${subscription_id}"
 $budgetAmount = (Get-AzConsumptionBudget -name $budget_name).Amount
 $currentSpendMain = (Get-AzConsumptionBudget -name $budget_name).currentspend.amount
 $currentSpendDbr = 0
-try { $currentSpendDbr = (Get-AzConsumptionBudget -name $budget_name_dbr).currentspend.amount } finally { $currentSpendDbr = 0 }
+try { $currentSpendDbr = (Get-AzConsumptionBudget -name $budget_name_dbr).currentspend.amount } catch { $currentSpendDbr = 0 }
 
-Write-Output "Current spend for budgets: $budget_name and $budget_name_dbr is $currentSpendMain + $currentSpendDbr (trigger is $trigger_percent percent)"
+$totalSpendDollar = [math]::round(($currentSpendMain + $currentSpendDbr ))
+$totalPercent = [math]::round((($currentSpendMain + $currentSpendDbr ) / $budgetAmount) * 100, 2)
+$currentSpendMainDollar = [math]::round($currentSpendMain)
+$currentSpendDbrDollar = [math]::round($currentSpendDbr)
+Write-Output "Current budgets: $budget_name and $budget_name_dbr combined is $budgetAmount (trigger is $trigger_percent percent)"
+Write-Output "Current spend: $budget_name and $budget_name_dbr is $currentSpendMainDollar + $currentSpendDbrDollar = $totalSpendDollar (or $totalPercent percent)"
+
 if (($currentSpendMain + $currentSpendDbr ) -ge ($budgetAmount * $trigger_percent / 100)) {
     Write-Output "Disabling CMK in AKV $key_vault_name"
 
