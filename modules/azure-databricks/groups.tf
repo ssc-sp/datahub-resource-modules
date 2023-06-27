@@ -27,3 +27,13 @@ resource "databricks_group" "project_lead" {
 
   depends_on = [azurerm_databricks_workspace.datahub_databricks_workspace]
 }
+
+resource "databricks_group" "project_guest" {
+  display_name               = "project_guest"
+  allow_cluster_create       = false
+  allow_instance_pool_create = false
+  databricks_sql_access      = true
+  workspace_access           = true
+
+  depends_on = [azurerm_databricks_workspace.datahub_databricks_workspace]
+}

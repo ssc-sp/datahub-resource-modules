@@ -5,3 +5,11 @@ resource "azurerm_role_assignment" "storage_contributor_assignment" {
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = each.value.oid
 }
+
+resource "azurerm_role_assignment" "storage_reader_assignment" {
+  for_each = { for user in var.storage_reader_users : user.email => user }
+
+  scope                = azurerm_storage_account.datahub_storageaccount.id
+  role_definition_name = "Storage Blob Data Reader"
+  principal_id         = each.value.oid
+}

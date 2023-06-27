@@ -10,6 +10,11 @@ resource "databricks_permissions" "main_cluster_usage" {
     group_name       = databricks_group.project_lead.display_name
     permission_level = "CAN_RESTART"
   }
+
+  access_control {
+    group_name       = databricks_group.project_guest.display_name
+    permission_level = "CAN_ATTACH_TO"
+  }
 }
 
 resource "databricks_permissions" "regular_policy_usage" {
