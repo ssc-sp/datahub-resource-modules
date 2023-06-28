@@ -57,6 +57,7 @@ module "webapp" {
   az_subscription_id  = var.az_subscription
   project_cd          = var.project_cd
   common_tags         = var.common_tags
-  ssl_cert_kv_id      = var.ssl_cert_kv_id
+  use_easy_auth       = false
   sp_client_id        = var.sp_client_id
+  ssl_cert_kv_id      = var.ssl_cert_kv_id
 }

@@ -13,7 +13,7 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget_dbr" 
     operator       = "EqualTo"
     threshold_type = "Actual"
 
-    contact_roles  = ["Owner"]
+    contact_roles = ["Owner"]
   }
 
   lifecycle {

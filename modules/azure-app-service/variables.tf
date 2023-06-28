@@ -107,18 +107,26 @@ variable "ssl_cert_name" {
 }
 
 variable "ssl_cert_kv_id" {
-  description = "AKV ID hosting SSL cert"
+  description = "AKV ID hosting SSL cert (required if use_easy_auth is true)"
   type        = string
+  default     = ""
 }
 
 variable "sp_client_id" {
-  description = "Client ID of the Azure Service Principal for register login redirect URI"
+  description = "Client ID of the Azure Service Principal for register login redirect URI (required if use_easy_auth is true)"
   type        = string
+  default     = ""
 }
 
-variable "sp_add_redirect_uri" {
-  description = "If we add redirect URI to the app registration"
+variable "allow_source_ip" {
+  description = "The only source IP of the reverse proxy that is allowed to call the Azure App Service (required if use_easy_auth is false)"
+  type        = string
+  default     = ""
+}
+
+variable "use_easy_auth" {
+  description = "If we use easy auth for Azure App Service (custom domain, custom domain, cert binding and redirect URI to the app registration)"
   type        = bool
-  default     = true
+  default     = false
 }
 

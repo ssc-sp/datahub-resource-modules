@@ -11,7 +11,7 @@ output "app_service_id" {
 }
 
 output "shiny_app_domain" {
-  value = azurerm_app_service_custom_hostname_binding.datahub_app_custom_host.hostname
+  value = var.use_easy_auth ? azurerm_app_service_custom_hostname_binding.datahub_app_custom_host[0].hostname : ""
 }
 
 output "shiny_app_azure_domain" {

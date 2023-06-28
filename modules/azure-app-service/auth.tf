@@ -1,6 +1,6 @@
 resource "null_resource" "sp_add_app_service_redirect_uri" {
-  count = var.sp_add_redirect_uri ? 1 : 0
-  
+  count = var.use_easy_auth ? 1 : 0
+
   provisioner "local-exec" {
     interpreter = ["pwsh", "-Command"]
     command     = <<-EOT

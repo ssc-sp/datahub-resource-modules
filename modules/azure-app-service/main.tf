@@ -32,24 +32,37 @@ resource "azurerm_linux_web_app" "datahub_proj_shiny_app" {
     }
   }
 
-  auth_settings_v2 {
-    auth_enabled           = true
-    require_authentication = true
-    require_https          = true
+  # auth_settings_v2 {
+  #   auth_enabled           = true
+  #   require_authentication = true
+  #   require_https          = true
 
-    active_directory_v2 {
-      client_secret_setting_name = "MICROSOFT_PROVIDER_AUTHENTICATION_SECRET"
-      client_id                  = var.sp_client_id
-      tenant_auth_endpoint       = "https://sts.windows.net/${data.azurerm_client_config.current.tenant_id}/v2.0"
-    }
+  #   active_directory_v2 {
+  #     client_secret_setting_name = "MICROSOFT_PROVIDER_AUTHENTICATION_SECRET"
+  #     client_id                  = var.sp_client_id
+  #     tenant_auth_endpoint       = "https://sts.windows.net/${data.azurerm_client_config.current.tenant_id}/v2.0"
+  #   }
 
-    login {
-      token_store_enabled = true
-    }
-  }
+  #   login {
+  #     token_store_enabled = true
+  #   }
+  # }
 
   identity {
     type = "SystemAssigned"
+  }
+}
+
+resource "null_resource" "datahub_proj_shiny_easy_auth" {
+  count = var.use_easy_auth ? 1 : 0
+
+  provisioner "local-exec" {
+    interpreter = ["pwsh", "-Command"]
+    command     = <<-EOT
+      az webapp auth update -g ${var.resource_group_name} -n ${azurerm_linux_web_app.datahub_proj_shiny_app.name} --enabled true 
+      az webapp auth microsoft update -g ${var.resource_group_name} -n ${azurerm_linux_web_app.datahub_proj_shiny_app.name} --client-id ${var.sp_client_id} --client-secret-setting-name "MICROSOFT_PROVIDER_AUTHENTICATION_SECRET" --issuer "https://sts.windows.net/${data.azurerm_client_config.current.tenant_id}/v2.0"
+    EOT
+    on_failure  = fail
   }
 }
 
