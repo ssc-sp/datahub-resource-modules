@@ -78,6 +78,9 @@
     },    
     "sp_client_id": {
       "type": "string"
+    },
+    "allow_source_ip": {
+      "type": "string"
     }
   }
 }

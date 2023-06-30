@@ -60,4 +60,5 @@ module "webapp" {
   use_easy_auth       = false
   sp_client_id        = var.sp_client_id
   ssl_cert_kv_id      = var.ssl_cert_kv_id
+  allow_source_ip     = var.allow_source_ip
 }
