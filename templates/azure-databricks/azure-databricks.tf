@@ -26,7 +26,7 @@ module "azure_databricks_module" {
 
   azure_databricks_enterprise_oid = var.azure_databricks_enterprise_oid
   run_in_devops                   = false
-
+  log_workspace_id                = var.log_workspace_id
 }
 
 output "azure_databricks_module_status" {

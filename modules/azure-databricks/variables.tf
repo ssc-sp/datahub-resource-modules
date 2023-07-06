@@ -109,4 +109,11 @@ variable "budget_start_date" {
   default     = "2023-04-01T00:00:00Z"
 }
 
+variable "log_workspace_id" {
+  description = "The object ID of the pre-existing centrally managed Azure Log Analytics Workspace"
+  type        = string
+  default     = ""
+}
+
+
 
