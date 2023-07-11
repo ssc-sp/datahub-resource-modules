@@ -46,4 +46,5 @@ module "databricks" {
   project_lead_users              = var.databricks_lead_users
   project_users                   = var.databricks_project_users
   project_guest_users             = var.databricks_project_guests
+  log_workspace_id                = var.log_workspace_id
 }
