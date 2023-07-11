@@ -66,3 +66,11 @@ resource "null_resource" "datahub_proj_shiny_easy_auth" {
   }
 }
 
+resource "azurerm_role_assignment" "acr_pull" {
+  count = var.acr_id == "" ? 0 : 1
+
+  scope                = var.acr_id
+  role_definition_name = "AcrPull"
+  principal_id         = azurerm_linux_web_app.datahub_proj_shiny_app.identity[0].principal_id
+}
+

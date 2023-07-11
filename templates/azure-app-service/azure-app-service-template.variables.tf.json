@@ -38,9 +38,13 @@
     "sp_client_id": {
       "type": "string"
     },
-    "sp_add_redirect_uri": {
+    "use_easy_auth": {
       "type": "bool",
       "default": true
+    },
+    "acr_id": {
+      "type": "string",
+      "default": ""
     }
   }
 }
