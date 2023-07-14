@@ -32,6 +32,15 @@ resource "azurerm_linux_web_app" "datahub_proj_shiny_app" {
     }
   }
 
+  storage_account {
+    access_key   = data.azurerm_key_vault_secret.storage_key.value
+    account_name = var.storage_acct_name
+    name         = local.storage_acct_mount
+    share_name   = local.storage_acct_mount
+    type         = "AzureBlob"
+    mount_path   = "/${local.storage_acct_mount}"
+  }
+
   # auth_settings_v2 {
   #   auth_enabled           = true
   #   require_authentication = true
