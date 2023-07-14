@@ -15,6 +15,7 @@ locals {
   resource_group_location = "canadacentral"
   storage_key_secret      = "storage-key"
   storage_acct_mount      = "datahub"
+  root_passwd_secret      = "root-passwd"
   project_tags            = merge(var.common_tags, { "project_cd" : var.project_cd, "env" : var.environment_name })
   dns_record_name         = lower("${var.project_cd}-app")
 }

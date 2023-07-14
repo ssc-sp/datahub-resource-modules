@@ -5,6 +5,7 @@ module "azure_app_service_module" {
   key_vault_id        = module.resource_group_module.az_project_kv_id
   key_vault_cmk_id    = module.resource_group_module.az_project_cmk_id
   key_vault_url       = module.resource_group_module.az_project_kv_url
+  key_vault_name      = module.resource_group_module.az_project_kv_name
   storage_acct_name   = module.azure_storage_blob_module.azure_storage_account_name
 
   # optional variables

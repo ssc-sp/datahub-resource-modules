@@ -43,6 +43,11 @@ variable "key_vault_id" {
   type        = string
 }
 
+variable "key_vault_name" {
+  description = "Key vault name"
+  type        = string
+}
+
 variable "key_vault_url" {
   description = "Key vault URL"
   type        = string

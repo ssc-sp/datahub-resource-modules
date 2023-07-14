@@ -21,6 +21,11 @@ resource "azurerm_linux_web_app" "datahub_proj_shiny_app" {
     DOCKER_REGISTRY_SERVER_URL          = var.docker_server_url
     WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
     WEBSITES_PORT                       = "3838"
+    APP_FOLDER                          = "shiny"
+    BLOB_ACCOUNT_KEY                    = "@Microsoft.KeyVault(VaultName=${var.key_vault_name};SecretName=${local.storage_key_secret})"
+    BLOB_ACCOUNT_NAME                   = var.storage_acct_name
+    BLOB_CONTAINER_NAME                 = local.storage_acct_mount
+    SSH_PASSWD                          = "@Microsoft.KeyVault(VaultName=${var.key_vault_name};SecretName=${local.root_passwd_secret})"
   }
 
   site_config {
@@ -81,5 +86,13 @@ resource "azurerm_role_assignment" "acr_pull" {
   scope                = var.acr_id
   role_definition_name = "AcrPull"
   principal_id         = azurerm_linux_web_app.datahub_proj_shiny_app.identity[0].principal_id
+}
+
+resource "azurerm_key_vault_access_policy" "kv_app_service_policy" {
+  key_vault_id = var.key_vault_id
+  tenant_id    = var.az_tenant_id
+  object_id    = azurerm_linux_web_app.datahub_proj_shiny_app.identity[0].principal_id
+
+  secret_permissions = ["Get", "List"]
 }
 
