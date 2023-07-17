@@ -35,3 +35,10 @@ resource "databricks_cluster" "dbk_proj_cluster" {
     max_workers = 2
   }
 }
+
+# resource "databricks_library" "mosaic_lib" {
+#   cluster_id = databricks_cluster.dbk_proj_cluster.id
+#   pypi {
+#     package = "databricks-mosaic"
+#   }
+# }

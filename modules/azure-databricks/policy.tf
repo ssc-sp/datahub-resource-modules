@@ -1,6 +1,8 @@
 locals {
   # To make existing clusters to support R, run: terraform taint module.azure_databricks_module.databricks_cluster.dbk_proj_cluster
   # https://learn.microsoft.com/en-us/azure/databricks/dev-tools/api/latest/clusters
+  # https://learn.microsoft.com/en-us/azure/databricks/administration-guide/clusters/policies
+
   datahub_policy_regular = {
     "dbus_per_hour" : { "type" : "range", "maxValue" : 12 },
     "node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4ds_v5", "Standard_D8ds_v5", "Standard_D16ds_v5"], "defaultValue" : "Standard_D4ds_v5" },
@@ -81,12 +83,33 @@ locals {
     "custom_tags.project_prefix" : { "type" : "fixed", "value" : "fsdh" },
     "spark_conf.spark.databricks.delta.preview.enabled" : { "type" : "fixed", "value" : "true", "hidden" : true },
     "spark_conf.spark.databricks.repl.allowedLanguages" : { "type" : "fixed", "value" : "python,sql,r", "hidden" : true },
-    "data_security_mode": { "type" : "fixed", "value" : "NONE" },
-    "runtime_engine": { "type" : "fixed", "value" : "STANDARD" },
-    "enable_local_disk_encryption": { "type" : "fixed", "value" : true },
-    "azure_attributes.first_on_demand": { "type" : "fixed", "value" : 1 },
-    "azure_attributes.availability": { "type" : "fixed", "value" : "ON_DEMAND_AZURE" },
-    "azure_attributes.spot_bid_max_price": { "type" : "fixed", "value" : -1 },
+    "data_security_mode" : { "type" : "fixed", "value" : "NONE" },
+    "runtime_engine" : { "type" : "fixed", "value" : "STANDARD" },
+    "enable_local_disk_encryption" : { "type" : "fixed", "value" : true },
+    "azure_attributes.first_on_demand" : { "type" : "fixed", "value" : 1 },
+    "azure_attributes.availability" : { "type" : "fixed", "value" : "ON_DEMAND_AZURE" },
+    "azure_attributes.spot_bid_max_price" : { "type" : "fixed", "value" : -1 },
+  }
+
+  datahub_policy_geo_test = {
+    "dbus_per_hour" : { "type" : "range", "maxValue" : 4 },
+    "node_type_id" : { "type" : "fixed", "value" : "Standard_D4ds_v5", "hidden" : false },
+    "driver_node_type_id" : { "type" : "fixed", "value" : "Standard_D4ds_v5" },
+    "autotermination_minutes" : { "type" : "range", "defaultValue" : 10, "minValue" : 10, "maxValue" : 120 }
+    "autoscale.min_workers" : { "type" : "fixed", "value" : 1 },
+    "autoscale.max_workers" : { "type" : "range", "maxValue" : 8, "defaultValue" : 2 },
+    "custom_tags.project_code" : { "type" : "fixed", "value" : "${var.project_cd}" },
+    "custom_tags.environment" : { "type" : "fixed", "value" : "${var.environment_name}" },
+    "custom_tags.project_prefix" : { "type" : "fixed", "value" : "fsdh" },
+    "spark_conf.spark.databricks.delta.preview.enabled" : { "type" : "fixed", "value" : "true", "hidden" : true },
+    "spark_conf.spark.databricks.repl.allowedLanguages" : { "type" : "fixed", "value" : "python,sql,r", "hidden" : true },
+    "data_security_mode" : { "type" : "fixed", "value" : "NONE" },
+    "runtime_engine" : { "type" : "fixed", "value" : "STANDARD" },
+    "enable_local_disk_encryption" : { "type" : "fixed", "value" : true },
+    "azure_attributes.first_on_demand" : { "type" : "fixed", "value" : 1 },
+    "azure_attributes.availability" : { "type" : "fixed", "value" : "ON_DEMAND_AZURE" },
+    "azure_attributes.spot_bid_max_price" : { "type" : "fixed", "value" : -1 },
+    "init_scripts.*.workspace.destination" : { "type" : "fixed", "value" : "${databricks_workspace_file.init_script_geo.path}" } 
   }
 
   datahub_policy_overrides = {
@@ -117,4 +140,9 @@ resource "databricks_cluster_policy" "regular_spot_cluster_policy" {
 resource "databricks_cluster_policy" "docker_small_cluster_policy" {
   name       = "Datahub Docker Cluster (Small)"
   definition = jsonencode(local.datahub_policy_small_docker)
+}
+
+resource "databricks_cluster_policy" "docker_geo_cluster_policy" {
+  name       = "Datahub Geo Cluster (Test)"
+  definition = jsonencode(local.datahub_policy_geo_test)
 }
