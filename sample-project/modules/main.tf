@@ -48,3 +48,15 @@ module "databricks" {
   project_guest_users             = var.databricks_project_guests
   log_workspace_id                = var.log_workspace_id
 }
+
+module "aws_project" {
+  source     = "../../modules/aws-project"
+  project_cd = var.project_cd
+}
+
+module "aws_s3" {
+  source          = "../../modules/aws-s3"
+  project_cd      = var.project_cd
+  project_key_arn = module.aws_project.aws_project_key_arn
+}
+

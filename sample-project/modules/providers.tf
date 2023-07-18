@@ -17,6 +17,7 @@ terraform {
     tls = {
       source = "hashicorp/tls"
     }
+    aws = {}
   }
 
   required_version = ">= 1.1"
@@ -26,4 +27,7 @@ provider "azurerm" {
   features {}
 }
 
+provider "aws" {
+  region = "ca-central-1"
+}
 
