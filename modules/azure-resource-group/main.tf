@@ -63,7 +63,8 @@ resource "azurerm_key_vault_access_policy" "automation_acct_access_policy" {
   tenant_id    = var.az_tenant_id
   object_id    = azurerm_automation_account.az_project_automation_acct.identity[0].principal_id
 
-  key_permissions = ["List", "Update"]
+  key_permissions    = ["List", "Get", "Update"]
+  secret_permissions = ["List", "Get", "Set"]
 }
 
 resource "azurerm_key_vault_access_policy" "kv_policy_datahub_sp" {
