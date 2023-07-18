@@ -1,8 +1,13 @@
-# Specify the provider and access details
-provider "aws" {
-  region = "ca-central-1"
+data "aws_caller_identity" "current" {}
+
+module "project" {
+  source     = "./project"
+  project_cd = "sw3"
 }
 
-provider "random" {}
 
-data "aws_caller_identity" "current" {}
+module "s3" {
+  source          = "./s3"
+  project_cd      = "sw3"
+  project_key_arn = module.project.aws_project_key_arn
+}
