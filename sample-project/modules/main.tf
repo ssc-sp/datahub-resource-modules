@@ -26,6 +26,7 @@ module "storage" {
   storage_reader_users      = var.storage_reader_users
   storage_size_limit_tb     = var.storage_size_limit_tb
   common_tags               = var.common_tags
+  automation_acct_id        = module.resourceGroup.automation_acct_id
 }
 
 module "databricks" {
@@ -46,4 +47,5 @@ module "databricks" {
   project_lead_users              = var.databricks_lead_users
   project_users                   = var.databricks_project_users
   project_guest_users             = var.databricks_project_guests
+  log_workspace_id                = var.log_workspace_id
 }

@@ -41,3 +41,7 @@ output "resource_group_name" {
 output "resource_group_id" {
   value = azurerm_resource_group.az_project_rg.id
 }
+
+output "automation_acct_id" {
+  value = azurerm_automation_account.az_project_automation_acct.identity[0].principal_id
+}

@@ -17,3 +17,7 @@ output "azure_databricks_managed_rg_name" {
 output "azure_databricks_managed_rg_id" {
   value = azurerm_databricks_workspace.datahub_databricks_workspace.managed_resource_group_id
 }
+
+output "azure_databricks_storage_principal_id" {
+  value = azurerm_databricks_workspace.datahub_databricks_workspace.storage_account_identity[0].principal_id
+}
