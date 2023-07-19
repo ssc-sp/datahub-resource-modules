@@ -26,6 +26,8 @@ resource "azurerm_linux_web_app" "datahub_proj_shiny_app" {
     BLOB_ACCOUNT_NAME                   = var.storage_acct_name
     BLOB_CONTAINER_NAME                 = local.storage_acct_mount
     SSH_PASSWD                          = "@Microsoft.KeyVault(VaultName=${var.key_vault_name};SecretName=${local.root_passwd_secret})"
+    BLOB_ACCOUNT_URL                    = "https://${var.storage_acct_name}.blob.core.windows.net"
+    BLOB_SAS_TOKEN                      = "@Microsoft.KeyVault(VaultName=${var.key_vault_name};SecretName=${local.storage_sas_secret})"
   }
 
   site_config {
