@@ -15,6 +15,9 @@ locals {
     "spark_conf.spark.databricks.delta.preview.enabled" : { "type" : "fixed", "value" : "true", "hidden" : true },
     "spark_conf.spark.databricks.pyspark.enableProcessIsolation" : { "type" : "fixed", "value" : "true", "hidden" : true },
     "spark_conf.spark.databricks.repl.allowedLanguages" : { "type" : "fixed", "value" : "python,sql,r", "hidden" : true },
+    "spark_conf.fs.azure.sas.fixed.token.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "{{secrets/datahub/container-sas}}", "hidden" : true },
+    "spark_conf.fs.azure.account.auth.type.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "SAS", "hidden" : true },
+    "spark_conf.fs.azure.sas.token.provider.type.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "org.apache.hadoop.fs.azurebfs.sas.FixedSASTokenProvider", "hidden" : true },
   }
 
   datahub_policy_small = {
@@ -31,6 +34,10 @@ locals {
     "spark_conf.spark.databricks.delta.preview.enabled" : { "type" : "fixed", "value" : "true", "hidden" : true },
     "spark_conf.spark.databricks.pyspark.enableProcessIsolation" : { "type" : "fixed", "value" : "true", "hidden" : true },
     "spark_conf.spark.databricks.repl.allowedLanguages" : { "type" : "fixed", "value" : "python,sql,r", "hidden" : true },
+    "spark_conf.fs.azure.sas.fixed.token.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "{{secrets/datahub/container-sas}}", "hidden" : true },
+    "spark_conf.fs.azure.account.auth.type.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "SAS", "hidden" : true },
+    "spark_conf.fs.azure.sas.token.provider.type.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "org.apache.hadoop.fs.azurebfs.sas.FixedSASTokenProvider", "hidden" : true },
+    "spark_conf.abfss_uri" : { "type" : "fixed", "value" : "${databricks_mount.proj_main_mount.uri}", "hidden" : true },
   }
 
   datahub_policy_large = {
@@ -47,6 +54,10 @@ locals {
     "spark_conf.spark.databricks.delta.preview.enabled" : { "type" : "fixed", "value" : "true", "hidden" : true },
     "spark_conf.spark.databricks.pyspark.enableProcessIsolation" : { "type" : "fixed", "value" : "true", "hidden" : true },
     "spark_conf.spark.databricks.repl.allowedLanguages" : { "type" : "fixed", "value" : "python,sql,r", "hidden" : true },
+    "spark_conf.fs.azure.sas.fixed.token.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "{{secrets/datahub/container-sas}}", "hidden" : true },
+    "spark_conf.fs.azure.account.auth.type.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "SAS", "hidden" : true },
+    "spark_conf.fs.azure.sas.token.provider.type.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "org.apache.hadoop.fs.azurebfs.sas.FixedSASTokenProvider", "hidden" : true },
+    "spark_conf.abfss_uri" : { "type" : "fixed", "value" : "${databricks_mount.proj_main_mount.uri}", "hidden" : true },
   }
 
   datahub_policy_regular_job_spot = {
@@ -67,6 +78,10 @@ locals {
     "azure_attributes.first_on_demand" : { "type" : "fixed", "value" : 1 },
     "azure_attributes.availability" : { "type" : "fixed", "value" : "SPOT_WITH_FALLBACK_AZURE" },
     "azure_attributes.spot_bid_max_price" : { "type" : "fixed", "value" : -1.0 }
+    "spark_conf.fs.azure.sas.fixed.token.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "{{secrets/datahub/container-sas}}", "hidden" : true },
+    "spark_conf.fs.azure.account.auth.type.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "SAS", "hidden" : true },
+    "spark_conf.fs.azure.sas.token.provider.type.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "org.apache.hadoop.fs.azurebfs.sas.FixedSASTokenProvider", "hidden" : true },
+    "spark_conf.abfss_uri" : { "type" : "fixed", "value" : "${databricks_mount.proj_main_mount.uri}", "hidden" : true },
   }
 
   datahub_policy_small_docker = {
@@ -87,6 +102,10 @@ locals {
     "azure_attributes.first_on_demand" : { "type" : "fixed", "value" : 1 },
     "azure_attributes.availability" : { "type" : "fixed", "value" : "ON_DEMAND_AZURE" },
     "azure_attributes.spot_bid_max_price" : { "type" : "fixed", "value" : -1 },
+    "spark_conf.fs.azure.sas.fixed.token.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "{{secrets/datahub/container-sas}}", "hidden" : true },
+    "spark_conf.fs.azure.account.auth.type.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "SAS", "hidden" : true },
+    "spark_conf.fs.azure.sas.token.provider.type.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "org.apache.hadoop.fs.azurebfs.sas.FixedSASTokenProvider", "hidden" : true },
+    "spark_conf.abfss_uri" : { "type" : "fixed", "value" : "${databricks_mount.proj_main_mount.uri}", "hidden" : true },
   }
 
   datahub_policy_overrides = {
