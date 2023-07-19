@@ -2,21 +2,11 @@
   "variable": {
     "storage_contributor_users": {
       "type": "list(any)",
-      "default": [
-        {
-          "email": "not-in-use@ssc-spc-gc.ca",
-          "oid": "6580c942-fe69-4795-94bf-a5937656869e"
-        }
-      ]
-    },    
+      "default": []
+    },
     "storage_reader_users": {
       "type": "list(any)",
-      "default": [
-        {
-          "email": "not-in-use-1@ssc-spc-gc.ca",
-          "oid": "6580c942-fe69-4795-94bf-a5937656869e"
-        }
-      ]
+      "default": []
     }
   }
 }
