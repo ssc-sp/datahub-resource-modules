@@ -56,6 +56,7 @@ module "webapp" {
   key_vault_id        = module.resourceGroup.az_project_kv_id
   key_vault_cmk_id    = module.resourceGroup.az_project_cmk_id
   key_vault_url       = module.resourceGroup.az_project_kv_url
+  key_vault_name      = module.resourceGroup.az_project_kv_name
   az_tenant_id        = var.az_tenant
   az_subscription_id  = var.az_subscription
   project_cd          = var.project_cd
@@ -64,4 +65,5 @@ module "webapp" {
   sp_client_id        = var.sp_client_id
   ssl_cert_kv_id      = var.ssl_cert_kv_id
   allow_source_ip     = var.allow_source_ip
+  storage_acct_name   = module.storage.storage_acct_name
 }
