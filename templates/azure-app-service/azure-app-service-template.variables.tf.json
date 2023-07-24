@@ -45,6 +45,10 @@
     "acr_id": {
       "type": "string",
       "default": ""
+    },
+    "allow_source_ip": {
+      "type": "string",
+      "default": ""
     }
   }
 }

@@ -103,7 +103,7 @@ resource "azurerm_automation_job_schedule" "daily_rotate_sas_token_schedule" {
     storage_acct_name   = local.storage_account_name
     resource_group_name = local.resource_group_name
     sas_secret_name     = "container-sas"
-    container_name      = "datahub"    
+    container_name      = "datahub"
   }
 }
 
