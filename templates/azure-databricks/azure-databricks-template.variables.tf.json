@@ -2,11 +2,7 @@
   "variable": {
     "databricks_admin_users": {
       "type": "list(any)",
-      "default": [
-        {
-          "email": "not-in-use@ssc-spc-gc.ca"
-        }
-      ]
+      "default": []
     },
     "databricks_project_lead_users": {
       "type": "list(any)",
