@@ -24,12 +24,12 @@ data "azurerm_storage_account_blob_container_sas" "datahub_container_sas" {
   expiry = formatdate("YYYY-MM-DD", timeadd(timestamp(), "2184h"))
 
   permissions {
-    read    = true
-    write   = true
-    delete  = true
-    list    = true
-    add     = true
-    create  = true
+    read   = true
+    write  = true
+    delete = true
+    list   = true
+    add    = true
+    create = true
   }
 }
 

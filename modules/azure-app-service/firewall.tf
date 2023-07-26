@@ -1,5 +1,4 @@
 resource "null_resource" "access_ip_block_all" {
-  count = var.allow_source_ip != "" ? 1 : 0
   triggers = {
     rg_name  = var.resource_group_name
     app_name = azurerm_linux_web_app.datahub_proj_shiny_app.name
@@ -25,6 +24,7 @@ resource "null_resource" "access_ip_block_all" {
 
 resource "null_resource" "access_ip_whitelist_one" {
   count = var.allow_source_ip != "" ? 1 : 0
+
   triggers = {
     rg_name   = var.resource_group_name
     app_name  = azurerm_linux_web_app.datahub_proj_shiny_app.name

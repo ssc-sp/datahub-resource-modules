@@ -14,10 +14,11 @@ module "azure_app_service_module" {
   project_cd         = var.project_cd
   common_tags        = var.common_tags
 
-  ssl_cert_kv_id = var.ssl_cert_kv_id
-  sp_client_id   = var.sp_client_id
-  use_easy_auth  = var.use_easy_auth
-  acr_id         = var.acr_id
+  ssl_cert_kv_id  = var.ssl_cert_kv_id
+  sp_client_id    = var.sp_client_id
+  use_easy_auth   = var.use_easy_auth
+  acr_id          = var.acr_id
+  allow_source_ip = var.allow_source_ip
 }
 
 output "azure_app_service_module_status" {
