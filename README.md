@@ -19,17 +19,36 @@ A template directory typically contains the following files:
     "templates": [
         {
             "name": "new-project-template",
-            "version": "latest"
+        },
+        {
+            "name": "azure-storage-blob",
         }
     ],
     "workspace": {
+        "version": "latest",
         "name": "Workspance Name",
         "acronym": "WORK",
         "organization": {
             "name": "Just an Example",
             "code": "JaE"
         },
-        "users":[]
+        "users":[
+            {
+                "objectId": "00000000-0000-0000-0000-000000000000",
+                "email": "owner@email.com",
+                "role": "Owner"
+            },
+            {
+                "objectId": "00000000-0000-0000-0000-000000000000",
+                "email": "admin@email.com",
+                "role": "Admin"
+            },
+            {
+                "objectId": "00000000-0000-0000-0000-000000000000",
+                "email": "user@email.com",
+                "role": "User"
+            }
+        ]
     },
     "requestingUserEmail": "unit@test.com"
 }
