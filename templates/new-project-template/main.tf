@@ -47,7 +47,7 @@ locals {
 }
 
 module "resource_group_module" {
-  source             = "github.com/ssc-sp/datahub-resource-modules/modules/azure-resource-group"
+  source = "github.com/ssc-sp/datahub-resource-modules//modules/{{version}}/azure-resource-group{{branch}}"
   az_tenant_id       = var.az_tenant_id
   az_subscription_id = var.az_subscription_id
   project_cd         = var.project_cd
@@ -66,6 +66,10 @@ output "project_cd" {
 
 output "new_project_template" {
   value = "completed"
+}
+
+output "version" {
+  value = "{{version}}"
 }
 
 output "azure_resource_group_name" {

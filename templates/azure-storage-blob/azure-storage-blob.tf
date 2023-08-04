@@ -1,5 +1,5 @@
 module "azure_storage_blob_module" {
-  source     = "github.com/ssc-sp/datahub-resource-modules/modules/azure-storage-blob"
+  source = "github.com/ssc-sp/datahub-resource-modules//modules/{{version}}/azure-storage-blob{{branch}}"
   depends_on = [module.resource_group_module]
 
   resource_group_name = module.resource_group_module.az_project_rg_name
