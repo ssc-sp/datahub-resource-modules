@@ -68,7 +68,7 @@ output "new_project_template" {
   value = "completed"
 }
 
-output "version" {
+output "workspace_version" {
   value = "{{version}}"
 }
 
