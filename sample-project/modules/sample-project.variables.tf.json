@@ -78,11 +78,14 @@
     },
     "ssl_cert_kv_id": {
       "type": "string"
-    },    
+    },
     "sp_client_id": {
       "type": "string"
     },
     "allow_source_ip": {
+      "type": "string"
+    },
+    "container_app_image_url": {
       "type": "string"
     }
   }

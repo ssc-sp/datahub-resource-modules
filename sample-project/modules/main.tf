@@ -67,3 +67,13 @@ module "webapp" {
   storage_acct_name   = module.storage.storage_acct_name
   allow_source_ip     = data.http.myip.response_body
 }
+
+module "capp" {
+  source                   = "../../modules/azure-container-app"
+  resource_group_name      = module.resourceGroup.az_project_rg_name
+  az_tenant_id             = var.az_tenant
+  az_subscription_id       = var.az_subscription
+  project_cd               = var.project_cd
+  common_tags              = var.common_tags
+  log_workspace_id         = var.log_workspace_id
+}
