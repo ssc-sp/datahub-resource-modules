@@ -4,9 +4,9 @@ data "azurerm_subscription" "az_subscription" {
   subscription_id = var.az_subscription_id
 }
 
-data "azurerm_key_vault_secret" "storage_key" {
-  name         = local.storage_key_secret
-  key_vault_id = var.key_vault_id
+data "azurerm_storage_account" "datahub_storageaccount" {
+  name                = var.storage_acct_name
+  resource_group_name = var.resource_group_name
 }
 
 locals {
