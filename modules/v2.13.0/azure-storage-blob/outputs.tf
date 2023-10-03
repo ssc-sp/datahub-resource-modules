@@ -8,7 +8,12 @@ output "datahub_blob_container" {
 }
 
 output "azure_storage_account_name" {
-  value      = azurerm_storage_account.datahub_storageaccount.name
+  value = azurerm_storage_account.datahub_storageaccount.name
+}
+
+output "azure_storage_account_key" {
+  value     = azurerm_storage_account.datahub_storageaccount.primary_access_key
+  sensitive = true
 }
 
 output "azure_storage_container_name" {
