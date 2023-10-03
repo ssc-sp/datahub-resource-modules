@@ -10,9 +10,9 @@ resource "azurerm_key_vault_secret" "datahub_mysql_admin" {
   key_vault_id = var.key_vault_id
 }
 
-resource "azurerm_key_vault_secret" "datahub_mysql_connection_str" {
-  name         = "datahub-mysql-conn"
-  value        = "Server=${azurerm_mysql_flexible_server.datahub_mysql_server.name};Database=${local.mysql_db_name};Uid=${local.mysql_admin_user};Pwd=${random_password.datahub_mysql_password.result};"
+resource "azurerm_key_vault_secret" "datahub_mysql_server" {
+  name         = "datahub-mysql-server"
+  value        = "${azurerm_mysql_flexible_server.datahub_mysql_server.fqdn}"
   key_vault_id = var.key_vault_id
 }
 
