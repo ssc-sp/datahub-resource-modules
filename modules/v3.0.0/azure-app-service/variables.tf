@@ -92,16 +92,10 @@ variable "docker_server_url" {
   default     = "https://ghcr.io"
 }
 
-variable "shiny_image_name" {
-  description = "Shiny app image name"
+variable "app_image_name" {
+  description = "Web app image name"
   type        = string
-  default     = "ghcr.io/ssc-sp/shiny-app"
-}
-
-variable "shiny_image_tag" {
-  description = "Shiny app image tag"
-  type        = string
-  default     = "latest"
+  default     = "ghcr.io/ssc-sp/shiny-app:latest"
 }
 
 variable "fsdh_dns_zone_name" {
