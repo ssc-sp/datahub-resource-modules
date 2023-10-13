@@ -34,6 +34,7 @@ resource "azurerm_linux_web_app" "datahub_proj_app" {
     always_on = "true" # BELOW: define the images to used for you application
 
     application_stack {
+      docker_registry_url = var.docker_server_url
       docker_image_name = var.app_image_name
     }
   }

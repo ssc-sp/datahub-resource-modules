@@ -93,9 +93,9 @@ variable "docker_server_url" {
 }
 
 variable "app_image_name" {
-  description = "Web app image name"
+  description = "Docker image name and tag"
   type        = string
-  default     = "ghcr.io/ssc-sp/shiny-app:latest"
+  default     = "ssc-sp/shiny-app:latest"
 }
 
 variable "fsdh_dns_zone_name" {
