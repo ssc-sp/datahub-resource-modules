@@ -81,6 +81,6 @@ module "mysql" {
   project_cd           = var.project_cd
   common_tags          = var.common_tags
   storage_acct_name    = module.storage.storage_acct_name
-  allow_source_ip_list = module.webapp.shiny_app_outbound_ip
+  allow_source_ip_list = module.webapp.proj_app_outbound_ip
 }
 

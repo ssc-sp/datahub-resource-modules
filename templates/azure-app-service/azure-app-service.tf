@@ -26,5 +26,5 @@ output "azure_app_service_id" {
 }
 
 output "azure_app_service_hostname" {
-  value = module.azure_app_service_module.shiny_app_azure_domain
+  value = module.azure_app_service_module.proj_app_azure_domain
 }
