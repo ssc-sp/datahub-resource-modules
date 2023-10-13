@@ -6,7 +6,7 @@ data "azurerm_subscription" "az_subscription" {
 
 locals {
   app_service_plan_name   = lower("${var.resource_prefix}-proj-${var.project_cd}-app-plan-${var.environment_name}")
-  app_service_name_shiny  = lower("${var.resource_prefix}-proj-${var.project_cd}-shiny-${var.environment_name}")
+  app_service_name        = lower("${var.resource_prefix}-proj-${var.project_cd}-webapp-${var.environment_name}")
   resource_group_location = "canadacentral"
   storage_key_secret      = "storage-key"
   storage_sas_secret      = "container-sas"

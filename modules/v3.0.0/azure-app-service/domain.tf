@@ -5,7 +5,7 @@ resource "azurerm_dns_cname_record" "datahub_app_cname" {
   zone_name           = var.fsdh_dns_zone_name
   resource_group_name = var.fsdh_dns_zone_rg
   ttl                 = 120
-  record              = azurerm_linux_web_app.datahub_proj_shiny_app.default_hostname
+  record              = azurerm_linux_web_app.datahub_proj_app.default_hostname
 }
 
 resource "azurerm_dns_txt_record" "datahub_dns_txt_record" {
@@ -16,7 +16,7 @@ resource "azurerm_dns_txt_record" "datahub_dns_txt_record" {
   resource_group_name = var.fsdh_dns_zone_rg
   ttl                 = 120
   record {
-    value = azurerm_linux_web_app.datahub_proj_shiny_app.custom_domain_verification_id
+    value = azurerm_linux_web_app.datahub_proj_app.custom_domain_verification_id
   }
 }
 
@@ -30,7 +30,7 @@ resource "azurerm_app_service_custom_hostname_binding" "datahub_app_custom_host"
   count = var.use_easy_auth ? 1 : 0
 
   hostname            = "${local.dns_record_name}.${var.fsdh_dns_zone_name}"
-  app_service_name    = azurerm_linux_web_app.datahub_proj_shiny_app.name
+  app_service_name    = azurerm_linux_web_app.datahub_proj_app.name
   resource_group_name = var.resource_group_name
 
   depends_on = [time_sleep.wait_for_dns_txt]
