@@ -32,7 +32,7 @@ resource "databricks_notebook" "fsdh_sample_notebook" {
 
       # COMMAND ----------
 
-      # option 2. mount FSDH storage
+      # option 2. mount FSDH storage using storage key
       if any(mount.mountPoint == "/mnt/fsdh" for mount in dbutils.fs.mounts()):
               dbutils.fs.unmount("/mnt/fsdh")
       dbutils.fs.mount(
@@ -43,6 +43,15 @@ resource "databricks_notebook" "fsdh_sample_notebook" {
       dbutils.fs.ls('/mnt/fsdh')
       df = spark.read.option("header","true").csv('/mnt/fsdh/fsdh-sample.csv')
       df.show(3);
+
+      # COMMAND ----------
+
+      import pandas as pd
+
+      df = spark.read.option("header","true").csv('/mnt/fsdh/fsdh-sample.csv');
+      df = df.toPandas()
+      df = df.astype({"Name": str, "Age": int})
+      df.plot.bar(x='Name', y='Age', figsize=(20,3))
 
     EOT
   )
