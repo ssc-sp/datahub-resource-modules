@@ -63,6 +63,12 @@ variable "storage_acct_name" {
   type        = string
 }
 
+variable "storage_acct_key" {
+  description = "Name of the project storage account"
+  type        = string
+  sensitive   = true
+}
+
 variable "common_tags" {
   description = "Common tags map"
   type        = map(any)

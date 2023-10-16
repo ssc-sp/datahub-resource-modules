@@ -40,7 +40,7 @@ resource "azurerm_linux_web_app" "datahub_proj_shiny_app" {
   }
 
   storage_account {
-    access_key   = data.azurerm_storage_account.datahub_storageaccount.primary_access_key
+    access_key   = var.storage_acct_key
     account_name = var.storage_acct_name
     name         = "${local.storage_acct_mount}-blob"
     share_name   = local.storage_acct_mount
@@ -49,7 +49,7 @@ resource "azurerm_linux_web_app" "datahub_proj_shiny_app" {
   }
 
   storage_account {
-    access_key   = data.azurerm_storage_account.datahub_storageaccount.primary_access_key
+    access_key   = var.storage_acct_key
     account_name = var.storage_acct_name
     name         = "${local.storage_acct_mount}-fs"
     share_name   = local.storage_acct_mount

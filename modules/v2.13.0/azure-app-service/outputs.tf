@@ -17,3 +17,7 @@ output "shiny_app_domain" {
 output "shiny_app_azure_domain" {
   value = azurerm_linux_web_app.datahub_proj_shiny_app.default_hostname
 }
+
+output "shiny_app_outbound_ip" {
+  value = azurerm_linux_web_app.datahub_proj_shiny_app.outbound_ip_address_list
+}

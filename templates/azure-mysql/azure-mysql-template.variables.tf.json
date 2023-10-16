@@ -1,0 +1,20 @@
+{
+  "variable": {
+    "mysql_sku": {
+      "type": "string",
+      "default": "B_Standard_B1s"
+    },
+    "allow_source_ip_start": {
+      "type": "string",
+      "default": ""
+    },
+    "allow_source_ip_end": {
+      "type": "string",
+      "default": ""
+    },
+    "allow_source_ip_list": {
+      "type": "list(string)",
+      "default": []
+    }
+  }
+}
