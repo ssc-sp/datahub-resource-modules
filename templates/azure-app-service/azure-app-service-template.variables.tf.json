@@ -33,14 +33,16 @@
       "default": "datahub-ssl"
     },
     "ssl_cert_kv_id": {
-      "type": "string"
+      "type": "string",
+      "default": ""
     },
     "sp_client_id": {
-      "type": "string"
+      "type": "string",
+      "default": ""
     },
     "use_easy_auth": {
       "type": "bool",
-      "default": true
+      "default": false
     },
     "acr_id": {
       "type": "string",

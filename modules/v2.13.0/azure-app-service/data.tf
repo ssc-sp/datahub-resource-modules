@@ -4,11 +4,6 @@ data "azurerm_subscription" "az_subscription" {
   subscription_id = var.az_subscription_id
 }
 
-data "azurerm_storage_account" "datahub_storageaccount" {
-  name                = var.storage_acct_name
-  resource_group_name = var.resource_group_name
-}
-
 locals {
   app_service_plan_name   = lower("${var.resource_prefix}-proj-${var.project_cd}-app-plan-${var.environment_name}")
   app_service_name_shiny  = lower("${var.resource_prefix}-proj-${var.project_cd}-shiny-${var.environment_name}")

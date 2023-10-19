@@ -18,7 +18,7 @@ resource "null_resource" "access_ip_block_all" {
     command     = <<-EOT
       az webapp config access-restriction remove -g ${self.triggers.rg_name} -n ${self.triggers.app_name} --rule-name block-all
     EOT
-    on_failure  = fail
+    on_failure  = continue
   }
 }
 
@@ -45,6 +45,6 @@ resource "null_resource" "access_ip_whitelist_one" {
     command     = <<-EOT
       az webapp config access-restriction remove -g ${self.triggers.rg_name} -n ${self.triggers.app_name} --rule-name fsdh-app
     EOT
-    on_failure  = fail
+    on_failure  = continue
   }
 }
