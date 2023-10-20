@@ -72,7 +72,7 @@ resource "azurerm_key_vault_access_policy" "kv_policy_datahub_sp" {
   tenant_id    = var.az_tenant_id
   object_id    = var.datahub_app_sp_oid
 
-  secret_permissions = ["List", "Get"]
+  secret_permissions = ["List", "Get", "Set", "Delete"]
   key_permissions    = ["List", "Get"]
 }
 
