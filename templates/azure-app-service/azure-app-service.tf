@@ -11,6 +11,7 @@ module "azure_app_service_module" {
   storage_acct_key    = module.azure_storage_blob_module.azure_storage_account_key
 
   # optional variables
+  environment_name   = var.environment_name
   az_tenant_id       = var.az_tenant_id
   az_subscription_id = var.az_subscription_id
   project_cd         = var.project_cd
