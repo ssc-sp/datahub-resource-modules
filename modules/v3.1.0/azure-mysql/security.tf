@@ -12,7 +12,7 @@ resource "azurerm_key_vault_secret" "datahub_mysql_admin" {
 
 resource "azurerm_key_vault_secret" "datahub_mysql_server" {
   name         = "datahub-mysql-server"
-  value        = "${azurerm_mysql_flexible_server.datahub_mysql_server.fqdn}"
+  value        = azurerm_mysql_flexible_server.datahub_mysql_server.fqdn
   key_vault_id = var.key_vault_id
 }
 
@@ -40,6 +40,17 @@ resource "azurerm_mysql_flexible_server_firewall_rule" "datahub_mysql_firewall_c
   server_name         = azurerm_mysql_flexible_server.datahub_mysql_server.name
   start_ip_address    = data.http.myip.response_body
   end_ip_address      = data.http.myip.response_body
+}
+
+
+resource "azurerm_mysql_flexible_server_active_directory_administrator" "mysql_dba_group_admin" {
+  count = var.mysql_dba_group_oid == "" ? 0 : 1
+
+  server_id   = azurerm_mysql_flexible_server.datahub_mysql_server.id
+  identity_id = var.mysql_dba_group_identity
+  login       = var.mysql_dba_group_name
+  object_id   = var.mysql_dba_group_oid
+  tenant_id   = var.az_tenant_id
 }
 
 # resource "azurerm_mysql_flexible_server_firewall_rule" "datahub_mysql_firewall_list" {

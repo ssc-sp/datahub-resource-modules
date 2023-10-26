@@ -99,6 +99,23 @@ variable "allow_source_ip_list" {
   default     = []
 }
 
+variable "mysql_dba_group_name" {
+  description = "AAD Group Name for the DBA"
+  type        = string
+  default     = ""
+}
+
+variable "mysql_dba_group_oid" {
+  description = "AAD Group OID for the DBA"
+  type        = string
+  default     = ""
+}
+
+variable "mysql_dba_group_identity" {
+  description = "AAD Group principal ID for the DBA"
+  type        = string
+  default     = ""
+}
 
 
 

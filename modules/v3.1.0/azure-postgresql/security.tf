@@ -40,6 +40,17 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "datahub_psql_firewa
   end_ip_address   = data.http.myip.response_body
 }
 
+resource "azurerm_postgresql_flexible_server_active_directory_administrator" "psql_dba_group_admin" {
+  count = var.psql_dba_group_oid == "" ? 0 : 1
+
+  server_name         = azurerm_postgresql_flexible_server.datahub_psql_server.name
+  resource_group_name = var.resource_group_name
+  tenant_id           = var.az_tenant_id
+  object_id           = var.psql_dba_group_name
+  principal_name      = var.psql_dba_group_oid
+  principal_type      = "Group"
+}
+
 # resource "azurerm_postgresql_flexible_server_firewall_rule" "datahub_psql_firewall_list" {
 #   for_each = concat(var.allow_source_ip_list, [data.http.myip.response_body])
 

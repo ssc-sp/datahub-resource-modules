@@ -99,6 +99,17 @@ variable "allow_source_ip_list" {
   default     = []
 }
 
+variable "psql_dba_group_name" {
+  description = "AAD Group Name for the DBA"
+  type        = string
+  default     = ""
+}
+
+variable "psql_dba_group_oid" {
+  description = "AAD Group OID for the DBA"
+  type        = string
+  default     = ""
+}
 
 
 
