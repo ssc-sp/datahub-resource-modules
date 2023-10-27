@@ -23,3 +23,7 @@ Version 2.13 removes user creation and delegates to the Python scripts outside T
 4. Upgrade the project to use this new version
 5. Run: `terraform init`
 6. Run: `terraform plan`
+
+# Manually Enable Container Service in Databricks Workspace
+- Obtain the Databricks Workspace URL and PAT
+- Run commmand: Invoke-RestMethod -Method PATCH -Uri "https://MY-WORKSPACE.azuredatabricks.net/api/2.0/workspace-conf" -Headers @{Authorization = "Bearer MY-PAT"} -Body '{"enableDcs": "true"}'
