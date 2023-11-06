@@ -1,7 +1,7 @@
 data "azurerm_client_config" "current" {}
 
 module "resourceGroup" {
-  source              = "../../modules/azure-resource-group"
+  source              = "../../modules/{{version}}/azure-resource-group"
   az_tenant_id        = var.az_tenant
   az_subscription_id  = var.az_subscription
   project_cd          = var.project_cd
@@ -13,7 +13,7 @@ module "resourceGroup" {
 }
 
 module "storage" {
-  source                    = "../../modules/azure-storage-blob"
+  source                    = "../../modules/{{version}}/azure-storage-blob"
   depends_on                = [module.resourceGroup]
   resource_group_name       = module.resourceGroup.az_project_rg_name
   key_vault_id              = module.resourceGroup.az_project_kv_id
@@ -30,7 +30,7 @@ module "storage" {
 }
 
 module "databricks" {
-  source                          = "../../modules/azure-databricks"
+  source                          = "../../modules/{{version}}/azure-databricks"
   resource_group_name             = module.resourceGroup.az_project_rg_name
   key_vault_id                    = module.resourceGroup.az_project_kv_id
   key_vault_cmk_id                = module.resourceGroup.az_project_cmk_id
@@ -51,7 +51,7 @@ module "databricks" {
 }
 
 module "webapp" {
-  source              = "../../modules/azure-app-service"
+  source              = "../../modules/{{version}}/azure-app-service"
   resource_group_name = module.resourceGroup.az_project_rg_name
   key_vault_id        = module.resourceGroup.az_project_kv_id
   key_vault_cmk_id    = module.resourceGroup.az_project_cmk_id
@@ -64,6 +64,23 @@ module "webapp" {
   use_easy_auth       = false
   sp_client_id        = var.sp_client_id
   ssl_cert_kv_id      = var.ssl_cert_kv_id
-  storage_acct_name   = module.storage.storage_acct_name
+  storage_acct_name   = module.storage.azure_storage_account_name
   allow_source_ip     = data.http.myip.response_body
+  storage_acct_key    = module.storage.azure_storage_account_key
 }
+
+module "mysql" {
+  source               = "../../modules/{{version}}/azure-mysql"
+  resource_group_name  = module.resourceGroup.az_project_rg_name
+  key_vault_id         = module.resourceGroup.az_project_kv_id
+  key_vault_cmk_id     = module.resourceGroup.az_project_cmk_id
+  key_vault_url        = module.resourceGroup.az_project_kv_url
+  key_vault_name       = module.resourceGroup.az_project_kv_name
+  az_tenant_id         = var.az_tenant
+  az_subscription_id   = var.az_subscription
+  project_cd           = var.project_cd
+  common_tags          = var.common_tags
+  storage_acct_name    = module.storage.storage_acct_name
+  allow_source_ip_list = module.webapp.proj_app_outbound_ip
+}
+
