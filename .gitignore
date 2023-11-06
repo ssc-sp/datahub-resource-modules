@@ -2,5 +2,6 @@
 sample-project/templates/*.variables.tf.json
 sample-project/templates/azure-databricks.tf
 sample-project/templates/azure-storage-blob.tf
+sample-project/templates/azure-app-service.tf
 sample-project/templates/main.tf
 .*

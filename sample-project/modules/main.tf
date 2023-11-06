@@ -49,3 +49,21 @@ module "databricks" {
   project_guest_users             = var.databricks_project_guests
   log_workspace_id                = var.log_workspace_id
 }
+
+module "webapp" {
+  source              = "../../modules/azure-app-service"
+  resource_group_name = module.resourceGroup.az_project_rg_name
+  key_vault_id        = module.resourceGroup.az_project_kv_id
+  key_vault_cmk_id    = module.resourceGroup.az_project_cmk_id
+  key_vault_url       = module.resourceGroup.az_project_kv_url
+  key_vault_name      = module.resourceGroup.az_project_kv_name
+  az_tenant_id        = var.az_tenant
+  az_subscription_id  = var.az_subscription
+  project_cd          = var.project_cd
+  common_tags         = var.common_tags
+  use_easy_auth       = false
+  sp_client_id        = var.sp_client_id
+  ssl_cert_kv_id      = var.ssl_cert_kv_id
+  storage_acct_name   = module.storage.storage_acct_name
+  allow_source_ip     = data.http.myip.response_body
+}
