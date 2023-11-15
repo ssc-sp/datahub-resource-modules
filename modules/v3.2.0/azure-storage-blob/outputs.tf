@@ -11,6 +11,10 @@ output "azure_storage_account_name" {
   value = azurerm_storage_account.datahub_storageaccount.name
 }
 
+output "azure_storage_account_id" {
+  value = azurerm_storage_account.datahub_storageaccount.id
+}
+
 output "azure_storage_account_key" {
   value     = azurerm_storage_account.datahub_storageaccount.primary_access_key
   sensitive = true
