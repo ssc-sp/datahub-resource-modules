@@ -33,12 +33,6 @@ variable "resource_prefix" {
   default     = "fsdh"
 }
 
-variable "az_location" {
-  description = "The Azure location to create the resources in"
-  type        = string
-  default     = "canadacentral"
-}
-
 variable "resource_group_name" {
   description = "Resource group name"
   type        = string
@@ -69,53 +63,30 @@ variable "storage_acct_name" {
   type        = string
 }
 
+variable "storage_acct_id" {
+  description = "ID of the project storage account"
+  type        = string
+}
+
 variable "common_tags" {
   description = "Common tags map"
   type        = map(any)
 }
 
-#--------------
-variable "mysql_sku" {
-  description = "SKU name for the MySQL Flexible Server"
+variable "batch_default_vm_sku" {
+  description = "The default SKU for the VM used in Azure Batch account"
   type        = string
-  default     = "B_Standard_B1s"
+  default     = "STANDARD_D3_V2"
 }
 
-variable "allow_source_ip_start" {
-  description = "Start IP for allowed IP range to be configured with MyDSQL firewall rule "
+variable "batch_vm_max" {
+  description = "The max number of VM for the pool"
+  type        = number
+  default     = 2
+}
+
+variable "batch_starter_image_url" {
+  description = "Password for Container Registry used by this batch account"
   type        = string
-  default     = ""
+  default     = "ghcr.io/ssc-sp/dbr-sen2cor:latest"
 }
-
-variable "allow_source_ip_end" {
-  description = "End IP for allowed IP range to be configured with MyDSQL firewall rule"
-  type        = string
-  default     = ""
-}
-
-variable "allow_source_ip_list" {
-  description = "End IP for allowed IP range to be configured with MyDSQL firewall rule"
-  type        = list(string)
-  default     = []
-}
-
-variable "mysql_dba_group_name" {
-  description = "AAD Group Name for the DBA"
-  type        = string
-  default     = ""
-}
-
-variable "mysql_dba_group_oid" {
-  description = "AAD Group OID for the DBA"
-  type        = string
-  default     = ""
-}
-
-variable "mysql_dba_group_identity" {
-  description = "AAD Group principal ID for the DBA"
-  type        = string
-  default     = ""
-}
-
-
-

@@ -33,12 +33,6 @@ variable "resource_prefix" {
   default     = "fsdh"
 }
 
-variable "az_location" {
-  description = "The Azure location to create the resources in"
-  type        = string
-  default     = "canadacentral"
-}
-
 variable "resource_group_name" {
   description = "Resource group name"
   type        = string
@@ -46,11 +40,6 @@ variable "resource_group_name" {
 
 variable "key_vault_id" {
   description = "Key vault ID"
-  type        = string
-}
-
-variable "key_vault_name" {
-  description = "Key vault name"
   type        = string
 }
 
@@ -64,55 +53,64 @@ variable "key_vault_cmk_id" {
   type        = string
 }
 
-variable "storage_acct_name" {
-  description = "Name of the project storage account"
-  type        = string
-}
-
 variable "common_tags" {
   description = "Common tags map"
   type        = map(any)
 }
 
-#--------------
-variable "mysql_sku" {
-  description = "SKU name for the MySQL Flexible Server"
-  type        = string
-  default     = "B_Standard_B1s"
+variable "run_in_devops" {
+  description = "If this is being run in Azure DevOps, default to true"
+  type        = bool
+  default     = true
 }
 
-variable "allow_source_ip_start" {
-  description = "Start IP for allowed IP range to be configured with MyDSQL firewall rule "
-  type        = string
-  default     = ""
+variable "admin_users" {
+  description = "List of admin user emails"
+  type        = list(any)
 }
 
-variable "allow_source_ip_end" {
-  description = "End IP for allowed IP range to be configured with MyDSQL firewall rule"
-  type        = string
-  default     = ""
-}
-
-variable "allow_source_ip_list" {
-  description = "End IP for allowed IP range to be configured with MyDSQL firewall rule"
-  type        = list(string)
+variable "project_lead_users" {
+  description = "List of lead user emails"
+  type        = list(any)
   default     = []
 }
 
-variable "mysql_dba_group_name" {
-  description = "AAD Group Name for the DBA"
-  type        = string
-  default     = ""
+variable "project_users" {
+  description = "List of regular user emails"
+  type        = list(any)
+  default     = []
 }
 
-variable "mysql_dba_group_oid" {
-  description = "AAD Group OID for the DBA"
-  type        = string
-  default     = ""
+variable "project_guest_users" {
+  description = "List of guest user emails"
+  type        = list(any)
+  default     = []
 }
 
-variable "mysql_dba_group_identity" {
-  description = "AAD Group principal ID for the DBA"
+variable "azure_databricks_enterprise_oid" {
+  description = "Object ID of enterprise application AzureDatabricks"
+  type        = string
+}
+
+variable "storage_acct_name" {
+  description = "Name of the project storage account"
+  type        = string
+}
+
+variable "budget_amount" {
+  description = "Budget amount for the resource group"
+  type        = number
+  default     = 0
+}
+
+variable "budget_start_date" {
+  description = "The start date of budget"
+  type        = string
+  default     = "2023-04-01T00:00:00Z"
+}
+
+variable "log_workspace_id" {
+  description = "The object ID of the pre-existing centrally managed Azure Log Analytics Workspace"
   type        = string
   default     = ""
 }
