@@ -22,7 +22,7 @@ resource "databricks_secret_acl" "kv_secret_scope_acl" {
   scope      = databricks_secret_scope.kv_secret_scope.name
 }
 
-resource "azurerm_databricks_workspace_customer_managed_key" "datahub_databricks_proj_cmk" {
+resource "azurerm_databricks_workspace_root_dbfs_customer_managed_key" "datahub_databricks_proj_cmk" {
   workspace_id     = azurerm_databricks_workspace.datahub_databricks_workspace.id
   key_vault_key_id = var.key_vault_cmk_id
 

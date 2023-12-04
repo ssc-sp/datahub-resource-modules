@@ -1,5 +1,4 @@
-resource_group_name  = "GcQc-CTO_FSDH_seed-rg"
-storage_account_name = "gcqcctofsdhtfbackend"
+resource_group_name  = "GcQc-CTO_FSDH_proj-rg"
+storage_account_name = "gcqcctofsdhprojtfbackend"
 container_name       = "fsdhproject"
-key                  = "fsdh-project.tfstate.sw1t1"
-
+key                  = "fsdh-project.tfstate.sw1t"

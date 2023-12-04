@@ -1,5 +1,5 @@
 module "azure_storage_blob_module" {
-  source = "github.com/ssc-sp/datahub-resource-modules//modules/{{version}}/azure-storage-blob{{branch}}"
+  source     = "github.com/ssc-sp/datahub-resource-modules//modules/{{version}}/azure-storage-blob{{branch}}"
   depends_on = [module.resource_group_module]
 
   resource_group_name = module.resource_group_module.az_project_rg_name
@@ -15,6 +15,7 @@ module "azure_storage_blob_module" {
   storage_reader_users      = var.storage_reader_users
   storage_size_limit_tb     = var.storage_size_limit_tb
   common_tags               = var.common_tags
+  resource_prefix           = var.resource_prefix
 
   environment_name = var.environment_name
   az_location      = var.az_location

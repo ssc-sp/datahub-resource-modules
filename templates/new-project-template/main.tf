@@ -53,6 +53,7 @@ module "resource_group_module" {
   project_cd         = var.project_cd
   environment_name   = var.environment_name
   datahub_app_sp_oid = var.datahub_app_sp_oid
+  resource_prefix    = var.resource_prefix
 
   # optional variables
   budget_amount       = var.budget_amount

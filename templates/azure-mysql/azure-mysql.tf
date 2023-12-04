@@ -12,6 +12,8 @@ module "azure_mysql_module" {
   # optional variables
   az_tenant_id       = var.az_tenant_id
   az_subscription_id = var.az_subscription_id
+  resource_prefix    = var.resource_prefix
+  environment_name   = var.environment_name
   project_cd         = var.project_cd
   common_tags        = var.common_tags
 

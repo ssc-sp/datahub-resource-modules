@@ -6,9 +6,9 @@ data "azurerm_subscription" "az_subscription" {
 
 locals {
   resource_group_name     = lower("${var.resource_prefix}_proj_${var.project_cd}_${var.environment_name}_rg")
-  databricks_rg_name      = lower("${var.resource_prefix}-dbk-${var.project_cd}-${var.environment_name}-rg")
+  databricks_rg_name      = lower("${var.resource_prefix}-dbr-${var.project_cd}-${var.environment_name}-rg")
   resource_group_location = var.az_location
-  kv_name                 = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-kv")
+  kv_name                 = replace(lower("${replace(var.resource_prefix, "-","")}-${var.project_cd}-${var.environment_name}-kv"), "_", "-")
   automation_acct_name    = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-auto")
   cost_runbook_name       = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-cost-stop-runbook")
   cost_check_runbook_name = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-cost-check-runbook")
