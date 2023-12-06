@@ -11,13 +11,13 @@ $PSScriptRoot
 $cwd = Get-Location
 
 
-cp $PSScriptRoot/../../templates/azure-databricks/*tf* . -Force
-cp $PSScriptRoot/../../templates/azure-app-service/*tf* . -Force
-cp $PSScriptRoot/../../templates/azure-storage-blob/*tf* . -Force
-cp $PSScriptRoot/../../templates/azure-mysql/*tf* . -Force
-cp $PSScriptRoot/../../templates/azure-postgresql/*tf* . -Force
-cp $PSScriptRoot/../../templates/new-project-template/*tf* . -Force
-cp $PSScriptRoot/../../templates/azure-batch/*tf* . -Force
+Copy-Item $PSScriptRoot/../../templates/azure-databricks/*tf* . -Force
+Copy-Item $PSScriptRoot/../../templates/azure-app-service/*tf* . -Force
+Copy-Item $PSScriptRoot/../../templates/azure-storage-blob/*tf* . -Force
+Copy-Item $PSScriptRoot/../../templates/azure-mysql/*tf* . -Force
+Copy-Item $PSScriptRoot/../../templates/azure-postgresql/*tf* . -Force
+Copy-Item $PSScriptRoot/../../templates/new-project-template/*tf* . -Force
+Copy-Item $PSScriptRoot/../../templates/azure-batch/*tf* . -Force
 
 $file = 'azure-databricks.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../../modules/' -replace '{{version}}', "$version" -replace '{{branch}}', '' | Set-Content $file
 $file = 'azure-storage-blob.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../../modules/' -replace '{{version}}', "$version" -replace '{{branch}}', '' | Set-Content $file
