@@ -70,11 +70,11 @@ resource "azurerm_automation_webhook" "az_project_cost_runbook_webhook" {
   }
 }
 
-# resource "azurerm_role_assignment" "automation_acct_assignment" {
-#   scope                = data.azurerm_subscription.az_subscription.id
-#   role_definition_name = "Billing Reader"
-#   principal_id         = azurerm_automation_account.az_project_automation_acct.identity[0].principal_id
-# }
+resource "azurerm_role_assignment" "automation_acct_assignment" {
+  scope                = data.azurerm_subscription.az_subscription.id
+  role_definition_name = "Billing Reader"
+  principal_id         = azurerm_automation_account.az_project_automation_acct.identity[0].principal_id
+}
 
 resource "azurerm_automation_schedule" "daily_cost_check" {
   name                    = "schedule-${local.cost_check_runbook_name}"
