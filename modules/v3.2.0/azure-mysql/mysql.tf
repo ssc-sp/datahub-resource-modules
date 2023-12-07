@@ -28,6 +28,7 @@ resource "azurerm_mysql_flexible_server" "datahub_mysql_server" {
   sku_name               = var.mysql_sku
   tags                   = local.project_tags
   version                = "8.0.21"
+  zone                   = "1"
 
   customer_managed_key {
     key_vault_key_id                  = var.key_vault_cmk_id
