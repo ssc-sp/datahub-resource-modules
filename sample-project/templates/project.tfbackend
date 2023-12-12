@@ -1,4 +1,5 @@
-resource_group_name  = "GcQc-CTO_FSDH_proj-rg"
-storage_account_name = "gcqcctofsdhprojtfbackend"
+subscription_id      = "de4a8a38-5485-4542-80ad-35278cb43796"
+resource_group_name  = "GcQc-CTO_FSDH_seed-rg"
+storage_account_name = "gcqcctofsdhtfbackend"
 container_name       = "fsdhproject"
 key                  = "fsdh-project.tfstate.sw1t"
