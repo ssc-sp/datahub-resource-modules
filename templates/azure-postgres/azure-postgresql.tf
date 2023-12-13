@@ -13,7 +13,7 @@ module "azure_postgresql_module" {
   project_cd         = var.project_cd
   common_tags        = var.common_tags
 
-  allow_source_ip_list = module.azure_app_service_module.proj_app_outbound_ip
+  # allow_source_ip_list = module.azure_app_service_module.proj_app_outbound_ip
 }
 
 output "azure_psql_module_status" {
