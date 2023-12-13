@@ -64,11 +64,6 @@ variable "key_vault_cmk_id" {
   type        = string
 }
 
-variable "storage_acct_name" {
-  description = "Name of the project storage account"
-  type        = string
-}
-
 variable "common_tags" {
   description = "Common tags map"
   type        = map(any)

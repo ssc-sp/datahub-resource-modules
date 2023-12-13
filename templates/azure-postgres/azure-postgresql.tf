@@ -1,13 +1,11 @@
 module "azure_postgresql_module" {
   source     = "github.com/ssc-sp/datahub-resource-modules//modules/{{version}}/azure-postgresql{{branch}}"
-  depends_on = [module.azure_storage_blob_module]
 
   resource_group_name = module.resource_group_module.az_project_rg_name
   key_vault_id        = module.resource_group_module.az_project_kv_id
   key_vault_cmk_id    = module.resource_group_module.az_project_cmk_id
   key_vault_url       = module.resource_group_module.az_project_kv_url
   key_vault_name      = module.resource_group_module.az_project_kv_name
-  storage_acct_name   = module.azure_storage_blob_module.azure_storage_account_name
 
   # optional variables
   az_tenant_id       = var.az_tenant_id
