@@ -28,10 +28,18 @@ output "azure_postgresql_id" {
   value = module.azure_postgresql_module.psql_id
 }
 
-output "azure_postgresql_name" {
+output "azure_postgresql_server_name" {
   value = module.azure_postgresql_module.psql_name
 }
 
 output "azure_postgresql_db_name" {
-  value = "fsdn"
+  value = module.azure_postgresql_module.psql_db_name_project
+}
+
+output "azure_postgresql_secret_name_admin" {
+  value = module.azure_postgresql_module.secret_name_admin
+}
+
+output "azure_postgresql_secret_name_password" {
+  value = module.azure_postgresql_module.secret_name_password
 }
