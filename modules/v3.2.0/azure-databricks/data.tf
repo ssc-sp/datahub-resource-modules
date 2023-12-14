@@ -1,6 +1,5 @@
-data "azurerm_subscription" "az_subscription" {
-  subscription_id = var.az_subscription_id
-}
+data "azurerm_client_config" "current" {}
+data "azurerm_subscription" "az_subscription" { subscription_id = var.az_subscription_id }
 
 locals {
   databricks_name         = lower("${var.resource_prefix}-dbk-${var.project_cd}-${var.environment_name}")
