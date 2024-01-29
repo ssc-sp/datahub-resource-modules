@@ -78,7 +78,7 @@ variable "common_tags" {
 variable "psql_sku" {
   description = "SKU name for the PostgreSQL Flexible Server"
   type        = string
-  default     = "GP_Standard_D4s_v3"
+  default     = "Standard_B1ms"
 }
 
 variable "allow_source_ip_start" {
