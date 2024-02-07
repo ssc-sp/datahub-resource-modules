@@ -1,6 +1,6 @@
 # Resource module v3.1.0
 
-Chanages
+Changes
 
 - Add env name to app service template
 - Added KV update secrets permission to datahub SP
