@@ -1,18 +1,18 @@
 {
   "variable": {
-    "mysql_sku": {
+    "psql_sku": {
       "type": "string",
       "default": "B_Standard_B1s"
     },
-    "mysql_source_ip_start": {
+    "psql_source_ip_start": {
       "type": "string",
       "default": ""
     },
-    "mysql_source_ip_end": {
+    "psql_source_ip_end": {
       "type": "string",
       "default": ""
     },
-    "mysql_source_ip_list": {
+    "psql_source_ip_list": {
       "type": "list(string)",
       "default": []
     }

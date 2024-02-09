@@ -64,21 +64,16 @@ variable "key_vault_cmk_id" {
   type        = string
 }
 
-variable "storage_acct_name" {
-  description = "Name of the project storage account"
-  type        = string
-}
-
 variable "common_tags" {
   description = "Common tags map"
   type        = map(any)
 }
 
 #--------------
-variable "mysql_sku" {
-  description = "SKU name for the MySQL Flexible Server"
+variable "psql_sku" {
+  description = "SKU name for the PostgreSQL Flexible Server"
   type        = string
-  default     = "B_Standard_B1s"
+  default     = "Standard_B1ms"
 }
 
 variable "allow_source_ip_start" {
@@ -99,20 +94,14 @@ variable "allow_source_ip_list" {
   default     = []
 }
 
-variable "mysql_dba_group_name" {
+variable "psql_dba_group_name" {
   description = "AAD Group Name for the DBA"
   type        = string
   default     = ""
 }
 
-variable "mysql_dba_group_oid" {
+variable "psql_dba_group_oid" {
   description = "AAD Group OID for the DBA"
-  type        = string
-  default     = ""
-}
-
-variable "mysql_dba_group_identity" {
-  description = "AAD Group principal ID for the DBA"
   type        = string
   default     = ""
 }
