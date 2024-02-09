@@ -2,7 +2,7 @@
   "variable": {
     "psql_sku": {
       "type": "string",
-      "default": "B_Standard_B1ms"
+      "default": "B_Standard_B1s"
     },
     "psql_source_ip_start": {
       "type": "string",
