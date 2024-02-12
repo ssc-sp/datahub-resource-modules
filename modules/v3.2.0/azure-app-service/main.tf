@@ -20,8 +20,6 @@ resource "azurerm_linux_web_app" "datahub_proj_app" {
   app_settings = {
     DOCKER_REGISTRY_SERVER_URL          = var.docker_server_url
     WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
-    WEBSITES_PORT                       = "3838"
-    SHINY_APP_FOLDER                    = "shiny"
     BLOB_ACCOUNT_KEY                    = "@Microsoft.KeyVault(VaultName=${var.key_vault_name};SecretName=${local.storage_key_secret})"
     BLOB_ACCOUNT_NAME                   = var.storage_acct_name
     BLOB_CONTAINER_NAME                 = local.storage_acct_mount
@@ -32,11 +30,6 @@ resource "azurerm_linux_web_app" "datahub_proj_app" {
 
   site_config {
     always_on = "true" # BELOW: define the images to used for you application
-
-    application_stack {
-      docker_registry_url = var.docker_server_url
-      docker_image_name = var.app_image_name
-    }
   }
 
   storage_account {
