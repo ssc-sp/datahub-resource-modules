@@ -40,7 +40,7 @@ resource "null_resource" "cluster_config" {
   provisioner "local-exec" {
     interpreter = ["pwsh", "-Command"]
     command     = <<-EOT
-      Invoke-RestMethod -Method PATCH -Uri "https://${azurerm_databricks_workspace.datahub_databricks_workspace.workspace_url}/api/2.0/workspace-conf" -Headers @{Authorization = "Bearer ${databricks_token.terraform_pat.token_value}"} -Body '{"enableDcs": "true"}' 
+      Invoke-RestMethod -Method PATCH -Uri "https://${azurerm_databricks_workspace.datahub_databricks_workspace.workspace_url}/api/2.0/workspace-conf" -Headers @{Authorization = "Bearer ${databricks_token.terraform_pat.token_value}"} -Body '{"enableDcs": "true"}' -ContentType "application/json"
     EOT
     on_failure  = fail
   }
