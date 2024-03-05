@@ -35,7 +35,7 @@ resource "azurerm_linux_web_app" "datahub_proj_app" {
 
     application_stack {
       docker_registry_url = var.docker_server_url
-      docker_image_name = var.app_image_name
+      docker_image_name   = var.app_image_name
     }
   }
 
