@@ -44,4 +44,4 @@ resource "null_resource" "cluster_config" {
     EOT
     on_failure  = fail
   }
-} 
+}
