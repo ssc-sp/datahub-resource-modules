@@ -76,6 +76,9 @@ resource "azurerm_linux_web_app" "datahub_proj_app" {
   identity {
     type = "SystemAssigned"
   }
+  lifecycle {
+    ignore_changes = [site_config]
+  }
 }
 
 resource "null_resource" "datahub_proj_app_easy_auth" {
