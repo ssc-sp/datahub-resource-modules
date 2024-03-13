@@ -10,7 +10,7 @@ resource "null_resource" "datahub_psql_db_extension" {
     interpreter = ["pwsh", "-Command"]
     command     = <<-EOT
       $env:PGPASSWORD="${random_password.datahub_psql_password.result}" 
-      psql -h ${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn} -U ${local.psql_admin_user} -d ${local.psql_db_name} -c "create extension postgis"
+      psql -h ${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn} -U ${local.psql_admin_user} -d ${local.psql_db_name} -c "create extension if not exists postgis"
     EOT
     on_failure  = continue
   }
