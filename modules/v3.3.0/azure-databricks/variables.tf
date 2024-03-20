@@ -106,7 +106,7 @@ variable "budget_amount" {
 variable "budget_start_date" {
   description = "The start date of budget"
   type        = string
-  default     = "2023-04-01T00:00:00Z"
+  default     = ""
 }
 
 variable "log_workspace_id" {
