@@ -38,9 +38,7 @@ resource "null_resource" "datahub_proj_storage_alert" {
   provisioner "local-exec" { # Run config: az configure --defaults group=<project resource group>
     when        = destroy
     interpreter = ["pwsh", "-Command"]
-    command     = <<-EOT
-      az monitor metrics alert delete -n alertUsedCapacity --resource-group ${var.resource_group_name}"
-    EOT
+    command     = "az monitor metrics alert delete -n alertUsedCapacity "
   }
 
   depends_on = [null_resource.az_configure_rg]
