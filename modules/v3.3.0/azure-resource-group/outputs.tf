@@ -20,7 +20,7 @@ output "az_project_kv_url" {
 
 output "az_project_cmk" {
   value      = azurerm_key_vault_key.az_proj_cmk.name
-  depends_on = [azurerm_role_assignment.kv_runner_role_contrib]
+  depends_on = [azurerm_role_assignment.kv_runner_role]
 }
 
 output "az_project_cmk_id" {
