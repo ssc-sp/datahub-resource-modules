@@ -19,8 +19,8 @@ output "az_project_kv_url" {
 }
 
 output "az_project_cmk" {
-  value = azurerm_key_vault_key.az_proj_cmk.name
-  depends_on = [ azurerm_key_vault_access_policy.current_runner_access_policy ]
+  value      = azurerm_key_vault_key.az_proj_cmk.name
+  depends_on = [azurerm_key_vault_access_policy.current_runner_access_policy]
 }
 
 output "az_project_cmk_id" {
