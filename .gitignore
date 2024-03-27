@@ -6,3 +6,5 @@ sample-project/templates/azure-app-service.tf
 sample-project/templates/azure-mysql.tf
 sample-project/templates/main.tf
 .*
+sample-project/templates/azure-postgresql.tf
+sample-project/templates/azure-batch.tf

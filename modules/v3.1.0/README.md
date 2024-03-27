@@ -1,8 +1,13 @@
-# Resource module v2.13.0
+# Resource module v3.1.0
 
-## Migration procedure
+Chanages
 
-This version removes user creation and delegates to the Python scripts outside Terraform. BEFORE upgrading to this version, users state must be removed. This leaves user accounts unchanged but removes the Terraform state for user accounts.
+- Add env name to app service template
+- Added KV update secrets permission to datahub SP
+
+## Procedure for Migration from v2.12.0 or lower
+
+Version 2.13 removes user creation and delegates to the Python scripts outside Terraform. BEFORE upgrading to this version, users state must be removed. This leaves user accounts unchanged but removes the Terraform state for user accounts.
 
 1. Login to Azure
 2. Change directory to the project directory
@@ -18,3 +23,7 @@ This version removes user creation and delegates to the Python scripts outside T
 4. Upgrade the project to use this new version
 5. Run: `terraform init`
 6. Run: `terraform plan`
+
+# Manually Enable Container Service in Databricks Workspace
+- Obtain the Databricks Workspace URL and PAT
+- Run commmand: Invoke-RestMethod -Method PATCH -Uri "https://MY-WORKSPACE.azuredatabricks.net/api/2.0/workspace-conf" -Headers @{Authorization = "Bearer MY-PAT"} -Body '{"enableDcs": "true"}'

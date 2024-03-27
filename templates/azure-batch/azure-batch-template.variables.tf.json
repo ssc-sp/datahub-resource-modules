@@ -1,0 +1,17 @@
+{
+  "variable": {
+    "batch_default_vm_sku": {
+      "type": "string",
+      "default": "STANDARD_D3_V2"
+    },
+    "batch_vm_max": {
+      "type": "number",
+      "default": 2
+    },
+    "batch_starter_image_url": {
+      "type": "string",
+      "default": "ghcr.io/ssc-sp/dbr-sen2cor:latest"
+    }
+  }
+}
+
