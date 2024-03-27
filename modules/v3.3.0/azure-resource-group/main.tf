@@ -38,38 +38,25 @@ resource "azurerm_key_vault_key" "az_proj_cmk" {
   key_size     = 2048
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
 
-  depends_on = [azurerm_role_assignment.kv_runner_role_contrib]
+  depends_on = [azurerm_role_assignment.kv_runner_role]
 }
 
-resource "azurerm_role_assignment" "kv_runner_role_owner" {
+resource "azurerm_role_assignment" "kv_runner_role" {
+  for_each = toset(["Key Vault Administrator", "Contributor", "Owner"])
+
   scope                = azurerm_key_vault.az_proj_kv.id
-  role_definition_name = "Owner"
+  role_definition_name = each.key
   principal_id         = data.azurerm_client_config.current.object_id
 }
 
-resource "azurerm_role_assignment" "kv_runner_role_contrib" {
-  scope                = azurerm_key_vault.az_proj_kv.id
-  role_definition_name = "Contributor"
-  principal_id         = data.azurerm_client_config.current.object_id
-}
+resource "azurerm_role_assignment" "kv_admin_role" {
+  for_each = toset(["Key Vault Administrator", "Contributor"])
 
-resource "azurerm_role_assignment" "kv_runner_role_rg" {
   scope                = azurerm_key_vault.az_proj_kv.id
-  role_definition_name = "Key Vault Administrator"
-  principal_id         = data.azurerm_client_config.current.object_id
-}
-
-resource "azurerm_role_assignment" "kv_admin_role_contrib" {
-  scope                = azurerm_key_vault.az_proj_kv.id
-  role_definition_name = "Contributor"
+  role_definition_name = each.key
   principal_id         = var.aad_admin_group_oid
 }
 
-resource "azurerm_role_assignment" "kv_admin_role_rg" {
-  scope                = azurerm_key_vault.az_proj_kv.id
-  role_definition_name = "Key Vault Administrator"
-  principal_id         = var.aad_admin_group_oid
-}
 
 resource "azurerm_role_assignment" "kv_automation_role" {
   scope                = azurerm_key_vault.az_proj_kv.id
@@ -78,8 +65,10 @@ resource "azurerm_role_assignment" "kv_automation_role" {
 }
 
 resource "azurerm_role_assignment" "kv_datahub_app_role" {
+  for_each = toset(["Contributor", "Key Vault Secrets User"])
+
   scope                = azurerm_key_vault.az_proj_kv.id
-  role_definition_name = "Contributor"
+  role_definition_name = each.key
   principal_id         = var.datahub_app_sp_oid
 }
 
