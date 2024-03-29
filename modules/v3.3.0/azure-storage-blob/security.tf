@@ -1,12 +1,8 @@
-resource "azurerm_role_assignment" "kv_storage_role_secret" {
-  scope                = var.key_vault_id
-  role_definition_name = "Key Vault Secrets User"
-  principal_id         = azurerm_storage_account.datahub_storageaccount.identity.0.principal_id
-}
+resource "azurerm_role_assignment" "kv_storage_role" {
+  for_each = toset(["Key Vault Secrets User", "Key Vault Crypto User"])
 
-resource "azurerm_role_assignment" "kv_storage_role_crypto" {
   scope                = var.key_vault_id
-  role_definition_name = "Key Vault Crypto User"
+  role_definition_name = each.key
   principal_id         = azurerm_storage_account.datahub_storageaccount.identity.0.principal_id
 }
 
@@ -15,7 +11,7 @@ resource "azurerm_storage_account_customer_managed_key" "datahub_storageaccount_
   key_vault_id       = var.key_vault_id
   key_name           = var.key_vault_cmk_name
 
-  depends_on = [azurerm_role_assignment.kv_storage_role_crypto]
+  depends_on = [azurerm_role_assignment.kv_storage_role]
 }
 
 data "azurerm_storage_account_blob_container_sas" "datahub_container_sas" {
@@ -37,19 +33,18 @@ data "azurerm_storage_account_blob_container_sas" "datahub_container_sas" {
 }
 
 resource "azurerm_role_assignment" "proj_storage_creator_role" {
+  for_each = toset(["Storage Blob Data Contributor"])
+
   scope                = azurerm_storage_account.datahub_storageaccount.id
-  role_definition_name = "Storage Blob Data Contributor"
+  role_definition_name = each.key
   principal_id         = data.azurerm_client_config.current.object_id
 }
 
 resource "azurerm_role_assignment" "proj_storage_automation_contrib" {
+  for_each = toset(["Storage Blob Data Contributor", "Reader and Data Access"])
+
   scope                = azurerm_storage_account.datahub_storageaccount.id
-  role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = var.automation_acct_id
-}
-resource "azurerm_role_assignment" "proj_storage_automation_reader" {
-  scope                = azurerm_storage_account.datahub_storageaccount.id
-  role_definition_name = "Reader and Data Access"
+  role_definition_name = each.key
   principal_id         = var.automation_acct_id
 }
 

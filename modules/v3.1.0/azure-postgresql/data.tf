@@ -6,7 +6,7 @@ data "http" "myip" {
 }
 
 locals {
-  project_tags      = merge(var.common_tags, { "project_cd" : var.project_cd, "env" : var.environment_name })
+  project_tags     = merge(var.common_tags, { "project_cd" : var.project_cd, "env" : var.environment_name })
   psql_server_name = "${var.resource_prefix}-portal-psql-${var.environment_name}"
   psql_admin_user  = "fsdhadmin"
   psql_db_name     = "fsdh"

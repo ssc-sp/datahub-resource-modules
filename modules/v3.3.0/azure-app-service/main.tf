@@ -103,7 +103,9 @@ resource "azurerm_role_assignment" "acr_pull" {
 }
 
 resource "azurerm_role_assignment" "kv_app_service_role" {
+  for_each = toset(["Key Vault Secrets User"])
+
   scope                = var.key_vault_id
-  role_definition_name = "Key Vault Secrets User"
+  role_definition_name = each.key
   principal_id         = azurerm_linux_web_app.datahub_proj_app.identity[0].principal_id
 }

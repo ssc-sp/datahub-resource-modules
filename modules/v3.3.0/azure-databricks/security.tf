@@ -1,12 +1,8 @@
-resource "azurerm_role_assignment" "kv_databricks_role_secret" {
-  scope                = var.key_vault_id
-  role_definition_name = "Key Vault Secrets User"
-  principal_id         = var.azure_databricks_enterprise_oid
-}
+resource "azurerm_role_assignment" "kv_databricks_role" {
+  for_each = toset(["Key Vault Secrets User", "Key Vault Crypto User"])
 
-resource "azurerm_role_assignment" "kv_databricks_role_crypto" {
   scope                = var.key_vault_id
-  role_definition_name = "Key Vault Crypto User"
+  role_definition_name = each.key
   principal_id         = var.azure_databricks_enterprise_oid
 }
 
@@ -39,7 +35,9 @@ resource "azurerm_databricks_workspace_customer_managed_key" "datahub_databricks
 }
 
 resource "azurerm_role_assignment" "kv_databricks_role_storage" {
+  for_each = toset(["Key Vault Crypto User"])
+
   scope                = var.key_vault_id
-  role_definition_name = "Key Vault Crypto User"
+  role_definition_name = each.key
   principal_id         = azurerm_databricks_workspace.datahub_databricks_workspace.storage_account_identity.0.principal_id
 }

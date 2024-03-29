@@ -2,7 +2,7 @@ data "azurerm_client_config" "current" {}
 
 # My public IP: data.http.myip.response_body
 data "http" "myip" {
-  url = "https://ipecho.net/plain"
+  url = "https://checkip.amazonaws.com"
 }
 
 locals {

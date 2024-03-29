@@ -16,15 +16,11 @@ resource "azurerm_key_vault_secret" "datahub_psql_server" {
   key_vault_id = var.key_vault_id
 }
 
-resource "azurerm_role_assignment" "kv_psql_role_secret" {
-  scope                = var.key_vault_id
-  role_definition_name = "Key Vault Secrets User"
-  principal_id         = azurerm_user_assigned_identity.datahub_psql_uami.principal_id
-}
+resource "azurerm_role_assignment" "kv_psql_role" {
+  for_each = toset(["Key Vault Secrets User", "Key Vault Crypto User"])
 
-resource "azurerm_role_assignment" "kv_psql_role_crypto" {
   scope                = var.key_vault_id
-  role_definition_name = "Key Vault Crypto User"
+  role_definition_name = each.key
   principal_id         = azurerm_user_assigned_identity.datahub_psql_uami.principal_id
 }
 
@@ -40,8 +36,8 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "datahub_psql_firewa
 resource "azurerm_postgresql_flexible_server_firewall_rule" "datahub_psql_firewall_creator" {
   name             = "fsdh-psql-ip-creator"
   server_id        = azurerm_postgresql_flexible_server.datahub_psql_server.id
-  start_ip_address = data.http.myip.response_body
-  end_ip_address   = data.http.myip.response_body
+  start_ip_address = trimspace(data.http.myip.response_body)
+  end_ip_address   = trimspace(data.http.myip.response_body)
 }
 
 resource "azurerm_postgresql_flexible_server_active_directory_administrator" "psql_dba_group_admin" {

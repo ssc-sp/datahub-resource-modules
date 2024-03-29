@@ -41,5 +41,11 @@ resource "azurerm_postgresql_flexible_server" "datahub_psql_server" {
     identity_ids = [azurerm_user_assigned_identity.datahub_psql_uami.id]
   }
 
-  depends_on = [azurerm_role_assignment.kv_psql_role_secret, azurerm_role_assignment.kv_psql_role_crypto]
+  depends_on = [azurerm_role_assignment.kv_psql_role]
+}
+
+resource "azurerm_postgresql_flexible_server_configuration" "datahub_psql_server_ext" {
+  name      = "azure.extensions"
+  server_id = azurerm_postgresql_flexible_server.datahub_psql_server.id
+  value     = "POSTGIS,CUBE,CITEXT,BTREE_GIST"
 }
