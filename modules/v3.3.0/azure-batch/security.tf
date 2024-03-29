@@ -7,7 +7,9 @@ resource "azurerm_user_assigned_identity" "datahub_batch_uami" {
 }
 
 resource "azurerm_role_assignment" "datahub_batch_storage_role" {
+  for_each = toset(["Storage Blob Data Contributor"])
+
   scope                = var.storage_acct_id
-  role_definition_name = "Storage Blob Data Contributor"
+  role_definition_name = each.key
   principal_id         = azurerm_user_assigned_identity.datahub_batch_uami.principal_id
 }

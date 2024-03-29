@@ -9,7 +9,7 @@ resource "random_password" "docker_root_password" {
   lifecycle {
     ignore_changes = [min_lower, min_upper, min_numeric]
   }
-  
+
   depends_on = [azurerm_key_vault_access_policy.kv_app_service_policy]
 }
 

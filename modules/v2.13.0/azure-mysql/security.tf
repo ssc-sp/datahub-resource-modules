@@ -12,7 +12,7 @@ resource "azurerm_key_vault_secret" "datahub_mysql_admin" {
 
 resource "azurerm_key_vault_secret" "datahub_mysql_server" {
   name         = "datahub-mysql-server"
-  value        = "${azurerm_mysql_flexible_server.datahub_mysql_server.fqdn}"
+  value        = azurerm_mysql_flexible_server.datahub_mysql_server.fqdn
   key_vault_id = var.key_vault_id
 }
 

@@ -16,15 +16,11 @@ resource "azurerm_key_vault_secret" "datahub_mysql_server" {
   key_vault_id = var.key_vault_id
 }
 
-resource "azurerm_role_assignment" "kv_mysql_role_secret" {
-  scope                = var.key_vault_id
-  role_definition_name = "Key Vault Secrets User"
-  principal_id         = azurerm_user_assigned_identity.datahub_mysql_uami.principal_id
-}
+resource "azurerm_role_assignment" "kv_mysql_role" {
+  for_each = toset(["Key Vault Secrets User", "Key Vault Crypto User"])
 
-resource "azurerm_role_assignment" "kv_mysql_role_crypto" {
   scope                = var.key_vault_id
-  role_definition_name = "Key Vault Crypto User"
+  role_definition_name = each.key
   principal_id         = azurerm_user_assigned_identity.datahub_mysql_uami.principal_id
 }
 
@@ -42,8 +38,8 @@ resource "azurerm_mysql_flexible_server_firewall_rule" "datahub_mysql_firewall_c
   name                = "fsdh-mysql-ip-creator"
   resource_group_name = var.resource_group_name
   server_name         = azurerm_mysql_flexible_server.datahub_mysql_server.name
-  start_ip_address    = data.http.myip.response_body
-  end_ip_address      = data.http.myip.response_body
+  start_ip_address    = trimspace(data.http.myip.response_body)
+  end_ip_address      = trimspace(data.http.myip.response_body)
 }
 
 resource "azurerm_mysql_flexible_server_active_directory_administrator" "mysql_dba_group_admin" {

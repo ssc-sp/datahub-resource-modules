@@ -53,11 +53,11 @@ locals {
     "dbus_per_hour" : { "type" : "range", "maxValue" : 4 },
     "node_type_id" : { "type" : "fixed", "value" : "Standard_D4ds_v5", "hidden" : false },
     "spark_conf.spark.databricks.cluster.profile" : { "type" : "fixed", "value" : "singleNode", "hidden" : true },
-    "autotermination_minutes" : { "type" : "range", "defaultValue" : 10, "minValue" : 10, "maxValue" : 120 }     
+    "autotermination_minutes" : { "type" : "range", "defaultValue" : 10, "minValue" : 10, "maxValue" : 120 }
     "custom_tags.project_code" : { "type" : "fixed", "value" : "${var.project_cd}" },
     "custom_tags.environment" : { "type" : "fixed", "value" : "${var.environment_name}" },
     "custom_tags.project_prefix" : { "type" : "fixed", "value" : "fsdh" },
-    "custom_tags.ResourceClass": { "type" : "fixed", "value" : "SingleNode" },
+    "custom_tags.ResourceClass" : { "type" : "fixed", "value" : "SingleNode" },
     "spark_conf.spark.databricks.passthrough.enabled" : { "type" : "fixed", "value" : "true", "hidden" : true },
     "spark_conf.spark.databricks.delta.preview.enabled" : { "type" : "fixed", "value" : "true", "hidden" : true },
     "spark_conf.spark.databricks.repl.allowedLanguages" : { "type" : "fixed", "value" : "python,sql,r", "hidden" : true },

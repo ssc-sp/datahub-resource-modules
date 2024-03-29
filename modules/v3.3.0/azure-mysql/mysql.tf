@@ -39,5 +39,5 @@ resource "azurerm_mysql_flexible_server" "datahub_mysql_server" {
     identity_ids = [azurerm_user_assigned_identity.datahub_mysql_uami.id]
   }
 
-  depends_on = [azurerm_role_assignment.kv_mysql_role_secret, azurerm_role_assignment.kv_mysql_role_crypto]
+  depends_on = [azurerm_role_assignment.kv_mysql_role]
 }

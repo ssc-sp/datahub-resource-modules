@@ -1,5 +1,5 @@
 module "azure_postgresql_module" {
-  source     = "github.com/ssc-sp/datahub-resource-modules//modules/{{version}}/azure-postgresql{{branch}}"
+  source = "github.com/ssc-sp/datahub-resource-modules//modules/{{version}}/azure-postgresql{{branch}}"
 
   resource_group_name = module.resource_group_module.az_project_rg_name
   key_vault_id        = module.resource_group_module.az_project_kv_id

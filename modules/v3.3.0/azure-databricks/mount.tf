@@ -8,7 +8,7 @@ resource "databricks_mount" "proj_main_mount" {
     "fs.azure.account.custom.token.provider.class" : "{{sparkconf/spark.databricks.passthrough.adls.gen2.tokenProviderClassName}}",
   }
 
-  depends_on = [ azurerm_role_assignment.kv_databricks_role_crypto ]
+  depends_on = [azurerm_role_assignment.kv_databricks_role]
 }
 
 resource "databricks_notebook" "fsdh_sample_notebook" {

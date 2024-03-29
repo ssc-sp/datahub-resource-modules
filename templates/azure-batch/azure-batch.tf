@@ -18,9 +18,9 @@ module "azure_batch_module" {
   common_tags        = var.common_tags
 
   # module specific
-  batch_default_vm_sku = var.batch_default_vm_sku
-  batch_vm_max         = var.batch_vm_max
-  batch_starter_image_url      = var.batch_starter_image_url
+  batch_default_vm_sku    = var.batch_default_vm_sku
+  batch_vm_max            = var.batch_vm_max
+  batch_starter_image_url = var.batch_starter_image_url
 }
 
 output "azure_batch_module_status" {

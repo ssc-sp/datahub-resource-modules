@@ -59,8 +59,10 @@ resource "azurerm_role_assignment" "kv_admin_role" {
 
 
 resource "azurerm_role_assignment" "kv_automation_role" {
+  for_each = toset(["Contributor"])
+
   scope                = azurerm_key_vault.az_proj_kv.id
-  role_definition_name = "Contributor"
+  role_definition_name = each.key
   principal_id         = azurerm_automation_account.az_project_automation_acct.identity[0].principal_id
 }
 
