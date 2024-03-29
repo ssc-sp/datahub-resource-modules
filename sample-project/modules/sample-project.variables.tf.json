@@ -25,6 +25,14 @@
       "type": "string",
       "default": "fsdh"
     },
+    "resource_prefix_alphanumeric": {
+      "type": "string",
+      "default": "fsdh"
+    },
+    "resource_suffix": {
+      "type": "string",
+      "default": "tfbackend"
+    },
     "common_tags": {
       "type": "map(any)",
       "default": {}
