@@ -67,6 +67,7 @@ variable "run_in_devops" {
 variable "admin_users" {
   description = "List of admin user emails"
   type        = list(any)
+  default     = []
 }
 
 variable "project_lead_users" {
