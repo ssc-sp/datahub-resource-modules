@@ -5,7 +5,7 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget_dbr" 
   resource_group_id = azurerm_databricks_workspace.datahub_databricks_workspace.managed_resource_group_id
   amount            = var.budget_amount
   time_grain        = "Annually"
-  time_period { start_date = var.budget_start_date }
+  time_period { start_date = local.current_fiscal_year_start }
 
   notification {
     enabled        = false
