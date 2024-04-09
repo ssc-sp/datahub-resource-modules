@@ -36,7 +36,7 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
   resource_group_id = azurerm_resource_group.az_project_rg.id
   amount            = var.budget_amount
   time_grain        = "Annually"
-  time_period { start_date =  "2024-04-01T00:00:00Z" }
+  time_period { start_date = local.current_fiscal_year_start }
 
   notification {
     enabled        = false
