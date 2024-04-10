@@ -36,7 +36,7 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
   resource_group_id = azurerm_resource_group.az_project_rg.id
   amount            = var.budget_amount
   time_grain        = "Annually"
-  time_period { start_date = var.budget_start_date }
+  time_period { start_date = local.current_fiscal_year_start }
 
   notification {
     enabled        = false
@@ -48,7 +48,7 @@ resource "azurerm_consumption_budget_resource_group" "az_project_rg_budget" {
   }
 
   lifecycle {
-    ignore_changes = [time_period, time_grain]
+    ignore_changes = [amount]
   }
 }
 

@@ -77,10 +77,3 @@ variable "aad_admin_group_oid" {
   description = "The admin group OID in AAD for managing the datahub app"
   type        = string
 }
-
-variable "budget_start_date" {
-  description = "The start date of budget"
-  type        = string
-  default     = "2023-04-01T00:00:00Z"
-}
-
