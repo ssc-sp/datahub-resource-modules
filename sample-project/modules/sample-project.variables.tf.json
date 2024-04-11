@@ -29,7 +29,7 @@
       "type": "string",
       "default": "fsdh"
     },
-    "resource_suffix": {
+    "storage_suffix": {
       "type": "string",
       "default": "tfbackend"
     },
@@ -86,7 +86,7 @@
     },
     "ssl_cert_kv_id": {
       "type": "string"
-    },    
+    },
     "sp_client_id": {
       "type": "string"
     },

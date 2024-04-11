@@ -69,7 +69,7 @@ variable "resource_prefix_alphanumeric" {
   type        = string
   default     = "fsdh"
 }
-variable "resource_suffix" {
+variable "storage_suffix" {
   description = "Resource name suffix for resources"
   type        = string
   default     = "tfbackend"
