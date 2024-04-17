@@ -40,5 +40,5 @@ resource "azurerm_key_vault_access_policy" "kv_policy_databricks_proj_cmk" {
   tenant_id    = var.az_tenant_id
   object_id    = azurerm_databricks_workspace.datahub_databricks_workspace.storage_account_identity.0.principal_id
 
-  key_permissions = ["Get", "List", "Decrypt", "Sign", "WrapKey", "UnwrapKey"]
+  key_permissions = ["Get", "List", "Encrypt", "Decrypt", "Sign", "WrapKey", "UnwrapKey"]
 }
