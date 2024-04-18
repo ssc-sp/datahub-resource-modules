@@ -25,6 +25,14 @@
       "type": "string",
       "default": "fsdh"
     },
+    "resource_prefix_alphanumeric": {
+      "type": "string",
+      "default": "fsdh"
+    },
+    "storage_suffix": {
+      "type": "string",
+      "default": "tfbackend"
+    },
     "common_tags": {
       "type": "map(any)",
       "default": {}
@@ -78,7 +86,7 @@
     },
     "ssl_cert_kv_id": {
       "type": "string"
-    },    
+    },
     "sp_client_id": {
       "type": "string"
     },
