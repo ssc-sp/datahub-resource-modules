@@ -3,7 +3,7 @@
 # resource "azurerm_monitor_metric_alert" "datahub_proj_storage_alert" {
 #   count = var.storage_size_limit_tb > 0 ? 1 : 0
 
-#   name                = "${var.resource_prefix}-proj-storage-alert-${var.project_cd}-${var.environment_name}"
+#   name                = "${var.resource_prefix_alphanumeric}-proj-storage-alert-${var.project_cd}-${var.environment_name}"
 #   resource_group_name = var.resource_group_name
 #   scopes              = [azurerm_storage_account.datahub_storageaccount.id]
 #   description         = "Action will be triggered when used space reaches thresholds"
