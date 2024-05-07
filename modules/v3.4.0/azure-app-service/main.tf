@@ -73,6 +73,18 @@ resource "azurerm_linux_web_app" "datahub_proj_app" {
   #   }
   # }
 
+  backup {
+    name                = "datahub-backup-appservice"
+    enabled             = true
+    storage_account_url = "${data.azurerm_storage_account.datahub_storageaccount.primary_blob_endpoint}${local.datahub_backup_name}${data.azurerm_storage_account_blob_container_sas.datahub_backup_sas.sas}"
+    schedule {
+      frequency_interval       = "7"
+      frequency_unit           = "Day"
+      retention_period_days    = "60"
+      keep_at_least_one_backup = true
+    }
+  }
+
   identity {
     type = "SystemAssigned"
   }
