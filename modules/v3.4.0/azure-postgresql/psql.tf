@@ -49,3 +49,10 @@ resource "azurerm_postgresql_flexible_server_configuration" "datahub_psql_server
   server_id = azurerm_postgresql_flexible_server.datahub_psql_server.id
   value     = "POSTGIS,CUBE,CITEXT,BTREE_GIST"
 }
+
+resource "azurerm_postgresql_flexible_server_firewall_rule" "datahub_psql_allow_from_azure_service" {
+  name             = "azure-service"
+  server_id        = azurerm_postgresql_flexible_server.datahub_psql_server.id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
+}
