@@ -61,3 +61,11 @@ resource "azurerm_mysql_flexible_server_active_directory_administrator" "mysql_d
 #   start_ip_address    = each.key
 #   end_ip_address      = each.key
 # }
+
+resource "azurerm_mysql_flexible_server_firewall_rule" "datahub_mysql_firewall_all_azure" {
+  name                = "allow-azure-service"
+  resource_group_name = var.resource_group_name
+  server_name         = azurerm_mysql_flexible_server.datahub_mysql_server.name
+  start_ip_address    = "0.0.0.0"
+  end_ip_address      = "0.0.0.0"
+}
