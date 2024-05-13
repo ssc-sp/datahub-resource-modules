@@ -41,6 +41,12 @@
     },
     "aad_admin_group_oid": {
       "type": "string"
+    },
+    "automation_account_name": {
+      "type": "string"
+    },
+    "automation_account_rg": {
+      "type": "string"
     }
   }
 }
