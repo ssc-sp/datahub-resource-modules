@@ -32,11 +32,6 @@ variable "key_vault_cmk_name" {
   type        = string
 }
 
-variable "automation_acct_id" {
-  description = "Principal ID of the project level automation account"
-  type        = string
-}
-
 # ==============================================
 #     Optional Variables
 # ==============================================

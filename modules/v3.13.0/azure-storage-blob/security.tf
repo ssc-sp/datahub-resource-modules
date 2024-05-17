@@ -41,13 +41,13 @@ resource "azurerm_role_assignment" "proj_storage_creator_role" {
   principal_id         = data.azurerm_client_config.current.object_id
 }
 
-resource "azurerm_role_assignment" "proj_storage_automation_contrib" {
-  for_each = toset(["Storage Blob Data Contributor", "Reader and Data Access"])
+# resource "azurerm_role_assignment" "proj_storage_automation_contrib" {
+#   for_each = toset(["Storage Blob Data Contributor", "Reader and Data Access"])
 
-  scope                = azurerm_storage_account.datahub_storageaccount.id
-  role_definition_name = each.key
-  principal_id         = var.automation_acct_id
-}
+#   scope                = azurerm_storage_account.datahub_storageaccount.id
+#   role_definition_name = each.key
+#   principal_id         = var.automation_acct_id
+# }
 
 resource "azurerm_key_vault_secret" "storage_key_secret" {
   name         = local.storage_key_secret
