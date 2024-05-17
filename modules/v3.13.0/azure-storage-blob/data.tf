@@ -4,6 +4,11 @@ data "azurerm_subscription" "az_subscription" {
   subscription_id = var.az_subscription_id
 }
 
+data "azurerm_automation_account" "common_automation_acct" {
+  name                = var.automation_account_name
+  resource_group_name = var.automation_account_rg
+}
+
 data "azurerm_monitor_action_group" "datahub_proj_action_group_email" {
   resource_group_name = var.resource_group_name
   name                = "${var.resource_prefix}-proj-actiongroup-${var.project_cd}-${var.environment_name}-email"

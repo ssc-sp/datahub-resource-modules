@@ -32,6 +32,16 @@ variable "key_vault_cmk_name" {
   type        = string
 }
 
+variable "automation_account_name" {
+  description = "The common automation acct name"
+  type        = string
+}
+
+variable "automation_account_rg" {
+  description = "The common automation acct RG"
+  type        = string
+}
+
 # ==============================================
 #     Optional Variables
 # ==============================================
