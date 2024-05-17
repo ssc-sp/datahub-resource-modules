@@ -1,6 +1,6 @@
 resource "azurerm_automation_runbook" "az_project_cost_stop_runbook" {
   name                    = local.cost_runbook_name
-  resource_group_name     = azurerm_resource_group.az_project_rg.name
+  resource_group_name     = data.azurerm_automation_account.common_automation_acct.resource_group_name
   location                = local.resource_group_location
   automation_account_name = data.azurerm_automation_account.common_automation_acct.name
   log_verbose             = true
@@ -14,7 +14,7 @@ resource "azurerm_automation_runbook" "az_project_cost_stop_runbook" {
 
 resource "azurerm_automation_runbook" "az_project_cost_check_runbook" {
   name                    = local.cost_check_runbook_name
-  resource_group_name     = azurerm_resource_group.az_project_rg.name
+  resource_group_name     = data.azurerm_automation_account.common_automation_acct.resource_group_name
   location                = local.resource_group_location
   automation_account_name = data.azurerm_automation_account.common_automation_acct.name
   log_verbose             = true
@@ -36,7 +36,7 @@ resource "azurerm_automation_runbook" "az_project_cost_check_runbook" {
 
 resource "azurerm_automation_runbook" "az_project_sas_token_runbook" {
   name                    = local.sas_rotate_runbook_name
-  resource_group_name     = azurerm_resource_group.az_project_rg.name
+  resource_group_name     = data.azurerm_automation_account.common_automation_acct.resource_group_name
   location                = local.resource_group_location
   automation_account_name = data.azurerm_automation_account.common_automation_acct.name
   log_verbose             = true
@@ -50,7 +50,7 @@ resource "azurerm_automation_runbook" "az_project_sas_token_runbook" {
 
 resource "azurerm_automation_webhook" "az_project_cost_runbook_webhook" {
   name                    = "${local.cost_runbook_name}-webhook"
-  resource_group_name     = azurerm_resource_group.az_project_rg.name
+  resource_group_name     = data.azurerm_automation_account.common_automation_acct.resource_group_name
   automation_account_name = data.azurerm_automation_account.common_automation_acct.name
   expiry_time             = local.webhook_expiry_time
   enabled                 = true
@@ -68,7 +68,7 @@ resource "azurerm_role_assignment" "automation_acct_assignment" {
 
 resource "azurerm_automation_schedule" "daily_cost_check" {
   name                    = "schedule-${local.cost_check_runbook_name}"
-  resource_group_name     = azurerm_resource_group.az_project_rg.name
+  resource_group_name     = data.azurerm_automation_account.common_automation_acct.resource_group_name
   automation_account_name = data.azurerm_automation_account.common_automation_acct.name
   frequency               = "Day"
   interval                = 1
@@ -82,7 +82,7 @@ resource "azurerm_automation_schedule" "daily_cost_check" {
 }
 
 resource "azurerm_automation_job_schedule" "daily_rotate_sas_token_schedule" {
-  resource_group_name     = azurerm_resource_group.az_project_rg.name
+  resource_group_name     = data.azurerm_automation_account.common_automation_acct.resource_group_name
   automation_account_name = data.azurerm_automation_account.common_automation_acct.name
   schedule_name           = azurerm_automation_schedule.daily_cost_check.name
   runbook_name            = azurerm_automation_runbook.az_project_sas_token_runbook.name
@@ -98,7 +98,7 @@ resource "azurerm_automation_job_schedule" "daily_rotate_sas_token_schedule" {
 }
 
 resource "azurerm_automation_job_schedule" "daily_cost_check_job_schedule" {
-  resource_group_name     = azurerm_resource_group.az_project_rg.name
+  resource_group_name     = data.azurerm_automation_account.common_automation_acct.resource_group_name
   automation_account_name = data.azurerm_automation_account.common_automation_acct.name
   schedule_name           = azurerm_automation_schedule.daily_cost_check.name
   runbook_name            = azurerm_automation_runbook.az_project_cost_check_runbook.name
