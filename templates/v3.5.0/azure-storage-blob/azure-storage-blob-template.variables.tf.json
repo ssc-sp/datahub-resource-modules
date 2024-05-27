@@ -1,0 +1,12 @@
+{
+  "variable": {
+    "storage_contributor_users": {
+      "type": "list(any)",
+      "default": []
+    },
+    "storage_reader_users": {
+      "type": "list(any)",
+      "default": []
+    }
+  }
+}

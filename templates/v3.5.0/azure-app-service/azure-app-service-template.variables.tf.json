@@ -1,0 +1,56 @@
+{
+  "variable": {
+    "app_service_sku": {
+      "type": "string",
+      "default": "B3"
+    },
+    "worker_count_init": {
+      "type": "number",
+      "default": 1
+    },
+    "docker_server_url": {
+      "type": "string",
+      "default": "https://ghcr.io"
+    },
+    "shiny_image_name": {
+      "type": "string",
+      "default": "ghcr.io/ssc-sp/shiny-app"
+    },
+    "shiny_image_tag": {
+      "type": "string",
+      "default": "latest"
+    },
+    "fsdh_dns_zone_name": {
+      "type": "string",
+      "default": "fsdh-dhsf.science.cloud-nuage.canada.ca"
+    },
+    "fsdh_dns_zone_rg": {
+      "type": "string",
+      "default": "sp-datahub-iac-rg"
+    },
+    "ssl_cert_name": {
+      "type": "string",
+      "default": "datahub-ssl"
+    },
+    "ssl_cert_kv_id": {
+      "type": "string",
+      "default": ""
+    },
+    "sp_client_id": {
+      "type": "string",
+      "default": ""
+    },
+    "use_easy_auth": {
+      "type": "bool",
+      "default": false
+    },
+    "acr_id": {
+      "type": "string",
+      "default": ""
+    },
+    "allow_source_ip": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}
