@@ -43,7 +43,7 @@ resource "azurerm_postgresql_flexible_server" "datahub_psql_server" {
 
   depends_on = [azurerm_key_vault_access_policy.psql_akv_policy]
   lifecycle {
-    ignore_changes = [storage_mb]
+    ignore_changes = [storage_mb, auto_grow_enabled]
   }
 }
 
