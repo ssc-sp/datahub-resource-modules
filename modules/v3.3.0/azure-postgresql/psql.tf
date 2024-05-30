@@ -42,6 +42,9 @@ resource "azurerm_postgresql_flexible_server" "datahub_psql_server" {
   }
 
   depends_on = [azurerm_role_assignment.kv_psql_role]
+  lifecycle {
+    ignore_changes = [storage_mb, auto_grow_enabled]
+  }
 }
 
 resource "azurerm_postgresql_flexible_server_configuration" "datahub_psql_server_ext" {
