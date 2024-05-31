@@ -6,7 +6,7 @@ $storage_acct_name = "${storage_acct_name}"
 $resource_group_name = "${resource_group_name}"
 $container_name = "${container_name}"
 
-Connect-AzAccount -Identity -Subscription "${subscription_id}"
+Connect-AzAccount -Identity -AccountId "${uai_clientid}" -Subscription "${subscription_id}"
 $secret_start=(Get-AzKeyVaultSecret -VaultName $key_vault_name -Name $sas_secret_name).tags.start
 $secret_expiry=(Get-AzKeyVaultSecret -VaultName $key_vault_name -Name $sas_secret_name).tags.expiry
 Write-Output "Existing expiry date: from $secret_start to $secret_expiry"

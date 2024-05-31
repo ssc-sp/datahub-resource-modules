@@ -22,13 +22,13 @@ variable "datahub_app_sp_oid" {
   type        = string
 }
 
-variable "automation_account_name" {
-  description = "The common automation acct name"
+variable "automation_account_uai_clientid" {
+  description = "The common automation acct UAMI"
   type        = string
 }
 
-variable "automation_account_rg" {
-  description = "The common automation acct RG"
+variable "automation_account_uai_id" {
+  description = "The common automation acct UAMI"
   type        = string
 }
 

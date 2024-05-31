@@ -44,5 +44,5 @@ output "resource_group_id" {
 }
 
 output "automation_acct_id" {
-  value = data.azurerm_automation_account.common_automation_acct.identity[0].principal_id
+  value = azurerm_automation_account.az_project_automation_acct.identity[0].principal_id
 }
