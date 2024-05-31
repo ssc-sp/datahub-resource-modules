@@ -7,6 +7,7 @@ data "azurerm_subscription" "az_subscription" {
 data "azurerm_user_assigned_identity" "proj_auto_acct_uai" {
   name                = var.automation_account_uai_name
   resource_group_name = var.automation_account_uai_rg
+  provider            = azurerm.root-workspace
 }
 
 locals {

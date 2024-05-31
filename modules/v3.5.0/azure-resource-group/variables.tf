@@ -32,6 +32,11 @@ variable "automation_account_uai_rg" {
   type        = string
 }
 
+variable "automation_account_uai_sub" {
+  description = "The RG of the automation acct UAI"
+  type        = string
+}
+
 # ==============================================
 #     Optional Variables
 # ==============================================

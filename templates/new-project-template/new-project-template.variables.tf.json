@@ -42,10 +42,13 @@
     "aad_admin_group_oid": {
       "type": "string"
     },
-    "automation_account_uai_clientid": {
+    "automation_account_uai_name": {
       "type": "string"
     },
-    "automation_account_uai_id": {
+    "automation_account_uai_rg": {
+      "type": "string"
+    },
+    "automation_account_uai_sub": {
       "type": "string"
     }
   }
