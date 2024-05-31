@@ -44,5 +44,9 @@ output "resource_group_id" {
 }
 
 output "automation_acct_id" {
-  value = azurerm_automation_account.az_project_automation_acct.identity[0].principal_id
+  value = var.automation_account_uai_id
+}
+
+output "automation_acct_clientid" {
+  value = var.automation_account_uai_clientid
 }
