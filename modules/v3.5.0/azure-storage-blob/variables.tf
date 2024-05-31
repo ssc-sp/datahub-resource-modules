@@ -32,8 +32,8 @@ variable "key_vault_cmk_name" {
   type        = string
 }
 
-variable "automation_acct_id" {
-  description = "Project CMK name"
+variable "automation_acct_principal_id" {
+  description = "Automation account UAI"
   type        = string
 }
 

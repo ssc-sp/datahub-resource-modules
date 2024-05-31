@@ -43,10 +43,10 @@ output "resource_group_id" {
   value = azurerm_resource_group.az_project_rg.id
 }
 
-output "automation_acct_id" {
-  value = var.automation_account_uai_id
+output "automation_acct_principal_id" {
+  value = data.azurerm_user_assigned_identity.proj_auto_acct_uai.principal_id
 }
 
 output "automation_acct_clientid" {
-  value = var.automation_account_uai_clientid
+  value = data.azurerm_user_assigned_identity.proj_auto_acct_uai.client_id
 }

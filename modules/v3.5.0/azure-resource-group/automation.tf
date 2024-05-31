@@ -6,7 +6,7 @@ resource "azurerm_automation_account" "az_project_automation_acct" {
 
   identity {
     type         = "UserAssigned"
-    identity_ids = [var.automation_account_uai_id]
+    identity_ids = [data.azurerm_user_assigned_identity.proj_auto_acct_uai.id]
   }
   tags = local.project_tags
 }
