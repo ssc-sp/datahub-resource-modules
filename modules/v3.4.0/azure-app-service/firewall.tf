@@ -1,6 +1,4 @@
 resource "null_resource" "access_ip_block_all" {
-  count = var.allow_source_ip == "" ? 1 : 0
-
   triggers = {
     rg_name  = var.resource_group_name
     app_name = azurerm_linux_web_app.datahub_proj_app.name
@@ -25,18 +23,18 @@ resource "null_resource" "access_ip_block_all" {
 }
 
 resource "null_resource" "access_ip_whitelist_one" {
-  count = var.allow_source_ip != "" ? 1 : 0
+  for_each = { for s in local.allow_source_ip_list : index(local.allow_source_ip_list, s) => s }
 
   triggers = {
     rg_name   = var.resource_group_name
     app_name  = azurerm_linux_web_app.datahub_proj_app.name
-    source_ip = var.allow_source_ip
+    source_ip = each.value
   }
 
   provisioner "local-exec" {
     interpreter = ["pwsh", "-Command"]
     command     = <<-EOT
-      az webapp config access-restriction add -g ${var.resource_group_name} -n ${azurerm_linux_web_app.datahub_proj_app.name} --rule-name fsdh-app --action Allow --ip-address ${var.allow_source_ip}/32 --priority 100
+      az webapp config access-restriction add -g ${var.resource_group_name} -n ${azurerm_linux_web_app.datahub_proj_app.name} --rule-name fsdh-app-${each.key} --action Allow --ip-address ${each.value}/32 --priority ${100 + each.key}
     EOT
     on_failure  = fail
   }
@@ -45,7 +43,7 @@ resource "null_resource" "access_ip_whitelist_one" {
     when        = destroy
     interpreter = ["pwsh", "-Command"]
     command     = <<-EOT
-      az webapp config access-restriction remove -g ${self.triggers.rg_name} -n ${self.triggers.app_name} --rule-name fsdh-app
+      az webapp config access-restriction remove -g ${self.triggers.rg_name} -n ${self.triggers.app_name} --rule-name  fsdh-app-${each.key}
     EOT
     on_failure  = continue
   }
