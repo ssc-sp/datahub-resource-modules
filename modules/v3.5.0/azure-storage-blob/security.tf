@@ -46,7 +46,7 @@ resource "azurerm_role_assignment" "proj_storage_automation_contrib" {
 
   scope                = azurerm_storage_account.datahub_storageaccount.id
   role_definition_name = each.key
-  principal_id         = data.azurerm_automation_account.common_automation_acct.identity[0].principal_id
+  principal_id         = var.automation_acct_principal_id
 }
 
 resource "azurerm_key_vault_secret" "storage_key_secret" {

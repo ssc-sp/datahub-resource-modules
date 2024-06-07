@@ -18,7 +18,7 @@ resource "azurerm_monitor_action_group" "datahub_proj_action_group_cost" {
 
   automation_runbook_receiver {
     name                    = "rg_cost_limit"
-    automation_account_id   = data.azurerm_automation_account.common_automation_acct.id
+    automation_account_id   = azurerm_automation_account.az_project_automation_acct.id
     runbook_name            = local.cost_runbook_name
     webhook_resource_id     = azurerm_automation_runbook.az_project_cost_stop_runbook.id
     is_global_runbook       = false

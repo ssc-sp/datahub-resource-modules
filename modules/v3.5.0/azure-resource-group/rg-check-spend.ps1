@@ -7,7 +7,7 @@ $key_vault_name = "${key_vault_name}"
 $budget_name = "${budget_name}"
 $budget_name_dbr = "${budget_name_dbr}"
 
-Connect-AzAccount -Identity -Subscription "${subscription_id}"
+Connect-AzAccount -Identity -AccountId "${uai_clientid}" -Subscription "${subscription_id}"
 
 $budgetAmount = (Get-AzConsumptionBudget -name $budget_name).Amount
 $currentSpendMain = (Get-AzConsumptionBudget -name $budget_name).currentspend.amount
