@@ -129,7 +129,7 @@ variable "sp_client_id" {
 }
 
 variable "allow_source_ip" {
-  description = "The only source IP of the reverse proxy that is allowed to call the Azure App Service (required if use_easy_auth is false)"
+  description = "A list of comma delimited string for source IPs of the reverse proxy that is allowed to call the Azure App Service (required if use_easy_auth is false)"
   type        = string
   default     = ""
 }
