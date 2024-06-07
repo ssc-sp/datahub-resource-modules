@@ -59,4 +59,5 @@ locals {
   dns_record_name         = lower("${var.project_cd}-app")
   sas_start_now           = formatdate("YYYY-MM-DD", timeadd(timestamp(), "-24h"))
   sas_expiry_3m           = formatdate("YYYY-MM-DD", timeadd(timestamp(), "2184h"))
+  allow_source_ip_list    = split(",", var.allow_source_ip)
 }
