@@ -22,8 +22,8 @@ if ($budgetAmount -eq 0) {
     exit 0
 }
 
-if ($budgetAmount -eq 0) {
-    Write-Output "No valid budgets found. Exiting script to avoid divide by zero."
+if ($currentSpendMain -eq 0) {
+    Write-Output "No valid spend found. Exiting script to avoid divide by zero."
     exit 0
 }
 
