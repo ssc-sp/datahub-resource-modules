@@ -5,5 +5,8 @@ sample-project/templates/azure-storage-blob.tf
 sample-project/templates/azure-app-service.tf
 sample-project/templates/azure-mysql.tf
 sample-project/templates/main.tf
+.*
+!.github/*         # But do not ignore the .github directory
+!.devcontainer/*   # But do not ignore the .devcontainer directory
 sample-project/templates/azure-postgresql.tf
 sample-project/templates/azure-batch.tf
