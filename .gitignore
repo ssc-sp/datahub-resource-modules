@@ -1,9 +1,10 @@
-# Exceptions to tracking directories and directories
+# Exceptions to to ignore policy(files  and directories)
 !.github/
 !.github/**
 !.devcontainers/
 !.devcontainers/**
 
+# Inclusion to to ignore policy(files  and directories)
 .*
 */**/.terraform*
 sample-project/templates/*.variables.tf.json
@@ -14,5 +15,3 @@ sample-project/templates/azure-mysql.tf
 sample-project/templates/main.tf
 sample-project/templates/azure-postgresql.tf
 sample-project/templates/azure-batch.tf
-
-
