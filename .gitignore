@@ -1,3 +1,9 @@
+# Exceptions to tracking directories and directories
+!.github/
+!.github/**
+!.devcontainers/
+!.devcontainers/**
+
 .*
 */**/.terraform*
 sample-project/templates/*.variables.tf.json
@@ -10,6 +16,3 @@ sample-project/templates/azure-postgresql.tf
 sample-project/templates/azure-batch.tf
 
 
-# Exceptions to track .github and .devcontainers directories
-!.github/**
-!.devcontainers/**
