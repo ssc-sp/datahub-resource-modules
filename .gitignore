@@ -1,10 +1,10 @@
-# Exceptions to to ignore policy(files  and directories)
+# Exceptions to git ignore config(files  and directories)
 !.github/
 !.github/**
 !.devcontainers/
 !.devcontainers/**
 
-# Inclusion to to ignore policy(files  and directories)
+# Inclusion to git ignore config(files  and directories)
 .*
 */**/.terraform*
 sample-project/templates/*.variables.tf.json
