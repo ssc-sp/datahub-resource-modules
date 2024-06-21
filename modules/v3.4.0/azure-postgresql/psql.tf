@@ -42,10 +42,20 @@ resource "azurerm_postgresql_flexible_server" "datahub_psql_server" {
   }
 
   depends_on = [azurerm_key_vault_access_policy.psql_akv_policy]
+  lifecycle {
+    ignore_changes = [storage_mb, auto_grow_enabled]
+  }
 }
 
 resource "azurerm_postgresql_flexible_server_configuration" "datahub_psql_server_ext" {
   name      = "azure.extensions"
   server_id = azurerm_postgresql_flexible_server.datahub_psql_server.id
   value     = "POSTGIS,CUBE,CITEXT,BTREE_GIST"
+}
+
+resource "azurerm_postgresql_flexible_server_firewall_rule" "datahub_psql_allow_from_azure_service" {
+  name             = "azure-service"
+  server_id        = azurerm_postgresql_flexible_server.datahub_psql_server.id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
 }

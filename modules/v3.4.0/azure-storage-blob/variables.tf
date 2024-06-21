@@ -64,6 +64,18 @@ variable "resource_prefix" {
   default     = "fsdh"
 }
 
+variable "resource_prefix_alphanumeric" {
+  description = "Aphanumeric resource name prefix for resources. All lower case"
+  type        = string
+  default     = "fsdh"
+}
+
+variable "storage_suffix" {
+  description = "Resource name suffix for resources"
+  type        = string
+  default     = "tfbackend"
+}
+
 variable "common_tags" {
   description = "Common tags map"
   type        = map(any)

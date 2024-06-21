@@ -10,7 +10,9 @@ data "azurerm_monitor_action_group" "datahub_proj_action_group_email" {
 }
 
 locals {
-  storage_account_name     = lower("${var.resource_prefix}proj${var.project_cd}${var.environment_name}")
+  sanitized_prefix = lower(replace(replace(var.resource_prefix_alphanumeric, "_", ""), "-", ""))
+
+  storage_account_name     = lower("${local.sanitized_prefix}proj${var.project_cd}${var.environment_name}")
   storage_key_secret       = "storage-key"
   storage_sas_secret       = "container-sas"
   datahub_mount_name       = "datahub"
