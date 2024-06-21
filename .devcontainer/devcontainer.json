@@ -40,7 +40,8 @@
 			"extensions": [
 				"ms-vscode.powershell",
 				"redhat.vscode-yaml",
-				"hashicorp.terraform"
+				"hashicorp.terraform",
+				"pspester.pester-test"
 			]
 		}
 	},
