@@ -114,11 +114,6 @@ $totalBudget = [math]::round($totalBudget, 2)
 $totalSpent = [math]::round($totalSpent, 2)
 $triggerAmount = [math]::round(($totalBudget * $trigger_percent) / 100, 2)
 
-Write-Output "Threshold Budget: `$$triggerAmount"
-Write-Output "Max Budget: `$$totalBudget"
-Write-Output "Total Spent: `$$totalSpent"
-
-
 # Calculate percentage with zero and negative check
 if ($totalBudget -le 0) {
     Write-Error "Total budget amount is zero or negative. Cannot calculate percentage."
@@ -127,8 +122,14 @@ if ($totalBudget -le 0) {
     $totalPercent = [math]::round((($totalSpent) / $totalBudget) * 100)
 }
 
-Write-Output "Total Percent: $totalPercent%"
-Write-Output "Trigger Percent: $trigger_percent%"
+Write-Output "Max Budget: `$$totalBudget"
+Write-Output "Threshold Percent: $trigger_percent%"
+Write-Output "Threshold Budget: `$$triggerAmount"
+
+
+Write-Output "Total Spent: `$$totalSpent"
+Write-Output "Total Budget used: $totalPercent%"
+
 
 # Check if the total spend percentage has reached or exceeded the trigger percentage
 if ($totalSpent -ge $triggerAmount) {
