@@ -1,9 +1,3 @@
-#Install-Module -Name Az.Accounts -RequiredVersion 2.19.0 
-Import-Module -Name Az.Accounts -RequiredVersion 2.19.0 
-
-#Install-Module -Name Az.KeyVault -RequiredVersion 5.3.0 
-Import-Module -Name Az.KeyVault -RequiredVersion 5.3.0 
-
 param (
     [Parameter(Mandatory=$true)][string]$key_vault_name,
     [Parameter(Mandatory=$true)][string[]]$budget_names,
@@ -11,6 +5,12 @@ param (
     [string]$key_name = "project-cmk",
     [string]$subscription_id
 )
+
+#Install-Module -Name Az.Accounts -RequiredVersion 2.19.0 
+Import-Module -Name Az.Accounts -RequiredVersion 2.19.0 
+
+#Install-Module -Name Az.KeyVault -RequiredVersion 5.3.0 
+Import-Module -Name Az.KeyVault -RequiredVersion 5.3.0 
 
 function Connect-ToAzureIdentity {
     param (
