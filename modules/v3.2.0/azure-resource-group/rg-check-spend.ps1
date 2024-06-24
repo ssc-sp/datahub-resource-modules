@@ -104,10 +104,12 @@ foreach ($budget in $budget_names) {
     }
 }
 
+$totalSpent = [math]::round($totalSpent, 2)
+
 Write-Output "Total Budget: $totalBudget"
 Write-Output "Total Spent: $totalSpent"
 
-$totalSpent = [math]::round($totalSpent, 2)
+
 
 # Calculate percentage with zero and negative check
 if ($totalBudget -le 0) {
