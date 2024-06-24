@@ -12,13 +12,13 @@ function Connect-ToAzureIdentity {
 
     try {
         if (Get-AzContext) {
-            Write-Output "Already connected to Azure subscription $SubscriptionId."
+            Write-Verbose "Already connected to Azure subscription $SubscriptionId."
         } elseif ($SubscriptionId) {
             Connect-AzAccount -Identity -Subscription $SubscriptionId
-            Write-Output "Successfully connected to Azure subscription $SubscriptionId."
+            Write-Verbose "Successfully connected to Azure subscription $SubscriptionId."
         } else {
             Connect-AzAccount -Identity
-            Write-Output "Successfully connected to Azure with the default subscription."
+            Write-Verbose "Successfully connected to Azure with the default subscription."
         }
         return $true
     }
