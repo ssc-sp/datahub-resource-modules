@@ -13,13 +13,13 @@ function Connect-ToAzureIdentity {
 
     try {
         if (Get-AzContext) {
-            Write-Output "Already connected to Azure subscription $SubscriptionId."
+            Write-Host "Already connected to Azure subscription $SubscriptionId."
         } elseif ($SubscriptionId) {
             Connect-AzAccount -Identity -Subscription $SubscriptionId
-            Write-Output "Successfully connected to Azure subscription $SubscriptionId."
+            Write-Host "Successfully connected to Azure subscription $SubscriptionId."
         } else {
             Connect-AzAccount -Identity
-            Write-Output "Successfully connected to Azure with the default subscription."
+            Write-Host "Successfully connected to Azure with the default subscription."
         }
         return $true
     }
@@ -76,7 +76,7 @@ function Set-VaultKeyStatus {
 
 # Connect to Azure
 if (Connect-ToAzureIdentity -SubscriptionId $subscription_id) {
-    Write-Output "Connection successful"
+    Write-Output "Connection to Azure successful"
 } else {
     Write-Error "Failed to connect to Azure. Exiting script."
     exit 1
