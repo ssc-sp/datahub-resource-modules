@@ -1,3 +1,9 @@
+#Install-Module -Name Az.Accounts -RequiredVersion 2.19.0 
+Import-Module -Name Az.Accounts -RequiredVersion 2.19.0 
+
+#Install-Module -Name Az.KeyVault -RequiredVersion 5.3.0 
+Import-Module -Name Az.KeyVault -RequiredVersion 5.3.0 
+
 param (
     [Parameter(Mandatory=$true)][string]$key_vault_name,
     [Parameter(Mandatory=$true)][string[]]$budget_names,
@@ -22,8 +28,8 @@ function Connect-ToAzureIdentity {
             Write-Output "Successfully connected to Azure with the default subscription."
         }
         # workaround https://github.com/Azure/azure-powershell/issues/24942
-        Set-AzConfig -EnableLoginByWam $true
-        
+        #Set-AzConfig -EnableLoginByWam $true
+
         return $true
     }
     catch {
