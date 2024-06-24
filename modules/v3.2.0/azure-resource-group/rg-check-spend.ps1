@@ -85,13 +85,7 @@ if (Connect-ToAzureIdentity -SubscriptionId $subscription_id) {
 }
 
 # Check if CMK is already disabled
-$keyStatus = Get-VaultKeyStatus -vaultName $key_vault_name -keyName $key_name
-if ($null -eq $keyStatus) {
-    Write-Error "Failed to retrieve the status of the key '$key_name' in vault '$key_vault_name'. Exiting script."
-    exit 1
-}
-
-if (-not $keyStatus) {
+if (-not (Get-VaultKeyStatus -vaultName $key_vault_name -keyName $key_name)) {
     Write-Output "$key_name key was disabled in a previous run"
     exit 0
 }
@@ -110,12 +104,13 @@ foreach ($budget in $budget_names) {
     }
 }
 
-#round to dollars and cents
-$totalSpent = [math]::round($totalSpent, 2)
 $totalBudget = [math]::round($totalBudget, 2)
+$totalSpent = [math]::round($totalSpent, 2)
 
 Write-Output "Total Budget: $totalBudget"
 Write-Output "Total Spent: $totalSpent"
+
+
 
 # Calculate percentage with zero and negative check
 if ($totalBudget -le 0) {
@@ -126,6 +121,7 @@ if ($totalBudget -le 0) {
 }
 
 Write-Output "Total Percent: $totalPercent"
+Write-Output "Trigger Percent: $trigger_percent"
 
 # Check if the total spend percentage has reached or exceeded the trigger percentage
 if ($totalPercent -ge $trigger_percent) {
