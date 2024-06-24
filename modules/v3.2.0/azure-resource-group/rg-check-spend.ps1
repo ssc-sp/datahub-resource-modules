@@ -6,10 +6,10 @@ param (
     [string]$subscription_id
 )
 
-#Install-Module -Name Az.Accounts -RequiredVersion 2.19.0 
+Install-Module -Name Az.Accounts -RequiredVersion 2.19.0 
 Import-Module -Name Az.Accounts -RequiredVersion 2.19.0 
 
-#Install-Module -Name Az.KeyVault -RequiredVersion 5.3.0 
+Install-Module -Name Az.KeyVault -RequiredVersion 5.3.0 
 Import-Module -Name Az.KeyVault -RequiredVersion 5.3.0 
 
 function Connect-ToAzureIdentity {
