@@ -21,6 +21,9 @@ function Connect-ToAzureIdentity {
             Connect-AzAccount -Identity
             Write-Output "Successfully connected to Azure with the default subscription."
         }
+        # workaround https://github.com/Azure/azure-powershell/issues/24942
+        Set-AzConfig -EnableLoginByWam $true
+        
         return $true
     }
     catch {
