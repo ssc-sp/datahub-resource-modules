@@ -84,8 +84,6 @@ if (Connect-ToAzureIdentity -SubscriptionId $subscription_id) {
     exit 1
 }
 
-write-Output "$key_vault_name and $key_name"
-
 # Check if CMK is already disabled
 if (-not (Get-VaultKeyStatus -vaultName $key_vault_name -keyName $key_name)) {
     Write-Output "$key_name key was disabled in a previous run"
@@ -100,7 +98,7 @@ foreach ($budget in $budget_names) {
     $currentBudget = Get-AzureBudget -BudgetName $budget
     if ($currentBudget) {
         $totalBudget += $currentBudget.Amount
-        $totalSpent += $currentBudget.CurrentSpend
+        $totalSpent += $currentBudget.CurrentSpend.Amount
     } else {
         Write-Error "Budget $budget not found or failed to retrieve."
     }
