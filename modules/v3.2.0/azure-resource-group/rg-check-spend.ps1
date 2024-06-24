@@ -52,7 +52,7 @@ function Get-VaultKeyStatus {
         [string]$keyName
     )
     try {
-        $key = Get-AzKeyVaultKey -VaultName $vaultName -Name $keyName
+        $key = Get-AzKeyVaultKey -VaultName $vaultName -Name $keyName -ErrorAction Stop
         return $key.Attributes.Enabled # Accessing the Enabled property correctly
     } catch {
         Write-Error "Failed to retrieve the status of the key '$keyName' in vault '$vaultName'."
