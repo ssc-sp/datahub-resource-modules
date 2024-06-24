@@ -51,7 +51,6 @@ function Get-VaultKeyStatus {
         [string]$vaultName,
         [string]$keyName
     )
-    write-Output "$vaultName and $keyName"
     try {
         $key = Get-AzKeyVaultKey -VaultName $vaultName -Name $keyName
         return $key.Attributes.Enabled # Accessing the Enabled property correctly
@@ -84,6 +83,8 @@ if (Connect-ToAzureIdentity -SubscriptionId $subscription_id) {
     Write-Error "Failed to connect to Azure. Exiting script."
     exit 1
 }
+
+write-Output "$key_vault_name and $key_name"
 
 # Check if CMK is already disabled
 if (-not (Get-VaultKeyStatus -vaultName $key_vault_name -keyName $key_name)) {
