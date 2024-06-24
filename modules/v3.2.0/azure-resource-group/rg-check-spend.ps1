@@ -12,10 +12,8 @@ function Connect-ToAzureIdentity {
     )
 
     try {
-        $currentContext = Get-AzContext
-        if ($currentContext -and $currentContext.Subscription.Id -eq $SubscriptionId) {
+        if (Get-AzContext) {
             Write-Output "Already connected to Azure subscription $SubscriptionId."
-            return $true
         } elseif ($SubscriptionId) {
             Connect-AzAccount -Identity -Subscription $SubscriptionId
             Write-Output "Successfully connected to Azure subscription $SubscriptionId."
@@ -35,13 +33,13 @@ function Get-AzureBudget {
     param (
         [string]$BudgetName
     )
-
     try {
         $budget = Get-AzConsumptionBudget -Name $BudgetName
         return $budget
     }
     catch {
-        Write-Error "Failed to retrieve the budget. Error: $_"
+        Write-Error "Failed to retrieve the budget."
+        Write-Error $_.Exception.Message
         return $null
     }
 }
@@ -56,6 +54,7 @@ function Get-VaultKeyStatus {
         return $key.Attributes.Enabled # Accessing the Enabled property correctly
     } catch {
         Write-Error "Failed to retrieve the status of the key '$keyName' in vault '$vaultName'."
+        Write-Error $_.Exception.Message
         return $null
     }
 }
@@ -68,11 +67,10 @@ function Set-VaultKeyStatus {
     )
     try {
         Update-AzKeyVaultKey -VaultName $vaultName -Name $keyName -Enable $enabled -ErrorAction Stop
-        Write-Output "Successfully updated the status of the key '$keyName' in vault '$vaultName'."
+        return $true
     } catch {
-        Write-Error "Failed to update the status of the key '$keyName' in vault '$vaultName'."
         Write-Error $_.Exception.Message
-        exit 1
+        return $false
     }
 }
 
@@ -84,11 +82,20 @@ if (Connect-ToAzureIdentity -SubscriptionId $subscription_id) {
     exit 1
 }
 
-# Check if CMK is already disabled
-if (-not (Get-VaultKeyStatus -vaultName $key_vault_name -keyName $key_name)) {
+# Check if CMK exists and is already disabled
+$keyStatus = Get-VaultKeyStatus -vaultName $key_vault_name -keyName $key_name
+
+if ($null -eq $keyStatus) {
+    Write-Error "Issue getting key, please investigate"
+    exit 1 
+}
+
+if (-not $keyStatus) {
     Write-Output "$key_name key was disabled in a previous run"
     exit 0
 }
+
+
 
 # Initialize total budget and spent values
 $totalBudget = 0
@@ -126,7 +133,15 @@ Write-Output "Trigger Percent: $trigger_percent"
 # Check if the total spend percentage has reached or exceeded the trigger percentage
 if ($totalPercent -ge $trigger_percent) {
     Write-Output "Current percentage exceeds the trigger percent. Disabling CMK in AKV $key_vault_name."
-    Set-VaultKeyStatus -vaultName $key_vault_name -keyName $key_name -enabled $false
+    
+    if (Set-VaultKeyStatus -vaultName $key_vault_name -keyName $key_name -enabled $false) {
+        Write-Output "Successfully updated the status of the key '$keyName' in vault '$vaultName'."
+        exit 0
+    } else {
+        Write-Error "Failed to update the status of the key '$keyName' in vault '$vaultName'."
+        exit 1
+    }
+
 } else {
     Write-Output "Current spend does not exceed the trigger percent. No action needed."
 }
