@@ -52,7 +52,7 @@ function Get-VaultKeyStatus {
         [string]$keyName
     )
     try {
-        $key = Get-AzKeyVaultKey -VaultName $vaultName -Name $keyName -ErrorAction Stop
+        $key = Get-AzKeyVaultKey -VaultName $vaultName -Name $keyName
         return $key.Attributes.Enabled # Accessing the Enabled property correctly
     } catch {
         Write-Error "Failed to retrieve the status of the key '$keyName' in vault '$vaultName'."
@@ -85,7 +85,13 @@ if (Connect-ToAzureIdentity -SubscriptionId $subscription_id) {
 }
 
 # Check if CMK is already disabled
-if (-not (Get-VaultKeyStatus -vaultName $key_vault_name -keyName $key_name)) {
+$keyStatus = Get-VaultKeyStatus -vaultName $key_vault_name -keyName $key_name
+if ($null -eq $keyStatus) {
+    Write-Error "Failed to retrieve the status of the key '$key_name' in vault '$key_vault_name'. Exiting script."
+    exit 1
+}
+
+if (-not $keyStatus) {
     Write-Output "$key_name key was disabled in a previous run"
     exit 0
 }
@@ -104,12 +110,12 @@ foreach ($budget in $budget_names) {
     }
 }
 
+#round to dollars and cents
 $totalSpent = [math]::round($totalSpent, 2)
+$totalBudget = [math]::round($totalBudget, 2)
 
 Write-Output "Total Budget: $totalBudget"
 Write-Output "Total Spent: $totalSpent"
-
-
 
 # Calculate percentage with zero and negative check
 if ($totalBudget -le 0) {
