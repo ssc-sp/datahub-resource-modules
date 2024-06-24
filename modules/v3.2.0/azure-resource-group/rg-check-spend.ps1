@@ -20,9 +20,6 @@ function Connect-ToAzureIdentity {
             Connect-AzAccount -Identity
             Write-Output "Successfully connected to Azure with the default subscription."
         }
-        # workaround https://github.com/Azure/azure-powershell/issues/24942
-        #Set-AzConfig -EnableLoginByWam $true
-
         return $true
     }
     catch {
@@ -115,10 +112,11 @@ foreach ($budget in $budget_names) {
 
 $totalBudget = [math]::round($totalBudget, 2)
 $totalSpent = [math]::round($totalSpent, 2)
+$triggerAmount = [math]::round(($totalBudget * $trigger_percent) / 100, 2)
 
-Write-Output "Total Budget: $totalBudget"
-Write-Output "Total Spent: $totalSpent"
-
+Write-Output "Threshold Budget: `$$triggerAmount"
+Write-Output "Max Budget: `$$totalBudget"
+Write-Output "Total Spent: `$$totalSpent"
 
 
 # Calculate percentage with zero and negative check
@@ -129,12 +127,12 @@ if ($totalBudget -le 0) {
     $totalPercent = [math]::round((($totalSpent) / $totalBudget) * 100)
 }
 
-Write-Output "Total Percent: $totalPercent"
-Write-Output "Trigger Percent: $trigger_percent"
+Write-Output "Total Percent: $totalPercent%"
+Write-Output "Trigger Percent: $trigger_percent%"
 
 # Check if the total spend percentage has reached or exceeded the trigger percentage
-if ($totalPercent -ge $trigger_percent) {
-    Write-Output "Current percentage exceeds the trigger percent. Disabling CMK in AKV $key_vault_name."
+if ($totalSpent -ge $triggerAmount) {
+    Write-Output "Current spend exceeds the Threshold Budget. Disabling CMK in AKV $key_vault_name."
     
     if (Set-VaultKeyStatus -vaultName $key_vault_name -keyName $key_name -enabled $false) {
         Write-Output "Successfully updated the status of the key '$keyName' in vault '$vaultName'."
@@ -145,5 +143,5 @@ if ($totalPercent -ge $trigger_percent) {
     }
 
 } else {
-    Write-Output "Current spend does not exceed the trigger percent. No action needed."
+    Write-Output "Current spend does not exceed the Threshold Budget. No action needed."
 }
