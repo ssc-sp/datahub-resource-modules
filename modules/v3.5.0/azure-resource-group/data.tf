@@ -26,22 +26,13 @@ locals {
   storage_account_name      = lower("${var.resource_prefix}proj${var.project_cd}${var.environment_name}")
 }
 
-data "template_file" "az_project_disable_cmk_script" {
-  template = file("${path.module}/rg-disable-cmk.ps1")
-  vars = {
-    key_vault_name  = azurerm_key_vault.az_proj_kv.name
-    subscription_id = var.az_subscription_id
-    uai_clientid    = data.azurerm_user_assigned_identity.proj_auto_acct_uai.client_id
-  }
-}
-
 data "template_file" "az_project_cost_check_script" {
   template = file("${path.module}/rg-check-spend.ps1")
   vars = {
     subscription_id = var.az_subscription_id
     key_vault_name  = azurerm_key_vault.az_proj_kv.name
     budget_name     = azurerm_consumption_budget_resource_group.az_project_rg_budget.0.name
-    budget_name_dbr = "${local.databricks_rg_name}-budget"
+    dbr_rg_name     = local.databricks_rg_name
     trigger_percent = 100
     uai_clientid    = data.azurerm_user_assigned_identity.proj_auto_acct_uai.client_id
   }
