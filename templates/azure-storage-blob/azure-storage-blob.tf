@@ -4,7 +4,7 @@ module "azure_storage_blob_module" {
 
   resource_group_name          = module.resource_group_module.az_project_rg_name
   key_vault_id                 = module.resource_group_module.az_project_kv_id
-  key_vault_cmk_name           = module.resource_group_module.az_project_cmk_id
+  key_vault_cmk_name           = module.resource_group_module.az_project_cmk
   automation_acct_principal_id = module.resource_group_module.automation_acct_principal_id
 
   # optional variables
