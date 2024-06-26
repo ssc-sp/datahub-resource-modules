@@ -73,6 +73,22 @@ function Set-VaultKeyStatus {
     }
 }
 
+function Get-OverBudgetResult {
+    param (
+        [decimal]$spent,
+        [decimal]$budget,
+        [ValidateRange(0, 100)][int]$threshold
+    )
+    $triggerAmount = [math]::round(($budget * $threshold) / 100, 2)
+
+    if ($spent -ge $triggerAmount) { 
+        return $true
+    } else {
+        return $false
+    }
+}
+
+
 # Connect to Azure
 if (Connect-ToAzureIdentity -SubscriptionId $subscription_id) {
     Write-Output "Connection to Azure successful"
@@ -112,7 +128,7 @@ foreach ($budget in $budget_names) {
 
 $totalBudget = [math]::round($totalBudget, 2)
 $totalSpent = [math]::round($totalSpent, 2)
-$triggerAmount = [math]::round(($totalBudget * $trigger_percent) / 100, 2)
+
 
 # Calculate percentage with zero and negative check
 if ($totalBudget -le 0) {
@@ -124,15 +140,17 @@ if ($totalBudget -le 0) {
 
 Write-Output "Max Budget: `$$totalBudget"
 Write-Output "Threshold Percent: $trigger_percent%"
-Write-Output "Threshold Budget: `$$triggerAmount"
-
-
 Write-Output "Total Spent: `$$totalSpent"
 Write-Output "Total Budget used: $totalPercent%"
 
 
+
+
+
+
+
 # Check if the total spend percentage has reached or exceeded the trigger percentage
-if ($totalSpent -ge $triggerAmount) {
+if (Get-OverBudgetResult -spent $totalSpent -threshhold $trigger_percent budget $totalBudget) {
     Write-Output "Current spend exceeds the Threshold Budget. Disabling CMK in AKV $key_vault_name."
     
     if (Set-VaultKeyStatus -vaultName $key_vault_name -keyName $key_name -enabled $false) {
