@@ -7,6 +7,10 @@ resource "azurerm_databricks_workspace" "datahub_databricks_workspace" {
   customer_managed_key_enabled      = true
   infrastructure_encryption_enabled = true
 
+  custom_parameters {
+    no_public_ip = false
+  }
+
   tags = local.project_tags
 }
 
