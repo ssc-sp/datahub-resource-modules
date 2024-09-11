@@ -22,6 +22,21 @@ variable "datahub_app_sp_oid" {
   type        = string
 }
 
+variable "automation_account_uai_name" {
+  description = "The UAI common automation acct UAI"
+  type        = string
+}
+
+variable "automation_account_uai_rg" {
+  description = "The RG of the automation acct UAI"
+  type        = string
+}
+
+variable "automation_account_uai_sub" {
+  description = "The RG of the automation acct UAI"
+  type        = string
+}
+
 # ==============================================
 #     Optional Variables
 # ==============================================
