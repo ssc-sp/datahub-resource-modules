@@ -1,10 +1,10 @@
 # ==============================================
 #     Required Variables
 # ==============================================
-
 variable "az_subscription_id" {
   description = "Azure Subscription ID"
   type        = string
+  default     = ""
 }
 
 variable "az_tenant_id" {
@@ -17,25 +17,26 @@ variable "project_cd" {
   type        = string
 }
 
-variable "datahub_app_sp_oid" {
-  description = "The SP object ID used by the datahub app for granting KV access"
+variable "resource_group_name" {
+  description = "Resource group name"
   type        = string
 }
 
-variable "automation_account_uai_name" {
-  description = "The UAI common automation acct UAI"
+variable "key_vault_id" {
+  description = "Key vault ID"
   type        = string
 }
 
-variable "automation_account_uai_rg" {
-  description = "The RG of the automation acct UAI"
+variable "key_vault_cmk_name" {
+  description = "Project CMK name"
   type        = string
 }
 
-variable "automation_account_uai_sub" {
-  description = "The RG of the automation acct UAI"
+variable "automation_acct_principal_id" {
+  description = "Automation account UAI"
   type        = string
 }
+
 
 # ==============================================
 #     Optional Variables
@@ -64,38 +65,40 @@ variable "resource_prefix" {
   default     = "fsdh"
 }
 
+variable "resource_prefix_alphanumeric" {
+  description = "Aphanumeric resource name prefix for resources. All lower case"
+  type        = string
+  default     = "fsdh"
+}
+
+variable "storage_suffix" {
+  description = "Resource name suffix for resources"
+  type        = string
+  default     = "tfbackend"
+}
+
 variable "common_tags" {
   description = "Common tags map"
   type        = map(any)
   default     = {}
 }
 
-variable "budget_amount" {
-  description = "Budget amount for the resource group"
+variable "storage_contributor_users" {
+  description = "A list of users to be assigned the role of Storage Blob Data Contributor"
+  type        = list(any)
+  default     = []
+}
+
+variable "storage_reader_users" {
+  description = "A list of users to be assigned the role of Storage Blob Data Reader"
+  type        = list(any)
+  default     = []
+}
+
+variable "storage_size_limit_tb" {
+  description = "Storage account size limit for alerts"
   type        = number
   default     = 0
 }
 
-variable "default_alert_email" {
-  description = "Default alert email regardless of project"
-  type        = string
-  default     = "fsdh-notifications-dhsf-notifications@ssc-spc.gc.ca"
-}
-
-variable "project_alert_email_list" {
-  description = "A list of email addresses to receive project level notification emails"
-  type        = list(string)
-  default     = []
-}
-
-variable "aad_admin_group_oid" {
-  description = "The admin group OID in AAD for managing the datahub app"
-  type        = string
-}
-
-variable "budget_start_date" {
-  description = "The start date of budget"
-  type        = string
-  default     = ""
-}
 
