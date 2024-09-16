@@ -34,7 +34,7 @@ resource "null_resource" "access_ip_whitelist_one" {
   provisioner "local-exec" {
     interpreter = ["pwsh", "-Command"]
     command     = <<-EOT
-      if ( ! [string]::IsNullOrEmpty(${each.value}) ) { 
+      if ( ! [string]::IsNullOrEmpty("${each.value}") ) { 
         az webapp config access-restriction add -g ${var.resource_group_name} -n ${azurerm_linux_web_app.datahub_proj_app.name} --rule-name fsdh-app-${each.key} --action Allow --ip-address ${each.value}/32 --priority ${100 + each.key}
       }
     EOT
