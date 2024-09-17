@@ -47,12 +47,15 @@ locals {
 }
 
 module "resource_group_module" {
-  source = "github.com/ssc-sp/datahub-resource-modules//modules/{{version}}/azure-resource-group{{branch}}"
-  az_tenant_id       = var.az_tenant_id
-  az_subscription_id = var.az_subscription_id
-  project_cd         = var.project_cd
-  environment_name   = var.environment_name
-  datahub_app_sp_oid = var.datahub_app_sp_oid
+  source                      = "github.com/ssc-sp/datahub-resource-modules//modules/{{version}}/azure-resource-group{{branch}}"
+  az_tenant_id                = var.az_tenant_id
+  az_subscription_id          = var.az_subscription_id
+  project_cd                  = var.project_cd
+  environment_name            = var.environment_name
+  datahub_app_sp_oid          = var.datahub_app_sp_oid
+  automation_account_uai_name = var.automation_account_uai_name
+  automation_account_uai_rg   = var.automation_account_uai_rg
+  automation_account_uai_sub  = var.automation_account_uai_sub
 
   # optional variables
   budget_amount       = var.budget_amount

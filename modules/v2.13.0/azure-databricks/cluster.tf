@@ -21,6 +21,7 @@ resource "databricks_cluster" "dbk_proj_cluster" {
   driver_node_type_id     = "Standard_D4ds_v5"
   autotermination_minutes = 10
   num_workers             = 1
+  is_pinned               = true
   policy_id               = databricks_cluster_policy.regular_cluster_policy.id
 
   spark_conf = {

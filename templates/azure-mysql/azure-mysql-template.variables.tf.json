@@ -4,15 +4,15 @@
       "type": "string",
       "default": "B_Standard_B1s"
     },
-    "allow_source_ip_start": {
+    "mysql_source_ip_start": {
       "type": "string",
       "default": ""
     },
-    "allow_source_ip_end": {
+    "mysql_source_ip_end": {
       "type": "string",
       "default": ""
     },
-    "allow_source_ip_list": {
+    "mysql_source_ip_list": {
       "type": "list(string)",
       "default": []
     }

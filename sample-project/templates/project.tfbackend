@@ -1,5 +1,4 @@
 resource_group_name  = "sp-datahub-iac-rg"
 storage_account_name = "sscdataterraformbackend"
 container_name       = "fsdh-project-v2"
-key                  = "fsdh-sw1t1.tfstate"
-
+key                  = "fsdh-swt9a.tfstate"

@@ -55,6 +55,6 @@ resource "databricks_notebook" "fsdh_sample_notebook" {
 
     EOT
   )
-  path = "/fsdh-sample"
+  path     = "/fsdh-sample"
   language = "PYTHON"
 }
