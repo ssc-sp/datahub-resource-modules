@@ -17,7 +17,7 @@ if ((get-date).addDays(14) -ge (get-date $secret_expiry)) {
     $new_tags = @{ "start" = "$new_start"; "expiry" = "$new_expiry" } 
     Write-Output "Rotating SAS token - generating a new SAS token"
     $context = (Get-AzStorageAccount -ResourceGroupName $resource_group_name -AccountName $storage_acct_name).context
-    $new_sas = New-AzStorageContainerSASToken -Name $container_name -Permission rwd -StartTime $new_start -ExpiryTime $new_expiry -context $context
+    $new_sas = New-AzStorageContainerSASToken -Name $container_name -Permission rwdl -StartTime $new_start -ExpiryTime $new_expiry -context $context
     $new_sas_secret = ConvertTo-SecureString -String "$new_sas" -AsPlainText -Force
     Set-AzKeyVaultSecret -VaultName $key_vault_name -Name $sas_secret_name -SecretValue $new_sas_secret -Tags $new_tags
     Write-Output "New expiry date: from $new_start to $new_expiry"
