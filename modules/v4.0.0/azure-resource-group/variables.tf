@@ -37,6 +37,11 @@ variable "automation_account_uai_sub" {
   type        = string
 }
 
+variable "log_analytics_workspace_id" {
+  description = "FSDH central LAW ID for storing audit and log"
+  type        = string
+}
+
 # ==============================================
 #     Optional Variables
 # ==============================================

@@ -33,10 +33,14 @@ variable "key_vault_cmk_name" {
 }
 
 variable "automation_acct_principal_id" {
-  description = "Principal ID of the project level automation account"
+  description = "Automation account UAI"
   type        = string
 }
 
+variable "log_analytics_workspace_id" {
+  description = "FSDH central LAW ID for storing audit and log"
+  type        = string
+}
 
 # ==============================================
 #     Optional Variables

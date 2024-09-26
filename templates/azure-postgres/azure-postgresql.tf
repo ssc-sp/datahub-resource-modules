@@ -1,11 +1,12 @@
 module "azure_postgresql_module" {
   source = "github.com/ssc-sp/datahub-resource-modules//modules/{{version}}/azure-postgresql{{branch}}"
 
-  resource_group_name = module.resource_group_module.az_project_rg_name
-  key_vault_id        = module.resource_group_module.az_project_kv_id
-  key_vault_cmk_id    = module.resource_group_module.az_project_cmk_id
-  key_vault_url       = module.resource_group_module.az_project_kv_url
-  key_vault_name      = module.resource_group_module.az_project_kv_name
+  resource_group_name        = module.resource_group_module.az_project_rg_name
+  key_vault_id               = module.resource_group_module.az_project_kv_id
+  key_vault_cmk_id           = module.resource_group_module.az_project_cmk_id
+  key_vault_url              = module.resource_group_module.az_project_kv_url
+  key_vault_name             = module.resource_group_module.az_project_kv_name
+  log_analytics_workspace_id = var.log_analytics_workspace_id
 
   # optional variables
   az_tenant_id       = var.az_tenant_id

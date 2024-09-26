@@ -50,6 +50,9 @@
     },
     "automation_account_uai_sub": {
       "type": "string"
+    },
+    "log_analytics_workspace_id": {
+      "type": "string"
     }
   }
 }

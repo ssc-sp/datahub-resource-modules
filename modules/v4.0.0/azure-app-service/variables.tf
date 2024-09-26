@@ -58,6 +58,11 @@ variable "key_vault_cmk_id" {
   type        = string
 }
 
+variable "log_analytics_workspace_id" {
+  description = "FSDH central LAW ID for storing audit and log"
+  type        = string
+}
+
 variable "storage_acct_name" {
   description = "Name of the project storage account"
   type        = string

@@ -64,6 +64,11 @@ variable "key_vault_cmk_id" {
   type        = string
 }
 
+variable "log_analytics_workspace_id" {
+  description = "FSDH central LAW ID for storing audit and log"
+  type        = string
+}
+
 variable "common_tags" {
   description = "Common tags map"
   type        = map(any)
