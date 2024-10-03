@@ -13,6 +13,7 @@ resource "azurerm_storage_account" "datahub_storageaccount" {
 
   blob_properties {
     last_access_time_enabled = "true"
+    change_feed_enabled      = "true"
 
     delete_retention_policy {
       days                     = 32
