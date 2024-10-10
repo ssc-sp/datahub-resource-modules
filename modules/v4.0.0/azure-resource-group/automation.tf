@@ -21,12 +21,41 @@ resource "azurerm_automation_runbook" "az_project_cost_check_runbook" {
   description             = "Cost checking runbook for project ${var.project_cd}"
   runbook_type            = "PowerShell"
 
-  parameters = {
-    trigger_percent = "100"
-    key_vault_name  = azurerm_key_vault.az_proj_kv.name
-    budget_name     = azurerm_consumption_budget_resource_group.az_project_rg_budget.0.name
-    dbr_rg_name     = local.databricks_rg_name
-    subscription_id = var.az_subscription_id
+  draft {
+    parameters {
+      mandatory     = true
+      key  = "trigger_percent"
+      type  = "string"
+      default_value  = "100"
+    }
+
+    parameters {
+      mandatory     = true
+      key  = "key_vault_name"
+      type  = "string"
+      default_value  = azurerm_key_vault.az_proj_kv.name
+    }
+
+    parameters {
+      mandatory     = true
+      key  = "budget_name"
+      type  = "string"
+      default_value  = azurerm_consumption_budget_resource_group.az_project_rg_budget.0.name
+    }
+
+    parameters {
+      mandatory     = true
+      key  = "dbr_rg_name"
+      type  = "string"
+      default_value  = local.databricks_rg_name
+    }
+
+    parameters {
+      mandatory     = true
+      key  = "subscription_id"
+      type  = "string"
+      default_value  = var.az_subscription_id
+    }
   }
 
   content = data.template_file.az_project_cost_check_script.rendered
