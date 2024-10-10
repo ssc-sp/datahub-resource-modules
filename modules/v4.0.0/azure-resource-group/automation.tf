@@ -26,7 +26,27 @@ resource "azurerm_automation_runbook" "az_project_cost_check_runbook" {
       key      = "trigger_percent"
       type     = "string"
       position = 0
+      value    = var.trigger_percent
     }
+    parameters {
+      key      = "key_vault_name"
+      type     = "string"
+      position = 1
+      value    = var.key_vault_name
+    }
+    parameters {
+      key      = "budget_name"
+      type     = "string"
+      position = 2
+      value    = var.budget_name
+    }
+    parameters {
+      key      = "dbr_rg_name"
+      type     = "string"
+      position = 3
+      value    = var.dbr_rg_name
+    }
+
   }
 
   content = data.template_file.az_project_cost_check_script.rendered
