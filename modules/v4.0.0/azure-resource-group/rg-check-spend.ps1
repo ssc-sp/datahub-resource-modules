@@ -1,11 +1,9 @@
-
 param (
-    [Parameter(Position = 0)][string]$trigger_percent = "${trigger_percent}"
+    [Parameter(Mandatory=$true)][string]$trigger_percent,
+    [Parameter(Mandatory=$true)][string]$key_vault_name,
+    [Parameter(Mandatory=$true)][string]$budget_name,
+    [Parameter(Mandatory=$true)][string]$dbr_rg_name
 )
-
-$key_vault_name = "${key_vault_name}"
-$budget_name = "${budget_name}"
-$dbr_rg_name = "${dbr_rg_name}"
 
 Connect-AzAccount -Identity -Subscription "${subscription_id}"
 
