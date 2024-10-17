@@ -1,13 +1,12 @@
-
 param (
-    [Parameter(Position = 0)][string]$trigger_percent = "${trigger_percent}"
+    [Parameter(Mandatory=$true)][string]$trigger_percent,
+    [Parameter(Mandatory=$true)][string]$key_vault_name,
+    [Parameter(Mandatory=$true)][string]$budget_name,
+    [Parameter(Mandatory=$true)][string]$dbr_rg_name,
+    [Parameter(Mandatory=$true)][string]$subscription_id
 )
 
-$key_vault_name = "${key_vault_name}"
-$budget_name = "${budget_name}"
-$dbr_rg_name = "${dbr_rg_name}"
-
-Connect-AzAccount -Identity -Subscription "${subscription_id}"
+Connect-AzAccount -Identity -Subscription "$subscription_id"
 
 $budget = (Get-AzConsumptionBudget -name $budget_name)
 $startDate = $budget.timePeriod.startDate.toUniversalTime()

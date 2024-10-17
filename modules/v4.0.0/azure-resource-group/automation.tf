@@ -23,9 +23,38 @@ resource "azurerm_automation_runbook" "az_project_cost_check_runbook" {
 
   draft {
     parameters {
-      key      = "trigger_percent"
-      type     = "string"
-      position = 0
+      mandatory     = true
+      key  = "trigger_percent"
+      type  = "string"
+      default_value  = "100"
+    }
+
+    parameters {
+      mandatory     = true
+      key  = "key_vault_name"
+      type  = "string"
+      default_value  = azurerm_key_vault.az_proj_kv.name
+    }
+
+    parameters {
+      mandatory     = true
+      key  = "budget_name"
+      type  = "string"
+      default_value  = azurerm_consumption_budget_resource_group.az_project_rg_budget.0.name
+    }
+
+    parameters {
+      mandatory     = true
+      key  = "dbr_rg_name"
+      type  = "string"
+      default_value  = local.databricks_rg_name
+    }
+
+    parameters {
+      mandatory     = true
+      key  = "subscription_id"
+      type  = "string"
+      default_value  = var.az_subscription_id
     }
   }
 
