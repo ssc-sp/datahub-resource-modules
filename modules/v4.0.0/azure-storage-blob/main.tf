@@ -21,6 +21,8 @@ resource "azurerm_storage_account" "datahub_storageaccount" {
     container_delete_retention_policy { days = 30 }
   }
 
+  sas_policy { expiration_period = "3.00:00:00" }
+
   tags = local.project_tags
 
   lifecycle {
