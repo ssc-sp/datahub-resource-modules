@@ -47,21 +47,6 @@ resource "azurerm_automation_runbook" "az_project_sas_token_runbook" {
   tags    = local.project_tags
 }
 
-resource "azurerm_automation_schedule" "daily_3am_schedule" {
-  name                    = "daily-3am-schedule"
-  resource_group_name     = azurerm_resource_group.az_project_rg.name
-  automation_account_name = azurerm_automation_account.az_project_automation_acct.name
-  frequency               = "Day"
-  interval                = 1
-  timezone                = "America/Toronto"
-  start_time              = formatdate("YYYY-MM-DD'T'07:00:00Z", timeadd(timestamp(), "24h"))
-  description             = "DataHub Schedule to check RG spend daily"
-
-  lifecycle {
-    ignore_changes = [start_time]
-  }
-}
-
 resource "azurerm_automation_runbook" "az_project_cost_stop_runbook" {
   name                    = local.cost_runbook_name
   resource_group_name     = azurerm_resource_group.az_project_rg.name
