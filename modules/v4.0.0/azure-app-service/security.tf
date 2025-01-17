@@ -20,3 +20,10 @@ resource "azurerm_key_vault_secret" "root_passwd_secret" {
 
   depends_on = [azurerm_key_vault_access_policy.kv_app_service_policy]
 }
+
+resource "azurerm_role_assignment" "datahub_proj_app_contrib" {
+  scope                = azurerm_linux_web_app.datahub_proj_app.id
+  role_definition_name = "Contributor"
+  principal_id         = var.sp_client_oid
+}
+

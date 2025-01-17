@@ -11,6 +11,7 @@ module "azure_app_service_module" {
   storage_acct_key           = module.azure_storage_blob_module.azure_storage_account_key
   allow_source_ip            = var.allow_source_ip
   log_analytics_workspace_id = var.log_analytics_workspace_id
+  sp_client_oid              = var.sp_client_oid
 
   # optional variables
   environment_name   = var.environment_name
