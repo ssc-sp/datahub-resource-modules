@@ -133,6 +133,12 @@ variable "sp_client_id" {
   default     = ""
 }
 
+variable "sp_client_oid" {
+  description = "Client OID / Principal of the Azure Service Principal"
+  type        = string
+  default     = ""
+}
+
 variable "allow_source_ip" {
   description = "A list of comma delimited string for source IPs of the reverse proxy that is allowed to call the Azure App Service (required if use_easy_auth is false)"
   type        = string
