@@ -40,6 +40,10 @@
       "type": "string",
       "default": ""
     },
+    "sp_client_oid": {
+      "type": "string",
+      "default": ""
+    },
     "use_easy_auth": {
       "type": "bool",
       "default": false
