@@ -2,3 +2,7 @@
 data "http" "myip" {
   url = "https://checkip.amazonaws.com"
 }
+
+locals {
+  sample_project_id = "swt14"
+}
