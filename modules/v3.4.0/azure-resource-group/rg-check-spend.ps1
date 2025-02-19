@@ -7,7 +7,7 @@ $key_vault_name = "${key_vault_name}"
 $budget_name = "${budget_name}"
 $dbr_rg_name = "${dbr_rg_name}"
 
-Connect-AzAccount -Identity -Subscription "f42cb866-f2c8-4a25-a260-9e3d7e01f8bb"
+Connect-AzAccount -Identity -Subscription "${subscription_id}"
 
 $budget = (Get-AzConsumptionBudget -name $budget_name)
 $startDate = $budget.timePeriod.startDate.toUniversalTime()
