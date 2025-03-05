@@ -1,5 +1,5 @@
 module "azure_batch_module" {
-  source     = "github.com/ssc-sp/datahub-resource-modules//modules/{{version}}/azure-batch{{branch}}"
+  source     = "github.com/ssc-sp/datahub-resource-modules//modules/azure-batch{{tag}}"
   depends_on = [module.azure_storage_blob_module]
 
   resource_group_name = module.resource_group_module.az_project_rg_name
