@@ -27,3 +27,13 @@ resource "azurerm_automation_schedule" "daily_3am_schedule" {
     ignore_changes = [start_time]
   }
 }
+
+resource "random_integer" "logicapp_start_minute" {
+  min = 0
+  max = 59
+}
+
+resource "random_integer" "logicapp_start_hour" {
+  min = 2
+  max = 7
+}

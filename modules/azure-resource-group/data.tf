@@ -11,11 +11,16 @@ data "azurerm_user_assigned_identity" "proj_auto_acct_uai" {
 }
 
 locals {
+  sanitized_prefix          = lower(replace(replace(var.resource_prefix, "_", ""), "-", ""))
   resource_group_name       = lower("${var.resource_prefix}_proj_${var.project_cd}_${var.environment_name}_rg")
   databricks_rg_name        = lower("${var.resource_prefix}-dbk-${var.project_cd}-${var.environment_name}-rg")
   resource_group_location   = var.az_location
   kv_name                   = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-kv")
   automation_acct_name      = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-auto")
+  funcapp_name              = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-func")
+  funcapp_plan              = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-plan")
+  seed_storage_account_name = lower("${local.sanitized_prefix}projseed${var.project_cd}${var.environment_name}")
+  seed_storage_secret_name  = "seed-storage-conn-str"
   cost_runbook_name         = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-cost-stop-runbook")
   cost_check_runbook_name   = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-cost-check-runbook")
   sas_rotate_runbook_name   = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-sas-rotate-runbook")
