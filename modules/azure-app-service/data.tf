@@ -46,8 +46,8 @@ data "azurerm_storage_account_blob_container_sas" "datahub_backup_sas" {
 }
 
 locals {
-  app_service_plan_name   = lower("${var.resource_prefix}-proj-${var.project_cd}-app-plan-${var.environment_name}")
-  app_service_name        = lower("${var.resource_prefix}-proj-${var.project_cd}-webapp-${var.environment_name}")
+  app_service_plan_name   = lower("${var.resource_prefix}-proj-${var.project_cd}-app-plan-${var.environment_name}-${var.resource_name_suffix}")
+  app_service_name        = lower("${var.resource_prefix}-proj-${var.project_cd}-webapp-${var.environment_name}-${var.resource_name_suffix}")
   resource_group_location = "canadacentral"
   storage_key_secret      = "storage-key"
   storage_sas_secret      = "container-sas"

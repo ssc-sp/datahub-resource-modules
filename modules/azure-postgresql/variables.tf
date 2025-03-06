@@ -33,6 +33,12 @@ variable "resource_prefix" {
   default     = "fsdh"
 }
 
+variable "resource_name_suffix" {
+  description = "Resource name suffix (3-digit numeric) to ensure uniqueness"
+  type        = string
+  default     = "000"
+}
+
 variable "az_location" {
   description = "The Azure location to create the resources in"
   type        = string

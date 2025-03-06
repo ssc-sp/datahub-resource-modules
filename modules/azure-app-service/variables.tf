@@ -33,6 +33,12 @@ variable "resource_prefix" {
   default     = "fsdh"
 }
 
+variable "resource_name_suffix" {
+  description = "Resource name suffix (3-digit numeric) to ensure uniqueness"
+  type        = string
+  default     = "000"
+}
+
 variable "resource_group_name" {
   description = "Resource group name"
   type        = string
