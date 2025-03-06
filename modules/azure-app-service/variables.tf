@@ -36,7 +36,7 @@ variable "resource_prefix" {
 variable "resource_name_suffix" {
   description = "Resource name suffix (3-digit numeric) to ensure uniqueness"
   type        = string
-  default     = "000"
+  default     = ""
 }
 
 variable "resource_group_name" {
