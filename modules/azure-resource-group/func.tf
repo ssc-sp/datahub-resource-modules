@@ -70,7 +70,7 @@ resource "azurerm_function_app_function" "datahub_proj_cost_func" {
         "type" : "timerTrigger",
         "direction" : "in",
         "schedule" : "0 ${random_integer.logicapp_start_minute.result} ${random_integer.logicapp_start_hour.result} * * *"
-      }
+      },
     ]
   })
 }

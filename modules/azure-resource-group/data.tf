@@ -42,7 +42,7 @@ data "template_file" "az_project_disable_cmk_script" {
 data "template_file" "az_project_cost_check_script" {
   template = file("${path.module}/rg-check-spend.ps1")
   vars = {
-    subscription_id = var.az_subscription_id
+    subscription_id = split("/", azurerm_resource_group.az_project_rg.id)[2]
     key_vault_name  = azurerm_key_vault.az_proj_kv.name
     budget_name     = azurerm_consumption_budget_resource_group.az_project_rg_budget.0.name
     dbr_rg_name     = local.databricks_rg_name
@@ -55,7 +55,7 @@ data "template_file" "az_project_rorate_sas_script" {
   template = file("${path.module}/rg-rotate-sas.ps1")
   vars = {
     key_vault_name      = azurerm_key_vault.az_proj_kv.name
-    subscription_id     = var.az_subscription_id
+    subscription_id     = split("/", azurerm_resource_group.az_project_rg.id)[2]
     storage_acct_name   = local.storage_account_name
     resource_group_name = local.resource_group_name
     sas_secret_name     = "container-sas"
