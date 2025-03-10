@@ -10,5 +10,5 @@ resource "azurerm_monitor_diagnostic_setting" "fsdh_audit" {
   enabled_log { category = "AppServiceAuditLogs" }
   enabled_log { category = "AppServiceIPSecAuditLogs" }
   enabled_log { category = "AppServicePlatformLogs" }
-  enabled_log { category = "AppServiceConsoleLogs" }  
+  enabled_log { category = "AppServiceConsoleLogs" }
 }

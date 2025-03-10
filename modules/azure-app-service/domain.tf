@@ -65,9 +65,7 @@ resource "azurerm_app_service_certificate" "datahub_ssl_cert" {
 
   depends_on = [time_sleep.wait_for_dns_txt]
 
-  tags = merge(
-    var.common_tags
-  )
+  tags = var.project_tags
 
   lifecycle {
     ignore_changes = [pfx_blob]

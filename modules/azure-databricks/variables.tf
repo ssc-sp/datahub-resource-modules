@@ -58,8 +58,8 @@ variable "log_analytics_workspace_id" {
   type        = string
 }
 
-variable "common_tags" {
-  description = "Common tags map"
+variable "project_tags" {
+  description = "Project workspace common tags map"
   type        = map(any)
 }
 

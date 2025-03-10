@@ -23,11 +23,9 @@ resource "azurerm_storage_account" "datahub_storageaccount" {
 
   sas_policy { expiration_period = "3.00:00:00" }
 
-  tags = local.project_tags
+  tags = var.project_tags
 
-  lifecycle {
-    prevent_destroy = false
-  }
+  lifecycle { prevent_destroy = false }
 }
 
 resource "azurerm_storage_container" "datahub_default" {

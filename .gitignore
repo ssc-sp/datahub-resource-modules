@@ -1,3 +1,4 @@
+.vscode
 */**/.terraform*
 sample-project/*.variables.tf.json
 sample-project/azure-databricks.tf
