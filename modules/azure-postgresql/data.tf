@@ -7,7 +7,6 @@ data "http" "myip" {
 
 locals {
   resource_name_suffix = length(var.resource_name_suffix) > 0 ? "-${var.resource_name_suffix}" : ""
-  project_tags         = merge(var.common_tags, { "project_cd" : var.project_cd })
   psql_server_name     = lower("${var.resource_prefix}-${var.project_cd}-psql-${var.environment_name}${local.resource_name_suffix}")
   psql_admin_user      = "fsdhadmin"
   psql_db_name         = "fsdh"
