@@ -57,6 +57,10 @@
     "resource_name_suffix": {
       "type": "string",
       "default": ""
+    },
+    "ssc_cbrid": {
+      "type": "string",
+      "default": ""
     }
   }
 }

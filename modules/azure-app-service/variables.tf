@@ -80,8 +80,8 @@ variable "storage_acct_key" {
   sensitive   = true
 }
 
-variable "common_tags" {
-  description = "Common tags map"
+variable "project_tags" {
+  description = "Project workspace Common tags map"
   type        = map(any)
 }
 
