@@ -19,6 +19,7 @@ locals {
   automation_acct_name      = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-auto")
   funcapp_name              = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-func")
   funcapp_plan              = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-plan")
+  func_appinsight           = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-appinsight")
   seed_storage_account_name = lower("${local.sanitized_prefix}projseed${var.project_cd}${var.environment_name}")
   seed_storage_secret_name  = "seed-storage-conn-str"
   cost_runbook_name         = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-cost-stop-runbook")
@@ -27,8 +28,11 @@ locals {
   cmk_name                  = "project-cmk"
   webhook_expiry_time       = "2033-04-01T00:00:00Z"
   current_fiscal_year_start = contains(["1", "2", "3"], formatdate("M", timestamp())) ? "${formatdate("YYYY", timestamp()) - 1}-04-01T00:00:00Z" : "${formatdate("YYYY", timestamp())}-04-01T00:00:00Z"
-  project_tags              = merge(var.common_tags, { "project_cd" : var.project_cd })
+  project_tags              = merge(var.common_tags, { "project_cd" : var.project_cd, "ssc_cbrid" : var.ssc_cbrid })
   storage_account_name      = lower("${var.resource_prefix}proj${var.project_cd}${var.environment_name}")
+  func_source_dir           = "${path.module}/func-app"
+  func_source_files         = fileset(local.func_source_dir, "**")
+  func_source_hash          = sha256(join("", [for file in local.func_source_files : filesha256("${local.func_source_dir}/${file}")]))
 }
 
 data "template_file" "az_project_disable_cmk_script" {
@@ -51,7 +55,7 @@ data "template_file" "az_project_cost_check_script" {
   }
 }
 
-data "template_file" "az_project_rorate_sas_script" {
+data "template_file" "az_project_rotate_sas_script" {
   template = file("${path.module}/rg-rotate-sas.ps1")
   vars = {
     key_vault_name      = azurerm_key_vault.az_proj_kv.name
@@ -78,4 +82,50 @@ resource "null_resource" "current_fiscal_year_start" {
   triggers = {
     always_run = "${timestamp()}"
   }
+}
+
+data "template_file" "proj_func_cost_check_script" {
+  template = file("${path.module}/func-app/templates/tmpl-check-spending.ps1")
+  vars = {
+    subscription_id = split("/", azurerm_resource_group.az_project_rg.id)[2]
+    key_vault_name  = azurerm_key_vault.az_proj_kv.name
+    budget_name     = azurerm_consumption_budget_resource_group.az_project_rg_budget.0.name
+    dbr_rg_name     = local.databricks_rg_name
+    trigger_percent = 100
+    uai_clientid    = data.azurerm_user_assigned_identity.proj_auto_acct_uai.client_id
+  }
+}
+
+data "template_file" "proj_func_rotate_sas_script" {
+  template = file("${path.module}/func-app/templates/tmpl-rotate-sas.ps1")
+  vars = {
+    key_vault_name      = azurerm_key_vault.az_proj_kv.name
+    subscription_id     = split("/", azurerm_resource_group.az_project_rg.id)[2]
+    storage_acct_name   = local.storage_account_name
+    resource_group_name = local.resource_group_name
+    sas_secret_name     = "container-sas"
+    container_name      = "datahub"
+    uai_clientid        = data.azurerm_user_assigned_identity.proj_auto_acct_uai.client_id
+  }
+}
+
+data "template_file" "proj_func_test_script" {
+  template = file("${path.module}/func-app/templates/tmpl-test.ps1")
+  vars     = {}
+}
+
+
+resource "local_file" "ps1_check_spending" {
+  content  = data.template_file.proj_func_cost_check_script.rendered
+  filename = "${local.func_source_dir}/check-spending/run.ps1"
+}
+
+resource "local_file" "ps1_rotate_sas" {
+  content  = data.template_file.proj_func_rotate_sas_script.rendered
+  filename = "${local.func_source_dir}/rotate-sas/run.ps1"
+}
+
+resource "local_file" "ps1_test" {
+  content  = data.template_file.proj_func_test_script.rendered
+  filename = "${local.func_source_dir}/func-test/run.ps1"
 }

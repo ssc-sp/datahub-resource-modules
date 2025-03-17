@@ -1,5 +1,7 @@
-.vscode
+
 */**/.terraform*
+*/**/func-app/*/run.ps1
+modules/**/output/*
 sample-project/*.variables.tf.json
 sample-project/azure-databricks.tf
 sample-project/azure-storage-blob.tf

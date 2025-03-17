@@ -43,7 +43,7 @@ resource "azurerm_automation_runbook" "az_project_sas_token_runbook" {
   description             = "Rotate SAS token in AKV (container-sas) ${var.project_cd}"
   runbook_type            = "PowerShell"
 
-  content = data.template_file.az_project_rorate_sas_script.rendered
+  content = data.template_file.az_project_rotate_sas_script.rendered
   tags    = local.project_tags
 }
 

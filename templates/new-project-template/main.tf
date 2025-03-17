@@ -61,7 +61,7 @@ module "resource_group_module" {
   # optional variables
   budget_amount       = var.budget_amount
   common_tags         = var.common_tags
-  ssc_cbrid              = var.ssc_cbrid
+  ssc_cbrid           = var.ssc_cbrid
   aad_admin_group_oid = var.aad_admin_group_oid
 }
 
