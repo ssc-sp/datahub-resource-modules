@@ -50,7 +50,11 @@ resource "azurerm_postgresql_flexible_server" "datahub_psql_server" {
 resource "azurerm_postgresql_flexible_server_configuration" "datahub_psql_server_ext" {
   name      = "azure.extensions"
   server_id = azurerm_postgresql_flexible_server.datahub_psql_server.id
-  value     = "POSTGIS,CUBE,CITEXT,BTREE_GIST,PG_TRGM,FUZZYSTRMATCH"
+  value     = local.psql_ext # Max: 10
+
+  lifecycle {
+    ignore_changes = [value]
+  }
 }
 
 resource "azurerm_postgresql_flexible_server_firewall_rule" "datahub_psql_allow_from_azure_service" {
