@@ -105,4 +105,11 @@ variable "storage_size_limit_tb" {
   default     = 0
 }
 
+variable "enable_defender" {
+  description = "Enable Azure Defender for Storage"
+  type        = number
+  default     = 0
+}
+
+
 

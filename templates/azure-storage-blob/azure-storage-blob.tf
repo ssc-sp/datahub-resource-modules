@@ -7,6 +7,7 @@ module "azure_storage_blob_module" {
   key_vault_cmk_name           = module.resource_group_module.az_project_cmk
   automation_acct_principal_id = module.resource_group_module.automation_acct_principal_id
   log_analytics_workspace_id   = var.log_analytics_workspace_id
+  enable_defender              = var.enable_defender
 
   # optional variables
   az_tenant_id              = var.az_tenant_id
