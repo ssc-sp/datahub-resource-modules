@@ -63,6 +63,8 @@ resource "azurerm_key_vault_secret" "storage_sas_secret" {
 }
 
 resource "azurerm_security_center_storage_defender" "datahub_storageaccount_defender" {
+  count = var.enable_defender ? 1 : 0
+
   storage_account_id                          = azurerm_storage_account.datahub_storageaccount.id
   override_subscription_settings_enabled      = true
   sensitive_data_discovery_enabled            = true
