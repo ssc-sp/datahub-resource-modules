@@ -7,6 +7,10 @@
     "storage_reader_users": {
       "type": "list(any)",
       "default": []
+    },
+    "enable_defender": {
+      "type": "number",
+      "default": 0
     }
   }
 }
