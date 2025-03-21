@@ -9,8 +9,8 @@
       "default": []
     },
     "enable_defender": {
-      "type": "number",
-      "default": 0
+      "type": "bool",
+      "default": false
     }
   }
 }
