@@ -75,7 +75,7 @@ resource "azurerm_key_vault_access_policy" "kv_policy_datahub_sp" {
   object_id    = var.datahub_app_sp_oid
 
   secret_permissions = ["List", "Get", "Set", "Delete"]
-  key_permissions    = ["List", "Get"]
+  key_permissions    = ["List", "Get", "Update"]
 }
 
 resource "null_resource" "set_default_resource_group" {
