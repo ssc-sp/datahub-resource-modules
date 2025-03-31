@@ -81,10 +81,9 @@ variable "storage_suffix" {
   default     = "tfbackend"
 }
 
-variable "common_tags" {
-  description = "Common tags map"
+variable "project_tags" {
+  description = "Project workspace Common tags map"
   type        = map(any)
-  default     = {}
 }
 
 variable "storage_contributor_users" {
