@@ -81,6 +81,12 @@ variable "budget_amount" {
   default     = 0
 }
 
+variable "ssc_cbrid" {
+  description = "CBR tag for the workspace"
+  type        = string
+  default     = ""
+}
+
 variable "default_alert_email" {
   description = "Default alert email regardless of project"
   type        = string

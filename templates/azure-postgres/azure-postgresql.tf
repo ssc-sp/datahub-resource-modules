@@ -12,7 +12,7 @@ module "azure_postgresql_module" {
   az_tenant_id       = var.az_tenant_id
   az_subscription_id = var.az_subscription_id
   project_cd         = var.project_cd
-  common_tags        = var.common_tags
+  project_tags       = module.resource_group_module.project_tags
   environment_name   = var.environment_name
 
   # allow_source_ip_list = module.azure_app_service_module.proj_app_outbound_ip

@@ -50,3 +50,7 @@ output "automation_acct_principal_id" {
 output "automation_acct_clientid" {
   value = data.azurerm_user_assigned_identity.proj_auto_acct_uai.client_id
 }
+
+output "project_tags" {
+  value = local.project_tags
+}
