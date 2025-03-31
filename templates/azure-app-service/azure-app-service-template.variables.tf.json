@@ -47,6 +47,10 @@
     "allow_source_ip": {
       "type": "string",
       "default": ""
+    },
+    "container_list": {
+      "type": "list(object({image = string, port = string}))",      
+      "default": []
     }
   }
 }
