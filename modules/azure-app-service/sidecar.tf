@@ -1,5 +1,5 @@
 resource "azapi_update_resource" "datahub_proj_enable_sidecar" {
-  count = length(var.container_list) > 0 ? 1 : 0
+  count = length(var.container_list) > 1 ? 1 : 0
 
   resource_id = azurerm_linux_web_app.datahub_proj_app.id
   type        = "Microsoft.Web/sites@2024-04-01"
@@ -26,10 +26,11 @@ resource "azapi_resource" "datahub_proj_container" {
     properties = {
       image          = each.value.image
       isMain         = each.key > 0 ? false : true
-      authType       = "UserCredentials"
+      authType       = length(var.container_registry_password) == 0 ? "Anonymous" : "UserCredentials"
       userName       = var.container_registry_username
       passwordSecret = var.container_registry_password
       targetPort     = each.value.port
+      volumeMounts   = [{ containerMountPath = "/datahub-blob", volumeSubPath = "/datahub-blob", "readOnly" = true }, { containerMountPath = "/datahub-fs", volumeSubPath = "/datahub-fs", "readOnly" = false }]
     }
   }
 
