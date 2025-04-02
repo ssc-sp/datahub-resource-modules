@@ -13,6 +13,7 @@ module "azure_app_service_module" {
   log_analytics_workspace_id = var.log_analytics_workspace_id
   sp_client_oid              = var.datahub_app_sp_oid
   resource_name_suffix       = var.resource_name_suffix
+  container_list             = var.container_list
 
   # optional variables
   environment_name   = var.environment_name

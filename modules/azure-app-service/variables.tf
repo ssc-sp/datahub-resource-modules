@@ -162,3 +162,14 @@ variable "acr_id" {
   type        = string
   default     = ""
 }
+
+variable "container_list" {
+  type = list(object({
+    image = string
+    port  = string
+  }))
+  default = []
+}
+
+variable "container_registry_username" { default = "" }
+variable "container_registry_password" { default = "" }
