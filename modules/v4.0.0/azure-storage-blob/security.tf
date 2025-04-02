@@ -62,3 +62,12 @@ resource "azurerm_key_vault_secret" "storage_sas_secret" {
   tags         = { "start" : data.azurerm_storage_account_blob_container_sas.datahub_container_sas.start, "expiry" : data.azurerm_storage_account_blob_container_sas.datahub_container_sas.expiry }
 }
 
+resource "azurerm_security_center_storage_defender" "datahub_storageaccount_defender" {
+  count = var.enable_defender ? 1 : 0
+
+  storage_account_id                          = azurerm_storage_account.datahub_storageaccount.id
+  override_subscription_settings_enabled      = true
+  sensitive_data_discovery_enabled            = true
+  malware_scanning_on_upload_enabled          = true
+  malware_scanning_on_upload_cap_gb_per_month = -1
+}

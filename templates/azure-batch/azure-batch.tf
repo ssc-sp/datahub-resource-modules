@@ -15,7 +15,7 @@ module "azure_batch_module" {
   az_tenant_id       = var.az_tenant_id
   az_subscription_id = var.az_subscription_id
   project_cd         = var.project_cd
-  common_tags        = var.common_tags
+  project_tags       = module.resource_group_module.project_tags
 
   # module specific
   batch_default_vm_sku    = var.batch_default_vm_sku
