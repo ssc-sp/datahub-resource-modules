@@ -29,7 +29,7 @@ resource "azurerm_postgresql_flexible_server" "datahub_psql_server" {
   backup_retention_days  = 7
   sku_name               = var.psql_sku
   zone                   = 3
-  tags                   = local.project_tags
+  tags                   = var.project_tags
 
   customer_managed_key {
     key_vault_key_id                  = var.key_vault_cmk_id
@@ -50,7 +50,11 @@ resource "azurerm_postgresql_flexible_server" "datahub_psql_server" {
 resource "azurerm_postgresql_flexible_server_configuration" "datahub_psql_server_ext" {
   name      = "azure.extensions"
   server_id = azurerm_postgresql_flexible_server.datahub_psql_server.id
-  value     = "POSTGIS,CUBE,CITEXT,BTREE_GIST,PG_TRGM,FUZZYSTRMATCH"
+  value     = local.psql_ext # Max: 10
+
+  lifecycle {
+    ignore_changes = [value]
+  }
 }
 
 resource "azurerm_postgresql_flexible_server_firewall_rule" "datahub_psql_allow_from_azure_service" {

@@ -6,7 +6,7 @@ resource "azurerm_service_plan" "datahub_proj_app_service_plan" {
   os_type             = "Linux"
   worker_count        = var.worker_count_init
 
-  tags = merge(local.project_tags)
+  tags = var.project_tags
 }
 
 resource "azurerm_linux_web_app" "datahub_proj_app" {

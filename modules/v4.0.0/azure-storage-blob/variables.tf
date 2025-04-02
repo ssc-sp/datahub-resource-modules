@@ -81,10 +81,9 @@ variable "storage_suffix" {
   default     = "tfbackend"
 }
 
-variable "common_tags" {
-  description = "Common tags map"
+variable "project_tags" {
+  description = "Project workspace Common tags map"
   type        = map(any)
-  default     = {}
 }
 
 variable "storage_contributor_users" {
@@ -104,5 +103,12 @@ variable "storage_size_limit_tb" {
   type        = number
   default     = 0
 }
+
+variable "enable_defender" {
+  description = "Enable Azure Defender for Storage"
+  type        = bool
+  default     = false
+}
+
 
 
