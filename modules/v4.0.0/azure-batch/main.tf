@@ -10,7 +10,7 @@ resource "azurerm_batch_account" "datahub_batch_acct" {
     type         = "UserAssigned"
     identity_ids = [azurerm_user_assigned_identity.datahub_batch_uami.id]
   }
-  tags = merge(local.project_tags)
+  tags = var.project_tags
 }
 
 resource "azurerm_batch_pool" "datahub_batch_default_pool" {

@@ -11,7 +11,7 @@ resource "azurerm_databricks_workspace" "datahub_databricks_workspace" {
     no_public_ip = false
   }
 
-  tags = local.project_tags
+  tags = var.project_tags
 }
 
 resource "databricks_workspace_conf" "datahub_databricks_workspace_conf" {
