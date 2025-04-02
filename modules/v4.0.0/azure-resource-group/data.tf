@@ -31,6 +31,7 @@ data "template_file" "az_project_disable_cmk_script" {
   vars = {
     key_vault_name  = azurerm_key_vault.az_proj_kv.name
     subscription_id = var.az_subscription_id
+    uai_clientid    = data.azurerm_user_assigned_identity.proj_auto_acct_uai.client_id
   }
 }
 
