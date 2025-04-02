@@ -27,7 +27,7 @@ resource "azurerm_mysql_flexible_server" "datahub_mysql_server" {
   backup_retention_days  = 7
   sku_name               = var.mysql_sku
   zone                   = 3
-  tags                   = local.project_tags
+  tags                   = var.project_tags
 
   customer_managed_key {
     key_vault_key_id                  = var.key_vault_cmk_id
