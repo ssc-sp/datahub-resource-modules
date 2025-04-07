@@ -15,6 +15,10 @@
     "psql_source_ip_list": {
       "type": "list(string)",
       "default": []
+    },
+    "psql_name_suffix": {
+      "type": "string",
+      "default": ""
     }
   }
 }

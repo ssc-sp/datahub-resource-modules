@@ -12,7 +12,7 @@ module "azure_app_service_module" {
   allow_source_ip            = var.allow_source_ip
   log_analytics_workspace_id = var.log_analytics_workspace_id
   sp_client_oid              = var.datahub_app_sp_oid
-  resource_name_suffix       = var.resource_name_suffix
+  resource_name_suffix       = var.app_service_name_suffix
   container_list             = var.container_list
 
   # optional variables
