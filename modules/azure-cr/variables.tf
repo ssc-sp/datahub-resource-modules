@@ -63,17 +63,6 @@ variable "log_analytics_workspace_id" {
   type        = string
 }
 
-variable "storage_acct_name" {
-  description = "Name of the project storage account"
-  type        = string
-}
-
-variable "storage_acct_key" {
-  description = "Name of the project storage account"
-  type        = string
-  sensitive   = true
-}
-
 variable "project_tags" {
   description = "Project workspace Common tags map"
   type        = map(any)
@@ -84,8 +73,7 @@ variable "sp_client_oid" {
   type        = string
 }
 
-variable "app_service_id" {
+variable "app_service_oid" {
   description = "ID of the app service"
   type        = string
-  default     = ""
 }

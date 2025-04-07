@@ -7,7 +7,7 @@ resource "azurerm_container_registry" "datahub_proj_acr" {
   sku                 = "Basic"
 
   encryption {
-    key_vault_key_id   = var.key_vault_id
+    key_vault_key_id   = var.key_vault_cmk_id
     identity_client_id = azurerm_user_assigned_identity.datahub_proj_acr_uai.client_id
   }
 
@@ -26,10 +26,8 @@ resource "azurerm_role_assignment" "acr_role_sp" {
 }
 
 resource "azurerm_role_assignment" "acr_role_app_service" {
-  count = length(var.app_service_id) > 0 ? 1 : 0
-
   scope                = azurerm_container_registry.datahub_proj_acr.id
-  principal_id         = var.app_service_id
+  principal_id         = var.app_service_oid
   role_definition_name = "AcrPull"
 }
 
