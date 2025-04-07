@@ -1,0 +1,8 @@
+{
+  "variable": {
+    "unused": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}
