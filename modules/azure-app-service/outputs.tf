@@ -10,6 +10,10 @@ output "app_service_id" {
   value = azurerm_linux_web_app.datahub_proj_app.id
 }
 
+output "app_service_oid" {
+  value = azurerm_linux_web_app.datahub_proj_app.identity[0].principal_id
+}
+
 output "proj_app_domain" {
   value = var.use_easy_auth ? azurerm_app_service_custom_hostname_binding.datahub_app_custom_host[0].hostname : ""
 }
