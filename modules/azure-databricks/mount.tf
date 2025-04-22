@@ -2,10 +2,10 @@ resource "databricks_mount" "proj_main_mount" {
   name       = "fsdh-dbk-main-mount"
   cluster_id = databricks_cluster.dbk_proj_cluster.id
 
-  uri = local.abfss_uri
+  uri = local.wasbs_uri
   extra_configs = {
-    "fs.azure.account.auth.type" : "CustomAccessToken",
-    "fs.azure.account.custom.token.provider.class" : "{{sparkconf/spark.databricks.passthrough.adls.gen2.tokenProviderClassName}}",
+    "fs.azure.account.auth.type" : "SAS",
+    "fs.azure.sas.${local.datahub_blob_container}.${var.storage_acct_name}.blob.core.windows.net" : "{{secrets/datahub/container-sas}}"
   }
 
   depends_on = [azurerm_key_vault_access_policy.kv_databricks_policy]

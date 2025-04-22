@@ -25,10 +25,11 @@ resource "databricks_cluster" "dbk_proj_cluster" {
   policy_id               = databricks_cluster_policy.regular_cluster_policy.id
 
   spark_conf = {
-    "spark.databricks.passthrough.enabled" : "true",
     "spark.databricks.delta.preview.enabled" : "true",
     "spark.databricks.pyspark.enableProcessIsolation" : "true",
-    "spark.databricks.repl.allowedLanguages" : "python,sql,r"
+    "spark.databricks.repl.allowedLanguages" : "python,sql,r",
+    "spark.jvm.class.allowlist" : "com.databricks.backend.daemon.dbutils.DBUtilsCore",
+    "spark.databricks.pyspark.enablePy4JSecurity" : "false"
   }
 
   autoscale {
