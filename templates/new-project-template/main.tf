@@ -1,3 +1,5 @@
+# Version {{version}}
+
 terraform {
   required_providers {
     azuread = {
@@ -75,4 +77,8 @@ output "new_project_template" {
 
 output "azure_resource_group_name" {
   value = module.resource_group_module.resource_group_name
+}
+
+output "workspace_version" {
+  value = "{{version}}"
 }
