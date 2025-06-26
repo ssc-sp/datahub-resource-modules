@@ -2,7 +2,7 @@ resource "azurerm_resource_group" "az_project_rg" {
   name     = local.resource_group_name
   location = local.resource_group_location
 
-  tags = local.project_tags
+  tags = merge(local.project_tags, { "budget" : var.budget_amount })
 
   lifecycle {
     prevent_destroy = false
