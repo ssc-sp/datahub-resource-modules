@@ -121,3 +121,11 @@ resource "azurerm_key_vault_access_policy" "kv_app_service_policy" {
 
   secret_permissions = ["Get", "List"]
 }
+
+resource "null_resource" "app_enable_logging" {
+  provisioner "local-exec" {
+    command = <<EOT
+      az webapp log config --name ${azurerm_linux_web_app.datahub_proj_app.name} --resource-group ${var.resource_group_name} --application-logging filesystem --docker-container-logging filesystem
+    EOT
+  }
+}
