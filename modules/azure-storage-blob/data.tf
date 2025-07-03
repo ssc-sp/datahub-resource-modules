@@ -19,4 +19,5 @@ locals {
   datahub_log_name         = "datahub-log"
   resource_group_location  = var.az_location
   storage_size_limit_bytes = 1024 * 1024 * 1024 * 1024 * var.storage_size_limit_tb
+  log_keep_days            = 90
 }

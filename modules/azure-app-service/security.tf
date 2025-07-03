@@ -27,3 +27,8 @@ resource "azurerm_role_assignment" "datahub_proj_app_contrib" {
   principal_id         = var.sp_client_oid
 }
 
+resource "azurerm_role_assignment" "blob_log_app_role" {
+  scope                = data.azurerm_storage_account.datahub_storageaccount.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_linux_web_app.datahub_proj_app.identity.0.principal_id
+}

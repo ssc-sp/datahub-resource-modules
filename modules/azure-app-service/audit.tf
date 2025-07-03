@@ -1,8 +1,7 @@
-
-resource "azurerm_monitor_diagnostic_setting" "fsdh_audit" {
+resource "azurerm_monitor_diagnostic_setting" "fsdh_log_audit" {
   name                       = "fsdh-log"
   target_resource_id         = azurerm_linux_web_app.datahub_proj_app.id
-  log_analytics_workspace_id = var.log_analytics_workspace_id
+  storage_account_id         = data.azurerm_storage_account.datahub_storageaccount.id
 
   enabled_log { category = "AppServiceHTTPLogs" }
   enabled_log { category = "AppServiceAuthenticationLogs" }
