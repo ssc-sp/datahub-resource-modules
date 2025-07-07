@@ -28,8 +28,8 @@ locals {
 
   datahub_policy_ml = {
     "dbus_per_hour" : { "type" : "range", "maxValue" : 64 },
-    "node_type_id" : { "type" : "allowlist", "values" : ["Standard_E8ds_v5", "Standard_D8ds_v5", "Standard_F8s_v2"], "defaultValue" : "Standard_E8ds_v5" },
-    "driver_node_type_id" : { "type" : "allowlist", "values" : ["Standard_E8ds_v5", "Standard_D8ds_v5", "Standard_F8s_v2"], "defaultValue" : "Standard_E8ds_v5" },
+    "node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4ds_v5", "Standard_D8ds_v5", "Standard_D16ds_v5", "Standard_D32ds_v5"], "defaultValue" : "Standard_D4ds_v5" },
+    "driver_node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4ds_v5", "Standard_D8ds_v5", "Standard_D16ds_v5", "Standard_D32ds_v5"], "defaultValue" : "Standard_D4ds_v5" },
     "autotermination_minutes" : { "type" : "range", "defaultValue" : 30, "minValue" : 10, "maxValue" : 60 }
     "autoscale.min_workers" : { "type" : "fixed", "value" : 1 },
     "autoscale.max_workers" : { "type" : "range", "maxValue" : 4, "defaultValue" : 2 },
@@ -53,8 +53,8 @@ locals {
 
   datahub_policy_ml_gpu = {
     "dbus_per_hour" : { "type" : "range", "maxValue" : 64 },
-    "node_type_id" : { "type" : "fixed", "value" : "Standard_NV36ads_A10_v5", "hidden" : false },
-    "driver_node_type_id" : { "type" : "fixed", "value" : "Standard_NV36ads_A10_v5" },
+    "node_type_id" : { "type" : "allowlist", "values" : ["Standard_NC4as_T4_v3", "Standard_NC8as_T4_v3", "Standard_NC16as_T4_v3", "Standard_NC64as_T4_v3", "Standard_NV36ads_A10_v5"], "defaultValue" : "Standard_NC4as_T4_v3" },
+    "driver_node_type_id" : { "type" : "allowlist", "values" : ["Standard_NC4as_T4_v3", "Standard_NC8as_T4_v3", "Standard_NC16as_T4_v3", "Standard_NC64as_T4_v3", "Standard_NV36ads_A10_v5"], "defaultValue" : "Standard_NC4as_T4_v3" },
     "autotermination_minutes" : { "type" : "range", "defaultValue" : 10, "minValue" : 10, "maxValue" : 120 }
     "autoscale.min_workers" : { "type" : "fixed", "value" : 1 },
     "autoscale.max_workers" : { "type" : "range", "maxValue" : 2, "defaultValue" : 2 },
