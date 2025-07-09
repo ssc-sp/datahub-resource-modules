@@ -22,7 +22,7 @@ resource "azurerm_postgresql_flexible_server" "datahub_psql_server" {
   name                   = local.psql_server_name
   resource_group_name    = var.resource_group_name
   location               = var.az_location
-  version                = "12"
+  version                = var.psql_version
   storage_mb             = 32768
   administrator_login    = local.psql_admin_user
   administrator_password = random_password.datahub_psql_password.result

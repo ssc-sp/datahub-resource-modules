@@ -117,4 +117,5 @@ variable "psql_dba_group_oid" {
   default     = ""
 }
 
+variable "psql_version" { default = "16" }
 
