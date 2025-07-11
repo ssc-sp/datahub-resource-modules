@@ -8,6 +8,10 @@ module "azure_databricks_module" {
   storage_acct_name          = module.azure_storage_blob_module.storage_acct_name
   budget_amount              = var.budget_amount
   log_analytics_workspace_id = var.log_analytics_workspace_id
+  enable_ml_cluster          = var.enable_ml_cluster
+  enable_ml_gpu_cluster      = var.enable_ml_gpu_cluster
+  ml_compute                 = var.ml_compute
+  ml_gpu_compute             = var.ml_gpu_compute
 
   # optional variables
   az_tenant_id       = var.az_tenant_id
