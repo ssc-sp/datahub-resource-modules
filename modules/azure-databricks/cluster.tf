@@ -15,15 +15,15 @@ data "databricks_spark_version" "dbk_latest_lts" {
 
 data "databricks_spark_version" "dbk_latest_lts_ml" {
   long_term_support = true
-  ml = true
+  ml                = true
 
   depends_on = [azurerm_databricks_workspace.datahub_databricks_workspace]
 }
 
 data "databricks_spark_version" "dbk_latest_lts_ml_gpu" {
   long_term_support = true
-  ml = true
-  gpu = true
+  ml                = true
+  gpu               = true
 
   depends_on = [azurerm_databricks_workspace.datahub_databricks_workspace]
 }
@@ -50,13 +50,19 @@ resource "databricks_cluster" "dbk_proj_cluster" {
     min_workers = 0
     max_workers = 2
   }
+
+  lifecycle {
+    ignore_changes = [node_type_id, driver_node_type_id]
+  }
 }
 
 resource "databricks_cluster" "dbk_proj_cluster_ml" {
+  count = var.enable_ml_cluster ? 1 : 0
+
   cluster_name            = "ml_cluster"
   spark_version           = data.databricks_spark_version.dbk_latest_lts_ml.id
-  node_type_id            = "Standard_D4ds_v5"
-  driver_node_type_id     = "Standard_D4ds_v5"
+  node_type_id            = var.ml_compute
+  driver_node_type_id     = var.ml_compute
   autotermination_minutes = 30
   num_workers             = 1
   is_pinned               = true
@@ -72,13 +78,19 @@ resource "databricks_cluster" "dbk_proj_cluster_ml" {
     min_workers = 1
     max_workers = 4
   }
+
+  lifecycle {
+    ignore_changes = [node_type_id, driver_node_type_id]
+  }
 }
 
 resource "databricks_cluster" "dbk_proj_cluster_ml_gpu" {
-  cluster_name            = "gpu_cluster"
+  count = var.enable_ml_gpu_cluster ? 1 : 0
+
+  cluster_name            = "ml_gpu_cluster"
   spark_version           = data.databricks_spark_version.dbk_latest_lts_ml_gpu.id
-  node_type_id            = "Standard_NC4as_T4_v3"
-  driver_node_type_id     = "Standard_NC4as_T4_v3"
+  node_type_id            = var.ml_gpu_compute
+  driver_node_type_id     = var.ml_gpu_compute
   autotermination_minutes = 30
   num_workers             = 1
   is_pinned               = true
@@ -88,15 +100,20 @@ resource "databricks_cluster" "dbk_proj_cluster_ml_gpu" {
     "spark.databricks.passthrough.enabled" : "true",
     "spark.databricks.delta.preview.enabled" : "true",
     "spark.databricks.repl.allowedLanguages" : "python,sql,r"
-    "spark.task.resource.gpu.amount"                 = "1"
-    "spark.executor.resource.gpu.amount"             = "1"
-    "spark.executor.resource.gpu.discoveryScript"    = "/databricks/spark/scripts/gpu/getGpusResources.sh"
-    "spark.resources.discoveryScript"                = "/databricks/spark/scripts/gpu/getGpusResources.sh"
+    "spark.task.resource.gpu.amount"              = "1"
+    "spark.executor.resource.gpu.amount"          = "1"
+    "spark.executor.resource.gpu.discoveryScript" = "/databricks/spark/scripts/gpu/getGpusResources.sh"
+    "spark.resources.discoveryScript"             = "/databricks/spark/scripts/gpu/getGpusResources.sh"
   }
 
   autoscale {
     min_workers = 1
     max_workers = 2
+  }
+
+
+  lifecycle {
+    ignore_changes = [node_type_id, driver_node_type_id]
   }
 }
 
