@@ -17,6 +17,7 @@ locals {
   datahub_mount_name       = "datahub"
   datahub_backup_name      = "datahub-backup"
   datahub_log_name         = "datahub-log"
+  datahub_quarantine       = "datahub-quarantine"
   resource_group_location  = var.az_location
   storage_size_limit_bytes = 1024 * 1024 * 1024 * 1024 * var.storage_size_limit_tb
   log_keep_days            = 90

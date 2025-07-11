@@ -52,3 +52,8 @@ resource "azurerm_storage_share" "file_share_default" {
   quota                = 64
 }
 
+resource "azurerm_storage_container" "datahub_quarantine" {
+  name                  = local.datahub_quarantine
+  storage_account_name  = azurerm_storage_account.datahub_storageaccount.name
+  container_access_type = "private"
+}
