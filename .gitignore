@@ -1,4 +1,4 @@
-.vscode
+
 */**/.terraform*
 sample-project/*.variables.tf.json
 sample-project/azure-databricks.tf
@@ -10,3 +10,4 @@ sample-project/main.tf
 settings.json
 sample-project/azure-postgresql.tf
 sample-project/azure-batch.tf
+.vscode
