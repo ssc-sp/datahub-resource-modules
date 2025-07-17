@@ -31,12 +31,12 @@ def process_message(message):
     with open(local_path, "wb") as f:
         f.write(blob_client.download_blob().readall())
 
-    # Scan file
-    if scan_file(local_path):
+    # Scan file (test file name please include "clamavtest2025a" )
+    if scan_file(local_path) or "clamavtest2025a" in blob_name:
         print(f"Infected: {blob_name} at {blob_url}")
 
-        # Set tag       
-        blob_client.set_blob_tags({"fsdh-scan-status": "failed"})
+        # Set tag (Currently not working for storage accounts that have hierarchical namespaces enabled. )     
+        # blob_client.set_blob_tags({"fsdh-scan-status": "failed"})
 
         # Move to infected container
         infected_blob_client = blob_service_client.get_blob_client(
@@ -48,6 +48,7 @@ def process_message(message):
         blob_client.delete_blob()
     else:
         print(f"Clean: {blob_name}")
+        # blob_client.set_blob_tags({"fsdh-scan-status": "clean"}) # Set tag (Currently not working for storage accounts that have hierarchical namespaces enabled. )     
 
 def main():
     messages = queue_client.receive_messages(messages_per_page=10)
