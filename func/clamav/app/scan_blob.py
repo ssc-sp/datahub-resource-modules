@@ -1,4 +1,4 @@
-import os, uuid, logging, json
+import os, uuid, logging, json, base64
 import subprocess
 from azure.storage.queue import QueueClient
 from azure.storage.blob import BlobClient, BlobServiceClient
@@ -19,21 +19,24 @@ def scan_file(file_path):
     return "FOUND" in result.stdout
 
 def process_message(message):
-    json_data = json.loads(message.content)
-    blob_url = json_data["blobUri"]
-    blob_name = json_data["blobName"]
+    json_data = json.loads(base64.b64decode(message.content))
+    blob_url = json_data["data"]["blobUrl"]
+    blob_name_full = json_data["subject"]
+    blob_name_parts = blob_name_full.strip("/").split("/")
+    blob_name_in_container = "/".join(blob_name_parts[5:])
+
     logging.info("processing blob: {blob_name}")
 
     # Download blob
-    blob_client = blob_service_client.get_blob_client(container=datahub_container_name, blob=blob_name)
+    blob_client = blob_service_client.get_blob_client(container=datahub_container_name, blob=blob_name_in_container)
     local_path = f"./blobfile"
     os.makedirs(os.path.dirname(local_path), exist_ok=True)
     with open(local_path, "wb") as f:
         f.write(blob_client.download_blob().readall())
 
     # Scan file (test file name please include "clamavtest2025a" )
-    if scan_file(local_path) or "clamavtest2025a" in blob_name:
-        print(f"Infected: {blob_name} at {blob_url}")
+    if scan_file(local_path) or "clamavtest2025a" in blob_name_in_container:
+        print(f"Infected: {blob_name_in_container} at {blob_url}")
 
         # Set tag (Currently not working for storage accounts that have hierarchical namespaces enabled. )     
         # blob_client.set_blob_tags({"fsdh-scan-status": "failed"})
@@ -41,13 +44,13 @@ def process_message(message):
         # Move to infected container
         infected_blob_client = blob_service_client.get_blob_client(
             container=quarantine_container_name,
-            blob=blob_name
+            blob=blob_name_in_container
         )
         with open(local_path, "rb") as data:
             infected_blob_client.upload_blob(data, overwrite=True)
         blob_client.delete_blob()
     else:
-        print(f"Clean: {blob_name}")
+        print(f"Clean: {blob_name_in_container}")
         # blob_client.set_blob_tags({"fsdh-scan-status": "clean"}) # Set tag (Currently not working for storage accounts that have hierarchical namespaces enabled. )     
 
 def main():

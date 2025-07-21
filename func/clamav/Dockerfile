@@ -6,7 +6,7 @@ ENV DataHub_ENVNAME=dev \
     AzureWebJobsFeatureFlags=EnableWorkerIndexing \
     AzureWebJobsDashboard= \
     storage_connection_string= \
-    queue_name=virus-scan \
+    queue_name=blob-created \
     container_name=datahub \
     quarantine_container_name=datahub-quarantine 
 
