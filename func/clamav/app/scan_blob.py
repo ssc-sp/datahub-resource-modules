@@ -23,9 +23,13 @@ def process_message(message):
     blob_url = json_data["data"]["blobUrl"]
     blob_name_full = json_data["subject"]
     blob_name_parts = blob_name_full.strip("/").split("/")
+    blob_name_container = blob_name_parts[3]
     blob_name_in_container = "/".join(blob_name_parts[5:])
+    print("processing blob: " + blob_name_full)
 
-    print("processing blob: " + blob_name_in_container)
+    if datahub_container_name.lower() != blob_name_container:
+        print("skipping blob not in target container: " + blob_name_full)
+        return
 
     # Download blob
     blob_client = blob_service_client.get_blob_client(container=datahub_container_name, blob=blob_name_in_container)
@@ -59,7 +63,7 @@ def process_message(message):
         # blob_client.set_blob_tags({"fsdh-scan-status": "clean"}) # Set tag (Currently not working for storage accounts that have hierarchical namespaces enabled. )     
 
 def main():
-    messages = queue_client.receive_messages(messages_per_page=10)
+    messages = queue_client.receive_messages(messages_per_page=10, visibility_timeout=14400)
     for msg_batch in messages.by_page():
         for msg in msg_batch:
             try:
