@@ -25,12 +25,17 @@ def process_message(message):
     blob_name_parts = blob_name_full.strip("/").split("/")
     blob_name_in_container = "/".join(blob_name_parts[5:])
 
-    logging.info("processing blob: {blob_name}")
+    print("processing blob: " + blob_name_in_container)
 
     # Download blob
     blob_client = blob_service_client.get_blob_client(container=datahub_container_name, blob=blob_name_in_container)
     local_path = f"./blobfile"
     os.makedirs(os.path.dirname(local_path), exist_ok=True)
+    
+    if not blob_client.exists():
+        print(f"Not foud: {blob_name_in_container} at {blob_url}")
+        return;
+
     with open(local_path, "wb") as f:
         f.write(blob_client.download_blob().readall())
 
@@ -61,7 +66,6 @@ def main():
                 process_message(msg)
                 queue_client.delete_message(msg)
             except Exception as e:
-                print(f"Error processing message: {e}")
-
+                print(f"Error processing message: {e}")    
 if __name__ == "__main__":
     main()
