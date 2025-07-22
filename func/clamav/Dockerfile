@@ -16,4 +16,6 @@ COPY app/* /app/
 
 WORKDIR /app
 
+RUN python3 -m venv fsdh && . fsdh/bin/activate && pip install -r ./requirements.txt
+
 CMD ["bash", "/app/entrypoint.sh"]
