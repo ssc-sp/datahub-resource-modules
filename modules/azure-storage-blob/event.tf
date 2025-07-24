@@ -1,0 +1,26 @@
+resource "azurerm_eventgrid_system_topic" "project_blob_created_system_topic" {
+  name                   = "${azurerm_storage_account.datahub_storageaccount.name}blobcreatedtopic"
+  location               = local.resource_group_location
+  resource_group_name    = var.resource_group_name
+  source_arm_resource_id = azurerm_storage_account.datahub_storageaccount.id
+  topic_type             = "Microsoft.Storage.StorageAccounts"
+}
+
+resource "azurerm_eventgrid_system_topic_event_subscription" "subscription" {
+  name                  = "blobcreatedsubscription"
+  system_topic          = azurerm_eventgrid_system_topic.project_blob_created_system_topic.name
+  resource_group_name   = var.resource_group_name
+  event_delivery_schema = "EventGridSchema"
+
+  included_event_types = ["Microsoft.Storage.BlobCreated"]
+
+  storage_queue_endpoint {
+    storage_account_id = azurerm_storage_account.datahub_storageaccount.id
+    queue_name         = azurerm_storage_queue.blob_created_event_queue.name
+  }
+
+  retry_policy {
+    max_delivery_attempts = 5
+    event_time_to_live    = 1440
+  }
+}

@@ -51,6 +51,22 @@ output "automation_acct_clientid" {
   value = data.azurerm_user_assigned_identity.proj_auto_acct_uai.client_id
 }
 
+output "project_acr_id" {
+  value = azurerm_container_registry.datahub_proj_acr.id
+}
+
+output "acr_admin_username" {
+  value = azurerm_container_registry.datahub_proj_acr.admin_username
+}
+
+output "acr_admin_password" {
+  value = azurerm_container_registry.datahub_proj_acr.admin_password
+}
+
 output "project_tags" {
   value = local.project_tags
 }
+
+output "clamav_acr_image" { value = local.acr_image_clamav }
+output "acr_name" { value = azurerm_container_registry.datahub_proj_acr.name }
+output "clamav_job_uai" { value = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id }

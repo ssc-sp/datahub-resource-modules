@@ -8,6 +8,9 @@ module "azure_storage_blob_module" {
   automation_acct_principal_id = module.resource_group_module.automation_acct_principal_id
   log_analytics_workspace_id   = var.log_analytics_workspace_id
   enable_defender              = var.enable_defender
+  clamav_acr_image             = module.resource_group_module.clamav_acr_image
+  clamav_job_uai               = module.resource_group_module.clamav_job_uai
+  acr_name                     = module.resource_group_module.acr_name
 
   # optional variables
   az_tenant_id              = var.az_tenant_id

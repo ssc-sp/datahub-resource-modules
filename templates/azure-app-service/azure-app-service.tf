@@ -14,6 +14,7 @@ module "azure_app_service_module" {
   sp_client_oid              = var.datahub_app_sp_oid
   resource_name_suffix       = var.app_service_name_suffix
   container_list             = var.container_list
+  acr_id                     = module.resource_group_module.project_acr_id
 
   # optional variables
   environment_name   = var.environment_name

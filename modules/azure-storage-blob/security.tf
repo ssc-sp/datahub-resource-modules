@@ -55,6 +55,12 @@ resource "azurerm_key_vault_secret" "storage_key_secret" {
   key_vault_id = var.key_vault_id
 }
 
+resource "azurerm_key_vault_secret" "storage_conn_secret" {
+  name         = local.storage_conn_secret
+  value        = azurerm_storage_account.datahub_storageaccount.primary_connection_string
+  key_vault_id = var.key_vault_id
+}
+
 resource "azurerm_key_vault_secret" "storage_sas_secret" {
   name         = local.storage_sas_secret
   value        = data.azurerm_storage_account_blob_container_sas.datahub_container_sas.sas

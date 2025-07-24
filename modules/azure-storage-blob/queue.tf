@@ -1,4 +1,4 @@
-resource "azurerm_storage_queue" "virus_scan_queue" {
-  name                 = "virus-scan"
+resource "azurerm_storage_queue" "blob_created_event_queue" {
+  name                 = local.blob_created_queue
   storage_account_name = azurerm_storage_account.datahub_storageaccount.name
 }

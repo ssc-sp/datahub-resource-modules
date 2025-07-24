@@ -6,10 +6,8 @@ resource "azurerm_storage_account" "datahub_storageaccount" {
   account_replication_type = "LRS"
   account_kind             = "StorageV2"
   is_hns_enabled           = true
-
-  identity {
-    type = "SystemAssigned"
-  }
+  
+  identity { type = "SystemAssigned" }
 
   blob_properties {
     last_access_time_enabled = "true"

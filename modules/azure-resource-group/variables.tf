@@ -110,3 +110,4 @@ variable "budget_start_date" {
   default     = ""
 }
 
+variable "blob_scan_image" { default = "ghcr.io/ssc-sp/blobavscan:latest" }
