@@ -106,14 +106,6 @@ resource "null_resource" "datahub_proj_app_easy_auth" {
   }
 }
 
-resource "azurerm_role_assignment" "acr_pull" {
-  count = var.acr_id == "" ? 0 : 1
-
-  scope                = var.acr_id
-  role_definition_name = "AcrPull"
-  principal_id         = azurerm_linux_web_app.datahub_proj_app.identity[0].principal_id
-}
-
 resource "azurerm_key_vault_access_policy" "kv_app_service_policy" {
   key_vault_id = var.key_vault_id
   tenant_id    = var.az_tenant_id
