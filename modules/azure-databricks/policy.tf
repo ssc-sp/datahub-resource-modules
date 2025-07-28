@@ -26,6 +26,56 @@ locals {
     "spark_conf.az_storage_name" : { "type" : "fixed", "value" : "${var.storage_acct_name}", "hidden" : true },
   }
 
+  datahub_policy_ml = {
+    "dbus_per_hour" : { "type" : "range", "maxValue" : 64 },
+    "node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4ds_v5", "Standard_D8ds_v5", "Standard_D16ds_v5", "Standard_D32ds_v5"], "defaultValue" : "Standard_D4ds_v5" },
+    "driver_node_type_id" : { "type" : "allowlist", "values" : ["Standard_D4ds_v5", "Standard_D8ds_v5", "Standard_D16ds_v5", "Standard_D32ds_v5"], "defaultValue" : "Standard_D4ds_v5" },
+    "autotermination_minutes" : { "type" : "range", "defaultValue" : 30, "minValue" : 10, "maxValue" : 60 }
+    "autoscale.min_workers" : { "type" : "fixed", "value" : 1 },
+    "autoscale.max_workers" : { "type" : "range", "maxValue" : 4, "defaultValue" : 2 },
+    "custom_tags.project_code" : { "type" : "fixed", "value" : "${var.project_cd}" },
+    "custom_tags.environment" : { "type" : "fixed", "value" : "${var.environment_name}" },
+    "custom_tags.project_prefix" : { "type" : "fixed", "value" : "fsdh" },
+    "azure_attributes.availability" : { "type" : "fixed", "value" : "ON_DEMAND_AZURE", "hidden" : true },
+    "spark_conf.spark.databricks.passthrough.enabled" : { "type" : "fixed", "value" : "true", "hidden" : true },
+    "spark_conf.spark.databricks.delta.preview.enabled" : { "type" : "fixed", "value" : "true", "hidden" : true },
+    "spark_conf.spark.databricks.pyspark.enableProcessIsolation" : { "type" : "fixed", "value" : "true", "hidden" : true },
+    "spark_conf.spark.databricks.repl.allowedLanguages" : { "type" : "fixed", "value" : "python,sql,r", "hidden" : true },
+    "spark_conf.fs.azure.account.key.${var.storage_acct_name}.blob.core.windows.net" : { "type" : "fixed", "value" : "{{secrets/datahub/storage-key}}", "hidden" : true },
+    "spark_conf.fs.azure.sas.fixed.token.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "{{secrets/datahub/container-sas}}", "hidden" : true },
+    "spark_conf.fs.azure.sas.${local.datahub_blob_container}.${var.storage_acct_name}.blob.core.windows.net" : { "type" : "fixed", "value" : "{{secrets/datahub/container-sas}}", "hidden" : true },
+    "spark_conf.fs.azure.account.auth.type.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "SAS", "hidden" : true },
+    "spark_conf.fs.azure.sas.token.provider.type.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "org.apache.hadoop.fs.azurebfs.sas.FixedSASTokenProvider", "hidden" : true },
+    "spark_conf.abfss_uri" : { "type" : "fixed", "value" : "${local.abfss_uri}", "hidden" : true },
+    "spark_conf.wasbs_uri" : { "type" : "fixed", "value" : "${local.wasbs_uri}", "hidden" : true },
+    "spark_conf.az_storage_name" : { "type" : "fixed", "value" : "${var.storage_acct_name}", "hidden" : true },
+  }
+
+  datahub_policy_ml_gpu = {
+    "dbus_per_hour" : { "type" : "range", "maxValue" : 64 },
+    "node_type_id" : { "type" : "allowlist", "values" : ["Standard_NC4as_T4_v3", "Standard_NC8as_T4_v3", "Standard_NC16as_T4_v3", "Standard_NC64as_T4_v3", "Standard_NV36ads_A10_v5"], "defaultValue" : "Standard_NC4as_T4_v3" },
+    "driver_node_type_id" : { "type" : "allowlist", "values" : ["Standard_NC4as_T4_v3", "Standard_NC8as_T4_v3", "Standard_NC16as_T4_v3", "Standard_NC64as_T4_v3", "Standard_NV36ads_A10_v5"], "defaultValue" : "Standard_NC4as_T4_v3" },
+    "autotermination_minutes" : { "type" : "range", "defaultValue" : 10, "minValue" : 10, "maxValue" : 120 }
+    "autoscale.min_workers" : { "type" : "fixed", "value" : 1 },
+    "autoscale.max_workers" : { "type" : "range", "maxValue" : 2, "defaultValue" : 2 },
+    "custom_tags.project_code" : { "type" : "fixed", "value" : "${var.project_cd}" },
+    "custom_tags.environment" : { "type" : "fixed", "value" : "${var.environment_name}" },
+    "custom_tags.project_prefix" : { "type" : "fixed", "value" : "fsdh" },
+    "azure_attributes.availability" : { "type" : "fixed", "value" : "ON_DEMAND_AZURE", "hidden" : true },
+    "spark_conf.spark.databricks.passthrough.enabled" : { "type" : "fixed", "value" : "true", "hidden" : true },
+    "spark_conf.spark.databricks.delta.preview.enabled" : { "type" : "fixed", "value" : "true", "hidden" : true },
+    "spark_conf.spark.databricks.pyspark.enableProcessIsolation" : { "type" : "fixed", "value" : "true", "hidden" : true },
+    "spark_conf.spark.databricks.repl.allowedLanguages" : { "type" : "fixed", "value" : "python,sql,r", "hidden" : true },
+    "spark_conf.fs.azure.sas.fixed.token.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "{{secrets/datahub/container-sas}}", "hidden" : true },
+    "spark_conf.fs.azure.sas.${local.datahub_blob_container}.${var.storage_acct_name}.blob.core.windows.net" : { "type" : "fixed", "value" : "{{secrets/datahub/container-sas}}", "hidden" : true },
+    "spark_conf.fs.azure.account.key.${var.storage_acct_name}.blob.core.windows.net" : { "type" : "fixed", "value" : "{{secrets/datahub/storage-key}}", "hidden" : true },
+    "spark_conf.fs.azure.account.auth.type.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "SAS", "hidden" : true },
+    "spark_conf.fs.azure.sas.token.provider.type.${var.storage_acct_name}.dfs.core.windows.net" : { "type" : "fixed", "value" : "org.apache.hadoop.fs.azurebfs.sas.FixedSASTokenProvider", "hidden" : true },
+    "spark_conf.abfss_uri" : { "type" : "fixed", "value" : "${local.abfss_uri}", "hidden" : true },
+    "spark_conf.wasbs_uri" : { "type" : "fixed", "value" : "${local.wasbs_uri}", "hidden" : true },
+    "spark_conf.az_storage_name" : { "type" : "fixed", "value" : "${var.storage_acct_name}", "hidden" : true },
+  }
+
   datahub_policy_small = {
     "dbus_per_hour" : { "type" : "range", "maxValue" : 4 },
     "node_type_id" : { "type" : "fixed", "value" : "Standard_D4ds_v5", "hidden" : false },
@@ -188,4 +238,14 @@ resource "databricks_cluster_policy" "regular_spot_cluster_policy" {
 resource "databricks_cluster_policy" "docker_small_cluster_policy" {
   name       = "Datahub Docker Cluster (Small)"
   definition = jsonencode(local.datahub_policy_small_docker)
+}
+
+resource "databricks_cluster_policy" "ml_policy" {
+  name       = "Datahub ML Cluster"
+  definition = jsonencode(local.datahub_policy_ml)
+}
+
+resource "databricks_cluster_policy" "ml_gpu_policy" {
+  name       = "Datahub ML Cluster (GPU)"
+  definition = jsonencode(local.datahub_policy_ml_gpu)
 }

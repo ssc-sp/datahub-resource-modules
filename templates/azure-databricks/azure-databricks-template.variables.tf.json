@@ -22,6 +22,22 @@
     "log_workspace_id": {
       "type": "string",
       "default": ""
+    },
+    "enable_ml_cluster": {
+      "type": "bool",
+      "default": false
+    },
+    "enable_ml_gpu_cluster": {
+      "type": "bool",
+      "default": false
+    },
+    "ml_compute": {
+      "type": "string",
+      "default": "Standard_D4ds_v5"
+    },
+    "ml_gpu_compute": {
+      "type": "string",
+      "default": "Standard_NC4as_T4_v3"
     }
   }
 }
