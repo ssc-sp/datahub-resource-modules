@@ -27,6 +27,8 @@ locals {
   storage_account_name      = local.base_name
   acr_name                  = lower(replace(replace(lower("${var.resource_prefix}-proj-${var.project_cd}-acr-${var.environment_name}"), "_", ""), "-", ""))
   acr_image_clamav          = "blobavscan:latest"
+  acr_image_proj_cost       = "projcost:latest"
+  acr_image_proj_job        = "projjob:latest"
 }
 
 data "template_file" "az_project_disable_cmk_script" {
