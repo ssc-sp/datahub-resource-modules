@@ -1,13 +1,6 @@
-resource "azurerm_container_app_environment" "proj_container_app_env" {
-  name                       = "${local.base_name}-app-env"
-  location                   = local.resource_group_location
-  resource_group_name        = var.resource_group_name
-  log_analytics_workspace_id = var.log_analytics_workspace_id
-}
-
 resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
   name                         = "${local.base_name}-clamav-job"
-  container_app_environment_id = azurerm_container_app_environment.proj_container_app_env.id
+  container_app_environment_id = var.container_app_env_id
   location                     = local.resource_group_location
   resource_group_name          = var.resource_group_name
   replica_timeout_in_seconds   = 1800

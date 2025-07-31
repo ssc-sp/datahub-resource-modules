@@ -5,11 +5,6 @@ resource "azurerm_container_registry" "datahub_proj_acr" {
   admin_enabled       = true
   sku                 = "Basic"
 
-  encryption {
-    key_vault_key_id   = azurerm_key_vault_key.az_proj_cmk.id
-    identity_client_id = azurerm_user_assigned_identity.datahub_proj_acr_uai.client_id
-  }
-
   identity {
     type = "UserAssigned"
     identity_ids = [
@@ -95,11 +90,11 @@ resource "azurerm_container_registry_task_schedule_run_now" "acr_image_clamav" {
 }
 
 resource "azurerm_container_registry_task_schedule_run_now" "acr_image_proj_cost" {
-  container_registry_task_id = azurerm_container_registry_task.refresh_blob_scan_image.id
+  container_registry_task_id = azurerm_container_registry_task.refresh_proj_cost_image.id
 }
 
 resource "azurerm_container_registry_task_schedule_run_now" "acr_image_proj_job" {
-  container_registry_task_id = azurerm_container_registry_task.refresh_blob_scan_image.id
+  container_registry_task_id = azurerm_container_registry_task.refresh_proj_job_image.id
 }
 
 

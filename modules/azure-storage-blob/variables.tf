@@ -111,6 +111,7 @@ variable "enable_defender" {
   default     = false
 }
 
+variable "container_app_env_id" {}
 variable "clamav_acr_image" {}
 variable "acr_name" {}
 variable "clamav_job_uai" {}
