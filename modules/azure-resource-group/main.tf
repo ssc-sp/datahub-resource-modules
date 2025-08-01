@@ -89,3 +89,16 @@ resource "null_resource" "set_default_resource_group" {
     on_failure  = fail
   }
 }
+
+resource "azurerm_monitor_action_group" "datahub_proj_action_group_email" {
+  name                = "${var.resource_prefix}-proj-actiongroup-${var.project_cd}-${var.environment_name}-email"
+  resource_group_name = azurerm_resource_group.az_project_rg.name
+  short_name          = "p0action"
+
+  email_receiver {
+    name          = "datahub_default_email"
+    email_address = var.default_alert_email
+  }
+
+  tags = local.project_tags
+}

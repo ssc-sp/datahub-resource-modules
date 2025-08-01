@@ -4,12 +4,13 @@ $projCMK = "project-cmk"
 $projKeyVaultName = $env:PROJ_KV
 $projSub = $env:PROJ_SUB
 $projStorageAcct = $env:PROJ_STORAGE_ACCT
+$azClientId = $env:CLIENT_ID
 
 Write-Host Rotate the SAS token in AKV Secret name storage-sas for project $projCode
 $currentDate = Get-Date
 $fiscalYearStart = if ($currentDate.Month -ge 4 ) { [datetime]::new($currentDate.Year, 4, 1) } else { [datetime]::new($currentDate.Year - 1, 4, 1) }
 
-Connect-AzAccount -Identity
+Connect-AzAccount -Identity -AccountId $azClientId
 Set-AzContext -Subscription $projSub
 
 $key_vault_name = $projKeyVaultName

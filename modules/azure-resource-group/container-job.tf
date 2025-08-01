@@ -47,7 +47,7 @@ resource "azurerm_container_app_job" "proj_container_app_job_costing" {
       }
       env {
         name  = "CLIENT_ID"
-        value = azurerm_user_assigned_identity.datahub_proj_acr_uai.client_id
+        value = data.azurerm_user_assigned_identity.proj_auto_acct_uai.client_id
       }
     }
   }

@@ -59,3 +59,57 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
     }
   }
 }
+
+resource "azurerm_container_app_job" "proj_container_app_job_sas_token" {
+  name                         = "${local.base_name}-sas-job"
+  container_app_environment_id = var.container_app_env_id
+  location                     = local.resource_group_location
+  resource_group_name          = var.resource_group_name
+  replica_timeout_in_seconds   = 1800
+
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.datahub_proj_sas_token_job_uai.id, var.clamav_job_uai]
+  }
+
+  registry {
+    server   = "${var.acr_name}.azurecr.io"
+    identity = var.clamav_job_uai
+  }
+
+  template {
+    container {
+      name   = "proj-sas-job"
+      image  = "${var.acr_name}.azurecr.io/${var.sas_acr_image}"
+      cpu    = 2
+      memory = "4.0Gi"
+      env {
+        name  = "PROJ_CD"
+        value = var.project_cd
+      }
+      env {
+        name  = "PROJ_RG"
+        value = var.resource_group_name
+      }
+      env {
+        name  = "PROJ_KV"
+        value = var.key_vault_name
+      }
+      env {
+        name  = "PROJ_SUB"
+        value = var.az_subscription_id
+      }
+      env {
+        name  = "PROJ_STORAGE_ACCT"
+        value = azurerm_storage_account.datahub_storageaccount.name
+      }
+      env {
+        name  = "CLIENT_ID"
+        value = azurerm_user_assigned_identity.datahub_proj_sas_token_job_uai.client_id
+      }
+    }
+  }
+
+  schedule_trigger_config { cron_expression = "15 3 * * *" }
+}
+

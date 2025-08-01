@@ -63,8 +63,8 @@ resource "azurerm_container_registry_task" "refresh_proj_cost_image" {
   }
 }
 
-resource "azurerm_container_registry_task" "refresh_proj_job_image" {
-  name                  = "refresh-proj-job-image"
+resource "azurerm_container_registry_task" "refresh_proj_sas_image" {
+  name                  = "refresh-proj-sas-image"
   container_registry_id = azurerm_container_registry.datahub_proj_acr.id
   platform { os = "Linux" }
   identity { type = "SystemAssigned" }
@@ -79,7 +79,7 @@ resource "azurerm_container_registry_task" "refresh_proj_job_image" {
       version: v1.1.0
       steps: 
       - cmd: az login --identity --allow-no-subscriptions
-      - cmd: docker pull ${var.proj_job_image} && docker tag ${var.proj_job_image} ${azurerm_container_registry.datahub_proj_acr.name}.azurecr.io/${local.acr_image_proj_job} && docker push ${azurerm_container_registry.datahub_proj_acr.name}.azurecr.io/${local.acr_image_proj_job}
+      - cmd: docker pull ${var.proj_sas_image} && docker tag ${var.proj_sas_image} ${azurerm_container_registry.datahub_proj_acr.name}.azurecr.io/${local.acr_image_proj_sas} && docker push ${azurerm_container_registry.datahub_proj_acr.name}.azurecr.io/${local.acr_image_proj_sas}
       EOF
     )
   }
@@ -93,8 +93,8 @@ resource "azurerm_container_registry_task_schedule_run_now" "acr_image_proj_cost
   container_registry_task_id = azurerm_container_registry_task.refresh_proj_cost_image.id
 }
 
-resource "azurerm_container_registry_task_schedule_run_now" "acr_image_proj_job" {
-  container_registry_task_id = azurerm_container_registry_task.refresh_proj_job_image.id
+resource "azurerm_container_registry_task_schedule_run_now" "acr_image_proj_sas" {
+  container_registry_task_id = azurerm_container_registry_task.refresh_proj_sas_image.id
 }
 
 

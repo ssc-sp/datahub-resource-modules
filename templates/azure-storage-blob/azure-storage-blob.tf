@@ -3,12 +3,14 @@ module "azure_storage_blob_module" {
   depends_on = [module.resource_group_module]
 
   resource_group_name          = module.resource_group_module.az_project_rg_name
+  key_vault_name               = module.resource_group_module.az_project_kv_name
   key_vault_id                 = module.resource_group_module.az_project_kv_id
   key_vault_cmk_name           = module.resource_group_module.az_project_cmk
   automation_acct_principal_id = module.resource_group_module.automation_acct_principal_id
   log_analytics_workspace_id   = var.log_analytics_workspace_id
   enable_defender              = var.enable_defender
   clamav_acr_image             = module.resource_group_module.clamav_acr_image
+  sas_acr_image                = module.resource_group_module.sas_acr_image
   clamav_job_uai               = module.resource_group_module.clamav_job_uai
   acr_name                     = module.resource_group_module.acr_name
   container_app_env_id         = module.resource_group_module.container_app_env_id
