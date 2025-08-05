@@ -20,10 +20,12 @@ $maxRetries = 10 ; $retryCount = 0 ; $delay = 30 # Delay in seconds
 while ($retryCount -lt $maxRetries) {
   try {
     $resourceGroupCost = 0
-    if (-not ($null -eq $resourceGroupCost)) { $resourceGroupCost = (Get-AzConsumptionUsageDetail -StartDate $fiscalYearStart.toUniversalTime() -EndDate $currentDate.toUniversalTime() -ResourceGroup $projRgName | Measure-Object -Property PretaxCost -Sum).Sum }
+    if (-not ($null -eq $projRgName)) { $resourceGroupCost = (Get-AzConsumptionUsageDetail -StartDate $fiscalYearStart.toUniversalTime() -EndDate $currentDate.toUniversalTime() -ResourceGroup $projRgName | Measure-Object -Property PretaxCost -Sum).Sum }
     $dbrResourceGroupCost = 0
-    if (-not($null -eq $projDatabricksRgName)) { $dbrResourceGroupCost = (Get-AzConsumptionUsageDetail -StartDate $fiscalYearStart.toUniversalTime() -EndDate $currentDate.toUniversalTime() -ResourceGroup $projDatabricksRgName | Measure-Object -Property PretaxCost -Sum).Sum }
+    if (-not ($null -eq $projDatabricksRgName)) { $dbrResourceGroupCost = (Get-AzConsumptionUsageDetail -StartDate $fiscalYearStart.toUniversalTime() -EndDate $currentDate.toUniversalTime() -ResourceGroup $projDatabricksRgName | Measure-Object -Property PretaxCost -Sum).Sum }
 
+    if ($null -eq $resourceGroupCost) { $resourceGroupCost = 0 }
+    if ($null -eq $dbrResourceGroupCost) { $dbrResourceGroupCost = 0 }
     break
   }
   catch {
