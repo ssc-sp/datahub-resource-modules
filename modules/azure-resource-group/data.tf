@@ -27,40 +27,8 @@ locals {
   storage_account_name      = local.base_name
   acr_name                  = lower(replace(replace(lower("${var.resource_prefix}-proj-${var.project_cd}-acr-${var.environment_name}"), "_", ""), "-", ""))
   acr_image_clamav          = "blobavscan:latest"
-}
-
-data "template_file" "az_project_disable_cmk_script" {
-  template = file("${path.module}/rg-disable-cmk.ps1")
-  vars = {
-    key_vault_name  = azurerm_key_vault.az_proj_kv.name
-    subscription_id = var.az_subscription_id
-    uai_clientid    = data.azurerm_user_assigned_identity.proj_auto_acct_uai.client_id
-  }
-}
-
-data "template_file" "az_project_cost_check_script" {
-  template = file("${path.module}/rg-check-spend.ps1")
-  vars = {
-    subscription_id = var.az_subscription_id
-    key_vault_name  = azurerm_key_vault.az_proj_kv.name
-    budget_name     = azurerm_consumption_budget_resource_group.az_project_rg_budget.0.name
-    dbr_rg_name     = local.databricks_rg_name
-    trigger_percent = 100
-    uai_clientid    = data.azurerm_user_assigned_identity.proj_auto_acct_uai.client_id
-  }
-}
-
-data "template_file" "az_project_rorate_sas_script" {
-  template = file("${path.module}/rg-rotate-sas.ps1")
-  vars = {
-    key_vault_name      = azurerm_key_vault.az_proj_kv.name
-    subscription_id     = var.az_subscription_id
-    storage_acct_name   = local.storage_account_name
-    resource_group_name = local.resource_group_name
-    sas_secret_name     = "container-sas"
-    container_name      = "datahub"
-    uai_clientid        = data.azurerm_user_assigned_identity.proj_auto_acct_uai.client_id
-  }
+  acr_image_proj_cost       = "projcost:latest"
+  acr_image_proj_sas        = "projsas:latest"
 }
 
 resource "null_resource" "current_fiscal_year_start" {

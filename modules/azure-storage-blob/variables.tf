@@ -22,6 +22,11 @@ variable "resource_group_name" {
   type        = string
 }
 
+variable "key_vault_name" {
+  description = "Key vault ID"
+  type        = string
+}
+
 variable "key_vault_id" {
   description = "Key vault ID"
   type        = string
@@ -111,7 +116,9 @@ variable "enable_defender" {
   default     = false
 }
 
+variable "container_app_env_id" {}
 variable "clamav_acr_image" {}
+variable "sas_acr_image" {}
 variable "acr_name" {}
 variable "clamav_job_uai" {}
 
