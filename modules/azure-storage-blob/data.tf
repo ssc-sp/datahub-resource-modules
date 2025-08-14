@@ -24,6 +24,7 @@ locals {
   datahub_mount_name       = "datahub"
   datahub_backup_name      = "datahub-backup"
   datahub_log_name         = "datahub-log"
+  datahub_temp_name        = "datahub-temp"
   datahub_quarantine       = "datahub-quarantine"
   blob_created_queue       = "blob-created"
   resource_group_location  = var.az_location

@@ -1,3 +1,11 @@
+resource "azurerm_container_app_environment_storage" "datahub_temp" {
+  name                         = local.datahub_temp_name
+  container_app_environment_id = var.container_app_env_id
+  share_name                   = "/${azurerm_storage_account.datahub_storageaccount.name}/${azurerm_storage_share.file_share_clamav_temp.name}"
+  access_mode                  = "ReadWrite"
+  nfs_server_url               = azurerm_storage_account.datahub_storageaccount.primary_file_host
+}
+
 resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
   name                         = "${local.base_name}-clamav-job"
   container_app_environment_id = var.container_app_env_id
@@ -35,6 +43,20 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
         name        = local.storage_conn_secret
         secret_name = local.storage_conn_secret
       }
+      env {
+        name  = "WORK_DIR"
+        value = "/${local.datahub_temp_name}"
+      }
+      volume_mounts {
+        name = local.datahub_temp_name
+        path = "/${local.datahub_temp_name}"
+      }
+    }
+
+    volume {
+      name          = local.datahub_temp_name
+      storage_name  = azurerm_container_app_environment_storage.datahub_temp.name
+      mount_options = "dir_mode=0777,file_mode=0777"
     }
   }
 

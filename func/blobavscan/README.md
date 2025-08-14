@@ -1,7 +1,2 @@
-# Test Docker container
-<pre>
-docker build -t blobavscan .
-docker tag blobavscan ghcr.io/ssc-sp/blobavscan
-docker push ghcr.io/ssc-sp/blobavscan   
-# Change the image visibility to public
-</pre>
+# Note
+This has been moved to https://github.com/fsdh-pfds/datahub-images/tree/main/managed-containers/clamav-blobavscan

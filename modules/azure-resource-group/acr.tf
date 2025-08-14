@@ -19,7 +19,7 @@ resource "azurerm_role_assignment" "acr_role_sp" {
   role_definition_name = "Contributor"
 }
 
-resource "azurerm_container_registry_task" "refresh_blob_scan_image" {
+resource "azurerm_container_registry_task" "refresh_clamav_blob_scan_image" {
   name                  = "refresh-blob-scan-image"
   container_registry_id = azurerm_container_registry.datahub_proj_acr.id
   platform { os = "Linux" }
@@ -86,7 +86,7 @@ resource "azurerm_container_registry_task" "refresh_proj_sas_image" {
 }
 
 resource "azurerm_container_registry_task_schedule_run_now" "acr_image_clamav" {
-  container_registry_task_id = azurerm_container_registry_task.refresh_blob_scan_image.id
+  container_registry_task_id = azurerm_container_registry_task.refresh_clamav_blob_scan_image.id
 }
 
 resource "azurerm_container_registry_task_schedule_run_now" "acr_image_proj_cost" {
