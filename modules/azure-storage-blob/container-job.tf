@@ -1,9 +1,10 @@
 resource "azurerm_container_app_environment_storage" "datahub_temp" {
   name                         = local.datahub_temp_name
   container_app_environment_id = var.container_app_env_id
-  share_name                   = "/${azurerm_storage_account.datahub_storageaccount.name}/${azurerm_storage_share.file_share_clamav_temp.name}"
+  share_name                   = azurerm_storage_share.file_share_clamav_temp.name
   access_mode                  = "ReadWrite"
-  nfs_server_url               = azurerm_storage_account.datahub_storageaccount.primary_file_host
+  access_key                   = azurerm_storage_account.datahub_storageaccount.primary_access_key
+  account_name                 = azurerm_storage_account.datahub_storageaccount.name
 }
 
 resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
@@ -67,10 +68,11 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
       rules {
         name = "blob-clamav-rule"
         metadata = {
-          accountName       = azurerm_storage_account.datahub_storageaccount.name
-          connectionFromEnv = local.storage_conn_secret
-          queueLength       = "1024"
-          queueName         = local.blob_created_queue
+          accountName         = azurerm_storage_account.datahub_storageaccount.name
+          connectionFromEnv   = local.storage_conn_secret
+          queueLength         = "1024"
+          queueName           = local.blob_created_queue
+          queueLengthStrategy = "visibleonly"
         }
         custom_rule_type = "azure-queue"
         authentication {
