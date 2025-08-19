@@ -19,11 +19,6 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
     identity_ids = [var.clamav_job_uai]
   }
 
-  registry {
-    server   = "${var.acr_name}.azurecr.io"
-    identity = var.clamav_job_uai
-  }
-
   secret {
     name                = local.storage_conn_secret
     key_vault_secret_id = azurerm_key_vault_secret.storage_conn_secret.versionless_id
@@ -33,7 +28,7 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
   template {
     container {
       name   = "blobavscan"
-      image  = "${var.acr_name}.azurecr.io/${var.clamav_acr_image}"
+      image  = var.clamav_docker_image
       cpu    = 2
       memory = "4.0Gi"
       env {
@@ -96,15 +91,10 @@ resource "azurerm_container_app_job" "proj_container_app_job_sas_token" {
     identity_ids = [azurerm_user_assigned_identity.datahub_proj_sas_token_job_uai.id, var.clamav_job_uai]
   }
 
-  registry {
-    server   = "${var.acr_name}.azurecr.io"
-    identity = var.clamav_job_uai
-  }
-
   template {
     container {
       name   = "proj-sas-job"
-      image  = "${var.acr_name}.azurecr.io/${var.sas_acr_image}"
+      image  = var.sas_docker_image
       cpu    = 2
       memory = "4.0Gi"
       env {

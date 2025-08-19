@@ -10,15 +10,10 @@ resource "azurerm_container_app_job" "proj_container_app_job_costing" {
     identity_ids = [data.azurerm_user_assigned_identity.proj_auto_acct_uai.id]
   }
 
-  registry {
-    server   = azurerm_container_registry.datahub_proj_acr.login_server
-    identity = data.azurerm_user_assigned_identity.proj_auto_acct_uai.id
-  }
-
   template {
     container {
       name   = "proj-cost"
-      image  = "${azurerm_container_registry.datahub_proj_acr.name}.azurecr.io/${local.acr_image_proj_cost}"
+      image  = var.blob_scan_image
       cpu    = 2
       memory = "4.0Gi"
       env {
@@ -53,6 +48,4 @@ resource "azurerm_container_app_job" "proj_container_app_job_costing" {
   }
 
   schedule_trigger_config { cron_expression = "5 3 * * *" }
-
-  depends_on = [azurerm_role_assignment.acr_role_container_app_env, azurerm_container_registry_task_schedule_run_now.acr_image_proj_cost]
 }

@@ -18,7 +18,6 @@ resource "azurerm_linux_web_app" "datahub_proj_app" {
   client_affinity_enabled = true
 
   app_settings = {
-    DOCKER_REGISTRY_SERVER_URL          = var.docker_server_url
     WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
     WEBSITES_PORT                       = "3838"
     SHINY_APP_FOLDER                    = "shiny"

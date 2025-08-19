@@ -33,9 +33,3 @@ resource "azurerm_role_assignment" "blob_log_app_role" {
   principal_id         = azurerm_linux_web_app.datahub_proj_app.identity.0.principal_id
 }
 
-resource "azurerm_role_assignment" "acr_role_app_service" {
-  scope                = var.acr_id
-  role_definition_name = "AcrPull"
-  principal_id         = azurerm_linux_web_app.datahub_proj_app.identity[0].principal_id
-}
-

@@ -157,12 +157,6 @@ variable "use_easy_auth" {
   default     = false
 }
 
-variable "acr_id" {
-  description = "Private Azure Container Registry that is used for Docker images"
-  type        = string
-  default     = ""
-}
-
 variable "container_list" {
   type = list(object({
     image = string
