@@ -117,8 +117,7 @@ variable "enable_defender" {
 }
 
 variable "container_app_env_id" {}
-variable "clamav_acr_image" {}
-variable "sas_acr_image" {}
-variable "acr_name" {}
 variable "clamav_job_uai" {}
+variable "clamav_docker_image" {}
+variable "sas_docker_image" {}
 

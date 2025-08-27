@@ -9,11 +9,6 @@ data "azurerm_monitor_action_group" "datahub_proj_action_group_email" {
   name                = "${var.resource_prefix}-proj-actiongroup-${var.project_cd}-${var.environment_name}-email"
 }
 
-data "azurerm_container_registry" "datahub_proj_acr" {
-  name                = var.acr_name
-  resource_group_name = var.resource_group_name
-}
-
 locals {
   sanitized_prefix         = lower(replace(replace(var.resource_prefix_alphanumeric, "_", ""), "-", ""))
   base_name                = lower("${local.sanitized_prefix}proj${var.project_cd}${var.environment_name}")
@@ -24,6 +19,7 @@ locals {
   datahub_mount_name       = "datahub"
   datahub_backup_name      = "datahub-backup"
   datahub_log_name         = "datahub-log"
+  datahub_temp_name        = "datahub-temp"
   datahub_quarantine       = "datahub-quarantine"
   blob_created_queue       = "blob-created"
   resource_group_location  = var.az_location

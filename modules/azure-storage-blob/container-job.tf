@@ -1,3 +1,12 @@
+resource "azurerm_container_app_environment_storage" "datahub_temp" {
+  name                         = local.datahub_temp_name
+  container_app_environment_id = var.container_app_env_id
+  share_name                   = azurerm_storage_share.file_share_clamav_temp.name
+  access_mode                  = "ReadWrite"
+  access_key                   = azurerm_storage_account.datahub_storageaccount.primary_access_key
+  account_name                 = azurerm_storage_account.datahub_storageaccount.name
+}
+
 resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
   name                         = "${local.base_name}-clamav-job"
   container_app_environment_id = var.container_app_env_id
@@ -10,11 +19,6 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
     identity_ids = [var.clamav_job_uai]
   }
 
-  registry {
-    server   = "${var.acr_name}.azurecr.io"
-    identity = var.clamav_job_uai
-  }
-
   secret {
     name                = local.storage_conn_secret
     key_vault_secret_id = azurerm_key_vault_secret.storage_conn_secret.versionless_id
@@ -24,7 +28,7 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
   template {
     container {
       name   = "blobavscan"
-      image  = "${var.acr_name}.azurecr.io/${var.clamav_acr_image}"
+      image  = var.clamav_docker_image
       cpu    = 2
       memory = "4.0Gi"
       env {
@@ -35,6 +39,20 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
         name        = local.storage_conn_secret
         secret_name = local.storage_conn_secret
       }
+      env {
+        name  = "WORK_DIR"
+        value = "/${local.datahub_temp_name}"
+      }
+      volume_mounts {
+        name = local.datahub_temp_name
+        path = "/${local.datahub_temp_name}"
+      }
+    }
+
+    volume {
+      name          = local.datahub_temp_name
+      storage_name  = azurerm_container_app_environment_storage.datahub_temp.name
+      mount_options = "dir_mode=0777,file_mode=0777"
     }
   }
 
@@ -45,10 +63,11 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
       rules {
         name = "blob-clamav-rule"
         metadata = {
-          accountName       = azurerm_storage_account.datahub_storageaccount.name
-          connectionFromEnv = local.storage_conn_secret
-          queueLength       = "1024"
-          queueName         = local.blob_created_queue
+          accountName         = azurerm_storage_account.datahub_storageaccount.name
+          connectionFromEnv   = local.storage_conn_secret
+          queueLength         = "1024"
+          queueName           = local.blob_created_queue
+          queueLengthStrategy = "visibleonly"
         }
         custom_rule_type = "azure-queue"
         authentication {
@@ -72,15 +91,10 @@ resource "azurerm_container_app_job" "proj_container_app_job_sas_token" {
     identity_ids = [azurerm_user_assigned_identity.datahub_proj_sas_token_job_uai.id, var.clamav_job_uai]
   }
 
-  registry {
-    server   = "${var.acr_name}.azurecr.io"
-    identity = var.clamav_job_uai
-  }
-
   template {
     container {
       name   = "proj-sas-job"
-      image  = "${var.acr_name}.azurecr.io/${var.sas_acr_image}"
+      image  = var.sas_docker_image
       cpu    = 2
       memory = "4.0Gi"
       env {

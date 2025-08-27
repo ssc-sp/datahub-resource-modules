@@ -23,24 +23,6 @@ resource "azurerm_key_vault_access_policy" "kv_policy_acr" {
   key_permissions = ["Get", "UnwrapKey", "WrapKey"]
 }
 
-resource "azurerm_role_assignment" "acr_role_clamav_job" {
-  scope                = azurerm_container_registry.datahub_proj_acr.id
-  principal_id         = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.principal_id
-  role_definition_name = "AcrPull"
-}
-
-resource "azurerm_role_assignment" "acr_role_container_app_env" {
-  scope                = azurerm_container_registry.datahub_proj_acr.id
-  principal_id         = azurerm_user_assigned_identity.datahub_proj_container_app_env_uai.principal_id
-  role_definition_name = "AcrPull"
-}
-
-resource "azurerm_role_assignment" "acr_role_common_auto_acct_uai" {
-  scope                = azurerm_container_registry.datahub_proj_acr.id
-  principal_id         = data.azurerm_user_assigned_identity.proj_auto_acct_uai.principal_id
-  role_definition_name = "AcrPull"
-}
-
 resource "azurerm_key_vault_access_policy" "kv_policy_clamav_job" {
   key_vault_id       = azurerm_key_vault.az_proj_kv.id
   tenant_id          = var.az_tenant_id

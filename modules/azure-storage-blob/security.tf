@@ -90,12 +90,6 @@ resource "azurerm_role_assignment" "proj_storage_sas_job_role" {
   principal_id         = azurerm_user_assigned_identity.datahub_proj_sas_token_job_uai.principal_id
 }
 
-resource "azurerm_role_assignment" "acr_role_sas_job" {
-  scope                = data.azurerm_container_registry.datahub_proj_acr.id
-  principal_id         = azurerm_user_assigned_identity.datahub_proj_sas_token_job_uai.principal_id
-  role_definition_name = "AcrPull"
-}
-
 resource "azurerm_key_vault_access_policy" "kv_policy_sas_job" {
   key_vault_id = var.key_vault_id
   tenant_id    = var.az_tenant_id

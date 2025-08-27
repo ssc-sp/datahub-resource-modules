@@ -110,6 +110,6 @@ variable "budget_start_date" {
   default     = ""
 }
 
-variable "blob_scan_image" { default = "ghcr.io/ssc-sp/blobavscan:latest" }
+variable "blob_scan_image" { default = "ghcr.io/ssc-sp/clamav-blobavscan:latest" }
 variable "proj_cost_image" { default = "ghcr.io/ssc-sp/projcost:latest" }
 variable "proj_sas_image" { default = "ghcr.io/ssc-sp/projsas:latest" }

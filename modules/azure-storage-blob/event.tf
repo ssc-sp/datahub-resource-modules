@@ -19,6 +19,11 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "subscription" {
     queue_name         = azurerm_storage_queue.blob_created_event_queue.name
   }
 
+  subject_filter {
+    subject_begins_with = "/blobServices/default/containers/${local.datahub_mount_name}/"
+    case_sensitive      = false
+  }
+
   retry_policy {
     max_delivery_attempts = 5
     event_time_to_live    = 1440
