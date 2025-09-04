@@ -3,7 +3,7 @@ data "azurerm_subscription" "az_subscription" {
 }
 
 data "http" "sample_databricks_notebook" {
-  url = "https://raw.githubusercontent.com/ssc-sp/datahub-demos/refs/heads/main/sample-scripts/python_sample.py"
+  url = "https://raw.githubusercontent.com/fsdh-pfds/datahub-samples/refs/heads/main/sample-scripts/python_sample.py"
 }
 
 locals {
