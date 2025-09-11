@@ -6,7 +6,7 @@ resource "azurerm_eventgrid_system_topic" "project_blob_created_system_topic" {
   topic_type             = "Microsoft.Storage.StorageAccounts"
 }
 
-resource "azurerm_eventgrid_system_topic_event_subscription" "subscription" {
+resource "azurerm_eventgrid_system_topic_event_subscription" "blob_created_subscription" {
   name                  = "blobcreatedsubscription"
   system_topic          = azurerm_eventgrid_system_topic.project_blob_created_system_topic.name
   resource_group_name   = var.resource_group_name

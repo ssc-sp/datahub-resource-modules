@@ -66,7 +66,7 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
           accountName         = azurerm_storage_account.datahub_storageaccount.name
           connectionFromEnv   = local.storage_conn_secret
           queueLength         = "1024"
-          queueName           = local.blob_created_queue
+          queueName           = var.enable_clamav ? local.blob_created_queue : local.blob_muted_queue
           queueLengthStrategy = "visibleonly"
         }
         custom_rule_type = "azure-queue"
