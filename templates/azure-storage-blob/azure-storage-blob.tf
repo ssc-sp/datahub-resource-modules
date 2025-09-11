@@ -9,6 +9,7 @@ module "azure_storage_blob_module" {
   automation_acct_principal_id = module.resource_group_module.automation_acct_principal_id
   log_analytics_workspace_id   = var.log_analytics_workspace_id
   enable_defender              = var.enable_defender
+  enable_clamav                = var.enable_clamav
   clamav_docker_image          = module.resource_group_module.clamav_docker_image
   sas_docker_image             = module.resource_group_module.sas_docker_image
   clamav_job_uai               = module.resource_group_module.clamav_job_uai

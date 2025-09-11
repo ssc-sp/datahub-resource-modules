@@ -120,4 +120,5 @@ variable "container_app_env_id" {}
 variable "clamav_job_uai" {}
 variable "clamav_docker_image" {}
 variable "sas_docker_image" {}
+variable "enable_clamav" { default = false } # blob events still to be queued even if disabled so that they can be scanned later once enabled
 

@@ -22,6 +22,7 @@ locals {
   datahub_temp_name        = "datahub-temp"
   datahub_quarantine       = "datahub-quarantine"
   blob_created_queue       = "blob-created"
+  blob_muted_queue         = "blob-event-muted"
   resource_group_location  = var.az_location
   storage_size_limit_bytes = 1024 * 1024 * 1024 * 1024 * var.storage_size_limit_tb
   log_keep_days            = 90
