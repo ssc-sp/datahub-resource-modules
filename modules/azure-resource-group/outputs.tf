@@ -56,7 +56,13 @@ output "project_tags" {
 }
 
 output "container_app_env_id" { value = azurerm_container_app_environment.proj_container_app_env.id }
-output "clamav_docker_image" { value = local.docker_image_clamav }
+output "clamav_docker_image"  { value = local.docker_image_clamav }
 output "costing_docker_image" { value = local.docker_image_proj_cost }
-output "sas_docker_image" { value = local.docker_image_proj_sas }
-output "clamav_job_uai" { value = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id }
+output "sas_docker_image"     { value = local.docker_image_proj_sas }
+output "clamav_job_uai"       { value = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id }
+
+# New: expose the created jobs as a map keyed by job name
+output "container_jobs" {
+  description = "Map of Container App Job IDs keyed by job name (proj-cost, blob-scan, proj-sas)."
+  value       = { for name, r in azurerm_container_app_job.jobs : name => r.id }
+}
