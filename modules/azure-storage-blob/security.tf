@@ -69,13 +69,11 @@ resource "azurerm_key_vault_secret" "storage_sas_secret" {
 }
 
 resource "azurerm_security_center_storage_defender" "datahub_storageaccount_defender" {
-  count = var.enable_defender ? 1 : 0
-
   storage_account_id                          = azurerm_storage_account.datahub_storageaccount.id
   override_subscription_settings_enabled      = true
-  sensitive_data_discovery_enabled            = true
-  malware_scanning_on_upload_enabled          = true
-  malware_scanning_on_upload_cap_gb_per_month = -1
+  sensitive_data_discovery_enabled            = var.enable_defender
+  malware_scanning_on_upload_enabled          = var.enable_defender
+  malware_scanning_on_upload_cap_gb_per_month = var.enable_defender ? -1 : 1
 }
 
 resource "azurerm_user_assigned_identity" "datahub_proj_sas_token_job_uai" {
