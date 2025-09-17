@@ -11,4 +11,5 @@ settings.json
 test-project/azure-postgresql.tf
 test-project/azure-batch.tf
 test-project/azure-container-app.tf
+test-project/azure-container-instance.tf
 .vscode
