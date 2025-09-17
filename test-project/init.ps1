@@ -6,7 +6,7 @@ cp $PSScriptRoot/../templates/azure-app-service/*tf* . -Force
 cp $PSScriptRoot/../templates/azure-storage-blob/*tf* . -Force
 cp $PSScriptRoot/../templates/azure-postgres/*tf* . -Force
 cp $PSScriptRoot/../templates/azure-container-app/*tf* . -Force
-#cp $PSScriptRoot/../templates/azure-cr/*tf* . -Force
+cp $PSScriptRoot/../templates/azure-container-instance/*tf* . -Force
 cp $PSScriptRoot/../templates/new-project-template/*tf* . -Force
 
 $file = 'azure-databricks.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
@@ -14,7 +14,7 @@ $file = 'azure-storage-blob.tf'; (Get-Content $file) -replace '^.*modules/', '  
 $file = 'azure-app-service.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
 $file = 'azure-postgresql.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
 $file = 'azure-container-app.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
-#$file = 'azure-cr.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
+$file = 'azure-container-instance.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
 $file = 'main.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
 
 # Get my IP to whitelist for app service

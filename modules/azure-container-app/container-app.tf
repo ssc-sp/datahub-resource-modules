@@ -21,4 +21,6 @@ resource "azurerm_container_app" "proj_container_webapp" {
       latest_revision = true
     }
   }
+
+  tags = var.project_tags
 }

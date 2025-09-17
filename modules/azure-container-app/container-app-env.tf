@@ -13,4 +13,6 @@ resource "azurerm_container_app_environment" "proj_container_webapp_env" {
     maximum_count         = var.container_app_max_node
     minimum_count         = var.container_app_min_node
   }
+
+  tags = var.project_tags
 }
