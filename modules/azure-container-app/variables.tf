@@ -84,3 +84,4 @@ variable "log_analytics_workspace_id" {
 variable "container_app_size" { default = "D4" }
 variable "container_app_max_node" { default = "2" }
 variable "container_app_min_node" { default = "0" }
+variable "container_app_profile" { default = "Consumption" }

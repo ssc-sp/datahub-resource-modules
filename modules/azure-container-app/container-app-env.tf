@@ -8,7 +8,7 @@ resource "azurerm_container_app_environment" "proj_container_webapp_env" {
   identity { type = "SystemAssigned" }
 
   workload_profile {
-    name                  = "Consumption"
+    name                  = var.container_app_profile == "Consumption" ? var.container_app_profile : "fsdh-webapp"
     workload_profile_type = var.container_app_size
     maximum_count         = var.container_app_max_node
     minimum_count         = var.container_app_min_node
