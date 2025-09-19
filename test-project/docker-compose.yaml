@@ -1,4 +1,0 @@
-    version: '3.8' # Or a newer version like '3.9' or '3'
-    services:
-      hello:
-        image: mcr.microsoft.com/azuredocs/aci-helloworld
