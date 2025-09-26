@@ -7,6 +7,10 @@ resource "azurerm_service_plan" "datahub_proj_app_service_plan" {
   worker_count        = var.worker_count_init
 
   tags = var.project_tags
+
+  lifecycle {
+    ignore_changes = [tags["created_date"]]
+  }
 }
 
 resource "azurerm_linux_web_app" "datahub_proj_app" {
@@ -87,8 +91,11 @@ resource "azurerm_linux_web_app" "datahub_proj_app" {
   identity {
     type = "SystemAssigned"
   }
+
+  tags = var.project_tags
+
   lifecycle {
-    ignore_changes = [site_config]
+    ignore_changes = [site_config, tags["created_date"]]
   }
 }
 

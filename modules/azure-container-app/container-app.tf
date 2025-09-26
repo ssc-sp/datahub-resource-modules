@@ -23,4 +23,8 @@ resource "azurerm_container_app" "proj_container_webapp" {
   }
 
   tags = var.project_tags
+
+  lifecycle {
+    ignore_changes = [tags["created_date"]]
+  }
 }

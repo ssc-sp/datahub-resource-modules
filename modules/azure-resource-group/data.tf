@@ -22,7 +22,7 @@ locals {
   cmk_name                  = "project-cmk"
   webhook_expiry_time       = "2033-04-01T00:00:00Z"
   current_fiscal_year_start = contains(["1", "2", "3"], formatdate("M", timestamp())) ? "${formatdate("YYYY", timestamp()) - 1}-04-01T00:00:00Z" : "${formatdate("YYYY", timestamp())}-04-01T00:00:00Z"
-  project_tags              = merge(var.common_tags, { "project_cd" : var.project_cd, "SSC_CBRID" : var.ssc_cbrid })
+  project_tags              = merge(var.common_tags, { "project_cd" : var.project_cd, "SSC_CBRID" : var.ssc_cbrid, "created_date" : formatdate("YYYY-MM-DD", timestamp()) })
   base_name                 = lower("${var.resource_prefix}proj${var.project_cd}${var.environment_name}")
   storage_account_name      = local.base_name
   acr_name                  = lower(replace(replace(lower("${var.resource_prefix}-proj-${var.project_cd}-acr-${var.environment_name}"), "_", ""), "-", ""))

@@ -12,6 +12,10 @@ resource "azurerm_databricks_workspace" "datahub_databricks_workspace" {
   }
 
   tags = var.project_tags
+
+  lifecycle {
+    ignore_changes = [tags["created_date"]]
+  }
 }
 
 resource "databricks_workspace_conf" "datahub_databricks_workspace_conf" {

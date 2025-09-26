@@ -6,6 +6,7 @@ resource "azurerm_resource_group" "az_project_rg" {
 
   lifecycle {
     prevent_destroy = false
+    ignore_changes  = [tags["created_date"]]
   }
 }
 
@@ -26,6 +27,7 @@ resource "azurerm_key_vault" "az_proj_kv" {
 
   lifecycle {
     prevent_destroy = false
+    ignore_changes  = [tags["created_date"]]
   }
 
   depends_on = [azurerm_resource_group.az_project_rg]

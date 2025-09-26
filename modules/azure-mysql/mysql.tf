@@ -39,5 +39,8 @@ resource "azurerm_mysql_flexible_server" "datahub_mysql_server" {
     identity_ids = [azurerm_user_assigned_identity.datahub_mysql_uami.id]
   }
 
+  lifecycle {
+    ignore_changes = [tags["created_date"]]
+  }
   depends_on = [azurerm_key_vault_access_policy.mysql_akv_policy]
 }

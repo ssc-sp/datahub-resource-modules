@@ -11,6 +11,10 @@ resource "azurerm_batch_account" "datahub_batch_acct" {
     identity_ids = [azurerm_user_assigned_identity.datahub_batch_uami.id]
   }
   tags = var.project_tags
+
+  lifecycle {
+    ignore_changes = [tags["created_date"]]
+  }
 }
 
 resource "azurerm_batch_pool" "datahub_batch_default_pool" {
