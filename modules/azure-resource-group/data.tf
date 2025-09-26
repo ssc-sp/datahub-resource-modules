@@ -46,3 +46,52 @@ resource "null_resource" "current_fiscal_year_start" {
     always_run = "${timestamp()}"
   }
 }
+
+# ---------- Added templating locals for jobs ----------
+
+locals {
+  # Common env applied to all jobs
+  common_env = {
+    PROJ_CD     = var.project_cd
+    PROJ_RG     = azurerm_resource_group.az_project_rg.name
+    PROJ_DBR_RG = local.databricks_rg_name
+    PROJ_KV     = azurerm_key_vault.az_proj_kv.name
+    PROJ_SUB    = var.az_subscription_id
+    PROJ_BUDGET = tostring(var.budget_amount)
+    CLIENT_ID   = data.azurerm_user_assigned_identity.proj_auto_acct_uai.client_id
+  }
+
+  # Defaults for the three jobs, driven by per-job vars and image locals
+  default_jobs = {
+    "proj-cost" = {
+      image         = local.docker_image_proj_cost
+      cpu           = var.proj_cost_cpu
+      memory        = var.proj_cost_memory
+      schedule_cron = "5 3 * * *"   # daily 03:05
+      env           = {}
+    }
+    "blob-scan" = {
+      image         = local.docker_image_clamav
+      cpu           = var.blob_scan_cpu
+      memory        = var.blob_scan_memory
+      schedule_cron = "0 */6 * * *" # every 6 hours
+      env           = {}
+    }
+    "proj-sas" = {
+      image         = local.docker_image_proj_sas
+      cpu           = var.proj_sas_cpu
+      memory        = var.proj_sas_memory
+      schedule_cron = "30 2 * * *"  # daily 02:30
+      env           = {}
+    }
+  }
+
+  # Merge user overrides per job
+  jobs = {
+    for name, cfg in local.default_jobs :
+    name => merge(
+      cfg,
+      lookup(var.jobs_override, name, {})
+    )
+  }
+}

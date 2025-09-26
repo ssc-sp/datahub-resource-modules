@@ -45,6 +45,7 @@ variable "log_analytics_workspace_id" {
 # ==============================================
 #     Optional Variables
 # ==============================================
+
 variable "environment_classification" {
   description = "Max level of security the environment hosts"
   type        = string
@@ -110,6 +111,75 @@ variable "budget_start_date" {
   default     = ""
 }
 
-variable "blob_scan_image" { default = "ghcr.io/ssc-sp/clamav-blobavscan:latest" }
-variable "proj_cost_image" { default = "ghcr.io/ssc-sp/projcost:latest" }
-variable "proj_sas_image" { default = "ghcr.io/ssc-sp/projsas:latest" }
+# ==============================================
+#     Container Image & Resource Variables
+# ==============================================
+
+variable "blob_scan_image" {
+  description = "Container image for the blob scanning job"
+  type        = string
+  default     = "ghcr.io/ssc-sp/clamav-blobavscan:latest"
+}
+
+variable "proj_cost_image" {
+  description = "Container image for the project costing job"
+  type        = string
+  default     = "ghcr.io/ssc-sp/projcost:latest"
+}
+
+variable "proj_sas_image" {
+  description = "Container image for the SAS worker job"
+  type        = string
+  default     = "ghcr.io/fsdh-pfds/proj-sas-worker@sha256:884cbd2506b07ac892cd1d41cb12eeb6f810e05cb94ba17f609a24b4badc9102"
+}
+
+variable "blob_scan_cpu" {
+  description = "CPU cores allocated to the blob scan container"
+  type        = number
+  default     = 1
+}
+
+variable "blob_scan_memory" {
+  description = "Memory allocated to the blob scan container"
+  type        = string
+  default     = "2.0Gi"
+}
+
+variable "proj_cost_cpu" {
+  description = "CPU cores allocated to the proj cost container"
+  type        = number
+  default     = 2
+}
+
+variable "proj_cost_memory" {
+  description = "Memory allocated to the proj cost container"
+  type        = string
+  default     = "4.0Gi"
+}
+
+variable "proj_sas_cpu" {
+  description = "CPU cores allocated to the proj sas container"
+  type        = number
+  default     = 1
+}
+
+variable "proj_sas_memory" {
+  description = "Memory allocated to the proj sas container"
+  type        = string
+  default     = "2.0Gi"
+}
+
+# Optional per-job overrides. Keys: "proj-cost", "blob-scan", "proj-sas".
+# Any provided attribute overrides the default for that job.
+# (Requires Terraform v1.3+ for 'optional' in object types.)
+variable "jobs_override" {
+  description = "Per-job overrides (image, cpu, memory, schedule_cron, env) keyed by job name."
+  type = map(object({
+    image         = optional(string)
+    cpu           = optional(number)
+    memory        = optional(string)
+    schedule_cron = optional(string)
+    env           = optional(map(string))
+  }))
+  default = {}
+}
