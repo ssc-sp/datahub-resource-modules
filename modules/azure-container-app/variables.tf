@@ -37,6 +37,11 @@ variable "key_vault_cmk_name" {
   type        = string
 }
 
+variable "storage_acct_name" {
+  description = "Project storage account"
+  type        = string
+}
+
 # ==============================================
 #     Optional Variables
 # ==============================================

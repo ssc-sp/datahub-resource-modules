@@ -6,21 +6,32 @@ resource "azurerm_container_app" "proj_container_webapp" {
 
   template {
     container {
-      name   = "helloworld"
+      name   = "nginx"
+      image  = "nginx:alpine"
+      cpu    = 0.25
+      memory = "0.5Gi"
+    }
+    container {
+      name   = "webapp"
       image  = "mcr.microsoft.com/dotnet/samples:aspnetapp"
       cpu    = 0.25
       memory = "0.5Gi"
+      env {
+        name  = "PORT"
+        value = "8080"
+      }
     }
   }
 
   ingress {
     external_enabled = true
-    target_port      = 8080
+    target_port      = 80
     traffic_weight {
       percentage      = 100
       latest_revision = true
     }
   }
+
 
   tags = var.project_tags
 
