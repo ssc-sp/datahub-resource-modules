@@ -6,7 +6,7 @@ resource "azurerm_storage_account" "datahub_storageaccount" {
   account_replication_type = "LRS"
   account_kind             = "StorageV2"
   is_hns_enabled           = true
-  
+
   identity { type = "SystemAssigned" }
 
   blob_properties {
@@ -23,7 +23,10 @@ resource "azurerm_storage_account" "datahub_storageaccount" {
 
   tags = var.project_tags
 
-  lifecycle { prevent_destroy = false }
+  lifecycle {
+    prevent_destroy = false
+    ignore_changes  = [tags["created_date"]]
+  }
 }
 
 resource "azurerm_storage_container" "datahub_default" {
