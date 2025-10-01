@@ -4,12 +4,22 @@ resource "azurerm_container_app" "proj_container_webapp" {
   resource_group_name          = var.resource_group_name
   revision_mode                = "Single"
 
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.proj_aca_uami.id]
+  }
+
   template {
     container {
       name   = "nginx"
       image  = "nginx:alpine"
       cpu    = 0.25
       memory = "0.5Gi"
+      volume_mounts {
+        name     = local.sample_volume
+        path     = "/etc/nginx/conf.d"
+        sub_path = "sample/conf"
+      }
     }
     container {
       name   = "webapp"
@@ -21,6 +31,17 @@ resource "azurerm_container_app" "proj_container_webapp" {
         value = "8080"
       }
     }
+    volume {
+      name         = local.sample_volume
+      storage_name = local.datahub_app_fileshare
+      storage_type = "AzureFile"
+    }
+  }
+
+  secret {
+    name                = local.secret_name_storage_key
+    identity            = azurerm_user_assigned_identity.proj_aca_uami.id
+    key_vault_secret_id = data.azurerm_key_vault_secret.storage_key_secret.id
   }
 
   ingress {
