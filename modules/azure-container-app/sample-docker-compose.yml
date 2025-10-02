@@ -1,16 +1,24 @@
-version: '3.8'
+version: "3.8"
 
 services:
   nginx:
-    image: nginx:stable-alpine
+    image: nginx:alpine
     ports:
       - "80:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      - webapp
+    deploy:
+      resources:
+        limits:
+          memory: 0.5G
+          cpus: "0.25"
 
   webapp:
-    image: httpd:alpine # Or any other web application image (e.g., node, flask)
+    image: mcr.microsoft.com/dotnet/samples:aspnetapp
+    environment:
+      - PORT=8080
     ports:
-      - "8080:80"
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          memory: 0.5G
+          cpus: "0.25"
