@@ -23,3 +23,7 @@ output "azure_storage_account_key" {
 output "azure_storage_container_name" {
   value = azurerm_storage_container.datahub_default.name
 }
+
+output "azure_temp_fileshare_name" {
+  value = azurerm_container_app_environment_storage.datahub_temp.name
+}

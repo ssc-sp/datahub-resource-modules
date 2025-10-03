@@ -37,6 +37,11 @@ variable "key_vault_cmk_name" {
   type        = string
 }
 
+variable "storage_acct_name" {
+  description = "Project storage account"
+  type        = string
+}
+
 # ==============================================
 #     Optional Variables
 # ==============================================
@@ -85,3 +90,4 @@ variable "container_app_size" { default = "D4" }
 variable "container_app_max_node" { default = "2" }
 variable "container_app_min_node" { default = "0" }
 variable "container_app_profile" { default = "Consumption" }
+variable "app_fileshare_name" { default = "app" }
