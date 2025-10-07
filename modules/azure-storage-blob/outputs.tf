@@ -27,3 +27,16 @@ output "azure_storage_container_name" {
 output "azure_temp_fileshare_name" {
   value = azurerm_container_app_environment_storage.datahub_temp.name
 }
+
+output "storage_key_secret_id" {
+  value = azurerm_key_vault_secret.storage_key_secret.id
+}
+
+output "storage_conn_secret_id" {
+  value = azurerm_key_vault_secret.storage_conn_secret.id
+}
+
+output "storage_sas_secret_id" {
+  value = azurerm_key_vault_secret.storage_sas_secret.id
+}
+

@@ -91,3 +91,55 @@ variable "container_app_max_node" { default = "2" }
 variable "container_app_min_node" { default = "0" }
 variable "container_app_profile" { default = "Consumption" }
 variable "app_fileshare_name" { default = "app" }
+variable "container_ingress_port" { default = "80" }
+
+variable "storage_key_secret_id" {}
+variable "storage_conn_secret_id" {}
+variable "storage_sas_secret_id" {}
+
+variable "container_app_secrets" {
+  type = list(object({
+    name      = string
+    secret_id = string
+  }))
+  default = [{
+    name      = "TEST-SECRET"
+    secret_id = "https://fsdh-proj-s2509d-dev-kv.vault.azure.net/secrets/storage-key/0f63f366c76e498495d384e2a1ca3637"
+  }]
+}
+variable "container_app_list" {
+  type = list(object({
+    name   = string
+    image  = string
+    cpu    = string
+    memory = string
+    volumes = list(object({
+      name     = string
+      path     = string
+      sub_path = string
+    }))
+    env = list(object({
+      name  = string
+      value = string
+    }))
+  }))
+  default = [
+    {
+      name   = "nginx"
+      image  = "nginx:alpine"
+      cpu    = "0.25"
+      memory = "0.5Gi"
+      volumes = [{
+        name     = "app"
+        path     = "/etc/nginx/conf.d"
+        sub_path = "sample/conf"
+      }]
+      env = [{
+        name  = "TEST_ENV"
+        value = "demo1"
+      }]
+    }
+  ]
+
+
+}

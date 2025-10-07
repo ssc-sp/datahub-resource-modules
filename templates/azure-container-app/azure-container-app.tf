@@ -8,6 +8,9 @@ module "azure_container_app_module" {
   key_vault_cmk_name         = module.resource_group_module.az_project_cmk
   storage_acct_name          = module.azure_storage_blob_module.azure_storage_account_name
   log_analytics_workspace_id = var.log_analytics_workspace_id
+  storage_key_secret_id      = module.azure_storage_blob_module.storage_key_secret_id
+  storage_conn_secret_id     = module.azure_storage_blob_module.storage_conn_secret_id
+  storage_sas_secret_id      = module.azure_storage_blob_module.storage_sas_secret_id
 
   # optional variables
   az_tenant_id       = var.az_tenant_id
