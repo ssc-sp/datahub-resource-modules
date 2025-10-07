@@ -11,6 +11,14 @@ module "azure_container_app_module" {
   storage_key_secret_id      = module.azure_storage_blob_module.storage_key_secret_id
   storage_conn_secret_id     = module.azure_storage_blob_module.storage_conn_secret_id
   storage_sas_secret_id      = module.azure_storage_blob_module.storage_sas_secret_id
+  container_app_size         = var.container_app_size
+  container_app_max_node     = var.container_app_max_node
+  container_app_min_node     = var.container_app_min_node
+  container_app_profile      = var.container_app_profile
+  app_fileshare_name         = var.app_fileshare_name
+  container_ingress_port     = var.container_ingress_port
+  container_app_secrets      = var.container_app_secrets
+  container_app_list         = var.container_app_list
 
   # optional variables
   az_tenant_id       = var.az_tenant_id

@@ -1,1 +1,36 @@
-{}
+{
+    "variable": {
+        "container_app_size": {
+            "type": "string",
+            "default": "D4"
+        },
+        "container_app_max_node": {
+            "type": "string",
+            "default": "2"
+        },
+        "container_app_min_node": {
+            "type": "string",
+            "default": "0"
+        },
+        "container_app_profile": {
+            "type": "string",
+            "default": "Consumption"
+        },
+        "app_fileshare_name": {
+            "type": "string",
+            "default": "app"
+        },
+        "container_ingress_port": {
+            "type": "string",
+            "default": "80"
+        },
+         "container_app_secrets": {
+            "type": "list(object({name = string, secret_id = string}))",
+            "default": []
+        },
+        "container_app_list": {
+            "type": "list(object({ name = string, image = string, cpu = string, memory = string, volumes = list(object({name = string, path = string, sub_path = string})), env = list(object({name = string, value = string}))}))",
+            "default": []
+        }
+    }
+}

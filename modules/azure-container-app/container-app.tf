@@ -74,28 +74,13 @@ resource "azurerm_container_app" "proj_container_webapp" {
       }
     }
 
-    #   container {
-    #     name   = "nginx"
-    #     image  = "nginx:alpine"
-    #     cpu    = 0.25
-    #     memory = "0.5Gi"
-    #     volume_mounts {
-    #       name     = local.sample_volume
-    #       path     = "/etc/nginx/conf.d"
-    #       sub_path = "sample/conf"
-    #     }
-    #   }
-    # }
-    # container {
-    #   name   = "webapp"
-    #   image  = "mcr.microsoft.com/dotnet/samples:aspnetapp"
-    #   cpu    = 0.25
-    #   memory = "0.5Gi"
-    #   env {
-    #     name  = "PORT"
-    #     value = "8080"
-    #   }
-    # }
+    container {
+      name   = "nginx"
+      image  = "nginx:alpine"
+      cpu    = 0.25
+      memory = "0.5Gi"
+    }
+
     volume {
       name         = local.app_volume
       storage_name = local.datahub_app_fileshare
