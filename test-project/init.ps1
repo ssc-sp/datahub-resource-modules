@@ -4,7 +4,7 @@ $cwd = Get-Location
 # cp $PSScriptRoot/../templates/azure-databricks/*tf* . -Force
 # cp $PSScriptRoot/../templates/azure-app-service/*tf* . -Force
 cp $PSScriptRoot/../templates/azure-storage-blob/*tf* . -Force
-# cp $PSScriptRoot/../templates/azure-postgres/*tf* . -Force
+cp $PSScriptRoot/../templates/azure-postgres/*tf* . -Force
 cp $PSScriptRoot/../templates/azure-container-app/*tf* . -Force
 # cp $PSScriptRoot/../templates/azure-container-instance/*tf* . -Force
 cp $PSScriptRoot/../templates/new-project-template/*tf* . -Force
