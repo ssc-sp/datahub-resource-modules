@@ -42,6 +42,17 @@ variable "storage_acct_name" {
   type        = string
 }
 
+variable "storage_container_name" {
+  description = "Project blob container name"
+  type        = string
+  default     = "datahub"
+}
+
+variable "storage_blob_endpoint" {
+  description = "Project blob endpoint"
+  type        = string
+}
+
 # ==============================================
 #     Optional Variables
 # ==============================================

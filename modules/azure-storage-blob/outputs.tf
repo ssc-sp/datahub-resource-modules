@@ -3,6 +3,10 @@ output "storage_acct_name" {
   depends_on = [azurerm_role_assignment.proj_storage_creator_role]
 }
 
+output "datahub_blob_endpoint" {
+  value      = azurerm_storage_account.datahub_storageaccount.primary_blob_endpoint
+}
+
 output "datahub_blob_container" {
   value = azurerm_storage_container.datahub_default.name
 }

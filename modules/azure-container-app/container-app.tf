@@ -48,21 +48,39 @@ resource "azurerm_container_app" "proj_container_webapp" {
         }
 
         env {
-          name        = "STORAGE_KEY"
+          name        = "AZURE_STORAGE_ACCESS_KEY"
           secret_name = local.secret_name_storage_key
         }
         env {
-          name  = "STORAGE_NAME"
+          name  = "AZURE_STORAGE_ACCOUNT"
           value = var.storage_acct_name
         }
         env {
-          name        = "STORAGE_SAS"
+          name        = "AZURE_STORAGE_SAS"
           secret_name = local.secret_name_storage_sas
         }
         env {
-          name        = "STORAGE_CONN"
+          name        = "AZURE_STORAGE_CONN"
           secret_name = local.secret_name_storage_conn
         }
+        env {
+          name  = "AZURE_STORAGE_ACCOUNT_TYPE"
+          value = "block"
+        }
+        env {
+          name  = "AZURE_STORAGE_AUTH_TYPE"
+          value = "Key"
+        }
+        env {
+          name  = "AZURE_STORAGE_ACCOUNT_CONTAINER"
+          value = var.storage_container_name
+        }
+
+        env {
+          name  = "AZURE_STORAGE_BLOB_ENDPOINT"
+          value = var.storage_blob_endpoint
+        }
+
         env {
           name  = "KEY_VAULT_ID"
           value = var.key_vault_id
