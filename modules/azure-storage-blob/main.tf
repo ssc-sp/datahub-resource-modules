@@ -6,6 +6,7 @@ resource "azurerm_storage_account" "datahub_storageaccount" {
   account_replication_type = "LRS"
   account_kind             = "StorageV2"
   is_hns_enabled           = true
+  min_tls_version          = "TLS1_2"
 
   identity { type = "SystemAssigned" }
 
