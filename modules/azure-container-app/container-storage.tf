@@ -5,6 +5,18 @@ resource "azurerm_storage_share" "file_share_app" {
   quota                = 128
 }
 
+resource "azurerm_storage_share_directory" "db_dir" {
+  name             = "db"
+  storage_share_id = azurerm_storage_share.file_share_app.id
+}
+
+resource "azurerm_storage_share_directory" "db_data_dir" {
+  name             = "db/data"
+  storage_share_id = azurerm_storage_share.file_share_app.id
+
+  depends_on = [azurerm_storage_share_directory.db_dir]
+}
+
 resource "azurerm_container_app_environment_storage" "datahub_app" {
   name                         = azurerm_storage_share.file_share_app.name
   container_app_environment_id = azurerm_container_app_environment.proj_container_webapp_env.id

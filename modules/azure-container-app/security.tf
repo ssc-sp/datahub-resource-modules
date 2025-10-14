@@ -11,3 +11,9 @@ resource "azurerm_key_vault_access_policy" "proj_aca_uami_policy" {
   secret_permissions = ["Get"]
   key_permissions    = ["Get", "UnwrapKey", "WrapKey"]
 }
+
+resource "azurerm_key_vault_secret" "aca_psql_password" {
+  name         = "aca-psql-password"
+  value        = random_password.aca_psql_password.result
+  key_vault_id = var.key_vault_id
+}
