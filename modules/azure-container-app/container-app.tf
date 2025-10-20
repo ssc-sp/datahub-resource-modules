@@ -92,13 +92,6 @@ resource "azurerm_container_app" "proj_container_webapp" {
       }
     }
 
-    container {
-      name   = "nginx"
-      image  = "nginx:alpine"
-      cpu    = 0.25
-      memory = "0.5Gi"
-    }
-
     volume {
       name         = local.app_volume
       storage_name = local.datahub_app_fileshare
