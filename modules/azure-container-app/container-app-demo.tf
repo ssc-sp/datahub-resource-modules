@@ -1,6 +1,6 @@
-resource "azurerm_container_app" "proj_demo_webapp" {
+resource "azurerm_container_app" "proj_demo_app" {
   name                         = "${var.project_cd}-${var.environment_name}-aca-demo"
-  container_app_environment_id = azurerm_container_app_environment.proj_container_webapp_env.id
+  container_app_environment_id = azurerm_container_app_environment.proj_container_app_env.id
   resource_group_name          = var.resource_group_name
   revision_mode                = "Single"
 
