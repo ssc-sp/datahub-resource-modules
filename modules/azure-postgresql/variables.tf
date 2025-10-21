@@ -120,5 +120,5 @@ variable "psql_dba_group_oid" {
 variable "psql_version" {
   description = "Version number for PostgreSQL engine"
   type        = string
-  default     = "17"
+  default     = "12"
 }
