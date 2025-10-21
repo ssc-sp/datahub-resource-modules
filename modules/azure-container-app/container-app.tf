@@ -137,6 +137,6 @@ resource "azurerm_container_app" "proj_container_app" {
   tags = var.project_tags
 
   lifecycle {
-    ignore_changes = [tags["created_date"]]
+    ignore_changes = [tags]
   }
 }
