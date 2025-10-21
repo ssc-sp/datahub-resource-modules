@@ -40,7 +40,7 @@ resource "azurerm_mysql_flexible_server" "datahub_mysql_server" {
   }
 
   lifecycle {
-    ignore_changes = [tags["created_date"]]
+    ignore_changes = [tags]
   }
   depends_on = [azurerm_key_vault_access_policy.mysql_akv_policy]
 }

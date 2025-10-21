@@ -9,7 +9,7 @@ resource "azurerm_service_plan" "datahub_proj_app_service_plan" {
   tags = var.project_tags
 
   lifecycle {
-    ignore_changes = [tags["created_date"]]
+    ignore_changes = [tags]
   }
 }
 
@@ -95,7 +95,7 @@ resource "azurerm_linux_web_app" "datahub_proj_app" {
   tags = var.project_tags
 
   lifecycle {
-    ignore_changes = [site_config, tags["created_date"]]
+    ignore_changes = [site_config, tags]
   }
 }
 

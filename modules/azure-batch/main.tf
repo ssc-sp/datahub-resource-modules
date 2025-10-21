@@ -13,7 +13,7 @@ resource "azurerm_batch_account" "datahub_batch_acct" {
   tags = var.project_tags
 
   lifecycle {
-    ignore_changes = [tags["created_date"]]
+    ignore_changes = [tags]
   }
 }
 

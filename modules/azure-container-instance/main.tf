@@ -21,6 +21,6 @@ resource "azurerm_container_group" "proj_container_instance" {
   tags = var.project_tags
 
   lifecycle {
-    ignore_changes = [tags["created_date"]]
+    ignore_changes  = [tags]
   }
 }

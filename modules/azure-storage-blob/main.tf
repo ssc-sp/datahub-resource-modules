@@ -26,7 +26,7 @@ resource "azurerm_storage_account" "datahub_storageaccount" {
 
   lifecycle {
     prevent_destroy = false
-    ignore_changes  = [tags["created_date"]]
+    ignore_changes  = [tags]
   }
 }
 

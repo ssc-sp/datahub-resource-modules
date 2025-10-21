@@ -27,7 +27,7 @@ resource "azurerm_key_vault" "az_proj_kv" {
 
   lifecycle {
     prevent_destroy = false
-    ignore_changes  = [tags["created_date"]]
+    ignore_changes  = [tags]
   }
 
   depends_on = [azurerm_resource_group.az_project_rg]
