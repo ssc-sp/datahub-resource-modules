@@ -14,6 +14,7 @@ module "azure_storage_blob_module" {
   sas_docker_image             = module.resource_group_module.sas_docker_image
   clamav_job_uai               = module.resource_group_module.clamav_job_uai
   container_app_env_id         = module.resource_group_module.container_app_env_id
+  aca_job_env_uai              = module.resource_group_module.aca_job_env_uai
 
   # optional variables
   az_tenant_id              = var.az_tenant_id

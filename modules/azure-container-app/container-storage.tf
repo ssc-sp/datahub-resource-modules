@@ -19,7 +19,7 @@ resource "azurerm_storage_share_directory" "db_data_dir" {
 
 resource "azurerm_container_app_environment_storage" "datahub_app" {
   name                         = azurerm_storage_share.file_share_app.name
-  container_app_environment_id = azurerm_container_app_environment.proj_container_webapp_env.id
+  container_app_environment_id = azurerm_container_app_environment.proj_container_app_env.id
   share_name                   = local.datahub_app_fileshare
   access_mode                  = "ReadWrite"
   access_key                   = data.azurerm_key_vault_secret.storage_key_secret.value

@@ -118,3 +118,12 @@ resource "azurerm_container_app_job" "proj_container_app_job_sas_token" {
   schedule_trigger_config { cron_expression = "15 3 * * *" }
 }
 
+resource "azurerm_monitor_diagnostic_setting" "proj_log_aca_job" {
+  name               = "${local.base_name}-container-job-env-log"
+  target_resource_id = var.container_app_env_id
+  storage_account_id = azurerm_storage_account.datahub_storageaccount.id
+
+  enabled_log { category_group = "allLogs" }
+  enabled_log { category_group = "audit" }
+}
+

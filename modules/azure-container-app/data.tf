@@ -4,6 +4,7 @@ data "azurerm_key_vault_secret" "storage_key_secret" {
   name         = local.secret_name_storage_key
   key_vault_id = var.key_vault_id
 }
+
 resource "random_password" "aca_psql_password" {
   length           = 20
   min_lower        = 5

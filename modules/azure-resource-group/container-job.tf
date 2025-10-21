@@ -1,6 +1,6 @@
 resource "azurerm_container_app_job" "proj_container_app_job_costing" {
   name                         = "${local.base_name}-costing-job"
-  container_app_environment_id = azurerm_container_app_environment.proj_container_app_env.id
+  container_app_environment_id = azurerm_container_app_environment.proj_container_job_env.id
   location                     = local.resource_group_location
   resource_group_name          = azurerm_resource_group.az_project_rg.name
   replica_timeout_in_seconds   = 1800

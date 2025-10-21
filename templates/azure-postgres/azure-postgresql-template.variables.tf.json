@@ -19,10 +19,6 @@
     "psql_name_suffix": {
       "type": "string",
       "default": ""
-    },
-    "psql_version": {
-      "type": "string",
-      "default": "17"
     }
   }
 }
