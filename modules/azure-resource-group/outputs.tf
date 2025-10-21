@@ -55,8 +55,10 @@ output "project_tags" {
   value = local.project_tags
 }
 
-output "container_app_env_id" { value = azurerm_container_app_environment.proj_container_app_env.id }
+output "container_app_env_id" { value = azurerm_container_app_environment.proj_container_job_env.id }
 output "clamav_docker_image" { value = local.docker_image_clamav }
 output "costing_docker_image" { value = local.docker_image_proj_cost }
 output "sas_docker_image" { value = local.docker_image_proj_sas }
 output "clamav_job_uai" { value = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id }
+output "aca_job_env_uai" { value = azurerm_user_assigned_identity.datahub_proj_container_job_env_uai.principal_id }
+

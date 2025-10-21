@@ -17,3 +17,9 @@ resource "azurerm_key_vault_secret" "aca_psql_password" {
   value        = random_password.aca_psql_password.result
   key_vault_id = var.key_vault_id
 }
+
+resource "azurerm_role_assignment" "blob_log_aca_app_role" {
+  scope                = var.storage_acct_id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_container_app_environment.proj_container_app_env.identity.0.principal_id
+}

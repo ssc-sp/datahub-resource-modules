@@ -42,6 +42,11 @@ variable "storage_acct_name" {
   type        = string
 }
 
+variable "storage_acct_id" {
+  description = "Project storage account"
+  type        = string
+}
+
 variable "storage_container_name" {
   description = "Project blob container name"
   type        = string
@@ -90,11 +95,6 @@ variable "project_tags" {
   description = "Project workspace common tags map"
   type        = map(any)
   default     = {}
-}
-
-variable "log_analytics_workspace_id" {
-  description = "FSDH central LAW ID for storing audit and log"
-  type        = string
 }
 
 variable "container_app_size" { default = "D4" }

@@ -10,10 +10,10 @@ resource "azurerm_user_assigned_identity" "datahub_proj_clamav_job_uai" {
   name                = "${local.base_name}-clamav-job-uai"
 }
 
-resource "azurerm_user_assigned_identity" "datahub_proj_container_app_env_uai" {
+resource "azurerm_user_assigned_identity" "datahub_proj_container_job_env_uai" {
   resource_group_name = azurerm_resource_group.az_project_rg.name
   location            = local.resource_group_location
-  name                = "${local.base_name}-container-app-env-uai"
+  name                = "${local.base_name}-container-job-env-uai"
 }
 
 resource "azurerm_key_vault_access_policy" "kv_policy_acr" {
@@ -36,3 +36,4 @@ resource "azurerm_key_vault_access_policy" "kv_policy_cost_job" {
   object_id       = data.azurerm_user_assigned_identity.proj_auto_acct_uai.principal_id
   key_permissions = ["Get", "UnwrapKey", "WrapKey", "List", "Update"]
 }
+
