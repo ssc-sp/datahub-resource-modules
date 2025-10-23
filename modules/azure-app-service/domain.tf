@@ -68,6 +68,6 @@ resource "azurerm_app_service_certificate" "datahub_ssl_cert" {
   tags = var.project_tags
 
   lifecycle {
-    ignore_changes = [pfx_blob, tags["created_date"]]
+    ignore_changes = [pfx_blob, tags]
   }
 }

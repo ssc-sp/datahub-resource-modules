@@ -14,7 +14,7 @@ resource "azurerm_databricks_workspace" "datahub_databricks_workspace" {
   tags = var.project_tags
 
   lifecycle {
-    ignore_changes = [tags["created_date"]]
+    ignore_changes = [tags]
   }
 }
 

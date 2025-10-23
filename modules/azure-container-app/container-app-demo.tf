@@ -63,7 +63,7 @@ resource "azurerm_container_app" "proj_demo_app" {
         name     = local.app_volume
         path     = "/var/lib/postgresql/data"
         sub_path = "db/data"
-        
+
       }
       env {
         name  = "POSTGRES_USER"
@@ -83,14 +83,14 @@ resource "azurerm_container_app" "proj_demo_app" {
       }
     }
 
-    min_replicas                     =0
+    min_replicas                     = 0
     max_replicas                     = 1
     termination_grace_period_seconds = 120
 
     volume {
-      name         = local.app_volume
-      storage_name = azurerm_container_app_environment_storage.datahub_app.name
-      storage_type = "AzureFile"
+      name          = local.app_volume
+      storage_name  = azurerm_container_app_environment_storage.datahub_app.name
+      storage_type  = "AzureFile"
       mount_options = "rw,dir_mode=0700,file_mode=0600,uid=999,gid=999"
     }
   }
@@ -130,6 +130,6 @@ resource "azurerm_container_app" "proj_demo_app" {
   tags = var.project_tags
 
   lifecycle {
-    ignore_changes = [tags["created_date"]]
+    ignore_changes = [tags]
   }
 }
