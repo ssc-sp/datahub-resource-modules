@@ -28,6 +28,6 @@ module "azure_aks" {
   az_location      = var.az_location
 }
 
-output "azure_container_app_status" {
+output "azure_aks_status" {
   value = "completed"
 }

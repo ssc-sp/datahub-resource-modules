@@ -34,7 +34,7 @@ resource "azurerm_kubernetes_cluster" "datahub_aks" {
   default_node_pool {
     name       = "agentpool"
     vm_size    = "Standard_D2s_v4"  
-    node_count = 2
+    node_count = 1
     temporary_name_for_rotation = "tmpagentpool"
   }
   linux_profile {

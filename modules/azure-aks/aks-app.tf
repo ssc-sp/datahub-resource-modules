@@ -30,21 +30,21 @@ resource "kubernetes_config_map" "postgres_config" {
   }
 }
 
-resource "kubernetes_persistent_volume_claim" "postgres_pvc" {
-  metadata {
-    name        = "postgres-pvc"
-    namespace   = kubernetes_namespace.postgres.metadata[0].name
-    annotations = { "volume.beta.kubernetes.io/storage-class" = "azure-container-storage" }
-  }
+# resource "kubernetes_persistent_volume_claim" "postgres_pvc" {
+#   metadata {
+#     name        = "postgres-pvc"
+#     namespace   = kubernetes_namespace.postgres.metadata[0].name
+#     annotations = { "volume.beta.kubernetes.io/storage-class" = "azure-container-storage" }
+#   }
 
-  spec {
-    access_modes = ["ReadWriteOnce"]
-    resources {
-      requests = { storage = "100Gi" }
-    }
-    storage_class_name = "azure-container-storage"
-  }
-}
+#   spec {
+#     access_modes = ["ReadWriteOnce"]
+#     resources {
+#       requests = { storage = "100Gi" }
+#     }
+#     storage_class_name = "azure-container-storage"
+#   }
+# }
 
 resource "kubernetes_stateful_set" "postgres" {
   metadata {
@@ -165,8 +165,6 @@ resource "kubernetes_stateful_set" "postgres" {
   }
 }
 
-
-
 resource "kubernetes_namespace" "postgres" {
   metadata {
     name = "postgres"
@@ -209,8 +207,6 @@ resource "kubernetes_service" "postgres" {
 }
 
 resource "kubernetes_service" "postgres_external" {
-  count = 0
-
   metadata {
     name      = "postgres-external"
     namespace = kubernetes_namespace.postgres.metadata[0].name
@@ -224,5 +220,25 @@ resource "kubernetes_service" "postgres_external" {
       node_port   = 30432
     }
     type = "NodePort"
+  }
+}
+
+resource "kubernetes_service" "postgres_lb" {
+  metadata {
+    name        = "postgres-lb"
+    namespace   = kubernetes_namespace.postgres.metadata[0].name
+    annotations = { "service.beta.kubernetes.io/azure-load-balancer-health-probe-interval" = "5" }
+  }
+  spec {
+    selector = { app = kubernetes_stateful_set.postgres.spec.0.template.0.metadata[0].labels.app }
+
+    port {
+      name        = "postgres"
+      port        = 5432
+      target_port = 5432
+      node_port   = 31432
+      protocol    = "TCP"
+    }
+    type = "LoadBalancer"
   }
 }
