@@ -3,7 +3,7 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
   container_app_environment_id = var.container_app_env_id
   location                     = local.resource_group_location
   resource_group_name          = var.resource_group_name
-  replica_timeout_in_seconds   = 1800
+  replica_timeout_in_seconds   = 14400
 
   identity {
     type         = "UserAssigned"
