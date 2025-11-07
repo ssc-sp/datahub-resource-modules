@@ -15,6 +15,10 @@
     "enable_clamav": {
       "type": "bool",
       "default": false
+    },
+    "enable_quarantine": {
+      "type": "bool",
+      "default": false
     }
   }
 }
