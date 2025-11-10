@@ -15,6 +15,7 @@ module "azure_storage_blob_module" {
   clamav_job_uai               = module.resource_group_module.clamav_job_uai
   container_app_env_id         = module.resource_group_module.container_app_env_id
   aca_job_env_uai              = module.resource_group_module.aca_job_env_uai
+  virus_scan_acl_function_id   = var.virus_scan_acl_function_id
 
   # optional variables
   az_tenant_id              = var.az_tenant_id

@@ -15,6 +15,10 @@
     "enable_clamav": {
       "type": "bool",
       "default": false
+    },
+    "virus_scan_acl_function_id": {
+      "type": "string",
+      "description": "The Azure Function ID for the BlobVirusScanAclUpdater function (format: /subscriptions/{sub-id}/resourceGroups/{rg-name}/providers/Microsoft.Web/sites/{function-app-name}/functions/{function-name})"
     }
   }
 }
