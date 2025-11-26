@@ -21,6 +21,7 @@ locals {
   datahub_log_name         = "datahub-log"
   datahub_temp_name        = "datahub-temp"
   datahub_quarantine       = "datahub-quarantine"
+  upload_folder_name       = "upload"
   blob_created_queue       = "blob-created"
   blob_muted_queue         = "blob-event-muted"
   table_infected_file      = "infectedfiles"

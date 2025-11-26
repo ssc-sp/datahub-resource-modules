@@ -20,7 +20,7 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "blob_created_subsc
   }
 
   subject_filter {
-    subject_begins_with = "/blobServices/default/containers/${local.datahub_mount_name}/"
+    subject_begins_with = "/blobServices/default/containers/${local.datahub_mount_name}/blobs/${local.upload_folder_name}/"
     case_sensitive      = false
   }
 
@@ -47,7 +47,7 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "blob_metadata_upda
   }
 
   subject_filter {
-    subject_begins_with = "/blobServices/default/containers/${local.datahub_mount_name}/"
+    subject_begins_with = "/blobServices/default/containers/${local.datahub_mount_name}/blobs/${local.upload_folder_name}/"
     case_sensitive      = false
   }
 
