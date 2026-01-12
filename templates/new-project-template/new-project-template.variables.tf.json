@@ -54,6 +54,10 @@
     "log_analytics_workspace_id": {
       "type": "string"
     },
+    "virus_scan_acl_function_id": {
+      "type": "string",
+      "description": "The Azure Function ID for the BlobVirusScanAclUpdater function"
+    },
     "ssc_cbrid": {
       "type": "string",
       "default": ""
