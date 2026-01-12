@@ -30,15 +30,22 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "blob_created_subsc
   }
 }
 
-# Event Grid subscription for blob metadata updates (virus scan status changes)
+# Event Grid subscription for blob metadata/properties updates (virus scan status changes)
+# This subscription triggers the BlobVirusScanAclUpdater function when ClamAV updates
+# the dh:scanStatus metadata after completing a virus scan
 resource "azurerm_eventgrid_system_topic_event_subscription" "blob_metadata_updated_subscription" {
   name                  = "blobmetadataupdatedsubscription"
   system_topic          = azurerm_eventgrid_system_topic.project_blob_created_system_topic.name
   resource_group_name   = var.resource_group_name
   event_delivery_schema = "EventGridSchema"
 
-  # Microsoft.Storage.BlobPropertiesUpdated is triggered when blob metadata changes
-  included_event_types = ["Microsoft.Storage.BlobPropertiesUpdated"]
+  # Include both BlobPropertiesUpdated and BlobMetadataUpdated events
+  # BlobPropertiesUpdated: Triggered when blob properties or metadata change
+  # BlobMetadataUpdated: Triggered specifically when metadata changes
+  included_event_types = [
+    "Microsoft.Storage.BlobPropertiesUpdated",
+    "Microsoft.Storage.BlobMetadataUpdated"
+  ]
 
   azure_function_endpoint {
     function_id                       = var.virus_scan_acl_function_id
@@ -56,8 +63,8 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "blob_metadata_upda
     event_time_to_live    = 1440
   }
 
-  # Optional: Add advanced filters to only trigger on specific metadata changes
-  # This can help reduce unnecessary function invocations
+  # Advanced filter to only trigger on relevant blob operations
+  # This reduces unnecessary function invocations
   advanced_filter {
     string_begins_with {
       key    = "data.api"
