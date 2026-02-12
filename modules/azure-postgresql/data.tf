@@ -6,10 +6,30 @@ data "http" "myip" {
 }
 
 locals {
-  resource_name_suffix = length(var.resource_name_suffix) > 0 ? "-${var.resource_name_suffix}" : ""
-  psql_server_name     = lower("${var.resource_prefix}-${var.project_cd}-psql-${var.environment_name}${local.resource_name_suffix}")
-  psql_admin_user      = "fsdhadmin"
-  psql_db_name         = "fsdh"
-  psql_all_ext         = "ADDRESS_STANDARDIZER,ADDRESS_STANDARDIZER_DATA_US,AMCHECK,ANON,AZURE_AI,AZURE_STORAGE,BLOOM,BTREE_GIN,BTREE_GIST,CITEXT,CUBE,DBLINK,DICT_INT,DICT_XSYN,EARTHDISTANCE,FUZZYSTRMATCH,HLL,HSTORE,HYPOPG,INTAGG,INTARRAY,ISN,LO,LOGIN_HOOK,LTREE,ORACLE_FDW,ORAFCE,PAGEINSPECT,PG_BUFFERCACHE,PG_CRON,PG_FREESPACEMAP,PG_HINT_PLAN,PG_PARTMAN,PG_PREWARM,PG_REPACK,PG_SQUEEZE,PG_STAT_STATEMENTS,PG_TRGM,PG_VISIBILITY,PGAUDIT,PGCRYPTO,PGLOGICAL,PGROUTING,PGROWLOCKS,PGSTATTUPLE,PLPGSQL,PLV8,POSTGIS,POSTGIS_RASTER,POSTGIS_SFCGAL,POSTGIS_TIGER_GEOCODER,POSTGIS_TOPOLOGY,POSTGRES_FDW,POSTGRES_PROTOBUF,SEMVER,SESSION_VARIABLE,SSLINFO,TABLEFUNC,TDIGEST,TDS_FDW,TIMESCALEDB,TSM_SYSTEM_ROWS,TSM_SYSTEM_TIME,UNACCENT,UUID-OSSP,VECTOR"
-  psql_ext             = "POSTGIS,CUBE,CITEXT,BTREE_GIST,PG_TRGM,FUZZYSTRMATCH,VECTOR,AZURE_AI,PGCRYPTO,POSTGIS_TOPOLOGY"
+  resource_name_suffix      = length(var.resource_name_suffix) > 0 ? "-${var.resource_name_suffix}" : ""
+  psql_server_name          = lower("${var.resource_prefix}-${var.project_cd}-psql-${var.environment_name}${local.resource_name_suffix}")
+  psql_admin_user           = "fsdhadmin"
+  psql_db_name              = "fsdh"
+  psql_all_ext              = "ADDRESS_STANDARDIZER,ADDRESS_STANDARDIZER_DATA_US,AMCHECK,ANON,AZURE_AI,AZURE_STORAGE,BLOOM,BTREE_GIN,BTREE_GIST,CITEXT,CUBE,DBLINK,DICT_INT,DICT_XSYN,EARTHDISTANCE,FUZZYSTRMATCH,HLL,HSTORE,HYPOPG,INTAGG,INTARRAY,ISN,LO,LOGIN_HOOK,LTREE,ORACLE_FDW,ORAFCE,PAGEINSPECT,PG_BUFFERCACHE,PG_CRON,PG_FREESPACEMAP,PG_HINT_PLAN,PG_PARTMAN,PG_PREWARM,PG_REPACK,PG_SQUEEZE,PG_STAT_STATEMENTS,PG_TRGM,PG_VISIBILITY,PGAUDIT,PGCRYPTO,PGLOGICAL,PGROUTING,PGROWLOCKS,PGSTATTUPLE,PLPGSQL,PLV8,POSTGIS,POSTGIS_RASTER,POSTGIS_SFCGAL,POSTGIS_TIGER_GEOCODER,POSTGIS_TOPOLOGY,POSTGRES_FDW,POSTGRES_PROTOBUF,SEMVER,SESSION_VARIABLE,SSLINFO,TABLEFUNC,TDIGEST,TDS_FDW,TIMESCALEDB,TSM_SYSTEM_ROWS,TSM_SYSTEM_TIME,UNACCENT,UUID-OSSP,VECTOR"
+  psql_ext                  = "POSTGIS,CUBE,CITEXT,BTREE_GIST,PG_TRGM,FUZZYSTRMATCH,VECTOR,AZURE_AI,PGCRYPTO,POSTGIS_TOPOLOGY"
+  secret_name_psql_user     = "datahub-psql-admin"
+  secret_name_psql_password = "datahub-psql-password"
+  # agadmin_command = [
+  #   "-c", 
+  #   "\"",
+  #   # "sed -i /tmp/config.py \"/AUTHENTICATION SOURCES/cAUTHENTICATION SOURCES = ['websrever']\" /pgadmin4/config.py" ,
+  #   # "sed -i /tmp/config.py \"/MASTER_PASSWORD_REQUIRED =/cMASTER_PASSWORD_REQUIRED = False\" /pgadmin4/config.py" ,
+  #   #"echo \"{\\\"Servers\\\":{\\\"1\\\":{\\\"Name\":\\\"FSDH\\\",\\\"Group\\\":\\\"Servers\\\",\\\"Host\\\":\\\"${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}\\\",\\\"Port\\\":\\\"5432\\\",\\\"MaintenanceDB\\\":\\\"postgres\\\",\\\"SSLMode\\\":\\\"prefer\\\",\\\"PassFile\\\":\\\"/tmp/pgpass\\\"}}\" > /tmp/servers.json",
+  #   # "echo \"${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}:5432:${local.psql_db_name}:${local.secret_name_psql_user}:$FSDH_DB_PASSWORD\" >/tmp/pgpass" ,
+  #   # "echo \"${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}:5432:${local.psql_db_name}:${local.secret_name_psql_user}:${random_password.datahub_psql_password.result}\" >/tmp/pgpass" ,
+  #   "/entrypoint.sh",
+  #   "\""
+  # ]
+    # sed -i "/AUTHENTICATION SOURCES/cAUTHENTICATION SOURCES = ['websrever']" /pgadmin4/config.py;
+  #   sed -i "/MASTER_PASSWORD_REQUIRED =/cMASTER_PASSWORD_REQUIRED = False" /pgadmin4/config.py;" ,
+  agadmin_command = <<-EOT
+    echo "{\"Servers\":{\"1\":{\"Name\":\"FSDH\",\"Group\":\"Servers\",\"Host\":\"${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}\",\"Port\":\"5432\",\"MaintenanceDB\":\"postgres\",\"SSLMode\":\"prefer\",\"PassFile\":\"/pgadmin4/pgpass\"}}\" > /tmp/servers.json &&
+    echo "${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}:5432:${local.psql_db_name}:${local.secret_name_psql_user}:$FSDH_DB_PASSWORD" >/tmp/pgpass && 
+    /entrypoint.sh        
+  EOT
 }

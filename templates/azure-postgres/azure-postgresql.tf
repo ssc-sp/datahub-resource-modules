@@ -7,8 +7,10 @@ module "azure_postgresql_module" {
   key_vault_url              = module.resource_group_module.az_project_kv_url
   key_vault_name             = module.resource_group_module.az_project_kv_name
   log_analytics_workspace_id = var.log_analytics_workspace_id
-  resource_name_suffix       = var.psql_name_suffix
-  psql_version               = "12"
+  container_app_env_id       = module.resource_group_module.container_app_env_id
+  container_app_env_uai      = module.resource_group_module.container_app_env_uai
+  resource_name_suffix = var.psql_name_suffix
+  psql_version         = "12"
 
   # optional variables
   az_tenant_id       = var.az_tenant_id

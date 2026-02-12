@@ -30,6 +30,13 @@ resource "azurerm_key_vault_access_policy" "kv_policy_clamav_job" {
   secret_permissions = ["Get", "List"]
 }
 
+resource "azurerm_key_vault_access_policy" "kv_policy_cae_env" {
+  key_vault_id       = azurerm_key_vault.az_proj_kv.id
+  tenant_id          = var.az_tenant_id
+  object_id          = azurerm_user_assigned_identity.datahub_proj_container_job_env_uai.principal_id
+  secret_permissions = ["Get", "List"]
+}
+
 resource "azurerm_key_vault_access_policy" "kv_policy_cost_job" {
   key_vault_id    = azurerm_key_vault.az_proj_kv.id
   tenant_id       = var.az_tenant_id

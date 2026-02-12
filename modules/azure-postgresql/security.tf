@@ -1,11 +1,11 @@
 resource "azurerm_key_vault_secret" "datahub_psql_password" {
-  name         = "datahub-psql-password"
+  name         = local.secret_name_psql_password
   value        = random_password.datahub_psql_password.result
   key_vault_id = var.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "datahub_psql_admin" {
-  name         = "datahub-psql-admin"
+  name         = local.secret_name_psql_user
   value        = local.psql_admin_user
   key_vault_id = var.key_vault_id
 }

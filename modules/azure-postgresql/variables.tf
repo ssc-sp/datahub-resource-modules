@@ -122,3 +122,7 @@ variable "psql_version" {
   type        = string
   default     = "12"
 }
+
+variable "container_app_env_id" {}
+variable "container_app_env_uai" {}
+
