@@ -14,22 +14,11 @@ locals {
   psql_ext                  = "POSTGIS,CUBE,CITEXT,BTREE_GIST,PG_TRGM,FUZZYSTRMATCH,VECTOR,AZURE_AI,PGCRYPTO,POSTGIS_TOPOLOGY"
   secret_name_psql_user     = "datahub-psql-admin"
   secret_name_psql_password = "datahub-psql-password"
-  # agadmin_command = [
-  #   "-c", 
-  #   "\"",
-  #   # "sed -i /tmp/config.py \"/AUTHENTICATION SOURCES/cAUTHENTICATION SOURCES = ['websrever']\" /pgadmin4/config.py" ,
-  #   # "sed -i /tmp/config.py \"/MASTER_PASSWORD_REQUIRED =/cMASTER_PASSWORD_REQUIRED = False\" /pgadmin4/config.py" ,
-  #   #"echo \"{\\\"Servers\\\":{\\\"1\\\":{\\\"Name\":\\\"FSDH\\\",\\\"Group\\\":\\\"Servers\\\",\\\"Host\\\":\\\"${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}\\\",\\\"Port\\\":\\\"5432\\\",\\\"MaintenanceDB\\\":\\\"postgres\\\",\\\"SSLMode\\\":\\\"prefer\\\",\\\"PassFile\\\":\\\"/tmp/pgpass\\\"}}\" > /tmp/servers.json",
-  #   # "echo \"${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}:5432:${local.psql_db_name}:${local.secret_name_psql_user}:$FSDH_DB_PASSWORD\" >/tmp/pgpass" ,
-  #   # "echo \"${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}:5432:${local.psql_db_name}:${local.secret_name_psql_user}:${random_password.datahub_psql_password.result}\" >/tmp/pgpass" ,
-  #   "/entrypoint.sh",
-  #   "\""
-  # ]
-    # sed -i "/AUTHENTICATION SOURCES/cAUTHENTICATION SOURCES = ['websrever']" /pgadmin4/config.py;
-  #   sed -i "/MASTER_PASSWORD_REQUIRED =/cMASTER_PASSWORD_REQUIRED = False" /pgadmin4/config.py;" ,
   agadmin_command = <<-EOT
-    echo "{\"Servers\":{\"1\":{\"Name\":\"FSDH\",\"Group\":\"Servers\",\"Host\":\"${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}\",\"Port\":\"5432\",\"MaintenanceDB\":\"postgres\",\"SSLMode\":\"prefer\",\"PassFile\":\"/pgadmin4/pgpass\"}}\" > /tmp/servers.json &&
+    echo "{\"Servers\":{\"1\":{\"Name\":\"FSDH\",\"Group\":\"Servers\",\"Host\":\"${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}\",\"Port\":\"5432\",\"MaintenanceDB\":\"postgres\",\"SSLMode\":\"prefer\",\"PassFile\":\"/pgadmin4/pgpass\"}}" > /tmp/servers.json &&
     echo "${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}:5432:${local.psql_db_name}:${local.secret_name_psql_user}:$FSDH_DB_PASSWORD" >/tmp/pgpass && 
     /entrypoint.sh        
   EOT
+
+  nginx_command = "sed -i \"s/80;/8000;/g\" /etc/nginx/conf.d/default.conf && /docker-entrypoint.sh"
 }

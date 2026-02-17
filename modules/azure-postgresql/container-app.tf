@@ -12,7 +12,7 @@ resource "azurerm_container_app" "container_app_pgadmin" {
   template {
     container {
       name    = "pgadmin"
-      image   = "dpage/pgadmin4"
+      image   = "ghcr.io/ssc-sp/pgadmin4"
       cpu     = "1"
       memory  = "2Gi"
       command = ["/bin/bash"]
@@ -62,6 +62,39 @@ resource "azurerm_container_app" "container_app_pgadmin" {
   }
 
   ingress {
+    external_enabled = false
+    target_port      = 80
+    traffic_weight {
+      percentage      = 100
+      latest_revision = true
+    }
+  }
+
+  tags = var.project_tags
+
+  lifecycle {
+    ignore_changes = [tags]
+  }
+}
+
+resource "azurerm_container_app" "container_app_proxy" {
+  name                         = "${var.project_cd}-${var.environment_name}-proxy-app"
+  container_app_environment_id = var.container_app_env_id
+  resource_group_name          = var.resource_group_name
+  revision_mode                = "Single"
+
+  template {
+    container {
+      name    = "nginx"
+      image   = "lscr.io/linuxserver/nginx"
+      cpu     = 0.25
+      memory  = "0.5Gi"
+      command = ["/bin/bash"]
+      args    = ["-c", "/docker-entrypoint.sh"] #local.nginx_command]
+    }    
+  }
+
+  ingress {
     external_enabled = true
     target_port      = 80
     traffic_weight {
@@ -76,3 +109,4 @@ resource "azurerm_container_app" "container_app_pgadmin" {
     ignore_changes = [tags]
   }
 }
+
