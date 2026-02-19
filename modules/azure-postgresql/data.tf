@@ -14,11 +14,12 @@ locals {
   psql_ext                  = "POSTGIS,CUBE,CITEXT,BTREE_GIST,PG_TRGM,FUZZYSTRMATCH,VECTOR,AZURE_AI,PGCRYPTO,POSTGIS_TOPOLOGY"
   secret_name_psql_user     = "datahub-psql-admin"
   secret_name_psql_password = "datahub-psql-password"
-  agadmin_command = <<-EOT
-    echo "{\"Servers\":{\"1\":{\"Name\":\"FSDH\",\"Group\":\"Servers\",\"Host\":\"${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}\",\"Port\":\"5432\",\"MaintenanceDB\":\"postgres\",\"SSLMode\":\"prefer\",\"PassFile\":\"/pgadmin4/pgpass\"}}" > /tmp/servers.json &&
-    echo "${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}:5432:${local.psql_db_name}:${local.secret_name_psql_user}:$FSDH_DB_PASSWORD" >/tmp/pgpass && 
+  pgadmin_user              = "donotreply@ssc-spc.gc.ca"
+  pgadmin_command           = <<-EOT
+    echo "{\"Servers\":{\"1\":{\"Name\":\"${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}\",\"Group\":\"Servers\",\"Host\":\"${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}\",\"Port\":5432,\"Username\":\"postgres\",\"MaintenanceDB\":\"postgres\",\"SSLMode\":\"prefer\",\"Shared\":true,\"PassFile\":\"/fsdh/pgpass\"}}}" > /fsdh/servers.json &&
+    echo "${azurerm_postgresql_flexible_server.datahub_psql_server.fqdn}:5432:*:${local.psql_admin_user}:$FSDH_DB_PASSWORD" >/fsdh/pgpass && 
+    chmod 660 /fsdh/*
+    /venv/bin/python3 /pgadmin4/setup.py load-servers /fsdh/servers.json --user ${local.pgadmin_user}
     /entrypoint.sh        
   EOT
-
-  nginx_command = "sed -i \"s/80;/8000;/g\" /etc/nginx/conf.d/default.conf && /docker-entrypoint.sh"
 }

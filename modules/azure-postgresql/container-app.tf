@@ -11,12 +11,31 @@ resource "azurerm_container_app" "container_app_pgadmin" {
 
   template {
     container {
+      name   = "nginx"
+      image  = "ghcr.io/ssc-sp/nginx"
+      cpu    = 0.75
+      memory = "1.5Gi"
+
+      env {
+        name  = "FSDH_PROXY_TARGET_HOST"
+        value = "localhost"
+      }
+      env {
+        name  = "FSDH_PORT"
+        value = 8000
+      }
+      env {
+        name  = "FSDH_USER_HEADER_DEFAULT"
+        value = local.psql_admin_user
+      }
+    }
+    container {
       name    = "pgadmin"
       image   = "ghcr.io/ssc-sp/pgadmin4"
       cpu     = "1"
       memory  = "2Gi"
       command = ["/bin/bash"]
-      args    = ["-c", local.agadmin_command]
+      args    = ["-c", local.pgadmin_command]
 
       env {
         name  = "FSDH_DB_HOST"
@@ -36,7 +55,7 @@ resource "azurerm_container_app" "container_app_pgadmin" {
       }
       env {
         name  = "PGADMIN_DEFAULT_EMAIL"
-        value = "not-in-use@ssc-spc.gc.ca"
+        value = local.pgadmin_user
       }
       env {
         name  = "PGADMIN_DEFAULT_PASSWORD"
@@ -44,7 +63,7 @@ resource "azurerm_container_app" "container_app_pgadmin" {
       }
       env {
         name  = "PGADMIN_SERVER_JSON_FILE"
-        value = "/tmp/servers.json"
+        value = "/fsdh/servers.json"
       }
     }
   }
@@ -62,41 +81,8 @@ resource "azurerm_container_app" "container_app_pgadmin" {
   }
 
   ingress {
-    external_enabled = false
-    target_port      = 80
-    traffic_weight {
-      percentage      = 100
-      latest_revision = true
-    }
-  }
-
-  tags = var.project_tags
-
-  lifecycle {
-    ignore_changes = [tags]
-  }
-}
-
-resource "azurerm_container_app" "container_app_proxy" {
-  name                         = "${var.project_cd}-${var.environment_name}-proxy-app"
-  container_app_environment_id = var.container_app_env_id
-  resource_group_name          = var.resource_group_name
-  revision_mode                = "Single"
-
-  template {
-    container {
-      name    = "nginx"
-      image   = "lscr.io/linuxserver/nginx"
-      cpu     = 0.25
-      memory  = "0.5Gi"
-      command = ["/bin/bash"]
-      args    = ["-c", "/docker-entrypoint.sh"] #local.nginx_command]
-    }    
-  }
-
-  ingress {
     external_enabled = true
-    target_port      = 80
+    target_port      = 8000
     traffic_weight {
       percentage      = 100
       latest_revision = true
@@ -109,4 +95,3 @@ resource "azurerm_container_app" "container_app_proxy" {
     ignore_changes = [tags]
   }
 }
-
