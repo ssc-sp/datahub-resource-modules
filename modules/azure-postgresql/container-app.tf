@@ -11,25 +11,6 @@ resource "azurerm_container_app" "container_app_pgadmin" {
 
   template {
     container {
-      name   = "nginx"
-      image  = "ghcr.io/ssc-sp/nginx"
-      cpu    = 0.75
-      memory = "1.5Gi"
-
-      env {
-        name  = "FSDH_PROXY_TARGET_HOST"
-        value = "localhost"
-      }
-      env {
-        name  = "FSDH_PORT"
-        value = 8000
-      }
-      env {
-        name  = "FSDH_USER_HEADER_DEFAULT"
-        value = local.psql_admin_user
-      }
-    }
-    container {
       name    = "pgadmin"
       image   = "ghcr.io/ssc-sp/pgadmin4"
       cpu     = "1"
@@ -64,6 +45,25 @@ resource "azurerm_container_app" "container_app_pgadmin" {
       env {
         name  = "PGADMIN_SERVER_JSON_FILE"
         value = "/fsdh/servers.json"
+      }
+    }
+    container {
+      name   = "nginx"
+      image  = "ghcr.io/ssc-sp/nginx"
+      cpu    = 0.75
+      memory = "1.5Gi"
+
+      env {
+        name  = "FSDH_PROXY_TARGET_HOST"
+        value = "localhost"
+      }
+      env {
+        name  = "FSDH_PORT"
+        value = 8000
+      }
+      env {
+        name  = "FSDH_USER_HEADER_DEFAULT"
+        value = local.psql_admin_user
       }
     }
   }
