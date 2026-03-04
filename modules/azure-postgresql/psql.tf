@@ -43,7 +43,8 @@ resource "azurerm_postgresql_flexible_server" "datahub_psql_server" {
 
   depends_on = [azurerm_key_vault_access_policy.psql_akv_policy]
   lifecycle {
-    ignore_changes = [version, storage_mb, auto_grow_enabled, tags["created_date"]]
+    ignore_changes  = [version, storage_mb, auto_grow_enabled, tags["created_date"]]
+    prevent_destroy = true
   }
 }
 
@@ -62,11 +63,4 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "datahub_psql_allow_
   server_id        = azurerm_postgresql_flexible_server.datahub_psql_server.id
   start_ip_address = "0.0.0.0"
   end_ip_address   = "0.0.0.0"
-}
-
-resource "azurerm_management_lock" "psql_delete_lock" {
-  name       = "datahub-delete-lock"
-  scope      = azurerm_postgresql_flexible_server.datahub_psql_server.id
-  lock_level = "CanNotDelete"
-  notes      = "Need to be manually unlocked prior to deletion"
 }

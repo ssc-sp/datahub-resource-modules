@@ -26,7 +26,7 @@ resource "azurerm_key_vault" "az_proj_kv" {
   tags = local.project_tags
 
   lifecycle {
-    prevent_destroy = false
+    prevent_destroy = true
     ignore_changes  = [tags["created_date"]]
   }
 
