@@ -8,6 +8,7 @@ module "azure_postgresql_module" {
   key_vault_name             = module.resource_group_module.az_project_kv_name
   log_analytics_workspace_id = var.log_analytics_workspace_id
   resource_name_suffix       = var.psql_name_suffix
+  psql_version               = var.psql_version
 
   # optional variables
   az_tenant_id       = var.az_tenant_id
