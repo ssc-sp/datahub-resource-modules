@@ -105,9 +105,3 @@ resource "azurerm_monitor_action_group" "datahub_proj_action_group_email" {
   tags = local.project_tags
 }
 
-resource "azurerm_management_lock" "akv_delete_lock" {
-  name       = "datahub-delete-lock"
-  scope      = azurerm_key_vault.az_proj_kv.id
-  lock_level = "CanNotDelete"
-  notes      = "Need to be manually unlocked prior to deletion"
-}
