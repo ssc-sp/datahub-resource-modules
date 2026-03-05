@@ -26,7 +26,7 @@ resource "azurerm_key_vault" "az_proj_kv" {
   tags = local.project_tags
 
   lifecycle {
-    prevent_destroy = false
+    prevent_destroy = true
     ignore_changes  = [tags["created_date"]]
   }
 
@@ -104,3 +104,4 @@ resource "azurerm_monitor_action_group" "datahub_proj_action_group_email" {
 
   tags = local.project_tags
 }
+
