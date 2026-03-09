@@ -38,7 +38,8 @@ resource "null_resource" "access_ip_whitelist_one" {
     command     = <<-EOT
       $ip_addr="${each.value}".trim()
       if ( ! [string]::IsNullOrEmpty("$ip_addr") ) { 
-        az webapp config access-restriction add -g ${var.resource_group_name} -n ${azurerm_linux_web_app.datahub_proj_app.name} --rule-name fsdh-app-${each.key} --action Allow --ip-address "$ip_addr/32" --priority ${100 + each.key}
+        $cidr = $ip_addr -match "/" ? $ip_addr : "$ip_addr/32"        
+        az webapp config access-restriction add -g ${var.resource_group_name} -n ${azurerm_linux_web_app.datahub_proj_app.name} --rule-name fsdh-app-${each.key} --action Allow --ip-address "$cidr" --priority ${100 + each.key}
       }
     EOT
     on_failure  = fail
