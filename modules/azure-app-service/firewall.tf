@@ -2,14 +2,14 @@ resource "null_resource" "access_ip_whitelist_one" {
   triggers = {
     rg_name   = var.resource_group_name
     app_name  = azurerm_linux_web_app.datahub_proj_app.name
-    source_ip = each.value
+    source_ip = var.allow_source_ip
   }
 
   provisioner "local-exec" {
     interpreter = ["pwsh", "-Command"]
     command     = <<-EOT
       if ( ! [string]::IsNullOrEmpty("${var.allow_source_ip}") ) { 
-        az webapp config access-restriction add -g ${var.resource_group_name} -n ${azurerm_linux_web_app.datahub_proj_app.name} --rule-name fsdh-app-${each.key} --action Allow --ip-address "${var.allow_source_ip}" --priority ${100 + each.key}
+        az webapp config access-restriction add -g ${var.resource_group_name} -n ${azurerm_linux_web_app.datahub_proj_app.name} --rule-name fsdh-app-trusted --action Allow --ip-address "${var.allow_source_ip}" --priority 100
       }
     EOT
     on_failure  = fail
