@@ -14,12 +14,13 @@ resource "azurerm_service_plan" "datahub_proj_app_service_plan" {
 }
 
 resource "azurerm_linux_web_app" "datahub_proj_app" {
-  name                    = local.app_service_name
-  resource_group_name     = var.resource_group_name
-  location                = local.resource_group_location
-  service_plan_id         = azurerm_service_plan.datahub_proj_app_service_plan.id
-  https_only              = true
-  client_affinity_enabled = true
+  name                          = local.app_service_name
+  resource_group_name           = var.resource_group_name
+  location                      = local.resource_group_location
+  service_plan_id               = azurerm_service_plan.datahub_proj_app_service_plan.id
+  https_only                    = true
+  client_affinity_enabled       = true
+  public_network_access_enabled = false
 
   app_settings = {
     WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
