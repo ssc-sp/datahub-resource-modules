@@ -1,5 +1,5 @@
 resource "null_resource" "access_ip_block_all" {
-  count = var.allow_source_ip == "" ? 1 : 0
+  count = var.allow_source_ip == "" ? 0 : 1
 
   triggers = {
     rg_name  = var.resource_group_name
