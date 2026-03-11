@@ -14,12 +14,14 @@ resource "azurerm_service_plan" "datahub_proj_app_service_plan" {
 }
 
 resource "azurerm_linux_web_app" "datahub_proj_app" {
-  name                    = local.app_service_name
-  resource_group_name     = var.resource_group_name
-  location                = local.resource_group_location
-  service_plan_id         = azurerm_service_plan.datahub_proj_app_service_plan.id
-  https_only              = true
-  client_affinity_enabled = true
+  name                          = local.app_service_name
+  resource_group_name           = var.resource_group_name
+  location                      = local.resource_group_location
+  service_plan_id               = azurerm_service_plan.datahub_proj_app_service_plan.id
+  https_only                    = true
+  client_affinity_enabled       = true
+  public_network_access_enabled = true
+
 
   app_settings = {
     WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
@@ -34,7 +36,8 @@ resource "azurerm_linux_web_app" "datahub_proj_app" {
   }
 
   site_config {
-    always_on = "true" # BELOW: define the images to used for you application
+    always_on                     = "true" # BELOW: define the images to used for you application
+    ip_restriction_default_action = "Deny"
 
     application_stack {
       docker_registry_url = var.docker_server_url
