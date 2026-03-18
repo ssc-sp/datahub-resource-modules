@@ -1,15 +1,15 @@
 
 */**/.terraform*
 test-project/*.variables.tf.json
-test-project/azure-databricks.tf
-test-project/azure-storage-blob.tf
-test-project/azure-app-service.tf
-test-project/azure-mysql.tf
-test-project/azure-cr.tf
-test-project/main.tf
+test-project/azure-databricks.tf*
+test-project/azure-storage-blob.tf*
+test-project/azure-app-service.tf*
+test-project/azure-mysql.tf*
+test-project/azure-cr.tf*
+test-project/main.tf*
 settings.json
-test-project/azure-postgresql.tf
-test-project/azure-batch.tf
-test-project/azure-container-app.tf
-test-project/azure-container-instance.tf
+test-project/azure-postgresql.tf*
+test-project/azure-batch.tf*
+test-project/azure-container-app.tf*
+test-project/azure-container-instance.tf*
 .vscode

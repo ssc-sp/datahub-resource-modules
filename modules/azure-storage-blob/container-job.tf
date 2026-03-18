@@ -34,6 +34,10 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
         name  = "WORK_DIR"
         value = "/${local.datahub_temp_name}"
       }
+      env {
+        name  = "container_name"
+        value = "${local.datahub_mount_name},${local.datahub_stage_name}"
+      }
       volume_mounts {
         name = local.datahub_temp_name
         path = "/${local.datahub_temp_name}"
