@@ -48,6 +48,12 @@ resource "azurerm_storage_container" "datahub_log" {
   container_access_type = "private"
 }
 
+resource "azurerm_storage_container" "datahub_stage" {
+  name                  = local.datahub_stage_name
+  storage_account_name  = azurerm_storage_account.datahub_storageaccount.name
+  container_access_type = "private"
+}
+
 resource "azurerm_storage_share" "file_share_default" {
   name                 = local.datahub_mount_name
   storage_account_name = azurerm_storage_account.datahub_storageaccount.name
@@ -59,6 +65,7 @@ resource "azurerm_storage_share" "file_share_clamav_temp" {
   storage_account_name = azurerm_storage_account.datahub_storageaccount.name
   quota                = 128
 }
+
 
 resource "azurerm_storage_container" "datahub_quarantine" {
   name                  = local.datahub_quarantine
