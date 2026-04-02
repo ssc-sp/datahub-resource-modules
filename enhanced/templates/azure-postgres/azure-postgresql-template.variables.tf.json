@@ -1,0 +1,27 @@
+{
+  "variable": {
+    "psql_sku": {
+      "type": "string",
+      "default": "B_Standard_B1ms"
+    },
+    "psql_source_ip_start": {
+      "type": "string",
+      "default": ""
+    },
+    "psql_source_ip_end": {
+      "type": "string",
+      "default": ""
+    },
+    "psql_source_ip_list": {
+      "type": "list(string)",
+      "default": []
+    },
+    "psql_name_suffix": {
+      "type": "string",
+      "default": ""
+    },
+    "psql_dns_zone_id": {
+      "type": "string"
+    }
+  }
+}

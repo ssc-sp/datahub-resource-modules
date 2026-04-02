@@ -1,0 +1,20 @@
+{
+  "variable": {
+    "storage_contributor_users": {
+      "type": "list(any)",
+      "default": []
+    },
+    "storage_reader_users": {
+      "type": "list(any)",
+      "default": []
+    },
+    "enable_defender": {
+      "type": "bool",
+      "default": false
+    },
+    "enable_clamav": {
+      "type": "bool",
+      "default": false
+    }
+  }
+}
