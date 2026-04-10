@@ -103,6 +103,11 @@ variable "storage_acct_name" {
   type        = string
 }
 
+variable "storage_acct_id" {
+  description = "Name of the project storage account"
+  type        = string
+}
+
 variable "budget_amount" {
   description = "Budget amount for the resource group"
   type        = number

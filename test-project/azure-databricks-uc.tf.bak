@@ -1,5 +1,5 @@
-module "azure_databricks_module" {
-  source = "github.com/ssc-sp/datahub-resource-modules//modules/azure-databricks{{tag}}"
+module "azure_databricks_uc_module" {
+  source = "../modules/azure-databricks-uc"
 
   resource_group_name        = module.resource_group_module.az_project_rg_name
   key_vault_id               = module.resource_group_module.az_project_kv_id
@@ -32,6 +32,7 @@ module "azure_databricks_module" {
   azure_databricks_enterprise_oid = var.azure_databricks_enterprise_oid
   run_in_devops                   = false
   log_workspace_id                = var.log_workspace_id
+  databricks_metastore_id         = var.databricks_metastore_id
 }
 
 output "azure_databricks_module_status" {
@@ -39,13 +40,13 @@ output "azure_databricks_module_status" {
 }
 
 output "azure_databricks_workspace_id" {
-  value = module.azure_databricks_module.azure_databricks_workspace_id
+  value = module.azure_databricks_uc_module.azure_databricks_workspace_id
 }
 
 output "azure_databricks_workspace_url" {
-  value = module.azure_databricks_module.azure_databricks_workspace_url
+  value = module.azure_databricks_uc_module.azure_databricks_workspace_url
 }
 
 output "azure_databricks_workspace_name" {
-  value = module.azure_databricks_module.azure_databricks_workspace_name
+  value = module.azure_databricks_uc_module.azure_databricks_workspace_name
 }
