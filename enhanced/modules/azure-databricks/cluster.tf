@@ -4,7 +4,7 @@ data "databricks_node_type" "dbk_default" {
   category = "General Purpose"
 
 
-  depends_on = [azurerm_databricks_workspace.datahub_databricks_workspace]
+  depends_on = [azapi_resource.fsdh_databricks]
 }
 
 data "databricks_spark_version" "dbk_latest_lts" {
@@ -121,7 +121,7 @@ resource "null_resource" "cluster_config" {
   provisioner "local-exec" {
     interpreter = ["pwsh", "-Command"]
     command     = <<-EOT
-      Invoke-RestMethod -Method PATCH -Uri "https://${azurerm_databricks_workspace.datahub_databricks_workspace.workspace_url}/api/2.0/workspace-conf" -Headers @{Authorization = "Bearer ${databricks_token.terraform_pat.token_value}"} -Body '{"enableDcs": "true"}' -ContentType "application/json"
+      Invoke-RestMethod -Method PATCH -Uri "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/workspace-conf" -Headers @{Authorization = "Bearer ${databricks_token.terraform_pat.token_value}"} -Body '{"enableDcs": "true"}' -ContentType "application/json"
     EOT
     on_failure  = fail
   }

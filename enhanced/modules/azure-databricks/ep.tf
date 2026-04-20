@@ -6,7 +6,7 @@ resource "azurerm_private_endpoint" "datahub_proj_databricks_api_ep" {
 
   private_service_connection {
     name                           = lower("${local.databricks_name}-api-conn")
-    private_connection_resource_id = azurerm_databricks_workspace.datahub_databricks_workspace.id
+    private_connection_resource_id = azapi_resource.fsdh_databricks.id
     is_manual_connection           = false
     subresource_names              = ["databricks_ui_api"]
   }

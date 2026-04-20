@@ -20,13 +20,14 @@ data "azurerm_virtual_network" "datahub_vnet" {
   name                = var.vnet_name
   resource_group_name = var.vnet_rg
 }
+
 data "azurerm_subnet" "datahub_subnet_dbrprv" {
   name                 = var.dbr_subnet_private
   virtual_network_name = var.vnet_name
   resource_group_name  = var.vnet_rg
 }
 data "azurerm_subnet" "datahub_subnet_dbrpub" {
-  name                 = var.dbr_subnet_private
+  name                 = var.dbr_subnet_public
   virtual_network_name = var.vnet_name
   resource_group_name  = var.vnet_rg
 }

@@ -1,5 +1,5 @@
 resource "time_sleep" "wait_for_databricks_workspace" {
-  depends_on = [azurerm_databricks_workspace.datahub_databricks_workspace]
+  depends_on = [azapi_resource.fsdh_databricks]
 
   create_duration = "120s"
 }

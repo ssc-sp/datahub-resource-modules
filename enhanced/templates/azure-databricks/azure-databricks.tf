@@ -2,6 +2,7 @@ module "azure_databricks_module" {
   source = "github.com/ssc-sp/datahub-resource-modules//modules/azure-databricks{{tag}}"
 
   resource_group_name        = module.resource_group_module.az_project_rg_name
+  resource_group_id          = module.resource_group_module.az_project_rg_id
   key_vault_id               = module.resource_group_module.az_project_kv_id
   key_vault_cmk_id           = module.resource_group_module.az_project_cmk_id
   key_vault_url              = module.resource_group_module.az_project_kv_url

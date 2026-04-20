@@ -2,7 +2,7 @@ terraform {
   required_providers {
     databricks = {
       source  = "databricks/databricks"
-      version = "1.70.0"
+      version = "1.112.0"
     }
     azapi = {
       source = "azure/azapi"
@@ -11,7 +11,7 @@ terraform {
 }
 
 provider "databricks" {
-  azure_workspace_resource_id = azurerm_databricks_workspace.datahub_databricks_workspace.id
-  azure_use_msi               = var.run_in_devops
+  azure_workspace_resource_id = azapi_resource.fsdh_databricks.id
 }
+
 

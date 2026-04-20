@@ -38,6 +38,11 @@ variable "resource_group_name" {
   type        = string
 }
 
+variable "resource_group_id" {
+  description = "Resource group id"
+  type        = string
+}
+
 variable "key_vault_id" {
   description = "Key vault ID"
   type        = string
