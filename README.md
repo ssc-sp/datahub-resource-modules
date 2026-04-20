@@ -2,6 +2,7 @@
 
 Public repository containing terraform resource modules for Datahub.
 
+
 ## Template Structure
 
 A template directory typically contains the following files:
