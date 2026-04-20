@@ -36,7 +36,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git tag dev-$BASE_TAG $BASE_TAG
-          git tag qa-$BASE_TAG $BASE_TAG
+          git tag pre-$BASE_TAG $BASE_TAG
+          git tag poc-$BASE_TAG $BASE_TAG
           git tag prd-$BASE_TAG $BASE_TAG
           
-          git push origin dev-$BASE_TAG qa-$BASE_TAG prd-$BASE_TAG
+          git push origin dev-$BASE_TAG pre-$BASE_TAG poc-$BASE_TAG prd-$BASE_TAG
