@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate-releases:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: Run Release Please
+        id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          manifest-file: .github/release-please/.release-please-manifest.json
+          config-file: .github/release-please/.release-please-config.json
+
+      - name: Auto-generate Environment Tags
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
+        run: |
+          BASE_TAG=${{ steps.release.outputs.tag_name }}
+          
+          git fetch origin --tags
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git tag dev-$BASE_TAG $BASE_TAG
+          git tag qa-$BASE_TAG $BASE_TAG
+          git tag prd-$BASE_TAG $BASE_TAG
+          
+          git push origin dev-$BASE_TAG qa-$BASE_TAG prd-$BASE_TAG
