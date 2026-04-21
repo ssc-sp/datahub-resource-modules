@@ -41,4 +41,7 @@ locals {
   wasbs_uri                 = "wasbs://${local.datahub_blob_container}@${var.storage_acct_name}.blob.core.windows.net"
   current_fiscal_year_start = contains(["1", "2", "3"], formatdate("M", timestamp())) ? "${formatdate("YYYY", timestamp()) - 1}-04-01T00:00:00Z" : "${formatdate("YYYY", timestamp())}-04-01T00:00:00Z"
   public_access             = true
+  kv_uri                    = "https://${split("/", var.key_vault_cmk_id)[2]}"
+  kv_key_name               = split("/", var.key_vault_cmk_id)[4]
+  kv_key_version            = split("/", var.key_vault_cmk_id)[5]
 }

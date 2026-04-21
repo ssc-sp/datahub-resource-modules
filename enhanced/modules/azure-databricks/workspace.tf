@@ -31,18 +31,18 @@ resource "azapi_resource" "fsdh_databricks" {
           managedDisk = {
             keySource = "Microsoft.Keyvault"
             keyVaultProperties = {
-              keyName     = "${split("/", var.key_vault_cmk_id)[4]}"
-              keyVaultUri = "https://${split("/", var.key_vault_cmk_id)[2]}"
-              keyVersion  = "${split("/", var.key_vault_cmk_id)[5]}"
+              keyName     = "${local.kv_key_name}"
+              keyVaultUri = "${local.kv_uri}"
+              keyVersion  = "${local.kv_key_version}"
             }
             rotationToLatestKeyVersionEnabled = true
           }
           managedServices = {
             keySource = "Microsoft.Keyvault"
             keyVaultProperties = {
-              keyName     = "${split("/", var.key_vault_cmk_id)[4]}"
-              keyVaultUri = "https://${split("/", var.key_vault_cmk_id)[2]}"
-              keyVersion  = "${split("/", var.key_vault_cmk_id)[5]}"
+              keyName     = "${local.kv_key_name}"
+              keyVaultUri = "${local.kv_uri}"
+              keyVersion  = "${local.kv_key_version}"
             }
           }
         }
@@ -50,6 +50,15 @@ resource "azapi_resource" "fsdh_databricks" {
       requiredNsgRules    = "NoAzureDatabricksRules"
       publicNetworkAccess = "Enabled"
       parameters = {
+        encryption = {
+          type = "Object"
+          value = {
+            keySource   = "Microsoft.Keyvault"
+            keyvaulturi = "${local.kv_uri}"
+            KeyName     = "${local.kv_key_name}"
+            keyversion  = "${local.kv_key_version}"
+          }
+        }
         requireInfrastructureEncryption = {
           type  = "Boolean"
           value = true
