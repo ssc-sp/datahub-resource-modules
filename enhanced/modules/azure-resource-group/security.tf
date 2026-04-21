@@ -23,6 +23,13 @@ resource "azurerm_key_vault_access_policy" "kv_policy_acr" {
   key_permissions = ["Get", "UnwrapKey", "WrapKey"]
 }
 
+resource "azurerm_key_vault_access_policy" "kv_policy_databricks" {
+  key_vault_id    = azurerm_key_vault.az_proj_kv.id
+  tenant_id       = var.az_tenant_id
+  object_id       = "70e896fc-6a44-4458-99df-f941c0df6cc8"
+  key_permissions = ["Get", "UnwrapKey", "WrapKey"]
+}
+
 resource "azurerm_key_vault_access_policy" "kv_policy_clamav_job" {
   key_vault_id       = azurerm_key_vault.az_proj_kv.id
   tenant_id          = var.az_tenant_id

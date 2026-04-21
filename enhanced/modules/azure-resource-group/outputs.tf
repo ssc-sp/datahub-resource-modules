@@ -24,7 +24,7 @@ output "az_project_cmk" {
 }
 
 output "az_project_cmk_id" {
-  value = azurerm_key_vault_key.az_proj_cmk.id
+  value = "${azurerm_key_vault_key.az_proj_cmk.versionless_id}/${azurerm_key_vault_key.az_proj_cmk.version}"
 }
 
 output "current_subscription_display_name" {

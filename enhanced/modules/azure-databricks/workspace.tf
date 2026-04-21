@@ -26,11 +26,38 @@ resource "azapi_resource" "fsdh_databricks" {
           value = "Enabled"
         }
       }
+      encryption = {
+        entities = {
+          managedDisk = {
+            keySource = "Microsoft.Keyvault"
+            keyVaultProperties = {
+              keyName     = "${split("/", var.key_vault_cmk_id)[4]}"
+              keyVaultUri = "https://${split("/", var.key_vault_cmk_id)[2]}"
+              keyVersion  = "${split("/", var.key_vault_cmk_id)[5]}"
+            }
+            rotationToLatestKeyVersionEnabled = true
+          }
+          managedServices = {
+            keySource = "Microsoft.Keyvault"
+            keyVaultProperties = {
+              keyName     = "${split("/", var.key_vault_cmk_id)[4]}"
+              keyVaultUri = "https://${split("/", var.key_vault_cmk_id)[2]}"
+              keyVersion  = "${split("/", var.key_vault_cmk_id)[5]}"
+            }
+          }
+        }
+      }
       requiredNsgRules    = "NoAzureDatabricksRules"
       publicNetworkAccess = "Enabled"
-      storageAccountIdentity = {
-      }
       parameters = {
+        requireInfrastructureEncryption = {
+          type  = "Boolean"
+          value = true
+        }
+        prepareEncryption = {
+          type  = "Boolean"
+          value = true
+        }
         customPrivateSubnetName = {
           type  = "String"
           value = var.dbr_subnet_private
