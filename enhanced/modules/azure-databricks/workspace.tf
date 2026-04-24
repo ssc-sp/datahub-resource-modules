@@ -1,4 +1,3 @@
-
 resource "azapi_resource" "fsdh_databricks" {
   name      = local.databricks_name
   type      = "Microsoft.Databricks/workspaces@2025-08-01-preview"
@@ -50,20 +49,11 @@ resource "azapi_resource" "fsdh_databricks" {
       requiredNsgRules    = "NoAzureDatabricksRules"
       publicNetworkAccess = "Enabled"
       parameters = {
-        encryption = {
-          type = "Object"
-          value = {
-            keySource   = "Microsoft.Keyvault"
-            keyvaulturi = "${local.kv_uri}"
-            KeyName     = "${local.kv_key_name}"
-            keyversion  = "${local.kv_key_version}"
-          }
-        }
-        requireInfrastructureEncryption = {
+        prepareEncryption = {
           type  = "Boolean"
           value = true
         }
-        prepareEncryption = {
+        requireInfrastructureEncryption = {
           type  = "Boolean"
           value = true
         }
@@ -87,7 +77,7 @@ resource "azapi_resource" "fsdh_databricks" {
     }
   }
 
-  response_export_values = ["properties.workspaceUrl", "name", "properties.workspaceId", "properties.managedResourceGroupId", "identity.principalId", "properties.storageAccountIdentity"]
+  response_export_values = ["properties.workspaceUrl", "name", "properties.workspaceId", "properties.managedResourceGroupId", "identity.principalId", "properties.storageAccountIdentity", "properties.managedDiskIdentity.principalId"]
 
   lifecycle {
     ignore_changes = [body.properties.publicNetworkAccess]

@@ -10,4 +10,6 @@ resource "azurerm_private_endpoint" "datahub_proj_databricks_api_ep" {
     is_manual_connection           = false
     subresource_names              = ["databricks_ui_api"]
   }
+
+  depends_on = [time_sleep.wait_for_databricks_workspace]
 }
