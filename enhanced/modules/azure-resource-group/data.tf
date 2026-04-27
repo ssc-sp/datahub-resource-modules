@@ -92,19 +92,20 @@ locals {
   subnet_dbrprv_name = "${var.subnet_name_prefix}_DB-Private-${var.subnet_group_number}-snet"
   subnet_dbrpub_name = "${var.subnet_name_prefix}_DB-Public-${var.subnet_group_number}-snet"
 
-  sanitized_prefix         = lower(replace(replace(var.resource_prefix_alphanumeric, "_", ""), "-", ""))
-  storage_key_secret       = "storage-key"
-  storage_sas_secret       = "container-sas"
-  storage_conn_secret      = "storage-conn"
-  datahub_mount_name       = "datahub"
-  datahub_backup_name      = "datahub-backup"
-  datahub_log_name         = "datahub-log"
-  datahub_temp_name        = "datahub-temp"
-  datahub_quarantine       = "datahub-quarantine"
-  blob_created_queue       = "blob-created"
-  blob_muted_queue         = "blob-event-muted"
-  storage_size_limit_bytes = 1024 * 1024 * 1024 * 1024 * var.storage_size_limit_tb
-  log_keep_days            = 90
+  sanitized_prefix          = lower(replace(replace(var.resource_prefix_alphanumeric, "_", ""), "-", ""))
+  storage_key_secret        = "storage-key"
+  storage_sas_secret        = "container-sas"
+  storage_conn_secret       = "storage-conn"
+  datahub_mount_name        = "datahub"
+  datahub_catalog_container = "datahub-catalog"
+  datahub_backup_name       = "datahub-backup"
+  datahub_log_name          = "datahub-log"
+  datahub_temp_name         = "datahub-temp"
+  datahub_quarantine        = "datahub-quarantine"
+  blob_created_queue        = "blob-created"
+  blob_muted_queue          = "blob-event-muted"
+  storage_size_limit_bytes  = 1024 * 1024 * 1024 * 1024 * var.storage_size_limit_tb
+  log_keep_days             = 90
 
   subnet_all = [
     data.azurerm_subnet.datahub_subnet_app.id,

@@ -67,6 +67,11 @@ output "storage_acct_name" {
   depends_on = [azurerm_role_assignment.proj_storage_creator_role]
 }
 
+output "storage_acct_id" {
+  value      = azurerm_storage_account.datahub_storageaccount.id
+  depends_on = [azurerm_role_assignment.proj_storage_creator_role]
+}
+
 output "datahub_blob_endpoint" {
   value = azurerm_storage_account.datahub_storageaccount.primary_blob_endpoint
 }

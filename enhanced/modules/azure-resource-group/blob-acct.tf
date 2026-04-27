@@ -81,3 +81,9 @@ resource "azurerm_storage_container" "datahub_quarantine" {
   storage_account_name  = azurerm_storage_account.datahub_storageaccount.name
   container_access_type = "private"
 }
+
+resource "azurerm_storage_container" "datahub_catalog" {
+  name                  = local.datahub_catalog_container
+  storage_account_name  = azurerm_storage_account.datahub_storageaccount.name
+  container_access_type = "private"
+}
