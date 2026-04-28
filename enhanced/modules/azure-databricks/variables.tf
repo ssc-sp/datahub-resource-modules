@@ -80,6 +80,11 @@ variable "admin_users" {
   default     = []
 }
 
+variable "aad_admin_group_oid" {
+  description = "OID of datahub admin Entra group"
+  type        = string
+}
+
 variable "project_lead_users" {
   description = "List of lead user emails"
   type        = list(any)

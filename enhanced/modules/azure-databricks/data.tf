@@ -32,6 +32,10 @@ data "azurerm_subnet" "datahub_subnet_dbrpub" {
   resource_group_name  = var.vnet_rg
 }
 
+data "azuread_group" "datahub_admin_group" {
+  object_id = var.aad_admin_group_oid
+}
+
 locals {
   databricks_name           = lower("${var.resource_prefix}-dbk-${var.project_cd}-${var.environment_name}")
   databricks_rg_name        = lower("${var.resource_prefix}-dbk-${var.project_cd}-${var.environment_name}-rg")
