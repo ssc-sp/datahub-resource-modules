@@ -52,8 +52,8 @@ resource "azurerm_role_assignment" "datahub_storage_eventgrid_contrib" {
 # resource "databricks_grants" "external_creds" {
 #   storage_credential = databricks_storage_credential.datahub_workspace_storage.id
 #   grant {
-#     principal  = "Data Engineers"
-#     privileges = ["CREATE_EXTERNAL_TABLE"]
+#     principal  = databricks_group.project_lead.display_name
+#     privileges = ["ALL_PRIVILEGES"]
 #   }
 # }
 

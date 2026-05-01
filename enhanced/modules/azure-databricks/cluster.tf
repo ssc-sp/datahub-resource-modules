@@ -37,4 +37,3 @@ resource "null_resource" "cluster_config" {
     on_failure  = fail
   }
 }
-
