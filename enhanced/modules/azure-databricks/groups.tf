@@ -43,3 +43,68 @@ resource "databricks_group" "project_guest" {
 
   depends_on = [time_sleep.wait_for_databricks_workspace]
 }
+
+data "http" "create_group_lead" {
+  url    = "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/account/scim/v2/Groups"
+  method = "POST"
+
+  request_headers = { Authorization = "Bearer ${databricks_token.terraform_pat.token_value}" }
+  request_body    = jsonencode({ "displayName" : "${local.group_name_lead}" })
+}
+
+data "http" "create_group_user" {
+  url    = "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/account/scim/v2/Groups"
+  method = "POST"
+
+  request_headers = { Authorization = "Bearer ${databricks_token.terraform_pat.token_value}" }
+  request_body    = jsonencode({ "displayName" : "${local.group_name_user}" })
+}
+
+data "http" "create_group_guest" {
+  url    = "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/account/scim/v2/Groups"
+  method = "POST"
+
+  request_headers = { Authorization = "Bearer ${databricks_token.terraform_pat.token_value}" }
+  request_body    = jsonencode({ "displayName" : "${local.group_name_guest}" })
+}
+
+data "http" "get_group_lead" {
+  url    = "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+${local.group_name_lead}"
+  method = "GET"
+
+  request_headers = { Authorization = "Bearer ${databricks_token.terraform_pat.token_value}" }
+  depends_on      = [data.http.create_group_lead]
+}
+
+data "http" "get_group_user" {
+  url    = "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+${local.group_name_user}"
+  method = "GET"
+
+  request_headers = { Authorization = "Bearer ${databricks_token.terraform_pat.token_value}" }
+  depends_on      = [data.http.create_group_user]
+}
+
+data "http" "get_group_guest" {
+  url    = "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+${local.group_name_guest}"
+  method = "GET"
+
+  request_headers = { Authorization = "Bearer ${databricks_token.terraform_pat.token_value}" }
+  depends_on      = [data.http.create_group_user]
+}
+
+resource "databricks_permission_assignment" "sync_group_lead" {
+  principal_id = jsondecode(data.http.get_group_lead.response_body).Resources[0].id
+  permissions  = ["USER"]
+}
+
+resource "databricks_permission_assignment" "sync_group_user" {
+  principal_id = jsondecode(data.http.get_group_user.response_body).Resources[0].id
+  permissions  = ["USER"]
+}
+
+resource "databricks_permission_assignment" "sync_group_guest" {
+  principal_id = jsondecode(data.http.get_group_guest.response_body).Resources[0].id
+  permissions  = ["USER"]
+}
+
+

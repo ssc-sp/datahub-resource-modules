@@ -50,4 +50,7 @@ locals {
   kv_uri                    = "https://${split("/", var.key_vault_cmk_id)[2]}"
   kv_key_name               = split("/", var.key_vault_cmk_id)[4]
   kv_key_version            = split("/", var.key_vault_cmk_id)[5]
+  group_name_lead           = "${local.databricks_name}-lead"
+  group_name_user           = "${local.databricks_name}-user"
+  group_name_guest          = "${local.databricks_name}-guest"
 }

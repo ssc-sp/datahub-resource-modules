@@ -49,14 +49,6 @@ resource "azurerm_role_assignment" "datahub_storage_eventgrid_contrib" {
   principal_id         = azurerm_databricks_access_connector.datahub_workspace_storage.identity[0].principal_id
 }
 
-# resource "databricks_grants" "external_creds" {
-#   storage_credential = databricks_storage_credential.datahub_workspace_storage.id
-#   grant {
-#     principal  = databricks_group.project_lead.display_name
-#     privileges = ["ALL_PRIVILEGES"]
-#   }
-# }
-
 resource "databricks_external_location" "datahub_workspace_location" {
   name            = format("%s-datahub", local.databricks_name)
   url             = format("abfss://%s@%s.dfs.core.windows.net", local.datahub_blob_container, var.storage_acct_name)
@@ -75,4 +67,20 @@ resource "databricks_external_location" "datahub_workspace_catalog" {
   isolation_mode  = "ISOLATION_MODE_ISOLATED"
 
   depends_on = [azurerm_role_assignment.datahub_storage_blob_contrib, azurerm_role_assignment.datahub_storage_acct_contrib, azurerm_role_assignment.datahub_storage_queue_contrib, azurerm_role_assignment.datahub_storage_eventgrid_contrib]
+}
+
+resource "databricks_grants" "external_location_grants" {
+  external_location = databricks_external_location.datahub_workspace_location.id
+  grant {
+    principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
+    privileges = ["ALL_PRIVILEGES", "MANAGE", "EXTERNAL_USE_LOCATION"]
+  }
+  grant {
+    principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
+    privileges = ["WRITE_FILES", "READ_FILES"]
+  }
+  grant {
+    principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
+    privileges = ["READ_FILES"]
+  }
 }

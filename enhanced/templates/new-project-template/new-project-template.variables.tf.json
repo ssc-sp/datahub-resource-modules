@@ -63,9 +63,16 @@
     "subnet_group_number": {
       "type": "string"
     },
+    "subnet_name_prefix": {
+      "type": "string"
+    },
     "ssc_cbrid": {
       "type": "string",
       "default": ""
+    },
+    "enable_clamav": {
+      "type": "bool",
+      "default": false
     },
     "is_dev": {
       "type": "bool",

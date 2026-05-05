@@ -70,6 +70,7 @@ module "resource_group_module" {
   ssc_cbrid           = var.ssc_cbrid
   aad_admin_group_oid = var.aad_admin_group_oid
   subnet_group_number = var.subnet_group_number
+  subnet_name_prefix  = var.subnet_name_prefix
   vnet_name           = var.vnet_name
   vnet_rg             = var.vnet_rg
 }

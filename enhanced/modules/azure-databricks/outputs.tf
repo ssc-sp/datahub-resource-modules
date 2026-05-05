@@ -18,3 +18,7 @@ output "azure_databricks_managed_rg_id" {
 # output "azure_databricks_storage_principal_id" {
 #   value = azapi_resource.fsdh_databricks.output.properties.storageAccountIdentity.principalId
 # }
+
+output "azure_databricks_group_lead_id" {
+  value = jsondecode(data.http.get_group_lead.response_body).Resources[0].id
+}

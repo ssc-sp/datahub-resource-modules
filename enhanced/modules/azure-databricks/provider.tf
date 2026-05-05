@@ -13,5 +13,3 @@ terraform {
 provider "databricks" {
   azure_workspace_resource_id = azapi_resource.fsdh_databricks.id
 }
-
-

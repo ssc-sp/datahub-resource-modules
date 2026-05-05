@@ -12,7 +12,7 @@ resource "azurerm_key_vault_access_policy" "kv_encryption_set_policy" {
   tenant_id    = var.az_tenant_id
   object_id    = azapi_resource.fsdh_databricks.output.properties.managedDiskIdentity.principalId #data.azurerm_resources.datahub_dbr_encryption.resources[0].identity.0.pricipal_id
 
-  key_permissions    = ["List", "Get", "UnwrapKey", "WrapKey"]
+  key_permissions = ["List", "Get", "UnwrapKey", "WrapKey"]
 }
 
 resource "databricks_secret_scope" "kv_secret_scope" {
