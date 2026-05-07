@@ -1,0 +1,144 @@
+# ==============================================
+#     Required Variables
+# ==============================================
+
+variable "az_subscription_id" {
+  description = "Azure Subscription ID"
+  type        = string
+}
+
+variable "az_tenant_id" {
+  description = "Azure Tenant ID"
+  type        = string
+}
+
+variable "project_cd" {
+  description = "Project short code"
+  type        = string
+}
+
+variable "datahub_app_sp_oid" {
+  description = "The SP object ID used by the datahub app for granting KV access"
+  type        = string
+}
+
+variable "automation_account_uai_name" {
+  description = "The UAI common automation acct UAI"
+  type        = string
+}
+
+variable "automation_account_uai_rg" {
+  description = "The RG of the automation acct UAI"
+  type        = string
+}
+
+variable "automation_account_uai_sub" {
+  description = "The RG of the automation acct UAI"
+  type        = string
+}
+
+variable "log_analytics_workspace_id" {
+  description = "FSDH central LAW ID for storing audit and log"
+  type        = string
+}
+
+# ==============================================
+#     Optional Variables
+# ==============================================
+variable "environment_classification" {
+  description = "Max level of security the environment hosts"
+  type        = string
+  default     = "U"
+}
+
+variable "environment_name" {
+  description = "Short name for environment (e.g. dev, test, prod)"
+  type        = string
+  default     = "dev"
+}
+
+variable "az_location" {
+  description = "The Azure location to create the resources in"
+  type        = string
+  default     = "canadacentral"
+}
+
+variable "resource_prefix" {
+  description = "Resource name prefix for all resources"
+  type        = string
+  default     = "fsdh"
+}
+
+variable "common_tags" {
+  description = "Common tags map"
+  type        = map(any)
+  default     = {}
+}
+
+variable "budget_amount" {
+  description = "Budget amount for the resource group"
+  type        = number
+  default     = 0
+}
+
+variable "ssc_cbrid" {
+  description = "CBR tag for the workspace"
+  type        = string
+  default     = ""
+}
+
+variable "default_alert_email" {
+  description = "Default alert email regardless of project"
+  type        = string
+  default     = "fsdh-notifications-dhsf-notifications@ssc-spc.gc.ca"
+}
+
+variable "project_alert_email_list" {
+  description = "A list of email addresses to receive project level notification emails"
+  type        = list(string)
+  default     = []
+}
+
+variable "aad_admin_group_oid" {
+  description = "The admin group OID in AAD for managing the datahub app"
+  type        = string
+}
+
+variable "budget_start_date" {
+  description = "The start date of budget"
+  type        = string
+  default     = ""
+}
+
+variable "storage_size_limit_tb" {
+  description = "Storage account size limit for alerts"
+  type        = number
+  default     = 0
+}
+
+variable "resource_prefix_alphanumeric" {
+  description = "Aphanumeric resource name prefix for resources. All lower case"
+  type        = string
+  default     = "fsdh"
+}
+
+variable "blob_scan_image" { default = "ghcr.io/fsdh-pfds/clamav-blobavscan:latest" }
+variable "proj_cost_image" { default = "ghcr.io/fsdh-pfds/proj-cost-worker:latest" }
+variable "proj_sas_image" { default = "ghcr.io/fsdh-pfds/proj-sas-worker:latest" }
+
+variable "enable_clamav" { default = false } # blob events still to be queued even if disabled so that they can be scanned later once enabled
+
+variable "vnet_name" {}
+variable "vnet_rg" {}
+variable "subnet_group_number" {}
+variable "subnet_name_prefix" { default = "fsdh" }
+variable "aca_profile_type" { default = "D4" }
+
+variable "enable_defender" {
+  description = "Enable Azure Defender for Storage"
+  type        = bool
+  default     = false
+}
+
+variable "is_dev" { default = false }
+
