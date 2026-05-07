@@ -35,18 +35,18 @@ resource "databricks_external_location" "datahub_workspace_location" {
   depends_on = [azurerm_role_assignment.datahub_storage_blob_contrib, azurerm_role_assignment.datahub_storage_acct_contrib, azurerm_role_assignment.datahub_storage_queue_contrib, azurerm_role_assignment.datahub_storage_eventgrid_contrib]
 }
 
-# resource "databricks_grants" "ext_location_grants" {
-#   external_location = databricks_external_location.datahub_workspace_location.id
-#   grant {
-#     principal  = databricks_group.project_lead.display_name
-#     privileges = ["ALL_PRIVILEGES"]
-#   }
-#   grant {
-#     principal  = databricks_group.project_users.display_name
-#     privileges = ["READ_FILES", "WRITE_FILES"]
-#   }
-#   grant {
-#     principal  = databricks_group.project_guest.display_name
-#     privileges = ["READ_FILES"]
-#   }
-# }
+resource "databricks_grants" "external_location_grants" {
+  external_location = databricks_external_location.datahub_workspace_location.id
+  grant {
+    principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
+    privileges = ["ALL_PRIVILEGES", "MANAGE", "EXTERNAL_USE_LOCATION"]
+  }
+  grant {
+    principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
+    privileges = ["WRITE_FILES", "READ_FILES"]
+  }
+  grant {
+    principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
+    privileges = ["READ_FILES"]
+  }
+}

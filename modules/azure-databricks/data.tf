@@ -27,4 +27,7 @@ locals {
   wasbs_uri                 = "wasbs://${local.datahub_blob_container}@${var.storage_acct_name}.blob.core.windows.net"
   catalog_uri               = "abfss://${local.datahub_catalog_container}@${var.storage_acct_name}.dfs.core.windows.net"
   current_fiscal_year_start = contains(["1", "2", "3"], formatdate("M", timestamp())) ? "${formatdate("YYYY", timestamp()) - 1}-04-01T00:00:00Z" : "${formatdate("YYYY", timestamp())}-04-01T00:00:00Z"
+  group_name_lead           = "${local.databricks_name}-lead"
+  group_name_user           = "${local.databricks_name}-user"
+  group_name_guest          = "${local.databricks_name}-guest"
 }
