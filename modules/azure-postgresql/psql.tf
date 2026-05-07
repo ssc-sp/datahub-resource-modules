@@ -43,14 +43,19 @@ resource "azurerm_postgresql_flexible_server" "datahub_psql_server" {
 
   depends_on = [azurerm_key_vault_access_policy.psql_akv_policy]
   lifecycle {
+<<<<<<< HEAD:modules/azure-postgresql/psql.tf
     ignore_changes  = [version, storage_mb, auto_grow_enabled, tags["created_date"]]
     prevent_destroy = true
+=======
+    ignore_changes = [storage_mb, auto_grow_enabled]
+>>>>>>> origin/main:modules/v3.2.0/azure-postgresql/psql.tf
   }
 }
 
 resource "azurerm_postgresql_flexible_server_configuration" "datahub_psql_server_ext" {
   name      = "azure.extensions"
   server_id = azurerm_postgresql_flexible_server.datahub_psql_server.id
+<<<<<<< HEAD:modules/azure-postgresql/psql.tf
   value     = local.psql_ext # Max: 10
 
   lifecycle {
@@ -63,4 +68,7 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "datahub_psql_allow_
   server_id        = azurerm_postgresql_flexible_server.datahub_psql_server.id
   start_ip_address = "0.0.0.0"
   end_ip_address   = "0.0.0.0"
+=======
+  value     = "POSTGIS,CUBE,CITEXT,BTREE_GIST"
+>>>>>>> origin/main:modules/v3.2.0/azure-postgresql/psql.tf
 }
