@@ -1,19 +1,22 @@
 $PSScriptRoot
 $cwd = Get-Location
 
-# cp $PSScriptRoot/../templates/azure-databricks/*tf* . -Force
-# cp $PSScriptRoot/../templates/azure-app-service/*tf* . -Force
-cp $PSScriptRoot/../templates/azure-postgres/*tf* . -Force
-cp $PSScriptRoot/../templates/azure-container-app/*tf* . -Force
-# cp $PSScriptRoot/../templates/azure-container-instance/*tf* . -Force
-cp $PSScriptRoot/../templates/new-project-template/*tf* . -Force
+$allTemplates = @(
+    "azure-databricks",
+    # "azure-app-service",
+    # "zure-postgres",
+    "azure-container-app",
+    # "azure-container-instance",
+    "new-project-template"
+)
 
-$file = 'azure-databricks.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
-$file = 'azure-app-service.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
-$file = 'azure-postgresql.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
-$file = 'azure-container-app.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
-$file = 'azure-container-instance.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
-$file = 'main.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
+foreach ($template in $allTemplates) { cp $PSScriptRoot/../templates/$template/*tf* . -Force }
+
+$allModules = @('azure-databricks.tf', 'azure-app-service.tf', 'azure-postgresql.tf', 'azure-container-app.tf', 'azure-container-instance.tf', 'main.tf')
+foreach ($module in $allModules) {
+    if (Test-Path -Path $module) { (Get-Content $module) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $module }
+}
 
 # Get my IP to whitelist for app service
-$file = 'azure-app-service.tf'; (Get-Content $file) -replace 'var.allow_source_ip', 'trimspace("${data.http.myip.response_body}")' | Set-Content $file
+$file = 'azure-app-service.tf'
+if (Test-Path -Path $file) { (Get-Content $file) -replace 'var.allow_source_ip', 'trimspace("${data.http.myip.response_body}")' | Set-Content $file }
