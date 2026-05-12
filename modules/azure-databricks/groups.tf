@@ -44,7 +44,6 @@ resource "databricks_group" "project_guest" {
   depends_on = [time_sleep.wait_for_databricks_workspace]
 }
 
-
 data "http" "create_group_lead" {
   url    = "https://${azurerm_databricks_workspace.datahub_databricks_workspace.workspace_url}/api/2.0/account/scim/v2/Groups"
   method = "POST"

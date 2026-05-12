@@ -11,8 +11,8 @@ resource "azurerm_databricks_access_connector" "datahub_workspace_storage" {
 }
 
 resource "databricks_catalog" "datahub_proj_catalog" {
-  name         = format("%s-cat", local.databricks_name)
-  storage_root = local.catalog_uri
+  name         = format("%s", local.databricks_name)
+  storage_root = databricks_external_location.datahub_catalog_location.url
 }
 
 resource "databricks_storage_credential" "datahub_workspace_storage" {
@@ -59,20 +59,25 @@ resource "databricks_external_location" "datahub_workspace_location" {
   depends_on = [azurerm_role_assignment.datahub_storage_blob_contrib, azurerm_role_assignment.datahub_storage_acct_contrib, azurerm_role_assignment.datahub_storage_queue_contrib, azurerm_role_assignment.datahub_storage_eventgrid_contrib]
 }
 
-resource "databricks_catalog" "datahub_proj_catalog" {
-  name         = format("%s-cat", local.databricks_name)
-  storage_root = databricks_external_location.datahub_workspace_location.url
+resource "databricks_external_location" "datahub_catalog_location" {
+  name            = format("%s-catalog", local.databricks_name)
+  url             = format("abfss://%s@%s.dfs.core.windows.net", local.datahub_catalog_container, var.storage_acct_name)
+  credential_name = databricks_storage_credential.datahub_workspace_storage.id
+  comment         = "Managed by TF"
+  isolation_mode  = "ISOLATION_MODE_ISOLATED"
+
+  depends_on = [azurerm_role_assignment.datahub_storage_blob_contrib, azurerm_role_assignment.datahub_storage_acct_contrib, azurerm_role_assignment.datahub_storage_queue_contrib, azurerm_role_assignment.datahub_storage_eventgrid_contrib]
 }
 
 resource "databricks_grants" "grants_external_location" {
   external_location = databricks_external_location.datahub_workspace_location.id
   grant {
     principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
-    privileges = ["ALL_PRIVILEGES", "MANAGE", "EXTERNAL_USE_LOCATION", "EXTERNAL_USE_SCHEMA"]
+    privileges = ["ALL_PRIVILEGES", "MANAGE", "EXTERNAL_USE_LOCATION", "CREATE_EXTERNAL_TABLE"]
   }
   grant {
     principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
-    privileges = ["WRITE_FILES", "READ_FILES", "CREATE_EXTERNAL_TABLE", "SELECT"]
+    privileges = ["WRITE_FILES", "READ_FILES", "CREATE_EXTERNAL_TABLE"]
   }
   grant {
     principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
@@ -84,14 +89,30 @@ resource "databricks_grants" "grants_catalog" {
   catalog = databricks_catalog.datahub_proj_catalog.id
   grant {
     principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
-    privileges = ["ALL_PRIVILEGES", "USE_CATALOG", "SELECT", "USE_SCHEMA", "MODIFY", "CREATE_TABLE", "CREATE_SCHEMA", "CREATE_FUNCTION", "EXECUTE"]
+    privileges = ["ALL_PRIVILEGES", "MANAGE", "USE_CATALOG", "SELECT", "USE_SCHEMA", "MODIFY", "CREATE_TABLE", "CREATE_SCHEMA", "CREATE_FUNCTION", "EXECUTE"]
   }
   grant {
     principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
-    privileges = ["USE_CATALOG", "SELECT", "USE_SCHEMA", "MODIFY", "CREATE_TABLE", "CREATE_EXTERNAL_TABLE"]
+    privileges = ["ALL_PRIVILEGES", "USE_CATALOG", "SELECT", "USE_SCHEMA", "MODIFY", "CREATE_TABLE"]
   }
   grant {
     principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
     privileges = ["USE_CATALOG", "SELECT", "USE_SCHEMA"]
+  }
+}
+
+resource "databricks_grants" "grants_schema" {
+  schema = databricks_schema.datahub_proj_schema.id
+  grant {
+    principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
+    privileges = ["ALL_PRIVILEGES", "USE_SCHEMA", "MODIFY", "CREATE_TABLE"]
+  }
+  grant {
+    principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
+    privileges = ["USE_SCHEMA", "CREATE_TABLE"]
+  }
+  grant {
+    principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
+    privileges = ["SELECT", "USE_SCHEMA"]
   }
 }

@@ -4,6 +4,11 @@ resource "time_sleep" "wait_for_databricks_workspace" {
   create_duration = "120s"
 }
 
+resource "databricks_schema" "datahub_proj_schema" {
+  catalog_name = databricks_catalog.datahub_proj_catalog.name
+  name         = "fsdh"
+}
+
 data "databricks_group" "admins" {
   display_name = "admins"
   depends_on   = [time_sleep.wait_for_databricks_workspace, azurerm_private_endpoint.datahub_proj_databricks_api_ep]
@@ -107,4 +112,32 @@ resource "databricks_permission_assignment" "sync_group_guest" {
   permissions  = ["USER"]
 }
 
+resource "databricks_entitlements" "group_entitlement_lead" {
+  group_id                   = jsondecode(data.http.get_group_lead.response_body).Resources[0].id
+  allow_cluster_create       = true
+  allow_instance_pool_create = true
+  databricks_sql_access      = true
+  workspace_access           = true
 
+  depends_on = [databricks_permission_assignment.sync_group_lead]
+}
+
+resource "databricks_entitlements" "group_entitlement_user" {
+  group_id                   = jsondecode(data.http.get_group_user.response_body).Resources[0].id
+  allow_cluster_create       = false
+  allow_instance_pool_create = false
+  databricks_sql_access      = true
+  workspace_access           = true
+
+  depends_on = [databricks_permission_assignment.sync_group_user]
+}
+
+resource "databricks_entitlements" "group_entitlement_guest" {
+  group_id                   = jsondecode(data.http.get_group_guest.response_body).Resources[0].id
+  allow_cluster_create       = false
+  allow_instance_pool_create = false
+  databricks_sql_access      = true
+  workspace_access           = true
+
+  depends_on = [databricks_permission_assignment.sync_group_guest]
+}
