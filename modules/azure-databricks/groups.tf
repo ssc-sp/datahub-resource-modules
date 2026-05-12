@@ -70,7 +70,7 @@ data "http" "create_group_guest" {
 }
 
 data "http" "get_group_lead" {
-  url    = "https://${azurerm_databricks_workspace.datahub_databricks_workspace.workspace_url}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+${local.group_name_lead}"
+  url    = "https://${azurerm_databricks_workspace.datahub_databricks_workspace.workspace_url}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+\"${local.group_name_lead}\""
   method = "GET"
 
   request_headers = { Authorization = "Bearer ${databricks_token.terraform_pat.token_value}" }
@@ -78,7 +78,7 @@ data "http" "get_group_lead" {
 }
 
 data "http" "get_group_user" {
-  url    = "https://${azurerm_databricks_workspace.datahub_databricks_workspace.workspace_url}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+${local.group_name_user}"
+  url    = "https://${azurerm_databricks_workspace.datahub_databricks_workspace.workspace_url}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+\"${local.group_name_user}\""
   method = "GET"
 
   request_headers = { Authorization = "Bearer ${databricks_token.terraform_pat.token_value}" }
@@ -86,7 +86,7 @@ data "http" "get_group_user" {
 }
 
 data "http" "get_group_guest" {
-  url    = "https://${azurerm_databricks_workspace.datahub_databricks_workspace.workspace_url}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+${local.group_name_guest}"
+  url    = "https://${azurerm_databricks_workspace.datahub_databricks_workspace.workspace_url}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+\"${local.group_name_guest}\""
   method = "GET"
 
   request_headers = { Authorization = "Bearer ${databricks_token.terraform_pat.token_value}" }
@@ -106,4 +106,34 @@ resource "databricks_permission_assignment" "sync_group_user" {
 resource "databricks_permission_assignment" "sync_group_guest" {
   principal_id = jsondecode(data.http.get_group_guest.response_body).Resources[0].id
   permissions  = ["USER"]
+}
+
+resource "databricks_entitlements" "group_entitlement_lead" {
+  group_id                   = jsondecode(data.http.get_group_lead.response_body).Resources[0].id
+  allow_cluster_create       = true
+  allow_instance_pool_create = true
+  databricks_sql_access      = true
+  workspace_access           = true
+
+  depends_on = [databricks_permission_assignment.sync_group_lead]
+}
+
+resource "databricks_entitlements" "group_entitlement_user" {
+  group_id                   = jsondecode(data.http.get_group_user.response_body).Resources[0].id
+  allow_cluster_create       = false
+  allow_instance_pool_create = false
+  databricks_sql_access      = true
+  workspace_access           = true
+
+  depends_on = [databricks_permission_assignment.sync_group_user]
+}
+
+resource "databricks_entitlements" "group_entitlement_guest" {
+  group_id                   = jsondecode(data.http.get_group_guest.response_body).Resources[0].id
+  allow_cluster_create       = false
+  allow_instance_pool_create = false
+  databricks_sql_access      = true
+  workspace_access           = true
+
+  depends_on = [databricks_permission_assignment.sync_group_guest]
 }

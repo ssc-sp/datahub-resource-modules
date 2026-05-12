@@ -69,7 +69,7 @@ data "http" "create_group_guest" {
 }
 
 data "http" "get_group_lead" {
-  url    = "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+${local.group_name_lead}"
+  url    = "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+\"${local.group_name_lead}\""
   method = "GET"
 
   request_headers = { Authorization = "Bearer ${databricks_token.terraform_pat.token_value}" }
@@ -77,7 +77,7 @@ data "http" "get_group_lead" {
 }
 
 data "http" "get_group_user" {
-  url    = "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+${local.group_name_user}"
+  url    = "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+\"${local.group_name_user}\""
   method = "GET"
 
   request_headers = { Authorization = "Bearer ${databricks_token.terraform_pat.token_value}" }
@@ -85,7 +85,7 @@ data "http" "get_group_user" {
 }
 
 data "http" "get_group_guest" {
-  url    = "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+${local.group_name_guest}"
+  url    = "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+\"${local.group_name_guest}\""
   method = "GET"
 
   request_headers = { Authorization = "Bearer ${databricks_token.terraform_pat.token_value}" }

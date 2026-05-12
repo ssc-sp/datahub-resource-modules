@@ -36,6 +36,8 @@ resource "databricks_notebook" "fsdh_sample_notebook_serverless" {
     display(df)
     df = spark.read.format("csv").option("header", "true").load("abfss://${local.datahub_blob_container}@${var.storage_acct_name}.dfs.core.windows.net/fsdh-sample.csv")
     display(df)
+    dbutils.fs.mkdirs("abfss://datahub@fsdhprojs2604hdev.dfs.core.windows.net/test_folder")
+    df.write.format("csv").option("header", "true").mode("overwrite").save("abfss://datahub@fsdhprojs2604hdev.dfs.core.windows.net/test_folder/fsdh-sample.csv")
   EOT
   )
 
