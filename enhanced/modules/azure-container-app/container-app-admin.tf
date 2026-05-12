@@ -12,9 +12,9 @@ resource "azurerm_container_app" "proj_admin_app" {
   template {
     container {
       name   = "admin"
-      image  = "ghcr.io/linuxserver/nginx"      
+      image  = "ghcr.io/linuxserver/nginx"
       cpu    = 0.25
-      memory = "0.5Gi"    
+      memory = "0.5Gi"
     }
 
     min_replicas                     = 0

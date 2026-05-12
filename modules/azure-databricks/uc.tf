@@ -3,9 +3,19 @@ resource "databricks_catalog" "datahub_proj_catalog" {
   storage_root = databricks_external_location.datahub_catalog_location.url
 }
 
-resource "databricks_schema" "datahub_proj_schema" {
+resource "databricks_schema" "datahub_proj_schema_bronze" {
   catalog_name = databricks_catalog.datahub_proj_catalog.name
-  name         = "fsdh"
+  name         = "bronze"
+}
+
+resource "databricks_schema" "datahub_proj_schema_silver" {
+  catalog_name = databricks_catalog.datahub_proj_catalog.name
+  name         = "silver"
+}
+
+resource "databricks_schema" "datahub_proj_schema_gold" {
+  catalog_name = databricks_catalog.datahub_proj_catalog.name
+  name         = "gold"
 }
 
 resource "azurerm_databricks_access_connector" "datahub_workspace_storage" {
@@ -54,15 +64,15 @@ resource "databricks_grants" "grants_external_location" {
   external_location = databricks_external_location.datahub_workspace_location.id
   grant {
     principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
-    privileges = ["ALL_PRIVILEGES", "MANAGE", "EXTERNAL_USE_LOCATION", "CREATE_EXTERNAL_TABLE"]
+    privileges = local.location_privilege_lead
   }
   grant {
     principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
-    privileges = ["WRITE_FILES", "READ_FILES", "CREATE_EXTERNAL_TABLE"]
+    privileges = local.location_privilege_user
   }
   grant {
     principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
-    privileges = ["READ_FILES"]
+    privileges = local.location_privilege_guest
   }
 }
 
@@ -70,30 +80,62 @@ resource "databricks_grants" "grants_catalog" {
   catalog = databricks_catalog.datahub_proj_catalog.id
   grant {
     principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
-    privileges = ["ALL_PRIVILEGES", "MANAGE", "USE_CATALOG", "SELECT", "USE_SCHEMA", "MODIFY", "CREATE_TABLE", "CREATE_SCHEMA", "CREATE_FUNCTION", "EXECUTE"]
+    privileges = local.catalog_privilege_lead
   }
   grant {
     principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
-    privileges = ["ALL_PRIVILEGES", "USE_CATALOG", "SELECT", "USE_SCHEMA", "MODIFY", "CREATE_TABLE"]
+    privileges = local.catalog_privilege_user
   }
   grant {
     principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
-    privileges = ["USE_CATALOG", "SELECT", "USE_SCHEMA"]
+    privileges = local.catalog_privilege_guest
   }
 }
 
-resource "databricks_grants" "grants_schema" {
-  schema = databricks_schema.datahub_proj_schema.id
+resource "databricks_grants" "grants_schema_bronze" {
+  schema = databricks_schema.datahub_proj_schema_bronze.id
   grant {
     principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
-    privileges = ["ALL_PRIVILEGES", "USE_SCHEMA", "MODIFY", "CREATE_TABLE"]
+    privileges = local.schema_privilege_lead
   }
   grant {
     principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
-    privileges = ["USE_SCHEMA", "CREATE_TABLE"]
+    privileges = local.schema_privilege_user
   }
   grant {
     principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
-    privileges = ["SELECT", "USE_SCHEMA"]
+    privileges = local.schema_privilege_guest
+  }
+}
+
+resource "databricks_grants" "grants_schema_silver" {
+  schema = databricks_schema.datahub_proj_schema_silver.id
+  grant {
+    principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
+    privileges = local.schema_privilege_lead
+  }
+  grant {
+    principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
+    privileges = local.schema_privilege_user
+  }
+  grant {
+    principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
+    privileges = local.schema_privilege_guest
+  }
+}
+
+resource "databricks_grants" "grants_schema_gold" {
+  schema = databricks_schema.datahub_proj_schema_gold.id
+  grant {
+    principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
+    privileges = local.schema_privilege_lead
+  }
+  grant {
+    principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
+    privileges = local.schema_privilege_user
+  }
+  grant {
+    principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
+    privileges = local.schema_privilege_guest
   }
 }

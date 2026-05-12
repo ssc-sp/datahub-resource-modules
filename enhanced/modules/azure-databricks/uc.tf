@@ -101,18 +101,51 @@ resource "databricks_grants" "grants_catalog" {
   }
 }
 
-resource "databricks_grants" "grants_schema" {
-  schema = databricks_schema.datahub_proj_schema.id
+resource "databricks_grants" "grants_schema_bronze" {
+  schema = databricks_schema.datahub_proj_schema_bronze.id
   grant {
     principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
-    privileges = ["ALL_PRIVILEGES", "USE_SCHEMA", "MODIFY", "CREATE_TABLE"]
+    privileges = local.schema_privilege_lead
   }
   grant {
     principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
-    privileges = ["USE_SCHEMA", "CREATE_TABLE"]
+    privileges = local.schema_privilege_user
   }
   grant {
     principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
-    privileges = ["SELECT", "USE_SCHEMA"]
+    privileges = local.schema_privilege_guest
   }
 }
+
+resource "databricks_grants" "grants_schema_silver" {
+  schema = databricks_schema.datahub_proj_schema_silver.id
+  grant {
+    principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
+    privileges = local.schema_privilege_lead
+  }
+  grant {
+    principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
+    privileges = local.schema_privilege_user
+  }
+  grant {
+    principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
+    privileges = local.schema_privilege_guest
+  }
+}
+
+resource "databricks_grants" "grants_schema_gold" {
+  schema = databricks_schema.datahub_proj_schema_gold.id
+  grant {
+    principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
+    privileges = local.schema_privilege_lead
+  }
+  grant {
+    principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
+    privileges = local.schema_privilege_user
+  }
+  grant {
+    principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
+    privileges = local.schema_privilege_guest
+  }
+}
+
