@@ -15,6 +15,22 @@ resource "databricks_catalog" "datahub_proj_catalog" {
   storage_root = databricks_external_location.datahub_catalog_location.url
 }
 
+
+resource "databricks_schema" "datahub_proj_schema_bronze" {
+  catalog_name = databricks_catalog.datahub_proj_catalog.name
+  name         = "bronze"
+}
+
+resource "databricks_schema" "datahub_proj_schema_silver" {
+  catalog_name = databricks_catalog.datahub_proj_catalog.name
+  name         = "silver"
+}
+
+resource "databricks_schema" "datahub_proj_schema_gold" {
+  catalog_name = databricks_catalog.datahub_proj_catalog.name
+  name         = "gold"
+}
+
 resource "databricks_storage_credential" "datahub_workspace_storage" {
   name = format("%s-cred", local.databricks_name)
   azure_managed_identity {
