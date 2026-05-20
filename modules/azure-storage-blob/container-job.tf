@@ -10,12 +10,6 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
     identity_ids = [var.clamav_job_uai]
   }
 
-  secret {
-    name                = local.storage_conn_secret
-    key_vault_secret_id = azurerm_key_vault_secret.storage_conn_secret.versionless_id
-    identity            = var.clamav_job_uai
-  }
-
   template {
     container {
       name   = "blobavscan"
@@ -23,12 +17,8 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
       cpu    = 2
       memory = "4.0Gi"
       env {
-        name        = "storage_connection_string"
-        secret_name = local.storage_conn_secret
-      }
-      env {
-        name        = local.storage_conn_secret
-        secret_name = local.storage_conn_secret
+        name  = "STORAGE_ACCOUNT"
+        value = azurerm_storage_account.datahub_storageaccount.name
       }
       env {
         name  = "WORK_DIR"
