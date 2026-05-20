@@ -31,7 +31,7 @@ locals {
   group_name_user           = "${local.databricks_name}-user"
   group_name_guest          = "${local.databricks_name}-guest"
   catalog_privilege_lead    = ["ALL_PRIVILEGES", "MANAGE", "USE_CATALOG", "SELECT", "USE_SCHEMA", "MODIFY", "CREATE_TABLE", "CREATE_SCHEMA", "CREATE_FUNCTION", "EXECUTE"]
-  catalog_privilege_user    = ["ALL_PRIVILEGES", "USE_CATALOG", "SELECT", "USE_SCHEMA", "MODIFY", "CREATE_TABLE"]
+  catalog_privilege_user    = ["USE_CATALOG", "SELECT", "USE_SCHEMA", "MODIFY", "CREATE_TABLE"]
   catalog_privilege_guest   = ["USE_CATALOG", "SELECT", "USE_SCHEMA"]
   schema_privilege_lead     = ["ALL_PRIVILEGES", "USE_SCHEMA", "MODIFY", "CREATE_TABLE"]
   schema_privilege_user     = ["USE_SCHEMA", "CREATE_TABLE"]

@@ -51,3 +51,9 @@ resource "azurerm_key_vault_access_policy" "kv_policy_aca_env" {
   secret_permissions = ["Get", "List"]
   key_permissions    = ["Get", "UnwrapKey", "WrapKey", "List", "Update"]
 }
+
+resource "azurerm_role_assignment" "proj_storage_clamav_job_role" {
+  scope                = azurerm_storage_account.datahub_storageaccount.id
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.principal_id
+}

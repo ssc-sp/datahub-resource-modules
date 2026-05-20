@@ -60,3 +60,4 @@ output "clamav_docker_image" { value = local.docker_image_clamav }
 output "costing_docker_image" { value = local.docker_image_proj_cost }
 output "sas_docker_image" { value = local.docker_image_proj_sas }
 output "clamav_job_uai" { value = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id }
+output "clamav_job_principal_id" { value = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.principal_id }

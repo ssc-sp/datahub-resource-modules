@@ -13,6 +13,7 @@ module "azure_storage_blob_module" {
   clamav_docker_image          = module.resource_group_module.clamav_docker_image
   sas_docker_image             = module.resource_group_module.sas_docker_image
   clamav_job_uai               = module.resource_group_module.clamav_job_uai
+  clamav_job_principal_id      = module.resource_group_module.clamav_job_principal_id
   container_app_env_id         = module.resource_group_module.container_app_env_id
 
   # optional variables
