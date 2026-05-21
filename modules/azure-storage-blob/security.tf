@@ -1,3 +1,16 @@
+resource "azurerm_user_assigned_identity" "datahub_proj_clamav_job_uai" {
+  resource_group_name = var.resource_group_name
+  location            = local.resource_group_location
+  name                = "${local.base_name}-clamav-job-uai"
+}
+
+resource "azurerm_key_vault_access_policy" "kv_policy_clamav_job" {
+  key_vault_id       = var.key_vault_id
+  tenant_id          = var.az_tenant_id
+  object_id          = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.principal_id
+  secret_permissions = ["Get", "List"]
+}
+
 resource "azurerm_key_vault_access_policy" "kv_policy_storage" {
   key_vault_id = var.key_vault_id
   tenant_id    = var.az_tenant_id
@@ -97,7 +110,9 @@ resource "azurerm_key_vault_access_policy" "kv_policy_sas_job" {
 }
 
 resource "azurerm_role_assignment" "proj_storage_clamav_job_role" {
+  for_each = toset(["Storage Blob Data Contributor", "Storage Table Data Contributor", "Storage Queue Data Contributor"])
+
   scope                = azurerm_storage_account.datahub_storageaccount.id
-  role_definition_name = "Contributor"
-  principal_id         = var.clamav_job_principal_id
+  role_definition_name = each.key
+  principal_id         = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.principal_id
 }

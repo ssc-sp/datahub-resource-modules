@@ -7,7 +7,12 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
 
   identity {
     type         = "UserAssigned"
-    identity_ids = [var.clamav_job_uai]
+    identity_ids = [azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id]
+  }
+
+  secret {
+    name  = local.storage_conn_secret
+    value = azurerm_storage_account.datahub_storageaccount.primary_connection_string
   }
 
   template {
@@ -16,6 +21,10 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
       image  = var.clamav_docker_image
       cpu    = 2
       memory = "4.0Gi"
+      env {
+        name        = local.storage_conn_secret
+        secret_name = local.storage_conn_secret
+      }
       env {
         name  = "STORAGE_ACCOUNT"
         value = azurerm_storage_account.datahub_storageaccount.name
@@ -27,6 +36,10 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
       env {
         name  = "container_name"
         value = "${local.datahub_mount_name},${local.datahub_stage_name}"
+      }
+      env {
+        name  = "CLIENT_ID"
+        value = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.client_id
       }
       volume_mounts {
         name = local.datahub_temp_name
@@ -73,7 +86,7 @@ resource "azurerm_container_app_job" "proj_container_app_job_sas_token" {
 
   identity {
     type         = "UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.datahub_proj_sas_token_job_uai.id, var.clamav_job_uai]
+    identity_ids = [azurerm_user_assigned_identity.datahub_proj_sas_token_job_uai.id, azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id]
   }
 
   template {
