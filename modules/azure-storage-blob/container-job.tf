@@ -10,21 +10,13 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
     identity_ids = [azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id]
   }
 
-  secret {
-    name  = local.storage_conn_secret
-    value = azurerm_storage_account.datahub_storageaccount.primary_connection_string
-  }
-
   template {
     container {
       name   = "blobavscan"
       image  = var.clamav_docker_image
       cpu    = 2
       memory = "4.0Gi"
-      env {
-        name        = local.storage_conn_secret
-        secret_name = local.storage_conn_secret
-      }
+
       env {
         name  = "STORAGE_ACCOUNT"
         value = azurerm_storage_account.datahub_storageaccount.name
@@ -62,15 +54,33 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
         name = "blob-clamav-rule"
         metadata = {
           accountName         = azurerm_storage_account.datahub_storageaccount.name
-          connectionFromEnv   = local.storage_conn_secret
           queueLength         = "1024"
           queueName           = var.enable_clamav ? local.blob_created_queue : local.blob_muted_queue
           queueLengthStrategy = "visibleonly"
+          identity            = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id
         }
         custom_rule_type = "azure-queue"
-        authentication {
-          secret_name       = local.storage_conn_secret
-          trigger_parameter = "connection"
+
+      }
+    }
+  }
+}
+
+resource "azapi_update_resource" "proj_container_app_clamav_job_auth" {
+  type        = "Microsoft.App/jobs@2025-07-01"
+  resource_id = azurerm_container_app_job.proj_container_app_clamav_job.id
+  body = {
+    properties = {
+      configuration = {
+        eventTriggerConfig = {
+          scale = {
+            rules = [
+              {
+                auth     = []
+                identity = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id
+              }
+            ]
+          }
         }
       }
     }
