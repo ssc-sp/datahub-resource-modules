@@ -31,20 +31,16 @@ resource "azurerm_container_app" "proj_container_webapp" {
         value = "8080"
       }
       env {
-        name        = "STORAGE_KEY"
-        secret_name = local.secret_name_storage_key
+        name  = "CLIENT_ID"
+        value = azurerm_user_assigned_identity.proj_aca_uami.client_id
+      }
+      env {
+        name  = "PRINCIPAL_ID"
+        value = azurerm_user_assigned_identity.proj_aca_uami.principal_id
       }
       env {
         name  = "STORAGE_NAME"
         value = var.storage_acct_name
-      }
-      env {
-        name        = "STORAGE_SAS"
-        secret_name = local.secret_name_storage_sas
-      }
-      env {
-        name        = "STORAGE_CONN"
-        secret_name = local.secret_name_storage_conn
       }
     }
     volume {
@@ -52,22 +48,6 @@ resource "azurerm_container_app" "proj_container_webapp" {
       storage_name = local.datahub_app_fileshare
       storage_type = "AzureFile"
     }
-  }
-
-  secret {
-    name                = local.secret_name_storage_key
-    identity            = azurerm_user_assigned_identity.proj_aca_uami.id
-    key_vault_secret_id = data.azurerm_key_vault_secret.storage_key_secret.versionless_id
-  }
-  secret {
-    name                = local.secret_name_storage_sas
-    identity            = azurerm_user_assigned_identity.proj_aca_uami.id
-    key_vault_secret_id = data.azurerm_key_vault_secret.storage_sas_secret.versionless_id
-  }
-  secret {
-    name                = local.secret_name_storage_conn
-    identity            = azurerm_user_assigned_identity.proj_aca_uami.id
-    key_vault_secret_id = data.azurerm_key_vault_secret.storage_conn_secret.versionless_id
   }
 
   ingress {
