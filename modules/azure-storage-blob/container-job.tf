@@ -86,5 +86,7 @@ resource "azapi_update_resource" "proj_container_app_clamav_job_auth" {
     }
   }
 
-  depends_on = [azurerm_container_app_job.proj_container_app_clamav_job]
+  lifecycle {
+    replace_triggered_by = [ azurerm_container_app_job.proj_container_app_clamav_job ]
+  }
 }
