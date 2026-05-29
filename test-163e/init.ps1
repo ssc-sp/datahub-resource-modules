@@ -1,21 +1,25 @@
 $PSScriptRoot
 $cwd = Get-Location
 
-cp $PSScriptRoot/../templates/azure-databricks/*tf* . -Force
-cp $PSScriptRoot/../templates/azure-app-service/*tf* . -Force
-cp $PSScriptRoot/../templates/azure-storage-blob/*tf* . -Force
-cp $PSScriptRoot/../templates/azure-postgres/*tf* . -Force
-cp $PSScriptRoot/../templates/azure-container-app/*tf* . -Force
-cp $PSScriptRoot/../templates/azure-container-instance/*tf* . -Force
-cp $PSScriptRoot/../templates/new-project-template/*tf* . -Force
+$allModules = "azure-databricks", "azure-app-service", "azure-postgres", "azure-container-app", "new-project-template", "azure-storage-blob"
+$excludeModules = "azure-postgres", "azure-app-service"
+$moduleSuffix = ""
 
-$file = 'azure-databricks.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
-$file = 'azure-storage-blob.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
-$file = 'azure-app-service.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
-$file = 'azure-postgresql.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
-$file = 'azure-container-app.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
-$file = 'azure-container-instance.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
-$file = 'main.tf'; (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
+foreach ($module in $allModules) {
+    write-Host "Checking module $module"
+    if (! ($excludeModules -contains $module)) { 
+        write-Host "Processing module $module"
+        cp $PSScriptRoot/../templates/$module$moduleSuffix/*tf* . -Force
 
-# Get my IP to whitelist for app service
-$file = 'azure-app-service.tf'; (Get-Content $file) -replace 'var.allow_source_ip', 'trimspace("${data.http.myip.response_body}")' | Set-Content $file
+        $file = $module -eq "new-project-template" ? "main.tf" : "$module$moduleSuffix.tf"
+        if (Test-Path $file) {
+            (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
+        }        
+    }    
+}
+
+$appservice = "azure-app-service$moduleSuffix.tf"
+if (Test-path $appservice) { # Get my IP to whitelist for app service
+    (Get-Content $file) -replace 'var.allow_source_ip', 'trimspace("${data.http.myip.response_body}")' | Set-Content $file
+}
+

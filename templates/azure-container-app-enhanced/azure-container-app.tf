@@ -1,5 +1,5 @@
 module "azure_container_app_module" {
-  source     = "github.com/ssc-sp/datahub-resource-modules//modules/azure-container-app{{tag}}"
+  source     = "github.com/ssc-sp/datahub-resource-modules//modules/azure-container-app-enhanced{{tag}}"
   depends_on = [module.resource_group_module]
 
   resource_group_name    = module.resource_group_module.az_project_rg_name

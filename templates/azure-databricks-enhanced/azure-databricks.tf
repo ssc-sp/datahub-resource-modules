@@ -1,5 +1,5 @@
 module "azure_databricks_module" {
-  source = "github.com/ssc-sp/datahub-resource-modules//modules/azure-databricks{{tag}}"
+  source = "github.com/ssc-sp/datahub-resource-modules//modules/azure-databricks-enhanced{{tag}}"
 
   resource_group_name        = module.resource_group_module.az_project_rg_name
   resource_group_id          = module.resource_group_module.az_project_rg_id

@@ -1,22 +1,25 @@
 $PSScriptRoot
 $cwd = Get-Location
 
-$allTemplates = @(
-    "azure-databricks",
-    # "azure-app-service",
-    # "zure-postgres",
-    "azure-container-app",
-    # "azure-container-instance",
-    "new-project-template"
-)
+$allModules = "azure-databricks", "azure-app-service", "azure-postgres", "azure-container-app", "new-project-template", "azure-storage-blob"
+$excludeModules = "azure-postgres", "azure-app-service"
+$moduleSuffix = ""
 
-foreach ($template in $allTemplates) { cp $PSScriptRoot/../templates/$template/*tf* . -Force }
-
-$allModules = @('azure-databricks.tf', 'azure-app-service.tf', 'azure-postgresql.tf', 'azure-container-app.tf', 'azure-container-instance.tf', 'main.tf')
 foreach ($module in $allModules) {
-    if (Test-Path -Path $module) { (Get-Content $module) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $module }
+    write-Host "Checking module $module"
+    if (! ($excludeModules -contains $module)) { 
+        write-Host "Processing module $module"
+        cp $PSScriptRoot/../templates/$module$moduleSuffix/*tf* . -Force
+
+        $file = $module -eq "new-project-template" ? "main.tf" : "$module$moduleSuffix.tf"
+        if (Test-Path $file) {
+            (Get-Content $file) -replace '^.*modules/', '  source = "../modules/' -replace '{{tag}}', '' | Set-Content $file
+        }        
+    }    
 }
 
-# Get my IP to whitelist for app service
-$file = 'azure-app-service.tf'
-if (Test-Path -Path $file) { (Get-Content $file) -replace 'var.allow_source_ip', 'trimspace("${data.http.myip.response_body}")' | Set-Content $file }
+$appservice = "azure-app-service$moduleSuffix.tf"
+if (Test-path $appservice) { # Get my IP to whitelist for app service
+    (Get-Content $file) -replace 'var.allow_source_ip', 'trimspace("${data.http.myip.response_body}")' | Set-Content $file
+}
+

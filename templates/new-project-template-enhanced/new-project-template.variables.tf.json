@@ -1,0 +1,82 @@
+{
+  "variable": {
+    "az_subscription_id": {
+      "type": "string"
+    },
+    "az_tenant_id": {
+      "type": "string"
+    },
+    "project_cd": {
+      "type": "string"
+    },
+    "datahub_app_sp_oid": {
+      "type": "string"
+    },
+    "environment_classification": {
+      "type": "string",
+      "default": "PA"
+    },
+    "environment_name": {
+      "type": "string",
+      "default": "dev"
+    },
+    "az_location": {
+      "type": "string",
+      "default": "canadacentral"
+    },
+    "resource_prefix": {
+      "type": "string",
+      "default": "fsdh"
+    },
+    "common_tags": {
+      "type": "map(any)",
+      "default": {}
+    },
+    "budget_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "storage_size_limit_tb": {
+      "type": "number"
+    },
+    "aad_admin_group_oid": {
+      "type": "string"
+    },
+    "automation_account_uai_name": {
+      "type": "string"
+    },
+    "automation_account_uai_rg": {
+      "type": "string"
+    },
+    "automation_account_uai_sub": {
+      "type": "string"
+    },
+    "log_analytics_workspace_id": {
+      "type": "string"
+    },
+    "vnet_name": {
+      "type": "string"
+    },
+    "vnet_rg": {
+      "type": "string"
+    },
+    "subnet_group_number": {
+      "type": "string"
+    },
+    "subnet_name_prefix": {
+      "type": "string"
+    },
+    "ssc_cbrid": {
+      "type": "string",
+      "default": ""
+    },
+    "enable_clamav": {
+      "type": "bool",
+      "default": false
+    },
+    "is_dev": {
+      "type": "bool",
+      "default": false
+    }
+  }
+}
