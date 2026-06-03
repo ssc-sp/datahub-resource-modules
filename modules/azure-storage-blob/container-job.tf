@@ -34,6 +34,10 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
         name  = "WORK_DIR"
         value = "/${local.datahub_temp_name}"
       }
+      env {
+        name  = "ENABLE_QUARANTINE"
+        value = var.enable_quarantine
+      }
       volume_mounts {
         name = local.datahub_temp_name
         path = "/${local.datahub_temp_name}"
