@@ -59,4 +59,3 @@ output "container_app_env_id" { value = azurerm_container_app_environment.proj_c
 output "clamav_docker_image" { value = local.docker_image_clamav }
 output "costing_docker_image" { value = local.docker_image_proj_cost }
 output "sas_docker_image" { value = local.docker_image_proj_sas }
-output "clamav_job_uai" { value = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id }

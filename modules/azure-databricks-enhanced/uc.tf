@@ -1,6 +1,13 @@
-resource "databricks_catalog" "datahub_proj_catalog" {
-  name         = format("%s", local.databricks_name)
-  storage_root = databricks_external_location.datahub_catalog_location.url
+resource "azurerm_databricks_access_connector" "datahub_workspace_storage" {
+  name                = format("%s-connector", local.databricks_name)
+  resource_group_name = var.resource_group_name
+  location            = local.resource_group_location
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  tags = var.project_tags
 }
 
 resource "databricks_schema" "datahub_proj_schema_bronze" {
@@ -18,16 +25,9 @@ resource "databricks_schema" "datahub_proj_schema_gold" {
   name         = "gold"
 }
 
-resource "azurerm_databricks_access_connector" "datahub_workspace_storage" {
-  name                = format("%s-connector", local.databricks_name)
-  resource_group_name = var.resource_group_name
-  location            = local.resource_group_location
-
-  identity {
-    type = "SystemAssigned"
-  }
-
-  tags = var.project_tags
+resource "databricks_catalog" "datahub_proj_catalog" {
+  name         = format("%s", local.databricks_name)
+  storage_root = databricks_external_location.datahub_catalog_location.url
 }
 
 resource "databricks_storage_credential" "datahub_workspace_storage" {
@@ -40,8 +40,32 @@ resource "databricks_storage_credential" "datahub_workspace_storage" {
   comment        = "Managed identity credential"
 }
 
+resource "azurerm_role_assignment" "datahub_storage_blob_contrib" {
+  scope                = var.storage_acct_id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_databricks_access_connector.datahub_workspace_storage.identity[0].principal_id
+}
+
+resource "azurerm_role_assignment" "datahub_storage_acct_contrib" {
+  scope                = var.storage_acct_id
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_databricks_access_connector.datahub_workspace_storage.identity[0].principal_id
+}
+
+resource "azurerm_role_assignment" "datahub_storage_queue_contrib" {
+  scope                = var.storage_acct_id
+  role_definition_name = "Storage Queue Data Contributor"
+  principal_id         = azurerm_databricks_access_connector.datahub_workspace_storage.identity[0].principal_id
+}
+
+resource "azurerm_role_assignment" "datahub_storage_eventgrid_contrib" {
+  scope                = var.storage_acct_id
+  role_definition_name = "EventGrid EventSubscription Contributor"
+  principal_id         = azurerm_databricks_access_connector.datahub_workspace_storage.identity[0].principal_id
+}
+
 resource "databricks_external_location" "datahub_workspace_location" {
-  name            = format("%s-ex-location", local.databricks_name)
+  name            = format("%s-datahub", local.databricks_name)
   url             = format("abfss://%s@%s.dfs.core.windows.net", local.datahub_blob_container, var.storage_acct_name)
   credential_name = databricks_storage_credential.datahub_workspace_storage.id
   comment         = "Managed by TF"
@@ -64,15 +88,15 @@ resource "databricks_grants" "grants_external_location" {
   external_location = databricks_external_location.datahub_workspace_location.id
   grant {
     principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
-    privileges = local.location_privilege_lead
+    privileges = ["ALL_PRIVILEGES", "MANAGE", "EXTERNAL_USE_LOCATION", "CREATE_EXTERNAL_TABLE"]
   }
   grant {
     principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
-    privileges = local.location_privilege_user
+    privileges = ["WRITE_FILES", "READ_FILES", "CREATE_EXTERNAL_TABLE"]
   }
   grant {
     principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
-    privileges = local.location_privilege_guest
+    privileges = ["READ_FILES"]
   }
 }
 
@@ -80,15 +104,15 @@ resource "databricks_grants" "grants_catalog" {
   catalog = databricks_catalog.datahub_proj_catalog.id
   grant {
     principal  = jsondecode(data.http.get_group_lead.response_body).Resources[0].displayName
-    privileges = local.catalog_privilege_lead
+    privileges = ["ALL_PRIVILEGES", "MANAGE", "USE_CATALOG", "SELECT", "USE_SCHEMA", "MODIFY", "CREATE_TABLE", "CREATE_SCHEMA", "CREATE_FUNCTION", "EXECUTE"]
   }
   grant {
     principal  = jsondecode(data.http.get_group_user.response_body).Resources[0].displayName
-    privileges = local.catalog_privilege_user
+    privileges = ["ALL_PRIVILEGES", "USE_CATALOG", "SELECT", "USE_SCHEMA", "MODIFY", "CREATE_TABLE"]
   }
   grant {
     principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
-    privileges = local.catalog_privilege_guest
+    privileges = ["USE_CATALOG", "SELECT", "USE_SCHEMA"]
   }
 }
 
@@ -139,3 +163,4 @@ resource "databricks_grants" "grants_schema_gold" {
     privileges = local.schema_privilege_guest
   }
 }
+

@@ -10,6 +10,6 @@ resource "azurerm_container_app_environment_storage" "datahub_app" {
   container_app_environment_id = azurerm_container_app_environment.proj_container_webapp_env.id
   share_name                   = local.datahub_app_fileshare
   access_mode                  = "ReadWrite"
-  access_key                   = data.azurerm_key_vault_secret.storage_key_secret.value
+  access_key                   = var.storage_acct_key
   account_name                 = var.storage_acct_name
 }

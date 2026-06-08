@@ -1,0 +1,92 @@
+# Version {{version}}
+
+terraform {
+  required_providers {
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "~> 2.18"
+    }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 4.38"
+    }
+    null = {
+      source = "hashicorp/null"
+    }
+    random = {
+      source = "hashicorp/random"
+    }
+    tls = {
+      source = "hashicorp/tls"
+    }
+  }
+
+  required_version = ">= 1.1"
+
+  backend "azurerm" {}
+}
+
+provider "azurerm" {
+  subscription_id = var.az_subscription_id
+
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+
+    key_vault {
+      purge_soft_delete_on_destroy    = true
+      recover_soft_deleted_key_vaults = true
+    }
+
+  }
+}
+
+data "azurerm_client_config" "current" {}
+
+locals {
+  databricks_admin_users = [
+    { "email" = "not-in-use@ssc-spc-gc.ca" }
+  ]
+}
+
+module "resource_group_module" {
+  source                      = "github.com/ssc-sp/datahub-resource-modules//modules/azure-resource-group-enhanced{{tag}}"
+  az_tenant_id                = var.az_tenant_id
+  az_subscription_id          = var.az_subscription_id
+  project_cd                  = var.project_cd
+  environment_name            = var.environment_name
+  datahub_app_sp_oid          = var.datahub_app_sp_oid
+  automation_account_uai_name = var.automation_account_uai_name
+  automation_account_uai_rg   = var.automation_account_uai_rg
+  automation_account_uai_sub  = var.automation_account_uai_sub
+  log_analytics_workspace_id  = var.log_analytics_workspace_id
+  enable_clamav               = var.enable_clamav
+  is_dev                      = var.is_dev
+
+  # optional variables
+  budget_amount       = var.budget_amount
+  common_tags         = var.common_tags
+  ssc_cbrid           = var.ssc_cbrid
+  aad_admin_group_oid = var.aad_admin_group_oid
+  subnet_group_number = var.subnet_group_number
+  subnet_name_prefix  = var.subnet_name_prefix
+  vnet_name           = var.vnet_name
+  vnet_rg             = var.vnet_rg
+}
+
+output "project_cd" {
+  value = module.resource_group_module.project_cd
+}
+
+output "new_project_template" {
+  value = "completed"
+}
+
+output "azure_resource_group_name" {
+  value = module.resource_group_module.resource_group_name
+}
+
+output "workspace_version" {
+  value = "{{version}}"
+}

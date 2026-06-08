@@ -42,6 +42,12 @@ variable "storage_acct_name" {
   type        = string
 }
 
+variable "storage_acct_key" {
+  description = "Project storage account key"
+  type        = string
+  sensitive   = true
+}
+
 # ==============================================
 #     Optional Variables
 # ==============================================

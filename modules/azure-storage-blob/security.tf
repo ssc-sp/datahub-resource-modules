@@ -1,3 +1,16 @@
+resource "azurerm_user_assigned_identity" "datahub_proj_clamav_job_uai" {
+  resource_group_name = var.resource_group_name
+  location            = local.resource_group_location
+  name                = "${local.base_name}-clamav-job-uai"
+}
+
+resource "azurerm_key_vault_access_policy" "kv_policy_clamav_job" {
+  key_vault_id       = var.key_vault_id
+  tenant_id          = var.az_tenant_id
+  object_id          = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.principal_id
+  secret_permissions = ["Get", "List"]
+}
+
 resource "azurerm_key_vault_access_policy" "kv_policy_storage" {
   key_vault_id = var.key_vault_id
   tenant_id    = var.az_tenant_id
@@ -49,25 +62,6 @@ resource "azurerm_role_assignment" "proj_storage_automation_contrib" {
   principal_id         = var.automation_acct_principal_id
 }
 
-resource "azurerm_key_vault_secret" "storage_key_secret" {
-  name         = local.storage_key_secret
-  value        = azurerm_storage_account.datahub_storageaccount.primary_access_key
-  key_vault_id = var.key_vault_id
-}
-
-resource "azurerm_key_vault_secret" "storage_conn_secret" {
-  name         = local.storage_conn_secret
-  value        = azurerm_storage_account.datahub_storageaccount.primary_connection_string
-  key_vault_id = var.key_vault_id
-}
-
-resource "azurerm_key_vault_secret" "storage_sas_secret" {
-  name         = local.storage_sas_secret
-  value        = data.azurerm_storage_account_blob_container_sas.datahub_container_sas.sas
-  key_vault_id = var.key_vault_id
-  tags         = { "start" : data.azurerm_storage_account_blob_container_sas.datahub_container_sas.start, "expiry" : data.azurerm_storage_account_blob_container_sas.datahub_container_sas.expiry }
-}
-
 resource "azurerm_security_center_storage_defender" "datahub_storageaccount_defender" {
   storage_account_id                          = azurerm_storage_account.datahub_storageaccount.id
   override_subscription_settings_enabled      = true
@@ -94,4 +88,12 @@ resource "azurerm_key_vault_access_policy" "kv_policy_sas_job" {
   object_id    = azurerm_user_assigned_identity.datahub_proj_sas_token_job_uai.principal_id
 
   secret_permissions = ["Get", "List", "Set"]
+}
+
+resource "azurerm_role_assignment" "proj_storage_clamav_job_role" {
+  for_each = toset(["Storage Blob Data Contributor", "Storage Table Data Contributor", "Storage Queue Data Contributor"])
+
+  scope                = azurerm_storage_account.datahub_storageaccount.id
+  role_definition_name = each.key
+  principal_id         = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.principal_id
 }
