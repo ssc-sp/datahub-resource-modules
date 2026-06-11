@@ -7,3 +7,12 @@ provider "azurerm" {
   alias           = "root-workspace"
   subscription_id = var.automation_account_uai_sub
 }
+
+terraform {
+  required_providers {
+    azapi = {
+      source = "azure/azapi"
+    }
+  }
+}
+

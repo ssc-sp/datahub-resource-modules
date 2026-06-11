@@ -112,4 +112,3 @@ variable "budget_start_date" {
 
 variable "blob_scan_image" { default = "ghcr.io/ssc-sp/clamav-blobavscan:latest" }
 variable "proj_cost_image" { default = "ghcr.io/fsdh-pfds/proj-cost-worker:latest" }
-variable "proj_sas_image" { default = "ghcr.io/fsdh-pfds/proj-sas-worker:latest" }

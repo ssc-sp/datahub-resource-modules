@@ -122,9 +122,8 @@ variable "resource_prefix_alphanumeric" {
   default     = "fsdh"
 }
 
-variable "blob_scan_image" { default = "ghcr.io/fsdh-pfds/clamav-blobavscan:latest" }
+variable "blob_scan_image" { default = "ghcr.io/ssc-sp/clamav-blobavscan:latest" }
 variable "proj_cost_image" { default = "ghcr.io/fsdh-pfds/proj-cost-worker:latest" }
-variable "proj_sas_image" { default = "ghcr.io/fsdh-pfds/proj-sas-worker:latest" }
 
 variable "enable_clamav" { default = false } # blob events still to be queued even if disabled so that they can be scanned later once enabled
 

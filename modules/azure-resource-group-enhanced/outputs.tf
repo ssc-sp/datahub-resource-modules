@@ -58,7 +58,6 @@ output "project_tags" {
 output "container_app_env_id" { value = azurerm_container_app_environment.proj_container_app_env.id }
 output "clamav_docker_image" { value = var.blob_scan_image }
 output "costing_docker_image" { value = var.proj_cost_image }
-output "sas_docker_image" { value = var.proj_sas_image }
 output "clamav_job_uai" { value = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id }
 output "aca_env_uai" { value = azurerm_user_assigned_identity.datahub_proj_aca_env_uai.principal_id }
 
@@ -99,18 +98,6 @@ output "azure_storage_container_name" {
 
 output "azure_temp_fileshare_name" {
   value = azurerm_container_app_environment_storage.datahub_temp.name
-}
-
-output "storage_key_secret_id" {
-  value = azurerm_key_vault_secret.storage_key_secret.id
-}
-
-output "storage_conn_secret_id" {
-  value = azurerm_key_vault_secret.storage_conn_secret.id
-}
-
-output "storage_sas_secret_id" {
-  value = azurerm_key_vault_secret.storage_sas_secret.id
 }
 
 output "vnet_id" { value = data.azurerm_virtual_network.datahub_vnet.id }

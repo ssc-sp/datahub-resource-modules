@@ -10,12 +10,6 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
     identity_ids = [azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id, azurerm_user_assigned_identity.datahub_proj_aca_env_uai.id]
   }
 
-  secret {
-    name                = local.storage_conn_secret
-    key_vault_secret_id = azurerm_key_vault_secret.storage_conn_secret.versionless_id
-    identity            = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id
-  }
-
   template {
     container {
       name   = "blobavscan"
@@ -23,16 +17,20 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
       cpu    = 2
       memory = "4.0Gi"
       env {
-        name        = "storage_connection_string"
-        secret_name = local.storage_conn_secret
-      }
-      env {
-        name        = local.storage_conn_secret
-        secret_name = local.storage_conn_secret
+        name  = "STORAGE_ACCOUNT"
+        value = azurerm_storage_account.datahub_storageaccount.name
       }
       env {
         name  = "WORK_DIR"
         value = "/${local.datahub_temp_name}"
+      }
+      env {
+        name  = "container_name"
+        value = "${local.datahub_mount_name},${local.datahub_stage_name}"
+      }
+      env {
+        name  = "CLIENT_ID"
+        value = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.client_id
       }
       volume_mounts {
         name = local.datahub_temp_name
@@ -55,16 +53,13 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
         name = "blob-clamav-rule"
         metadata = {
           accountName         = azurerm_storage_account.datahub_storageaccount.name
-          connectionFromEnv   = local.storage_conn_secret
           queueLength         = "1024"
           queueName           = var.enable_clamav ? local.blob_created_queue : local.blob_muted_queue
           queueLengthStrategy = "visibleonly"
+          identity            = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id
         }
         custom_rule_type = "azure-queue"
-        authentication {
-          secret_name       = local.storage_conn_secret
-          trigger_parameter = "connection"
-        }
+
       }
     }
   }
@@ -94,7 +89,7 @@ resource "azapi_update_resource" "proj_container_app_clamav_job_auth" {
   }
 
   lifecycle {
-    replace_triggered_by = [ azurerm_container_app_job.proj_container_app_clamav_job ]
+    replace_triggered_by = [azurerm_container_app_job.proj_container_app_clamav_job]
   }
 }
 
