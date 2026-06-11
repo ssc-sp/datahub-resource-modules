@@ -48,42 +48,48 @@ resource "azurerm_storage_account_network_rules" "datahub_storageaccount_runner_
 
 resource "azurerm_storage_container" "datahub_default" {
   name                  = local.datahub_mount_name
-  storage_account_name  = azurerm_storage_account.datahub_storageaccount.name
+  storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
 }
 
 resource "azurerm_storage_container" "datahub_backup" {
   name                  = local.datahub_backup_name
-  storage_account_name  = azurerm_storage_account.datahub_storageaccount.name
+  storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
 }
 
 resource "azurerm_storage_container" "datahub_log" {
   name                  = local.datahub_log_name
-  storage_account_name  = azurerm_storage_account.datahub_storageaccount.name
+  storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
 }
 
 resource "azurerm_storage_share" "file_share_default" {
-  name                 = local.datahub_mount_name
-  storage_account_name = azurerm_storage_account.datahub_storageaccount.name
-  quota                = 64
+  name               = local.datahub_mount_name
+  storage_account_id = azurerm_storage_account.datahub_storageaccount.id
+  quota              = 64
 }
 
 resource "azurerm_storage_share" "file_share_clamav_temp" {
-  name                 = local.datahub_temp_name
-  storage_account_name = azurerm_storage_account.datahub_storageaccount.name
-  quota                = 128
+  name               = local.datahub_temp_name
+  storage_account_id = azurerm_storage_account.datahub_storageaccount.id
+  quota              = 128
 }
 
 resource "azurerm_storage_container" "datahub_quarantine" {
   name                  = local.datahub_quarantine
-  storage_account_name  = azurerm_storage_account.datahub_storageaccount.name
+  storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
+  container_access_type = "private"
+}
+
+resource "azurerm_storage_container" "datahub_stage" {
+  name                  = local.datahub_stage_name
+  storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
 }
 
 resource "azurerm_storage_container" "datahub_catalog" {
   name                  = local.datahub_catalog_container
-  storage_account_name  = azurerm_storage_account.datahub_storageaccount.name
+  storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
 }

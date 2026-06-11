@@ -15,6 +15,6 @@ resource "azurerm_container_app_environment_storage" "datahub_app" {
   container_app_environment_id = var.aca_env_id
   share_name                   = local.datahub_app_fileshare
   access_mode                  = "ReadWrite"
-  access_key                   = var.storage_key
+  access_key                   = var.storage_acct_key
   account_name                 = var.storage_acct_name
 }

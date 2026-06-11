@@ -97,16 +97,18 @@ variable "project_tags" {
   default     = {}
 }
 
+variable "storage_acct_key" {
+  description = "Project storage account key"
+  type        = string
+  sensitive   = true
+}
+
 variable "container_app_size" { default = "D4" }
 variable "container_app_max_node" { default = "2" }
 variable "container_app_min_node" { default = "0" }
 variable "container_app_profile" { default = "Consumption" }
 variable "app_fileshare_name" { default = "app" }
 variable "container_ingress_port" { default = "80" }
-variable "storage_key_secret_id" {}
-variable "storage_key" { sensitive = true }
-variable "storage_conn_secret_id" {}
-variable "storage_sas_secret_id" {}
 variable "aca_env_id" {}
 variable "aca_env_uai" {}
 

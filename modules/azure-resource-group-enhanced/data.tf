@@ -99,6 +99,7 @@ locals {
   datahub_mount_name        = "datahub"
   datahub_catalog_container = "datahub-catalog"
   datahub_backup_name       = "datahub-backup"
+  datahub_stage_name        = "datahub-stage"
   datahub_log_name          = "datahub-log"
   datahub_temp_name         = "datahub-temp"
   datahub_quarantine        = "datahub-quarantine"

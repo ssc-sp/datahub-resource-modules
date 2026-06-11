@@ -31,20 +31,16 @@ resource "azurerm_container_app" "proj_demo_app" {
         value = "8080"
       }
       env {
-        name        = "STORAGE_KEY"
-        secret_name = local.secret_name_storage_key
+        name  = "CLIENT_ID"
+        value = azurerm_user_assigned_identity.proj_aca_uami.client_id
+      }
+      env {
+        name  = "PRINCIPAL_ID"
+        value = azurerm_user_assigned_identity.proj_aca_uami.principal_id
       }
       env {
         name  = "STORAGE_NAME"
         value = var.storage_acct_name
-      }
-      env {
-        name        = "STORAGE_SAS"
-        secret_name = local.secret_name_storage_sas
-      }
-      env {
-        name        = "STORAGE_CONN"
-        secret_name = local.secret_name_storage_conn
       }
     }
     volume {
@@ -93,22 +89,6 @@ resource "azurerm_container_app" "proj_demo_app" {
       storage_type  = "AzureFile"
       mount_options = "rw,dir_mode=0700,file_mode=0600,uid=999,gid=999"
     }
-  }
-
-  secret {
-    name                = local.secret_name_storage_key
-    identity            = azurerm_user_assigned_identity.proj_aca_uami.id
-    key_vault_secret_id = var.storage_key_secret_id
-  }
-  secret {
-    name                = local.secret_name_storage_sas
-    identity            = azurerm_user_assigned_identity.proj_aca_uami.id
-    key_vault_secret_id = var.storage_sas_secret_id
-  }
-  secret {
-    name                = local.secret_name_storage_conn
-    identity            = azurerm_user_assigned_identity.proj_aca_uami.id
-    key_vault_secret_id = var.storage_conn_secret_id
   }
 
   secret {

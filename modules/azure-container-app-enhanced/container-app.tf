@@ -48,46 +48,16 @@ resource "azurerm_container_app" "proj_container_app" {
         }
 
         env {
-          name        = "AZURE_STORAGE_ACCESS_KEY"
-          secret_name = local.secret_name_storage_key
+          name  = "CLIENT_ID"
+          value = azurerm_user_assigned_identity.proj_aca_uami.client_id
         }
         env {
-          name  = "AZURE_STORAGE_ACCOUNT"
+          name  = "PRINCIPAL_ID"
+          value = azurerm_user_assigned_identity.proj_aca_uami.principal_id
+        }
+        env {
+          name  = "STORAGE_NAME"
           value = var.storage_acct_name
-        }
-        env {
-          name        = "AZURE_STORAGE_SAS"
-          secret_name = local.secret_name_storage_sas
-        }
-        env {
-          name        = "AZURE_STORAGE_CONN"
-          secret_name = local.secret_name_storage_conn
-        }
-        env {
-          name  = "AZURE_STORAGE_ACCOUNT_TYPE"
-          value = "block"
-        }
-        env {
-          name  = "AZURE_STORAGE_AUTH_TYPE"
-          value = "Key"
-        }
-        env {
-          name  = "AZURE_STORAGE_ACCOUNT_CONTAINER"
-          value = var.storage_container_name
-        }
-
-        env {
-          name  = "AZURE_STORAGE_BLOB_ENDPOINT"
-          value = var.storage_blob_endpoint
-        }
-
-        env {
-          name  = "KEY_VAULT_ID"
-          value = var.key_vault_id
-        }
-        env {
-          name  = "KEY_VAULT_NAME"
-          value = var.key_vault_name
         }
       }
     }
@@ -107,22 +77,6 @@ resource "azurerm_container_app" "proj_container_app" {
       identity            = azurerm_user_assigned_identity.proj_aca_uami.id
       key_vault_secret_id = secret.value.secret_id
     }
-  }
-
-  secret {
-    name                = local.secret_name_storage_key
-    identity            = azurerm_user_assigned_identity.proj_aca_uami.id
-    key_vault_secret_id = var.storage_key_secret_id
-  }
-  secret {
-    name                = local.secret_name_storage_sas
-    identity            = azurerm_user_assigned_identity.proj_aca_uami.id
-    key_vault_secret_id = var.storage_sas_secret_id
-  }
-  secret {
-    name                = local.secret_name_storage_conn
-    identity            = azurerm_user_assigned_identity.proj_aca_uami.id
-    key_vault_secret_id = var.storage_conn_secret_id
   }
 
   ingress {
