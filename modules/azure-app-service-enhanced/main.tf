@@ -81,7 +81,7 @@ resource "azurerm_linux_web_app" "datahub_proj_app" {
   tags = var.project_tags
 
   lifecycle {
-    ignore_changes = [site_config, tags]
+    ignore_changes = [site_config, tags, app_settings]
   }
 }
 
