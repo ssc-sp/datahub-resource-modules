@@ -26,9 +26,9 @@ jobs:
           config-file: .github/release-please/.release-please-config.json
 
       - name: Auto-generate Environment Tags
-        if: ${{ steps.release.outputs.releases_created == 'true' }}
+        if: ${{ steps.release.outputs['modules--release_created'] == 'true' }}
         run: |
-          BASE_TAG=${{ steps.release.outputs.tag_name }}
+          BASE_TAG=${{ steps.release.outputs['modules--tag_name'] }}
           
           git fetch origin --tags
 
