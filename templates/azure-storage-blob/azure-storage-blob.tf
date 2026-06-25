@@ -11,7 +11,6 @@ module "azure_storage_blob_module" {
   enable_defender              = var.enable_defender
   enable_clamav                = var.enable_clamav
   clamav_docker_image          = module.resource_group_module.clamav_docker_image
-  sas_docker_image             = module.resource_group_module.sas_docker_image
   container_app_env_id         = module.resource_group_module.container_app_env_id
 
   # optional variables
