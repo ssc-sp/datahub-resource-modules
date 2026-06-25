@@ -28,19 +28,23 @@ jobs:
 
       - name: Auto-generate Environment Tags
         if: ${{ steps.release.outputs['modules--release_created'] == 'true' }}
+        env:
+          STEPS_RELEASE_OUTPUTS_MODULES__TAG_NAME: ${{ steps.release.outputs['modules--tag_name'] }}
         run: |
-          BASE_TAG=${STEPS_RELEASE_OUTPUTS_MODULES__TAG_NAME}
-          
+          BASE_TAG="${STEPS_RELEASE_OUTPUTS_MODULES__TAG_NAME}"
+
           git fetch origin --tags
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git tag dev-$BASE_TAG $BASE_TAG
-          git tag pre-$BASE_TAG $BASE_TAG
-          git tag poc-$BASE_TAG $BASE_TAG
-          git tag prd-$BASE_TAG $BASE_TAG
-          
-          git push origin dev-$BASE_TAG pre-$BASE_TAG poc-$BASE_TAG prd-$BASE_TAG
-        env:
-          STEPS_RELEASE_OUTPUTS_MODULES__TAG_NAME: ${{ steps.release.outputs['modules--tag_name'] }}
+          git tag "dev-${BASE_TAG}" "${BASE_TAG}"
+          git tag "pre-${BASE_TAG}" "${BASE_TAG}"
+          git tag "poc-${BASE_TAG}" "${BASE_TAG}"
+          git tag "prd-${BASE_TAG}" "${BASE_TAG}"
+
+          git push origin \
+            "dev-${BASE_TAG}" \
+            "pre-${BASE_TAG}" \
+            "poc-${BASE_TAG}" \
+            "prd-${BASE_TAG}"
