@@ -53,7 +53,9 @@ resource "azurerm_key_vault_access_policy" "kv_policy_aca_env" {
 }
 
 resource "azurerm_role_assignment" "proj_storage_clamav_job_role" {
+  for_each = toset(["Contributor", "Storage Blob Data Contributor", "Storage Table Data Contributor", "Storage Queue Data Contributor"])
+
   scope                = azurerm_storage_account.datahub_storageaccount.id
-  role_definition_name = "Contributor"
+  role_definition_name = each.key
   principal_id         = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.principal_id
 }

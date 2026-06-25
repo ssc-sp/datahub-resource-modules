@@ -49,25 +49,6 @@ resource "azurerm_role_assignment" "proj_storage_automation_contrib" {
   principal_id         = data.azurerm_user_assigned_identity.proj_auto_acct_uai.principal_id
 }
 
-resource "azurerm_key_vault_secret" "storage_key_secret" {
-  name         = local.storage_key_secret
-  value        = azurerm_storage_account.datahub_storageaccount.primary_access_key
-  key_vault_id = azurerm_key_vault.az_proj_kv.id
-}
-
-resource "azurerm_key_vault_secret" "storage_conn_secret" {
-  name         = local.storage_conn_secret
-  value        = azurerm_storage_account.datahub_storageaccount.primary_connection_string
-  key_vault_id = azurerm_key_vault.az_proj_kv.id
-}
-
-resource "azurerm_key_vault_secret" "storage_sas_secret" {
-  name         = local.storage_sas_secret
-  value        = data.azurerm_storage_account_blob_container_sas.datahub_container_sas.sas
-  key_vault_id = azurerm_key_vault.az_proj_kv.id
-  tags         = { "start" : data.azurerm_storage_account_blob_container_sas.datahub_container_sas.start, "expiry" : data.azurerm_storage_account_blob_container_sas.datahub_container_sas.expiry }
-}
-
 resource "azurerm_security_center_storage_defender" "datahub_storageaccount_defender" {
   storage_account_id                          = azurerm_storage_account.datahub_storageaccount.id
   override_subscription_settings_enabled      = true
