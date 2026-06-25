@@ -4,7 +4,7 @@ name: Code Linting
 on:
   pull_request:
     branches:
-      - develop
+      - main
 
 permissions: read-all
 
