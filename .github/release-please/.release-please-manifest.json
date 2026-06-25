@@ -1,3 +1,4 @@
 {
-  "terraform": "6.3.0"
+  "terraform": "6.3.0",
+  "modules": "0.1.0"
 }
