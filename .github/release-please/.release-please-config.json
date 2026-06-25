@@ -1,6 +1,6 @@
 {
   "packages": {
-    "terraform": {
+    "modules": {
       "release-type": "terraform-module"
     }
   }
