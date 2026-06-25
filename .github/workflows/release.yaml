@@ -13,31 +13,38 @@ jobs:
   generate-releases:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
-          fetch-depth: 0 
+          fetch-depth: 0
+          persist-credentials: false
 
       - name: Run Release Please
         id: release
-        uses: googleapis/release-please-action@v4
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0.
         with:
           manifest-file: .github/release-please/.release-please-manifest.json
           config-file: .github/release-please/.release-please-config.json
 
       - name: Auto-generate Environment Tags
         if: ${{ steps.release.outputs['modules--release_created'] == 'true' }}
+        env:
+          STEPS_RELEASE_OUTPUTS_MODULES__TAG_NAME: ${{ steps.release.outputs['modules--tag_name'] }}
         run: |
-          BASE_TAG=${{ steps.release.outputs['modules--tag_name'] }}
-          
+          BASE_TAG="${STEPS_RELEASE_OUTPUTS_MODULES__TAG_NAME}"
+
           git fetch origin --tags
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git tag dev-$BASE_TAG $BASE_TAG
-          git tag pre-$BASE_TAG $BASE_TAG
-          git tag poc-$BASE_TAG $BASE_TAG
-          git tag prd-$BASE_TAG $BASE_TAG
-          
-          git push origin dev-$BASE_TAG pre-$BASE_TAG poc-$BASE_TAG prd-$BASE_TAG
+          git tag "dev-${BASE_TAG}" "${BASE_TAG}"
+          git tag "pre-${BASE_TAG}" "${BASE_TAG}"
+          git tag "poc-${BASE_TAG}" "${BASE_TAG}"
+          git tag "prd-${BASE_TAG}" "${BASE_TAG}"
+
+          git push origin \
+            "dev-${BASE_TAG}" \
+            "pre-${BASE_TAG}" \
+            "poc-${BASE_TAG}" \
+            "prd-${BASE_TAG}"

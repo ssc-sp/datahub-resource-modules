@@ -1,50 +1,37 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
-	"name": "Main",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/base:jammy",
-	"features": {
-		"ghcr.io/devcontainers/features/powershell:1": {},
-		"ghcr.io/devcontainers/features/azure-cli:1": {},
-		"ghcr.io/devcontainers/features/python:1": {},
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
-        "ghcr.io/devcontainers/features/terraform:1": {},
-        "ghcr.io/devcontainers/features/common-utils:2": {
-			"installZsh": "true",
-			"username": "vscode",
-			"upgradePackages": "false",
-			"nonFreePackages": "true"
-		}
-	},
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "sudo chsh vscode -s \"$(which pwsh)\"",
-
-	// Configure tool-specific properties.
-    "customizations": {
-		// Configure properties specific to VS Code.
-		"vscode": {
-			// Set *default* container specific settings.json values on container create.
-			"settings": { 
-				"terminal.integrated.defaultProfile.linux": "pwsh"
-			},
-			
-			// Add the IDs of extensions you want installed when the container is created.
-			"extensions": [
-				"ms-vscode.powershell",
-				"redhat.vscode-yaml",
-				"hashicorp.terraform"
-			]
-		}
-	},
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	"remoteUser": "vscode"
+  "name": "Main",
+  "image": "mcr.microsoft.com/devcontainers/base:jammy",
+  "overrideFeatureInstallOrder": [
+    "ghcr.io/KingBain/devcontainer-features/enhanced-custom-root-ca"
+  ],
+  "features": {
+    "ghcr.io/devcontainers/features/powershell:1": {},
+    "ghcr.io/devcontainers/features/azure-cli:1": {},
+    "ghcr.io/devcontainers/features/python:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/terraform:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:4": {},
+    "ghcr.io/devcontainers/features/powershell:2": {},
+    "ghcr.io/devcontainers-community/npm-features/prettier:1": {},
+    "ghcr.io/KingBain/devcontainer-features/enhanced-custom-root-ca:3": {
+      "sources": "https://raw.githubusercontent.com/gccloudone-aurora-collab/goc-root-cert-mirror/main/certs/GoC-GdC-Root-A.crt",
+      "fingerprints": "FE:E0:9E:77:43:BF:D4:3E:D7:D4:D3:ED:50:6C:C7:9D:2D:90:70:FF:A9:29:91:16:87:D4:27:33:70:BE:A3:06",
+      "allowInsecureDownload": true
+    }
+  },
+  "postCreateCommand": "sudo chsh vscode -s \"$(which pwsh)\"",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "pwsh"
+      },
+      "extensions": [
+        "ms-vscode.powershell",
+        "redhat.vscode-yaml",
+        "hashicorp.terraform"
+      ]
+    }
+  },
+  "remoteUser": "vscode"
 }
