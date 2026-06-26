@@ -34,13 +34,4 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "blob_created_subsc
     max_delivery_attempts = 5
     event_time_to_live    = 1440
   }
-
-  # depends_on = [time_sleep.wait_storage_account_network]
 }
-
-resource "time_sleep" "wait_storage_account_network" {
-  # depends_on = [azurerm_storage_account_network_rules.datahub_storageaccount_runner_rule]
-
-  create_duration = "120s"
-}
-

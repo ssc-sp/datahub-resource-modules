@@ -16,6 +16,7 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
       image  = var.blob_scan_image
       cpu    = 2
       memory = "4.0Gi"
+
       env {
         name  = "STORAGE_ACCOUNT"
         value = azurerm_storage_account.datahub_storageaccount.name
@@ -32,6 +33,11 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
         name  = "CLIENT_ID"
         value = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.client_id
       }
+      env {
+        name        = local.storage_conn_secret
+        secret_name = local.storage_conn_secret
+      }
+
       volume_mounts {
         name = local.datahub_temp_name
         path = "/${local.datahub_temp_name}"
@@ -43,6 +49,11 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
       storage_name  = azurerm_container_app_environment_storage.datahub_temp.name
       mount_options = "dir_mode=0777,file_mode=0777"
     }
+  }
+
+  secret {
+    name  = local.storage_conn_secret
+    value = azurerm_storage_account.datahub_storageaccount.primary_connection_string
   }
 
   event_trigger_config {
@@ -57,6 +68,7 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
           queueName           = local.blob_created_queue
           queueLengthStrategy = "visibleonly"
           identity            = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id
+          connectionFromEnv   = local.storage_conn_secret
         }
         custom_rule_type = "azure-queue"
 
@@ -67,30 +79,29 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
   depends_on = [azurerm_key_vault_access_policy.kv_policy_clamav_job]
 }
 
+# resource "azapi_update_resource" "proj_container_app_clamav_job_auth" {
+#   type        = "Microsoft.App/jobs@2025-07-01"
+#   resource_id = azurerm_container_app_job.proj_container_app_clamav_job.id
+#   body = {
+#     properties = {
+#       configuration = {
+#         eventTriggerConfig = {
+#           scale = {
+#             rules = [
+#               {
+#                 auth     = []
+#                 identity = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id
+#               }
+#             ]
+#           }
+#         }
+#       }
+#     }
+#   }
 
-resource "azapi_update_resource" "proj_container_app_clamav_job_auth" {
-  type        = "Microsoft.App/jobs@2025-07-01"
-  resource_id = azurerm_container_app_job.proj_container_app_clamav_job.id
-  body = {
-    properties = {
-      configuration = {
-        eventTriggerConfig = {
-          scale = {
-            rules = [
-              {
-                auth     = []
-                identity = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id
-              }
-            ]
-          }
-        }
-      }
-    }
-  }
-
-  lifecycle {
-    replace_triggered_by = [azurerm_container_app_job.proj_container_app_clamav_job]
-  }
-}
+#   lifecycle {
+#     replace_triggered_by = [azurerm_container_app_job.proj_container_app_clamav_job]
+#   }
+# }
 
 
