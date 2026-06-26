@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.4.3](https://github.com/ssc-sp/datahub-resource-modules/compare/v6.4.2...v6.4.3) (2026-06-26)
+
+
+### Bug Fixes
+
+* pipeline permissions ([#268](https://github.com/ssc-sp/datahub-resource-modules/issues/268)) ([5d29589](https://github.com/ssc-sp/datahub-resource-modules/commit/5d29589cbc6d1075a8737d6193c0accbd0c5d793))
+
 ## [6.4.2](https://github.com/ssc-sp/datahub-resource-modules/compare/v6.4.1...v6.4.2) (2026-06-26)
 
 
