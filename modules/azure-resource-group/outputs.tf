@@ -58,4 +58,3 @@ output "project_tags" {
 output "container_app_env_id" { value = azurerm_container_app_environment.proj_container_app_env.id }
 output "clamav_docker_image" { value = local.docker_image_clamav }
 output "costing_docker_image" { value = local.docker_image_proj_cost }
-output "sas_docker_image" { value = local.docker_image_proj_sas }

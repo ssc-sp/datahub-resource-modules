@@ -28,7 +28,6 @@ locals {
   acr_name                  = lower(replace(replace(lower("${var.resource_prefix}-proj-${var.project_cd}-acr-${var.environment_name}"), "_", ""), "-", ""))
   docker_image_clamav       = var.blob_scan_image
   docker_image_proj_cost    = var.proj_cost_image
-  docker_image_proj_sas     = var.proj_sas_image
 }
 
 resource "null_resource" "current_fiscal_year_start" {
