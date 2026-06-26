@@ -5,8 +5,8 @@ module "azure_databricks_module" {
   key_vault_id               = module.resource_group_module.az_project_kv_id
   key_vault_cmk_id           = module.resource_group_module.az_project_cmk_id
   key_vault_url              = module.resource_group_module.az_project_kv_url
-  storage_acct_name          = module.azure_storage_blob_module.storage_acct_name
-  storage_acct_id            = module.azure_storage_blob_module.storage_acct_id
+  storage_acct_name          = module.resource_group_module.storage_acct_name
+  storage_acct_id            = module.resource_group_module.storage_acct_id
   budget_amount              = var.budget_amount
   log_analytics_workspace_id = var.log_analytics_workspace_id
   enable_ml_cluster          = var.enable_ml_cluster

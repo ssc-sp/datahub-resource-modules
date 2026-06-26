@@ -1,8 +1,8 @@
 $PSScriptRoot
 $cwd = Get-Location
 
-$allModules = "azure-databricks", "azure-app-service", "azure-postgres", "azure-container-app", "new-project-template", "azure-storage-blob"
-$excludeModules = "azure-postgres", "azure-app-service"
+$allModules = "azure-databricks", "azure-app-service", "azure-postgres", "azure-container-app", "new-project-template"
+$excludeModules = "azure-postgres"
 $moduleSuffix = ""
 
 foreach ($module in $allModules) {

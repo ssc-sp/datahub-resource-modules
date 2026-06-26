@@ -20,16 +20,16 @@ resource "azurerm_key_vault" "az_proj_kv" {
   purge_protection_enabled        = true
   enabled_for_template_deployment = true
   enable_rbac_authorization       = false
-
-  sku_name = "standard"
+  public_network_access_enabled   = true
+  sku_name                        = "standard"
 
   tags = local.project_tags
 
   lifecycle {
     prevent_destroy = true
-    ignore_changes  = [tags["created_date"]]
+    ignore_changes  = [tags]
   }
-
+  
   depends_on = [azurerm_resource_group.az_project_rg]
 }
 
@@ -104,4 +104,3 @@ resource "azurerm_monitor_action_group" "datahub_proj_action_group_email" {
 
   tags = local.project_tags
 }
-

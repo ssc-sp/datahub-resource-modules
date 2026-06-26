@@ -1,15 +1,15 @@
 resource "azurerm_eventgrid_system_topic" "project_blob_created_system_topic" {
-  name                   = "${azurerm_storage_account.datahub_storageaccount.name}blobcreatedtopic"
-  location               = local.resource_group_location
-  resource_group_name    = var.resource_group_name
-  source_arm_resource_id = azurerm_storage_account.datahub_storageaccount.id
-  topic_type             = "Microsoft.Storage.StorageAccounts"
+  name                = "${azurerm_storage_account.datahub_storageaccount.name}blobcreatedtopic"
+  location            = local.resource_group_location
+  resource_group_name = azurerm_resource_group.az_project_rg.name
+  source_resource_id  = azurerm_storage_account.datahub_storageaccount.id
+  topic_type          = "Microsoft.Storage.StorageAccounts"
 }
 
-resource "azurerm_eventgrid_system_topic_event_subscription" "blob_created_datahub" {
-  name                  = "blobcreateddatahub"
+resource "azurerm_eventgrid_system_topic_event_subscription" "blob_created_subscription" {
+  name                  = "blobcreatedsubscription"
   system_topic          = azurerm_eventgrid_system_topic.project_blob_created_system_topic.name
-  resource_group_name   = var.resource_group_name
+  resource_group_name   = azurerm_resource_group.az_project_rg.name
   event_delivery_schema = "EventGridSchema"
 
   included_event_types = ["Microsoft.Storage.BlobCreated"]
@@ -18,6 +18,7 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "blob_created_datah
     storage_account_id = azurerm_storage_account.datahub_storageaccount.id
     queue_name         = azurerm_storage_queue.blob_created_event_queue.name
   }
+
 
   advanced_filter {
     string_begins_with {
@@ -33,4 +34,13 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "blob_created_datah
     max_delivery_attempts = 5
     event_time_to_live    = 1440
   }
+
+  # depends_on = [time_sleep.wait_storage_account_network]
 }
+
+resource "time_sleep" "wait_storage_account_network" {
+  # depends_on = [azurerm_storage_account_network_rules.datahub_storageaccount_runner_rule]
+
+  create_duration = "120s"
+}
+

@@ -110,5 +110,23 @@ variable "budget_start_date" {
   default     = ""
 }
 
-variable "blob_scan_image" { default = "ghcr.io/ssc-sp/clamav-blobavscan:latest" }
+variable "storage_size_limit_tb" {
+  description = "Storage account size limit for alerts"
+  type        = number
+  default     = 0
+}
+
+variable "resource_prefix_alphanumeric" {
+  description = "Aphanumeric resource name prefix for resources. All lower case"
+  type        = string
+  default     = "fsdh"
+}
+
+variable "enable_defender" {
+  description = "Enable Azure Defender for Storage"
+  type        = bool
+  default     = false
+}
+
+variable "blob_scan_image" { default = "ghcr.io/ssc-sp/clamav-blobavscan@sha256:1da01f920f9d4005e06c532384625d7f8476f8ebd055ac1e8420682bf2b44171" }
 variable "proj_cost_image" { default = "ghcr.io/fsdh-pfds/proj-cost-worker:latest" }

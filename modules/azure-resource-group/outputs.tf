@@ -24,7 +24,7 @@ output "az_project_cmk" {
 }
 
 output "az_project_cmk_id" {
-  value = azurerm_key_vault_key.az_proj_cmk.id
+  value = "${azurerm_key_vault_key.az_proj_cmk.versionless_id}/${azurerm_key_vault_key.az_proj_cmk.version}"
 }
 
 output "current_subscription_display_name" {
@@ -56,5 +56,51 @@ output "project_tags" {
 }
 
 output "container_app_env_id" { value = azurerm_container_app_environment.proj_container_app_env.id }
-output "clamav_docker_image" { value = local.docker_image_clamav }
-output "costing_docker_image" { value = local.docker_image_proj_cost }
+output "clamav_docker_image" { value = var.blob_scan_image }
+output "costing_docker_image" { value = var.proj_cost_image }
+output "clamav_job_uai" { value = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id }
+output "aca_env_uai" { value = azurerm_user_assigned_identity.datahub_proj_aca_env_uai.principal_id }
+
+output "storage_acct_name" {
+  value      = azurerm_storage_account.datahub_storageaccount.name
+  depends_on = [azurerm_role_assignment.proj_storage_creator_role]
+}
+
+output "storage_acct_id" {
+  value      = azurerm_storage_account.datahub_storageaccount.id
+  depends_on = [azurerm_role_assignment.proj_storage_creator_role]
+}
+
+output "datahub_blob_endpoint" {
+  value = azurerm_storage_account.datahub_storageaccount.primary_blob_endpoint
+}
+
+output "datahub_blob_container" {
+  value = azurerm_storage_container.datahub_default.name
+}
+
+output "azure_storage_account_name" {
+  value = azurerm_storage_account.datahub_storageaccount.name
+}
+
+output "azure_storage_account_id" {
+  value = azurerm_storage_account.datahub_storageaccount.id
+}
+
+output "azure_storage_account_key" {
+  value     = azurerm_storage_account.datahub_storageaccount.primary_access_key
+  sensitive = true
+}
+
+output "azure_storage_container_name" {
+  value = azurerm_storage_container.datahub_default.name
+}
+
+output "azure_temp_fileshare_name" {
+  value = azurerm_container_app_environment_storage.datahub_temp.name
+}
+
+output "aca_env_id" { value = azurerm_container_app_environment.proj_container_app_env.id }
+
+
+

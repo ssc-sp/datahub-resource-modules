@@ -1,18 +1,5 @@
-resource "azurerm_user_assigned_identity" "datahub_proj_clamav_job_uai" {
-  resource_group_name = var.resource_group_name
-  location            = local.resource_group_location
-  name                = "${local.base_name}-clamav-job-uai"
-}
-
-resource "azurerm_key_vault_access_policy" "kv_policy_clamav_job" {
-  key_vault_id       = var.key_vault_id
-  tenant_id          = var.az_tenant_id
-  object_id          = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.principal_id
-  secret_permissions = ["Get", "List"]
-}
-
 resource "azurerm_key_vault_access_policy" "kv_policy_storage" {
-  key_vault_id = var.key_vault_id
+  key_vault_id = azurerm_key_vault.az_proj_kv.id
   tenant_id    = var.az_tenant_id
   object_id    = azurerm_storage_account.datahub_storageaccount.identity.0.principal_id
 
@@ -22,8 +9,8 @@ resource "azurerm_key_vault_access_policy" "kv_policy_storage" {
 
 resource "azurerm_storage_account_customer_managed_key" "datahub_storageaccount_key" {
   storage_account_id = azurerm_storage_account.datahub_storageaccount.id
-  key_vault_id       = var.key_vault_id
-  key_name           = var.key_vault_cmk_name
+  key_vault_id       = azurerm_key_vault.az_proj_kv.id
+  key_name           = azurerm_key_vault_key.az_proj_cmk.name
 
   depends_on = [azurerm_key_vault_access_policy.kv_policy_storage]
 }
@@ -59,7 +46,7 @@ resource "azurerm_role_assignment" "proj_storage_automation_contrib" {
 
   scope                = azurerm_storage_account.datahub_storageaccount.id
   role_definition_name = each.key
-  principal_id         = var.automation_acct_principal_id
+  principal_id         = data.azurerm_user_assigned_identity.proj_auto_acct_uai.principal_id
 }
 
 resource "azurerm_security_center_storage_defender" "datahub_storageaccount_defender" {
@@ -71,7 +58,7 @@ resource "azurerm_security_center_storage_defender" "datahub_storageaccount_defe
 }
 
 resource "azurerm_user_assigned_identity" "datahub_proj_sas_token_job_uai" {
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.az_project_rg.name
   location            = local.resource_group_location
   name                = "${local.base_name}-sas-job-uai"
 }
@@ -83,17 +70,15 @@ resource "azurerm_role_assignment" "proj_storage_sas_job_role" {
 }
 
 resource "azurerm_key_vault_access_policy" "kv_policy_sas_job" {
-  key_vault_id = var.key_vault_id
+  key_vault_id = azurerm_key_vault.az_proj_kv.id
   tenant_id    = var.az_tenant_id
   object_id    = azurerm_user_assigned_identity.datahub_proj_sas_token_job_uai.principal_id
 
   secret_permissions = ["Get", "List", "Set"]
 }
 
-resource "azurerm_role_assignment" "proj_storage_clamav_job_role" {
-  for_each = toset(["Storage Blob Data Contributor", "Storage Table Data Contributor", "Storage Queue Data Contributor"])
-
+resource "azurerm_role_assignment" "blob_log_aca_job_role" {
   scope                = azurerm_storage_account.datahub_storageaccount.id
-  role_definition_name = each.key
-  principal_id         = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.principal_id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_user_assigned_identity.datahub_proj_aca_env_uai.principal_id
 }

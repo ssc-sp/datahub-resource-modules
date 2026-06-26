@@ -8,8 +8,3 @@ resource "azurerm_storage_queue" "blob_job_disabled_event_queue" {
   storage_account_id = azurerm_storage_account.datahub_storageaccount.id
 }
 
-resource "azurerm_storage_queue" "clamav_result_event_queue" {
-  name               = local.clamav_result_queue
-  storage_account_id = azurerm_storage_account.datahub_storageaccount.id
-}
-

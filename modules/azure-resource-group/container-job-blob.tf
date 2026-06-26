@@ -1,22 +1,21 @@
 resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
   name                         = "${local.base_name}-clamav-job"
-  container_app_environment_id = var.container_app_env_id
+  container_app_environment_id = azurerm_container_app_environment.proj_container_app_env.id
   location                     = local.resource_group_location
-  resource_group_name          = var.resource_group_name
+  resource_group_name          = azurerm_resource_group.az_project_rg.name
   replica_timeout_in_seconds   = 1800
 
   identity {
     type         = "UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id]
+    identity_ids = [azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id, azurerm_user_assigned_identity.datahub_proj_aca_env_uai.id]
   }
 
   template {
     container {
       name   = "blobavscan"
-      image  = var.clamav_docker_image
+      image  = var.blob_scan_image
       cpu    = 2
       memory = "4.0Gi"
-
       env {
         name  = "STORAGE_ACCOUNT"
         value = azurerm_storage_account.datahub_storageaccount.name
@@ -55,7 +54,7 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
         metadata = {
           accountName         = azurerm_storage_account.datahub_storageaccount.name
           queueLength         = "1024"
-          queueName           = var.enable_clamav ? local.blob_created_queue : local.blob_muted_queue
+          queueName           = local.blob_created_queue
           queueLengthStrategy = "visibleonly"
           identity            = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.id
         }
@@ -64,7 +63,10 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
       }
     }
   }
+
+  depends_on = [azurerm_key_vault_access_policy.kv_policy_clamav_job]
 }
+
 
 resource "azapi_update_resource" "proj_container_app_clamav_job_auth" {
   type        = "Microsoft.App/jobs@2025-07-01"
@@ -87,6 +89,8 @@ resource "azapi_update_resource" "proj_container_app_clamav_job_auth" {
   }
 
   lifecycle {
-    replace_triggered_by = [ azurerm_container_app_job.proj_container_app_clamav_job ]
+    replace_triggered_by = [azurerm_container_app_job.proj_container_app_clamav_job]
   }
 }
+
+
