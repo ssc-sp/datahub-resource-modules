@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.4.2](https://github.com/ssc-sp/datahub-resource-modules/compare/v6.4.1...v6.4.2) (2026-06-26)
+
+
+### Bug Fixes
+
+* remove sas image url ([#266](https://github.com/ssc-sp/datahub-resource-modules/issues/266)) ([d7d543f](https://github.com/ssc-sp/datahub-resource-modules/commit/d7d543f06040cca74030e88d7ad9376d43214184))
+
 ## [6.4.1](https://github.com/ssc-sp/datahub-resource-modules/compare/v6.4.0...v6.4.1) (2026-06-25)
 
 
