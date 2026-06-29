@@ -1,11 +1,9 @@
 resource "azurerm_container_app_environment" "proj_container_app_env" {
-  name                = "${local.base_name}-aca-env"
-  location            = local.resource_group_location
-  resource_group_name = azurerm_resource_group.az_project_rg.name
-  logs_destination    = "azure-monitor"
-
-  public_network_access              = "Enabled"
-  infrastructure_resource_group_name = "${local.resource_group_name}-cae"
+  name                  = "${local.base_name}-aca-env"
+  location              = local.resource_group_location
+  resource_group_name   = azurerm_resource_group.az_project_rg.name
+  logs_destination      = "azure-monitor"
+  public_network_access = "Enabled"
 
   identity {
     type         = "UserAssigned"
