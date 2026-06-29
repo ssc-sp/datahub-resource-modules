@@ -96,3 +96,9 @@ resource "azurerm_storage_container" "datahub_users" {
   storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
 }
+
+resource "azurerm_storage_table" "datahub_clamav_infected" {
+  name               = "infectedfiles"
+  storage_account_id = azurerm_storage_account.datahub_storageaccount.id
+}
+
