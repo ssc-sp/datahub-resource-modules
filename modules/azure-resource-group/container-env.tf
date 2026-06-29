@@ -4,8 +4,8 @@ resource "azurerm_container_app_environment" "proj_container_app_env" {
   resource_group_name = azurerm_resource_group.az_project_rg.name
   logs_destination    = "azure-monitor"
 
-  public_network_access              ="Enabled"
-  infrastructure_resource_group_name = "${azurerm_resource_group.az_project_rg.name}-cae"
+  public_network_access              = "Enabled"
+  infrastructure_resource_group_name = "${local.resource_group_name}-cae"
 
   identity {
     type         = "UserAssigned"

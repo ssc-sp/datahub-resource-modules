@@ -93,3 +93,22 @@ resource "azurerm_storage_container" "datahub_catalog" {
   storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
 }
+
+resource "azurerm_storage_container" "datahub_external_uploads" {
+  name                  = local.datahub_upload_name
+  storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
+  container_access_type = "private"
+}
+
+resource "azurerm_storage_container" "datahub_shared" {
+  name                  = local.datahub_shared_name
+  storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
+  container_access_type = "private"
+}
+
+resource "azurerm_storage_container" "datahub_users" {
+  name                  = local.datahub_users_name
+  storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
+  container_access_type = "private"
+}
+

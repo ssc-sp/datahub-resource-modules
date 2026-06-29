@@ -27,7 +27,7 @@ resource "azurerm_container_app_job" "proj_container_app_clamav_job" {
       }
       env {
         name  = "container_name"
-        value = "${local.datahub_mount_name},${local.datahub_stage_name}"
+        value = local.datahub_upload_name
       }
       env {
         name  = "CLIENT_ID"

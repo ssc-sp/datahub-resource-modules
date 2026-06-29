@@ -45,10 +45,14 @@ locals {
   datahub_backup_name       = "datahub-backup"
   datahub_stage_name        = "datahub-stage"
   datahub_log_name          = "datahub-log"
+  datahub_shared_name       = "shared"
+  datahub_upload_name       = "external-uploads"
+  datahub_users_name        = "users"
   datahub_temp_name         = "datahub-temp"
   datahub_quarantine        = "datahub-quarantine"
   blob_created_queue        = "blob-created"
   blob_muted_queue          = "blob-event-muted"
+  clamav_result_queue       = "clamav-scan-result"
   storage_size_limit_bytes  = 1024 * 1024 * 1024 * 1024 * var.storage_size_limit_tb
   log_keep_days             = 90
 }

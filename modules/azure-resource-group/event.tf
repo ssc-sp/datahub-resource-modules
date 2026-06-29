@@ -19,13 +19,11 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "blob_created_subsc
     queue_name         = azurerm_storage_queue.blob_created_event_queue.name
   }
 
-
   advanced_filter {
     string_begins_with {
       key = "subject"
       values = [
-        "/blobServices/default/containers/${local.datahub_mount_name}/",
-        "/blobServices/default/containers/${local.datahub_stage_name}/"
+        "/blobServices/default/containers/${local.datahub_upload_name}/"
       ]
     }
   }
