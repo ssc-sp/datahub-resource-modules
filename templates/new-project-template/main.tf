@@ -67,6 +67,8 @@ module "resource_group_module" {
   common_tags         = var.common_tags
   ssc_cbrid           = var.ssc_cbrid
   aad_admin_group_oid = var.aad_admin_group_oid
+
+  blob_scan_image = "ghcr.io/ssc-sp/clamav-blobavscan@sha256:f22d2c0ab5b938e2f3a68045ec0566c239da146b25363a9c55fb9442dbd30f7b"
 }
 
 output "project_cd" {
