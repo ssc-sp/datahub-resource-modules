@@ -108,6 +108,7 @@ locals {
   datahub_quarantine        = "datahub-quarantine"
   blob_created_queue        = "blob-created"
   blob_muted_queue          = "blob-event-muted"
+  clamav_result_queue       = "clamav-scan-result"
   storage_size_limit_bytes  = 1024 * 1024 * 1024 * 1024 * var.storage_size_limit_tb
   log_keep_days             = 90
 
