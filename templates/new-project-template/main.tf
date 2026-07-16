@@ -61,6 +61,8 @@ module "resource_group_module" {
   automation_account_uai_rg   = var.automation_account_uai_rg
   automation_account_uai_sub  = var.automation_account_uai_sub
   log_analytics_workspace_id  = var.log_analytics_workspace_id
+  service_bus_name            = var.service_bus_name
+  service_bus_id              = var.service_bus_id
 
   # optional variables
   budget_amount       = var.budget_amount

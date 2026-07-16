@@ -59,3 +59,15 @@ resource "azurerm_role_assignment" "proj_storage_clamav_job_role" {
   role_definition_name = each.key
   principal_id         = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.principal_id
 }
+
+resource "azurerm_role_assignment" "proj_logicapp_servicebus_role" {
+  scope                = var.service_bus_id
+  role_definition_name = "Azure Service Bus Data Sender"
+  principal_id         = azurerm_logic_app_workflow.fsdh_logicapp_message_forwarder.identity[0].principal_id
+}
+
+resource "azurerm_role_assignment" "proj_logicapp_queue_reader_role" {
+  scope                = azurerm_storage_account.datahub_storageaccount.id
+  role_definition_name = "Storage Queue Data Contributor"
+  principal_id         = azurerm_logic_app_workflow.fsdh_logicapp_message_forwarder.identity[0].principal_id
+}

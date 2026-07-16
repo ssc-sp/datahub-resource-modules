@@ -130,3 +130,5 @@ variable "enable_defender" {
 
 variable "blob_scan_image" { default = "ghcr.io/ssc-sp/clamav-blobavscan@sha256:1da01f920f9d4005e06c532384625d7f8476f8ebd055ac1e8420682bf2b44171" }
 variable "proj_cost_image" { default = "ghcr.io/fsdh-pfds/proj-cost-worker:latest" }
+variable "service_bus_name" { default = "" }
+variable "service_bus_id" {}

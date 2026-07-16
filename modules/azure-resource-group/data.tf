@@ -17,14 +17,16 @@ data "azurerm_user_assigned_identity" "proj_auto_acct_uai" {
 resource "time_static" "proj_first_created" {}
 
 locals {
-  resource_group_name       = lower("${var.resource_prefix}_proj_${var.project_cd}_${var.environment_name}_rg")
-  databricks_rg_name        = lower("${var.resource_prefix}-dbk-${var.project_cd}-${var.environment_name}-rg")
-  resource_group_location   = var.az_location
-  kv_name                   = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-kv")
-  automation_acct_name      = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-auto")
-  cost_runbook_name         = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-cost-stop-runbook")
-  cost_check_runbook_name   = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-cost-check-runbook")
-  sas_rotate_runbook_name   = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-sas-rotate-runbook")
+  resource_group_name     = lower("${var.resource_prefix}_proj_${var.project_cd}_${var.environment_name}_rg")
+  databricks_rg_name      = lower("${var.resource_prefix}-dbk-${var.project_cd}-${var.environment_name}-rg")
+  resource_group_location = var.az_location
+  kv_name                 = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-kv")
+  automation_acct_name    = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-auto")
+  cost_runbook_name       = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-cost-stop-runbook")
+  cost_check_runbook_name = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-cost-check-runbook")
+  sas_rotate_runbook_name = lower("${var.resource_prefix}-proj-${var.project_cd}-${var.environment_name}-sas-rotate-runbook")
+  service_bus_name        = var.service_bus_name != "" ? var.service_bus_name : "${lower(replace("${var.resource_prefix}", "/[^a-zA-Z\\d]/", ""))}-sbus-${var.environment_name}"
+
   cmk_name                  = "project-cmk"
   webhook_expiry_time       = "2033-04-01T00:00:00Z"
   current_fiscal_year_start = contains(["1", "2", "3"], formatdate("M", timestamp())) ? "${formatdate("YYYY", timestamp()) - 1}-04-01T00:00:00Z" : "${formatdate("YYYY", timestamp())}-04-01T00:00:00Z"
@@ -32,6 +34,7 @@ locals {
   base_name                 = lower("${var.resource_prefix}proj${var.project_cd}${var.environment_name}")
   storage_account_name      = local.base_name
   acr_name                  = lower(replace(replace(lower("${var.resource_prefix}-proj-${var.project_cd}-acr-${var.environment_name}"), "_", ""), "-", ""))
+  logicapp_name             = lower(replace(replace(lower("${var.resource_prefix}-proj-${var.project_cd}-logicapp-${var.environment_name}"), "_", ""), "-", ""))
   acr_image_clamav          = "blobavscan:latest"
   acr_image_proj_cost       = "projcost:latest"
   acr_image_proj_sas        = "projsas:latest"
