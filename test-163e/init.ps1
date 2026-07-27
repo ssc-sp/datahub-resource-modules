@@ -9,7 +9,7 @@ foreach ($module in $allModules) {
     write-Host "Checking module $module"
     if (! ($excludeModules -contains $module)) { 
         write-Host "Processing module $module"
-        cp $PSScriptRoot/../templates/$module$moduleSuffix/*tf* . -Force
+        Copy-Item -Path "$PSScriptRoot/../templates/$module$moduleSuffix/*tf*" -Destination "." -Force
 
         $file = $module -eq "new-project-template" ? "main.tf" : "$module$moduleSuffix.tf"
         if (Test-Path $file) {
