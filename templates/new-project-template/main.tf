@@ -85,6 +85,18 @@ output "azure_resource_group_name" {
   value = module.resource_group_module.resource_group_name
 }
 
+output "azure_storage_account_name" {
+  value = module.resource_group_module.azure_storage_account_name
+}
+
+output "azure_storage_container_name" {
+  value = module.resource_group_module.azure_storage_container_name
+}
+
+output "azure_storage_blob_status" {
+  value = "completed"
+}
+
 output "workspace_version" {
   value = "{{version}}"
 }
