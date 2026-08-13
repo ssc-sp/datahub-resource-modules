@@ -29,7 +29,7 @@ resource "azurerm_key_vault" "az_proj_kv" {
     prevent_destroy = true
     ignore_changes  = [tags]
   }
-  
+
   depends_on = [azurerm_resource_group.az_project_rg]
 }
 
