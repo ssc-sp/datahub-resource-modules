@@ -1,15 +1,15 @@
 $PSScriptRoot
 $cwd = Get-Location
 
-$allModules = "azure-databricks", "azure-app-service", "azure-postgres", "azure-container-app", "new-project-template", "azure-storage-blob"
-$excludeModules = "azure-postgres", "azure-app-service"
+$allModules = "azure-databricks", "azure-app-service", "azure-postgres", "azure-container-app", "new-project-template"
+$excludeModules = "azure-postgres"
 $moduleSuffix = ""
 
 foreach ($module in $allModules) {
     write-Host "Checking module $module"
     if (! ($excludeModules -contains $module)) { 
         write-Host "Processing module $module"
-        cp $PSScriptRoot/../templates/$module$moduleSuffix/*tf* . -Force
+        cp $PSScriptRoot/../templates/$module$moduleSuffix/*tf* .
 
         $file = $module -eq "new-project-template" ? "main.tf" : "$module$moduleSuffix.tf"
         if (Test-Path $file) {

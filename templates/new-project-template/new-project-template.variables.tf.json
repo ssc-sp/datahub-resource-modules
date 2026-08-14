@@ -57,6 +57,13 @@
     "ssc_cbrid": {
       "type": "string",
       "default": ""
+    },
+    "service_bus_name": {
+      "type": "string",
+      "default": ""
+    },
+    "service_bus_id": {
+      "type": "string"
     }
   }
 }

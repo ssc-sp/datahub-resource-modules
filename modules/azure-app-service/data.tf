@@ -59,4 +59,13 @@ locals {
   dns_record_name         = lower("${var.project_cd}-app")
   sas_start_now           = formatdate("YYYY-MM-DD", timeadd(timestamp(), "-24h"))
   sas_expiry_3m           = formatdate("YYYY-MM-DD", timeadd(timestamp(), "2184h"))
+  allow_source_ip_list = [
+    for ip in split(",", var.allow_source_ip) : {
+      name      = "fsdh-app-${index(split(",", var.allow_source_ip), ip)}"
+      action    = "Allow"
+      ipAddress = strcontains(ip, "/") ? ip : "${ip}/32"
+      name      = "fsdh-app-${index(split(",", var.allow_source_ip), ip)}"
+      priority  = (100 + index(split(",", var.allow_source_ip), ip))
+    }
+  ]
 }

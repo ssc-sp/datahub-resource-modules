@@ -1,14 +1,12 @@
 resource "azurerm_eventgrid_system_topic" "project_blob_created_system_topic" {
-  name                   = "${azurerm_storage_account.datahub_storageaccount.name}blobcreatedtopic"
-  location               = local.resource_group_location
-  resource_group_name    = azurerm_resource_group.az_project_rg.name
-  source_arm_resource_id = azurerm_storage_account.datahub_storageaccount.id
-  topic_type             = "Microsoft.Storage.StorageAccounts"
+  name                = "${azurerm_storage_account.datahub_storageaccount.name}blobcreatedtopic"
+  location            = local.resource_group_location
+  resource_group_name = azurerm_resource_group.az_project_rg.name
+  source_resource_id  = azurerm_storage_account.datahub_storageaccount.id
+  topic_type          = "Microsoft.Storage.StorageAccounts"
 }
 
 resource "azurerm_eventgrid_system_topic_event_subscription" "blob_created_subscription" {
-  count = var.enable_clamav ? 1 : 0
-
   name                  = "blobcreatedsubscription"
   system_topic          = azurerm_eventgrid_system_topic.project_blob_created_system_topic.name
   resource_group_name   = azurerm_resource_group.az_project_rg.name

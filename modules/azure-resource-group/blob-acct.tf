@@ -7,7 +7,7 @@ resource "azurerm_storage_account" "datahub_storageaccount" {
   account_kind                  = "StorageV2"
   is_hns_enabled                = true
   min_tls_version               = "TLS1_2"
-  public_network_access_enabled = var.is_dev
+  public_network_access_enabled = true
 
   identity { type = "SystemAssigned" }
 
@@ -28,21 +28,6 @@ resource "azurerm_storage_account" "datahub_storageaccount" {
   lifecycle {
     prevent_destroy = false
     ignore_changes  = [tags]
-  }
-}
-
-resource "azurerm_storage_account_network_rules" "datahub_storageaccount_runner_rule" {
-  count = var.is_dev ? 1 : 0
-
-  storage_account_id         = azurerm_storage_account.datahub_storageaccount.id
-  default_action             = "Deny"
-  ip_rules                   = ["${trimspace(data.http.myip.response_body)}"]
-  virtual_network_subnet_ids = local.subnet_all
-  bypass                     = ["AzureServices", "Logging", "Metrics"]
-
-  private_link_access {
-    endpoint_resource_id = azurerm_eventgrid_system_topic.project_blob_created_system_topic.id
-    endpoint_tenant_id   = var.az_tenant_id
   }
 }
 
@@ -116,3 +101,4 @@ resource "azurerm_storage_table" "datahub_clamav_infected" {
   name               = "infectedfiles"
   storage_account_id = azurerm_storage_account.datahub_storageaccount.id
 }
+
