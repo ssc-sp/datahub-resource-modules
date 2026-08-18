@@ -1,5 +1,16 @@
 # Changelog
 
+## [7.0.0](https://github.com/ssc-sp/datahub-resource-modules/compare/v6.4.3...v7.0.0) (2026-08-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* ab2896 merge blob module ([#274](https://github.com/ssc-sp/datahub-resource-modules/issues/274))
+
+### Features
+
+* ab2896 merge blob module ([#274](https://github.com/ssc-sp/datahub-resource-modules/issues/274)) ([a9375b3](https://github.com/ssc-sp/datahub-resource-modules/commit/a9375b388e4461b3edf69e3e6d3a5212c243efa2))
+
 ## [6.4.3](https://github.com/ssc-sp/datahub-resource-modules/compare/v6.4.2...v6.4.3) (2026-06-26)
 
 
