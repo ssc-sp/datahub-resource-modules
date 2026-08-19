@@ -185,3 +185,13 @@ moved {
   from = module.azure_storage_blob_module.azurerm_storage_table.datahub_clamav_infected
   to   = module.resource_group_module.azurerm_storage_table.datahub_clamav_infected
 }
+
+moved {
+  from =  module.azure_storage_blob_module.azurerm_role_assignment.proj_storage_creator_role
+  to    = module.resource_group_module.azurerm_role_assignment.proj_storage_creator_role
+}
+
+moved {
+  from = module.resource_group_module.azurerm_user_assigned_identity.datahub_proj_container_app_env_uai
+  to   = module.resource_group_module.azurerm_user_assigned_identity.datahub_proj_aca_env_uai
+}

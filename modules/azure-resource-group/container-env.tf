@@ -1,5 +1,5 @@
 resource "azurerm_container_app_environment" "proj_container_app_env" {
-  name                       = "${local.base_name}-aca-env"
+  name                       = "${local.base_name}-container-app-env"
   location                   = local.resource_group_location
   resource_group_name        = azurerm_resource_group.az_project_rg.name
   logs_destination           = "log-analytics"
