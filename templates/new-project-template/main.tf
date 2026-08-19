@@ -187,8 +187,8 @@ moved {
 }
 
 moved {
-  from =  module.azure_storage_blob_module.azurerm_role_assignment.proj_storage_creator_role
-  to    = module.resource_group_module.azurerm_role_assignment.proj_storage_creator_role
+  from = module.azure_storage_blob_module.azurerm_role_assignment.proj_storage_creator_role
+  to   = module.resource_group_module.azurerm_role_assignment.proj_storage_creator_role
 }
 
 moved {
