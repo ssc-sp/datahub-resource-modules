@@ -117,8 +117,38 @@ moved {
 }
 
 moved {
-  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_log
-  to   = module.resource_group_module.azurerm_storage_container.datahub_log
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_stage
+  to   = module.resource_group_module.azurerm_storage_container.datahub_stage
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_catalog
+  to   = module.resource_group_module.azurerm_storage_container.datahub_catalog
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_external_uploads
+  to   = module.resource_group_module.azurerm_storage_container.datahub_external_uploads
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_shared
+  to   = module.resource_group_module.azurerm_storage_container.datahub_shared
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_users
+  to   = module.resource_group_module.azurerm_storage_container.datahub_users
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_default
+  to   = module.resource_group_module.azurerm_storage_container.datahub_default
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_backup
+  to   = module.resource_group_module.azurerm_storage_container.datahub_backup
 }
 
 moved {
@@ -142,16 +172,16 @@ moved {
 }
 
 moved {
-  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_default
-  to   = module.resource_group_module.azurerm_storage_container.datahub_default
-}
-
-moved {
-  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_backup
-  to   = module.resource_group_module.azurerm_storage_container.datahub_backup
+  from = module.azure_storage_blob_module.azurerm_storage_queue.clamav_result_event_queue
+  to   = module.resource_group_module.azurerm_storage_queue.clamav_result_event_queue
 }
 
 moved {
   from = module.azure_storage_blob_module.azurerm_storage_blob.datahub_sample_blob
   to   = module.resource_group_module.azurerm_storage_blob.datahub_sample_blob
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_table.datahub_clamav_infected
+  to   = module.resource_group_module.azurerm_storage_table.datahub_clamav_infected
 }
