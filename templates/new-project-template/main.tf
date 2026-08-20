@@ -100,3 +100,98 @@ output "azure_storage_blob_status" {
 output "workspace_version" {
   value = "{{version}}"
 }
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_account.datahub_storageaccount
+  to   = module.resource_group_module.azurerm_storage_account.datahub_storageaccount
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_quarantine
+  to   = module.resource_group_module.azurerm_storage_container.datahub_quarantine
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_log
+  to   = module.resource_group_module.azurerm_storage_container.datahub_log
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_stage
+  to   = module.resource_group_module.azurerm_storage_container.datahub_stage
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_catalog
+  to   = module.resource_group_module.azurerm_storage_container.datahub_catalog
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_external_uploads
+  to   = module.resource_group_module.azurerm_storage_container.datahub_external_uploads
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_shared
+  to   = module.resource_group_module.azurerm_storage_container.datahub_shared
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_users
+  to   = module.resource_group_module.azurerm_storage_container.datahub_users
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_default
+  to   = module.resource_group_module.azurerm_storage_container.datahub_default
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_container.datahub_backup
+  to   = module.resource_group_module.azurerm_storage_container.datahub_backup
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_share.file_share_default
+  to   = module.resource_group_module.azurerm_storage_share.file_share_default
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_share.file_share_clamav_temp
+  to   = module.resource_group_module.azurerm_storage_share.file_share_clamav_temp
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_queue.blob_job_disabled_event_queue
+  to   = module.resource_group_module.azurerm_storage_queue.blob_job_disabled_event_queue
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_queue.blob_created_event_queue
+  to   = module.resource_group_module.azurerm_storage_queue.blob_created_event_queue
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_queue.clamav_result_event_queue
+  to   = module.resource_group_module.azurerm_storage_queue.clamav_result_event_queue
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_blob.datahub_sample_blob
+  to   = module.resource_group_module.azurerm_storage_blob.datahub_sample_blob
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_storage_table.datahub_clamav_infected
+  to   = module.resource_group_module.azurerm_storage_table.datahub_clamav_infected
+}
+
+moved {
+  from = module.azure_storage_blob_module.azurerm_role_assignment.proj_storage_creator_role
+  to   = module.resource_group_module.azurerm_role_assignment.proj_storage_creator_role
+}
+
+moved {
+  from = module.resource_group_module.azurerm_user_assigned_identity.datahub_proj_container_app_env_uai
+  to   = module.resource_group_module.azurerm_user_assigned_identity.datahub_proj_aca_env_uai
+}
