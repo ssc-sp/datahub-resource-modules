@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.0](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.0.0...v7.1.0) (2026-08-20)
+
+
+### Features
+
+* add migration code for storage module from previous versions ([#276](https://github.com/ssc-sp/datahub-resource-modules/issues/276)) ([c4824ad](https://github.com/ssc-sp/datahub-resource-modules/commit/c4824ad4ca03b28f51e29b5d0eaa7e4750b4d417))
+
 ## [7.0.0](https://github.com/ssc-sp/datahub-resource-modules/compare/v6.4.3...v7.0.0) (2026-08-14)
 
 
