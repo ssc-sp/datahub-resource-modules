@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.1](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.0...v7.1.1) (2026-08-31)
+
+
+### Bug Fixes
+
+* new terraform output to mark enhanced workspace ([#279](https://github.com/ssc-sp/datahub-resource-modules/issues/279)) ([523e983](https://github.com/ssc-sp/datahub-resource-modules/commit/523e98304b2a89c8336e98378a99ec629b4d6751))
+
 ## [7.1.0](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.0.0...v7.1.0) (2026-08-20)
 
 
