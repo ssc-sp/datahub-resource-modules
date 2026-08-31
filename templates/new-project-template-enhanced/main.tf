@@ -100,3 +100,7 @@ output "azure_storage_container_name" {
 output "workspace_version" {
   value = "{{version}}"
 }
+
+output "enhanced_workspace" {
+  value = "true"
+}

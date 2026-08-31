@@ -101,6 +101,10 @@ output "workspace_version" {
   value = "{{version}}"
 }
 
+output "enhanced_workspace" {
+  value = "false"
+}
+
 moved {
   from = module.azure_storage_blob_module.azurerm_storage_account.datahub_storageaccount
   to   = module.resource_group_module.azurerm_storage_account.datahub_storageaccount
