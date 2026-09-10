@@ -1,5 +1,13 @@
 # Changelog
 
+## [7.1.2](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.1...v7.1.2) (2026-09-10)
+
+
+### Bug Fixes
+
+* add virus-scan-evidence container ([#281](https://github.com/ssc-sp/datahub-resource-modules/issues/281)) ([c996eaf](https://github.com/ssc-sp/datahub-resource-modules/commit/c996eaf27baa384b985aff335020fbfebf72051e))
+* grant ado pipeline sp permissions for user sync in python function ([#283](https://github.com/ssc-sp/datahub-resource-modules/issues/283)) ([2520115](https://github.com/ssc-sp/datahub-resource-modules/commit/2520115569476d7790f754cd91a5e0c0423ae998))
+
 ## [7.1.1](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.0...v7.1.1) (2026-08-31)
 
 
