@@ -82,3 +82,15 @@ resource "azurerm_role_assignment" "blob_log_aca_job_role" {
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = azurerm_user_assigned_identity.datahub_proj_aca_env_uai.principal_id
 }
+
+resource "azurerm_role_assignment" "blob_app_sp_role" {
+  scope                = azurerm_storage_account.datahub_storageaccount.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = var.datahub_app_sp_oid
+}
+
+resource "azurerm_role_assignment" "blob_ado_sp_role" {
+  scope                = azurerm_storage_account.datahub_storageaccount.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = var.datahub_ado_sp_oid
+}
