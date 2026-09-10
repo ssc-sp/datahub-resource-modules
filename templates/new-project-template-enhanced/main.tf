@@ -57,6 +57,7 @@ module "resource_group_module" {
   project_cd                  = var.project_cd
   environment_name            = var.environment_name
   datahub_app_sp_oid          = var.datahub_app_sp_oid
+  datahub_ado_sp_oid          = var.datahub_ado_sp_oid
   automation_account_uai_name = var.automation_account_uai_name
   automation_account_uai_rg   = var.automation_account_uai_rg
   automation_account_uai_sub  = var.automation_account_uai_sub

@@ -85,6 +85,15 @@ resource "azurerm_key_vault_access_policy" "kv_policy_datahub_sp" {
   key_permissions    = ["List", "Get", "Update"]
 }
 
+resource "azurerm_key_vault_access_policy" "kv_policy_datahub_ado_sp" {
+  key_vault_id = azurerm_key_vault.az_proj_kv.id
+  tenant_id    = var.az_tenant_id
+  object_id    = var.datahub_ado_sp_oid
+
+  secret_permissions = ["List", "Get", "Set", "Delete"]
+  key_permissions    = ["Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey"]
+}
+
 resource "null_resource" "set_default_resource_group" {
   triggers = {
     always_run = "${timestamp()}"
