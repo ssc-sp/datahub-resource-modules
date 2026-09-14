@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.3](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.2...v7.1.3) (2026-09-14)
+
+
+### Bug Fixes
+
+* duplicate rbac error when running as ado SP ([#284](https://github.com/ssc-sp/datahub-resource-modules/issues/284)) ([ca4a727](https://github.com/ssc-sp/datahub-resource-modules/commit/ca4a7272041ad8acd8e8420e23201dd661bf078a))
+
 ## [7.1.2](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.1...v7.1.2) (2026-09-10)
 
 
