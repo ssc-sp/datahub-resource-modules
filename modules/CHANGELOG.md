@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.4](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.3...v7.1.4) (2026-09-14)
+
+
+### Bug Fixes
+
+* add key rotation permission to ado sp ([#286](https://github.com/ssc-sp/datahub-resource-modules/issues/286)) ([8d752ea](https://github.com/ssc-sp/datahub-resource-modules/commit/8d752ea1908b25dcf34defc0b2cbb5501be6b2ce))
+
 ## [7.1.3](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.2...v7.1.3) (2026-09-14)
 
 
