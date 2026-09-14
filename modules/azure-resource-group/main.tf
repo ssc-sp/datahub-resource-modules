@@ -87,7 +87,7 @@ resource "azurerm_key_vault_access_policy" "kv_policy_datahub_ado_sp" {
   object_id    = var.datahub_ado_sp_oid
 
   secret_permissions = ["List", "Get", "Set", "Delete"]
-  key_permissions    = ["Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey"]
+  key_permissions    = ["Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "GetRotationPolicy"]
 }
 
 resource "null_resource" "set_default_resource_group" {
