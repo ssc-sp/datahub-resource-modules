@@ -37,7 +37,7 @@ resource "azurerm_role_assignment" "proj_storage_creator_role" {
   count = data.azurerm_client_config.current.object_id == var.datahub_ado_sp_oid ? 0 : 1
 
   scope                = azurerm_storage_account.datahub_storageaccount.id
-  role_definition_name = "Storage Blob Data Contributor"]
+  role_definition_name = "Storage Blob Data Contributor"
   principal_id         = data.azurerm_client_config.current.object_id
 }
 
