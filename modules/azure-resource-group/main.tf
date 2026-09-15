@@ -40,7 +40,7 @@ resource "azurerm_key_vault_key" "az_proj_cmk" {
   key_size     = 2048
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
 
-  depends_on = [azurerm_key_vault_access_policy.current_runner_access_policy]
+  depends_on = [azurerm_key_vault_access_policy.current_runner_access_policy, azurerm_key_vault_access_policy.kv_policy_datahub_ado_sp]
 }
 
 resource "azurerm_key_vault_access_policy" "current_runner_access_policy" {
