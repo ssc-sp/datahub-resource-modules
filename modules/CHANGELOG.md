@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.5](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.4...v7.1.5) (2026-09-15)
+
+
+### Bug Fixes
+
+* Add dependency to key vault access policy for DataHub ([#288](https://github.com/ssc-sp/datahub-resource-modules/issues/288)) ([3312d8e](https://github.com/ssc-sp/datahub-resource-modules/commit/3312d8ec880a3202878785d50ebcf9001354ac34))
+
 ## [7.1.4](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.3...v7.1.4) (2026-09-14)
 
 
