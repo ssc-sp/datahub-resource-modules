@@ -3,6 +3,12 @@ resource "databricks_catalog" "datahub_proj_catalog" {
   storage_root = databricks_external_location.datahub_catalog_location.url
 }
 
+resource "databricks_default_namespace_setting" "datahub_proj_catalog_default" {
+  namespace {
+    value = databricks_catalog.datahub_proj_catalog.name
+  }
+}
+
 resource "databricks_schema" "datahub_proj_schema_bronze" {
   catalog_name = databricks_catalog.datahub_proj_catalog.name
   name         = "bronze"
