@@ -10,9 +10,10 @@ resource "azurerm_databricks_access_connector" "datahub_workspace_storage" {
   tags = var.project_tags
 }
 
-resource "databricks_default_namespace_settings" "datahub_proj_catalog_default" {
-  catalog_name   = databricks_catalog.datahub_proj_catalog.name
-  default_schema = databricks_schema.datahub_proj_schema_bronze.name
+resource "databricks_default_namespace_setting" "datahub_proj_catalog_default" {
+  namespace {
+    value = databricks_catalog.datahub_proj_catalog.name
+  }
 }
 
 resource "databricks_schema" "datahub_proj_schema_bronze" {
