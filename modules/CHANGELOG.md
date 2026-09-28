@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.6](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.5...v7.1.6) (2026-09-28)
+
+
+### Bug Fixes
+
+* configure default catalog in databricks ([#290](https://github.com/ssc-sp/datahub-resource-modules/issues/290)) ([a54c8a4](https://github.com/ssc-sp/datahub-resource-modules/commit/a54c8a478f6dceebe150897c899a479e3622e094))
+
 ## [7.1.5](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.4...v7.1.5) (2026-09-15)
 
 
