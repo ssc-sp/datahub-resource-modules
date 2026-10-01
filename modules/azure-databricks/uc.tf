@@ -96,6 +96,10 @@ resource "databricks_grants" "grants_catalog" {
     principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
     privileges = local.catalog_privilege_guest
   }
+  grant {
+    principal  = jsondecode(data.http.get_ado_user.response_body).Resources[0].applicationId
+    privileges = ["MANAGE"]
+  }
 }
 
 resource "databricks_grants" "grants_schema_bronze" {
