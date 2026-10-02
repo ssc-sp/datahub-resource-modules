@@ -92,6 +92,17 @@ data "http" "get_group_guest" {
   depends_on      = [data.http.create_group_user]
 }
 
+data "azuread_service_principal" "datahub_ado_sp" {
+  object_id = var.datahub_ado_sp_oid
+}
+
+data "http" "get_ado_user" {
+  url    = "https://${azurerm_databricks_workspace.datahub_databricks_workspace.workspace_url}/api/2.0/account/scim/v2/ServicePrincipals?filter=applicationId+eq+\"${data.azuread_service_principal.datahub_ado_sp.client_id}\""
+  method = "GET"
+
+  request_headers = { Authorization = "Bearer ${databricks_token.terraform_pat.token_value}" }
+}
+
 resource "databricks_permission_assignment" "sync_group_lead" {
   principal_id = jsondecode(data.http.get_group_lead.response_body).Resources[0].id
   permissions  = ["USER"]

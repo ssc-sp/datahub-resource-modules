@@ -30,6 +30,7 @@ module "azure_databricks_module" {
   project_tags        = module.resource_group_module.project_tags
 
   azure_databricks_enterprise_oid = var.azure_databricks_enterprise_oid
+  datahub_ado_sp_oid              = var.datahub_ado_sp_oid
   run_in_devops                   = false
   log_workspace_id                = var.log_workspace_id
 }
