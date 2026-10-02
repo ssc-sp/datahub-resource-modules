@@ -73,6 +73,17 @@ data "http" "create_group_guest" {
   request_body    = jsonencode({ "displayName" : "${local.group_name_guest}" })
 }
 
+data "azuread_service_principal" "datahub_ado_sp" {
+  object_id = var.datahub_ado_sp_oid
+}
+
+data "http" "get_ado_user" {
+  url    = "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/account/scim/v2/ServicePrincipals?filter=applicationId+eq+\"${data.azuread_service_principal.datahub_ado_sp.client_id}\""
+  method = "GET"
+
+  request_headers = { Authorization = "Bearer ${databricks_token.terraform_pat.token_value}" }
+}
+
 data "http" "get_group_lead" {
   url    = "https://${azapi_resource.fsdh_databricks.output.properties.workspaceUrl}/api/2.0/account/scim/v2/Groups?filter=displayName+eq+\"${local.group_name_lead}\""
   method = "GET"
