@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.7](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.6...v7.1.7) (2026-10-02)
+
+
+### Bug Fixes
+
+* grant catalog manage role to pipeline SP for user sync ([#292](https://github.com/ssc-sp/datahub-resource-modules/issues/292)) ([3562fe2](https://github.com/ssc-sp/datahub-resource-modules/commit/3562fe2b0bee19398024cd4119ca95309b8d442a))
+
 ## [7.1.6](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.5...v7.1.6) (2026-09-28)
 
 
