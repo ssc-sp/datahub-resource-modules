@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.8](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.7...v7.1.8) (2026-10-06)
+
+
+### Bug Fixes
+
+* grant manage role on catalog to ado for pbmm ([#294](https://github.com/ssc-sp/datahub-resource-modules/issues/294)) ([e18c2d3](https://github.com/ssc-sp/datahub-resource-modules/commit/e18c2d399d3dac3946cc2035bf1120f4a042d5a7))
+
 ## [7.1.7](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.6...v7.1.7) (2026-10-02)
 
 
