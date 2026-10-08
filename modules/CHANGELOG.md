@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.10](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.9...v7.1.10) (2026-10-08)
+
+
+### Bug Fixes
+
+* removed personal policy ([#299](https://github.com/ssc-sp/datahub-resource-modules/issues/299)) ([b84998b](https://github.com/ssc-sp/datahub-resource-modules/commit/b84998be3b739614145a2abaa5c8ec090b4081c7))
+
 ## [7.1.9](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.8...v7.1.9) (2026-10-08)
 
 
