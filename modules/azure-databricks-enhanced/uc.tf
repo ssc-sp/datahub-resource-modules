@@ -72,7 +72,7 @@ resource "azurerm_role_assignment" "datahub_storage_eventgrid_contrib" {
 
 resource "databricks_external_location" "datahub_workspace_location" {
   name            = format("%s-datahub", local.databricks_name)
-  url             = format("abfss://%s@%s.dfs.core.windows.net", local.datahub_blob_container, var.storage_acct_name)
+  url             = format("abfss://%s@%s.dfs.core.windows.net/", local.datahub_blob_container, var.storage_acct_name)
   credential_name = databricks_storage_credential.datahub_workspace_storage.id
   comment         = "Managed by TF"
   isolation_mode  = "ISOLATION_MODE_ISOLATED"
@@ -82,7 +82,7 @@ resource "databricks_external_location" "datahub_workspace_location" {
 
 resource "databricks_external_location" "datahub_catalog_location" {
   name            = format("%s-catalog", local.databricks_name)
-  url             = format("abfss://%s@%s.dfs.core.windows.net", local.datahub_catalog_container, var.storage_acct_name)
+  url             = format("abfss://%s@%s.dfs.core.windows.net/", local.datahub_catalog_container, var.storage_acct_name)
   credential_name = databricks_storage_credential.datahub_workspace_storage.id
   comment         = "Managed by TF"
   isolation_mode  = "ISOLATION_MODE_ISOLATED"
