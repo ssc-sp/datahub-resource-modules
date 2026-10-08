@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.9](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.8...v7.1.9) (2026-10-08)
+
+
+### Bug Fixes
+
+* improved databricks URLs ([#297](https://github.com/ssc-sp/datahub-resource-modules/issues/297)) ([0c498ab](https://github.com/ssc-sp/datahub-resource-modules/commit/0c498ab22f0c47c9529db79d0192ebdaa4ee3def))
+
 ## [7.1.8](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.7...v7.1.8) (2026-10-06)
 
 
