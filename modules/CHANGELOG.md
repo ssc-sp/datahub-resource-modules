@@ -1,5 +1,80 @@
 # Changelog
 
+## [7.1.8](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.7...v7.1.8) (2026-10-06)
+
+
+### Bug Fixes
+
+* grant manage role on catalog to ado for pbmm ([#294](https://github.com/ssc-sp/datahub-resource-modules/issues/294)) ([e18c2d3](https://github.com/ssc-sp/datahub-resource-modules/commit/e18c2d399d3dac3946cc2035bf1120f4a042d5a7))
+
+## [7.1.7](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.6...v7.1.7) (2026-10-02)
+
+
+### Bug Fixes
+
+* grant catalog manage role to pipeline SP for user sync ([#292](https://github.com/ssc-sp/datahub-resource-modules/issues/292)) ([3562fe2](https://github.com/ssc-sp/datahub-resource-modules/commit/3562fe2b0bee19398024cd4119ca95309b8d442a))
+
+## [7.1.6](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.5...v7.1.6) (2026-09-28)
+
+
+### Bug Fixes
+
+* configure default catalog in databricks ([#290](https://github.com/ssc-sp/datahub-resource-modules/issues/290)) ([a54c8a4](https://github.com/ssc-sp/datahub-resource-modules/commit/a54c8a478f6dceebe150897c899a479e3622e094))
+
+## [7.1.5](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.4...v7.1.5) (2026-09-15)
+
+
+### Bug Fixes
+
+* Add dependency to key vault access policy for DataHub ([#288](https://github.com/ssc-sp/datahub-resource-modules/issues/288)) ([3312d8e](https://github.com/ssc-sp/datahub-resource-modules/commit/3312d8ec880a3202878785d50ebcf9001354ac34))
+
+## [7.1.4](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.3...v7.1.4) (2026-09-14)
+
+
+### Bug Fixes
+
+* add key rotation permission to ado sp ([#286](https://github.com/ssc-sp/datahub-resource-modules/issues/286)) ([8d752ea](https://github.com/ssc-sp/datahub-resource-modules/commit/8d752ea1908b25dcf34defc0b2cbb5501be6b2ce))
+
+## [7.1.3](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.2...v7.1.3) (2026-09-14)
+
+
+### Bug Fixes
+
+* duplicate rbac error when running as ado SP ([#284](https://github.com/ssc-sp/datahub-resource-modules/issues/284)) ([ca4a727](https://github.com/ssc-sp/datahub-resource-modules/commit/ca4a7272041ad8acd8e8420e23201dd661bf078a))
+
+## [7.1.2](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.1...v7.1.2) (2026-09-10)
+
+
+### Bug Fixes
+
+* add virus-scan-evidence container ([#281](https://github.com/ssc-sp/datahub-resource-modules/issues/281)) ([c996eaf](https://github.com/ssc-sp/datahub-resource-modules/commit/c996eaf27baa384b985aff335020fbfebf72051e))
+* grant ado pipeline sp permissions for user sync in python function ([#283](https://github.com/ssc-sp/datahub-resource-modules/issues/283)) ([2520115](https://github.com/ssc-sp/datahub-resource-modules/commit/2520115569476d7790f754cd91a5e0c0423ae998))
+
+## [7.1.1](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.0...v7.1.1) (2026-08-31)
+
+
+### Bug Fixes
+
+* new terraform output to mark enhanced workspace ([#279](https://github.com/ssc-sp/datahub-resource-modules/issues/279)) ([523e983](https://github.com/ssc-sp/datahub-resource-modules/commit/523e98304b2a89c8336e98378a99ec629b4d6751))
+
+## [7.1.0](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.0.0...v7.1.0) (2026-08-20)
+
+
+### Features
+
+* add migration code for storage module from previous versions ([#276](https://github.com/ssc-sp/datahub-resource-modules/issues/276)) ([c4824ad](https://github.com/ssc-sp/datahub-resource-modules/commit/c4824ad4ca03b28f51e29b5d0eaa7e4750b4d417))
+
+## [7.0.0](https://github.com/ssc-sp/datahub-resource-modules/compare/v6.4.3...v7.0.0) (2026-08-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* ab2896 merge blob module ([#274](https://github.com/ssc-sp/datahub-resource-modules/issues/274))
+
+### Features
+
+* ab2896 merge blob module ([#274](https://github.com/ssc-sp/datahub-resource-modules/issues/274)) ([a9375b3](https://github.com/ssc-sp/datahub-resource-modules/commit/a9375b388e4461b3edf69e3e6d3a5212c243efa2))
+
 ## [6.4.3](https://github.com/ssc-sp/datahub-resource-modules/compare/v6.4.2...v6.4.3) (2026-06-26)
 
 

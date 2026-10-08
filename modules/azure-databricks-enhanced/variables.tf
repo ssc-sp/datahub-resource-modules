@@ -146,3 +146,5 @@ variable "is_dev" { default = false }
 variable "dbr_subnet_public" {}
 variable "dbr_subnet_private" {}
 variable "subnet_id_pep" {}
+variable "datahub_ado_sp_oid" { default = "" }
+

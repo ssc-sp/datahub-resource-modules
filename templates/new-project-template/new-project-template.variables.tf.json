@@ -12,6 +12,9 @@
     "datahub_app_sp_oid": {
       "type": "string"
     },
+    "datahub_ado_sp_oid": {
+      "type": "string"
+    },
     "environment_classification": {
       "type": "string",
       "default": "PA"
@@ -57,6 +60,13 @@
     "ssc_cbrid": {
       "type": "string",
       "default": ""
+    },
+    "service_bus_name": {
+      "type": "string",
+      "default": ""
+    },
+    "service_bus_id": {
+      "type": "string"
     }
   }
 }

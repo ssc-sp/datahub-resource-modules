@@ -57,6 +57,7 @@ module "resource_group_module" {
   project_cd                  = var.project_cd
   environment_name            = var.environment_name
   datahub_app_sp_oid          = var.datahub_app_sp_oid
+  datahub_ado_sp_oid          = var.datahub_ado_sp_oid
   automation_account_uai_name = var.automation_account_uai_name
   automation_account_uai_rg   = var.automation_account_uai_rg
   automation_account_uai_sub  = var.automation_account_uai_sub
@@ -73,6 +74,8 @@ module "resource_group_module" {
   subnet_name_prefix  = var.subnet_name_prefix
   vnet_name           = var.vnet_name
   vnet_rg             = var.vnet_rg
+
+  blob_scan_image = "ghcr.io/ssc-sp/clamav-blobavscan@sha256:f22d2c0ab5b938e2f3a68045ec0566c239da146b25363a9c55fb9442dbd30f7b"
 }
 
 output "project_cd" {
@@ -87,6 +90,18 @@ output "azure_resource_group_name" {
   value = module.resource_group_module.resource_group_name
 }
 
+output "azure_storage_account_name" {
+  value = module.resource_group_module.azure_storage_account_name
+}
+
+output "azure_storage_container_name" {
+  value = module.resource_group_module.azure_storage_container_name
+}
+
 output "workspace_version" {
   value = "{{version}}"
+}
+
+output "enhanced_workspace" {
+  value = "true"
 }

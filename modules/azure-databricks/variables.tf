@@ -130,3 +130,4 @@ variable "enable_ml_cluster" { default = false }
 variable "enable_ml_gpu_cluster" { default = false }
 variable "ml_compute" { default = "Standard_D4ds_v5" }
 variable "ml_gpu_compute" { default = "Standard_NC4as_T4_v3" }
+variable "datahub_ado_sp_oid" {default=""}

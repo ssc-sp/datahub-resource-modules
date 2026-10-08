@@ -10,7 +10,7 @@ module "azure_container_app_module" {
   storage_acct_id        = module.resource_group_module.azure_storage_account_id
   storage_container_name = module.resource_group_module.azure_storage_container_name
   storage_blob_endpoint  = module.resource_group_module.datahub_blob_endpoint
-  storage_acct_key            = module.resource_group_module.azure_storage_account_key
+  storage_acct_key       = module.resource_group_module.azure_storage_account_key
   container_app_size     = var.container_app_size
   container_app_max_node = var.container_app_max_node
   container_app_min_node = var.container_app_min_node

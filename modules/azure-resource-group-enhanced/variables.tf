@@ -22,6 +22,11 @@ variable "datahub_app_sp_oid" {
   type        = string
 }
 
+variable "datahub_ado_sp_oid" {
+  description = "The SP object ID used by the ADO pipeline for granting KV access"
+  type        = string
+}
+
 variable "automation_account_uai_name" {
   description = "The UAI common automation acct UAI"
   type        = string

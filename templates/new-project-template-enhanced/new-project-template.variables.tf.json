@@ -12,6 +12,9 @@
     "datahub_app_sp_oid": {
       "type": "string"
     },
+    "datahub_ado_sp_oid": {
+      "type": "string"
+    },
     "environment_classification": {
       "type": "string",
       "default": "PA"

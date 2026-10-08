@@ -10,6 +10,12 @@ resource "azurerm_databricks_access_connector" "datahub_workspace_storage" {
   tags = var.project_tags
 }
 
+resource "databricks_default_namespace_setting" "datahub_proj_catalog_default" {
+  namespace {
+    value = databricks_catalog.datahub_proj_catalog.name
+  }
+}
+
 resource "databricks_schema" "datahub_proj_schema_bronze" {
   catalog_name = databricks_catalog.datahub_proj_catalog.name
   name         = "bronze"
@@ -113,6 +119,10 @@ resource "databricks_grants" "grants_catalog" {
   grant {
     principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
     privileges = ["USE_CATALOG", "SELECT", "USE_SCHEMA"]
+  }
+   grant {
+    principal  = jsondecode(data.http.get_ado_user.response_body).Resources[0].applicationId
+    privileges = ["MANAGE"]
   }
 }
 

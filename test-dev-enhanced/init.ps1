@@ -2,8 +2,8 @@ $PSScriptRoot
 $cwd = Get-Location
 
 $allModules = "azure-databricks", "azure-app-service", "azure-postgres", "azure-container-app", "new-project-template"
-$excludeModules = "azure-postgres"
-$moduleSuffix = ""
+$excludeModules = "azure-postgres", "azure-app-service", "azure-container-app"
+$moduleSuffix = "-enhanced"
 
 foreach ($module in $allModules) {
     write-Host "Checking module $module"

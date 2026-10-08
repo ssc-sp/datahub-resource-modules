@@ -1,14 +1,10 @@
 resource "azurerm_container_app_environment" "proj_container_app_env" {
-  name                       = "${local.base_name}-aca-env"
+  name                       = "${local.base_name}-container-app-env"
   location                   = local.resource_group_location
   resource_group_name        = azurerm_resource_group.az_project_rg.name
   logs_destination           = "log-analytics"
   log_analytics_workspace_id = var.log_analytics_workspace_id
-
-  public_network_access              = var.is_dev ? "Enabled" : "Disabled"
-  internal_load_balancer_enabled     = var.is_dev ? false : true
-  infrastructure_subnet_id           = data.azurerm_subnet.datahub_subnet_cae.id
-  infrastructure_resource_group_name = "${azurerm_resource_group.az_project_rg.name}-cae"
+  public_network_access      = "Enabled"
 
   identity {
     type         = "UserAssigned"
@@ -31,4 +27,3 @@ resource "azurerm_monitor_diagnostic_setting" "proj_log_aca_env" {
   enabled_log { category_group = "allLogs" }
   enabled_log { category_group = "audit" }
 }
-

@@ -13,7 +13,7 @@ resource "azurerm_container_app_job" "proj_container_app_job_costing" {
   template {
     container {
       name   = "proj-cost"
-      image  = local.docker_image_proj_cost
+      image  = var.proj_cost_image
       cpu    = 2
       memory = "4.0Gi"
       env {

@@ -3,6 +3,12 @@ resource "databricks_catalog" "datahub_proj_catalog" {
   storage_root = databricks_external_location.datahub_catalog_location.url
 }
 
+resource "databricks_default_namespace_setting" "datahub_proj_catalog_default" {
+  namespace {
+    value = databricks_catalog.datahub_proj_catalog.name
+  }
+}
+
 resource "databricks_schema" "datahub_proj_schema_bronze" {
   catalog_name = databricks_catalog.datahub_proj_catalog.name
   name         = "bronze"
@@ -89,6 +95,10 @@ resource "databricks_grants" "grants_catalog" {
   grant {
     principal  = jsondecode(data.http.get_group_guest.response_body).Resources[0].displayName
     privileges = local.catalog_privilege_guest
+  }
+  grant {
+    principal  = jsondecode(data.http.get_ado_user.response_body).Resources[0].applicationId
+    privileges = ["MANAGE"]
   }
 }
 

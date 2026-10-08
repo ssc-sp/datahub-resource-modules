@@ -20,14 +20,14 @@ resource "azurerm_key_vault" "az_proj_kv" {
   purge_protection_enabled        = true
   enabled_for_template_deployment = true
   enable_rbac_authorization       = false
-
-  sku_name = "standard"
+  public_network_access_enabled   = true
+  sku_name                        = "standard"
 
   tags = local.project_tags
 
   lifecycle {
     prevent_destroy = true
-    ignore_changes  = [tags["created_date"]]
+    ignore_changes  = [tags]
   }
 
   depends_on = [azurerm_resource_group.az_project_rg]
@@ -40,11 +40,12 @@ resource "azurerm_key_vault_key" "az_proj_cmk" {
   key_size     = 2048
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
 
-  depends_on = [azurerm_key_vault_access_policy.current_runner_access_policy]
+  depends_on = [azurerm_key_vault_access_policy.current_runner_access_policy, azurerm_key_vault_access_policy.kv_policy_datahub_ado_sp]
 }
 
-
 resource "azurerm_key_vault_access_policy" "current_runner_access_policy" {
+  count = data.azurerm_client_config.current.object_id == var.datahub_ado_sp_oid ? 0 : 1
+
   key_vault_id = azurerm_key_vault.az_proj_kv.id
   tenant_id    = var.az_tenant_id
   object_id    = data.azurerm_client_config.current.object_id
@@ -80,6 +81,15 @@ resource "azurerm_key_vault_access_policy" "kv_policy_datahub_sp" {
   key_permissions    = ["List", "Get", "Update"]
 }
 
+resource "azurerm_key_vault_access_policy" "kv_policy_datahub_ado_sp" {
+  key_vault_id = azurerm_key_vault.az_proj_kv.id
+  tenant_id    = var.az_tenant_id
+  object_id    = var.datahub_ado_sp_oid
+
+  secret_permissions = ["List", "Get", "Set", "Delete"]
+  key_permissions    = ["Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "GetRotationPolicy"]
+}
+
 resource "null_resource" "set_default_resource_group" {
   triggers = {
     always_run = "${timestamp()}"
@@ -104,4 +114,3 @@ resource "azurerm_monitor_action_group" "datahub_proj_action_group_email" {
 
   tags = local.project_tags
 }
-
