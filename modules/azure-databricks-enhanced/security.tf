@@ -58,3 +58,8 @@ resource "azurerm_key_vault_access_policy" "kv_policy_databricks_proj_cmk" {
 
   key_permissions = ["Get", "List", "Encrypt", "Decrypt", "Sign", "WrapKey", "UnwrapKey"]
 }
+
+resource "databricks_token" "terraform_pat" {
+  comment          = "Terraform Provisioning"
+  lifetime_seconds = 3600
+}
