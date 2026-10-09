@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.11](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.10...v7.1.11) (2026-10-09)
+
+
+### Bug Fixes
+
+* error creating cluster after auto unity catalog assignment ([#301](https://github.com/ssc-sp/datahub-resource-modules/issues/301)) ([baf2c4c](https://github.com/ssc-sp/datahub-resource-modules/commit/baf2c4cfa41eb016fa8b065737a189e9e7e93d28))
+
 ## [7.1.10](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.9...v7.1.10) (2026-10-08)
 
 
