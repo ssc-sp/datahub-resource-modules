@@ -37,14 +37,8 @@ resource "databricks_cluster" "dbk_proj_cluster" {
   autotermination_minutes = 10
   num_workers             = 1
   is_pinned               = true
+  data_security_mode      = "USER_ISOLATION"
   policy_id               = databricks_cluster_policy.regular_cluster_policy.id
-
-  spark_conf = {
-    "spark.databricks.passthrough.enabled" : "true",
-    "spark.databricks.delta.preview.enabled" : "true",
-    "spark.databricks.pyspark.enableProcessIsolation" : "true",
-    "spark.databricks.repl.allowedLanguages" : "python,sql,r"
-  }
 
   autoscale {
     min_workers = 0
