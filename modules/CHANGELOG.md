@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.12](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.11...v7.1.12) (2026-10-13)
+
+
+### Bug Fixes
+
+* granted reader role to sp ([#303](https://github.com/ssc-sp/datahub-resource-modules/issues/303)) ([3bc2623](https://github.com/ssc-sp/datahub-resource-modules/commit/3bc26236c2ed85fdc71b7e230581ece41f60c847))
+
 ## [7.1.11](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.10...v7.1.11) (2026-10-09)
 
 
