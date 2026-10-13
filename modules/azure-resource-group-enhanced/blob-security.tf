@@ -84,8 +84,10 @@ resource "azurerm_role_assignment" "blob_log_aca_job_role" {
 }
 
 resource "azurerm_role_assignment" "blob_app_sp_role" {
+  for_each = toset(["Storage Blob Data Contributor", "Reader and Data Access", "Reader"])
+
   scope                = azurerm_storage_account.datahub_storageaccount.id
-  role_definition_name = "Storage Blob Data Contributor"
+  role_definition_name = each.key
   principal_id         = var.datahub_app_sp_oid
 }
 
