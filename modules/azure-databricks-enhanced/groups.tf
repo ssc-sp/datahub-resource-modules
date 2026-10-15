@@ -5,7 +5,7 @@ resource "time_sleep" "wait_for_databricks_workspace" {
 }
 
 resource "databricks_schema" "datahub_proj_schema" {
-  catalog_name = databricks_catalog.datahub_proj_catalog.name
+  catalog_name = data.databricks_catalog.datahub_proj_catalog.name
   name         = "fsdh"
 }
 

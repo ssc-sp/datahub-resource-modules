@@ -36,9 +36,9 @@ resource "databricks_notebook" "fsdh_sample_py_serverless" {
     display(df)
     df = spark.read.format("csv").option("header", "true").load("abfss://${local.datahub_blob_container}@${var.storage_acct_name}.dfs.core.windows.net/fsdh-sample.csv")
     display(df)
-    drop table if exists `${databricks_catalog.datahub_proj_catalog.name}`.${databricks_schema.datahub_proj_schema_bronze.name}.fsdh_sample;
-    create TABLE if not exists `${databricks_catalog.datahub_proj_catalog.name}`.${databricks_schema.datahub_proj_schema_bronze.name}.fsdh_sample USING CSV OPTIONS (header = "true") LOCATION "abfss://${local.datahub_blob_container}@${var.storage_acct_name}.dfs.core.windows.net/fsdh-sample.csv";
-    select * from `${databricks_catalog.datahub_proj_catalog.name}`.${databricks_schema.datahub_proj_schema_bronze.name}.fsdh_sample
+    drop table if exists `${data.databricks_catalog.datahub_proj_catalog.name}`.${databricks_schema.datahub_proj_schema_bronze.name}.fsdh_sample;
+    create TABLE if not exists `${data.databricks_catalog.datahub_proj_catalog.name}`.${databricks_schema.datahub_proj_schema_bronze.name}.fsdh_sample USING CSV OPTIONS (header = "true") LOCATION "abfss://${local.datahub_blob_container}@${var.storage_acct_name}.dfs.core.windows.net/fsdh-sample.csv";
+    select * from `${data.databricks_catalog.datahub_proj_catalog.name}`.${databricks_schema.datahub_proj_schema_bronze.name}.fsdh_sample
   EOT
   )
 
@@ -52,9 +52,9 @@ resource "databricks_notebook" "fsdh_sample_py_serverless" {
 resource "databricks_notebook" "fsdh_sample_sql_serverless" {
   path = "/fsdh-sample-serverless.sql"
   content_base64 = base64encode(<<-EOT
-    drop table if exists `${databricks_catalog.datahub_proj_catalog.name}`.${databricks_schema.datahub_proj_schema_bronze.name}.fsdh_sample;
-    create TABLE if not exists `${databricks_catalog.datahub_proj_catalog.name}`.${databricks_schema.datahub_proj_schema_bronze.name}.fsdh_sample USING CSV OPTIONS (header = "true") LOCATION "abfss://${local.datahub_blob_container}@${var.storage_acct_name}.dfs.core.windows.net/fsdh-sample.csv";
-    select * from `${databricks_catalog.datahub_proj_catalog.name}`.${databricks_schema.datahub_proj_schema_bronze.name}.fsdh_sample
+    drop table if exists `${data.databricks_catalog.datahub_proj_catalog.name}`.${databricks_schema.datahub_proj_schema_bronze.name}.fsdh_sample;
+    create TABLE if not exists `${data.databricks_catalog.datahub_proj_catalog.name}`.${databricks_schema.datahub_proj_schema_bronze.name}.fsdh_sample USING CSV OPTIONS (header = "true") LOCATION "abfss://${local.datahub_blob_container}@${var.storage_acct_name}.dfs.core.windows.net/fsdh-sample.csv";
+    select * from `${data.databricks_catalog.datahub_proj_catalog.name}`.${databricks_schema.datahub_proj_schema_bronze.name}.fsdh_sample
   EOT
   )
 

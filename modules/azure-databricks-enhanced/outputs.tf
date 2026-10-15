@@ -7,6 +7,10 @@ output "azure_databricks_workspace_name" {
   value = azapi_resource.fsdh_databricks.name
 }
 
+output "azure_databricks_catalog_name" {
+  value = data.databricks_catalog.datahub_proj_catalog.name
+}
+
 output "azure_databricks_workspace_url" {
   value = azapi_resource.fsdh_databricks.output.properties.workspaceUrl
 }
