@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.1.13](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.12...v7.1.13) (2026-10-16)
+
+
+### Bug Fixes
+
+* reuse built-in databricks catalog ([#306](https://github.com/ssc-sp/datahub-resource-modules/issues/306)) ([061e928](https://github.com/ssc-sp/datahub-resource-modules/commit/061e92884be410f9f1a0239a0afbce91883b24e2))
+
 ## [7.1.12](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.11...v7.1.12) (2026-10-13)
 
 
