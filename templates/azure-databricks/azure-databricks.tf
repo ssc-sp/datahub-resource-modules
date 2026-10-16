@@ -50,3 +50,7 @@ output "azure_databricks_workspace_url" {
 output "azure_databricks_workspace_name" {
   value = module.azure_databricks_module.azure_databricks_workspace_name
 }
+
+output "azure_databricks_catalog_name" {
+  value = module.azure_databricks_module.azure_databricks_catalog_name
+}
