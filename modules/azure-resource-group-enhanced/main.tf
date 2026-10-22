@@ -26,7 +26,7 @@ resource "azurerm_key_vault" "az_proj_kv" {
   network_acls {
     bypass                     = "AzureServices"
     default_action             = "Deny"
-    ip_rules                   = ["${trimspace(data.http.myip.response_body)}"]
+    ip_rules                   = concat(["${trimspace(data.http.myip.response_body)}"], var.dev_source_ip != "" ? [var.dev_source_ip] : [])
     virtual_network_subnet_ids = var.is_dev ? local.subnet_all : [data.azurerm_subnet.datahub_subnet_cae.id]
   }
 

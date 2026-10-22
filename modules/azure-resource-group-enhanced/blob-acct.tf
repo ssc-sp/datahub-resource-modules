@@ -36,7 +36,7 @@ resource "azurerm_storage_account_network_rules" "datahub_storageaccount_runner_
 
   storage_account_id         = azurerm_storage_account.datahub_storageaccount.id
   default_action             = "Deny"
-  ip_rules                   = ["${trimspace(data.http.myip.response_body)}"]
+  ip_rules                   = concat(["${trimspace(data.http.myip.response_body)}"], var.dev_source_ip != "" ? [var.dev_source_ip] : [])
   virtual_network_subnet_ids = local.subnet_all
   bypass                     = ["AzureServices", "Logging", "Metrics"]
 

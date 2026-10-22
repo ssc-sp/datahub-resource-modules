@@ -64,6 +64,7 @@ module "resource_group_module" {
   log_analytics_workspace_id  = var.log_analytics_workspace_id
   enable_clamav               = var.enable_clamav
   is_dev                      = var.is_dev
+  dev_source_ip               = var.dev_source_ip
 
   # optional variables
   budget_amount       = var.budget_amount

@@ -80,6 +80,10 @@
     "is_dev": {
       "type": "bool",
       "default": false
+    },
+    "dev_source_ip": {
+      "type": "string",
+      "default": ""
     }
   }
 }
