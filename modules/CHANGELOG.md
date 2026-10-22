@@ -1,5 +1,17 @@
 # Changelog
 
+## [7.2.0](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.13...v7.2.0) (2026-10-22)
+
+
+### Features
+
+* add optional dev machine ip range for pbmm development ([#309](https://github.com/ssc-sp/datahub-resource-modules/issues/309)) ([a0eeb7f](https://github.com/ssc-sp/datahub-resource-modules/commit/a0eeb7ff8b16fb16589bbb0d6474fa15c1cfcae4))
+
+
+### Bug Fixes
+
+* obtain client id for ado spn for databricks permission grant ([#308](https://github.com/ssc-sp/datahub-resource-modules/issues/308)) ([4e42fa8](https://github.com/ssc-sp/datahub-resource-modules/commit/4e42fa82e3089f5bfabf10ab5cf338fc04670f36))
+
 ## [7.1.13](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.12...v7.1.13) (2026-10-16)
 
 
