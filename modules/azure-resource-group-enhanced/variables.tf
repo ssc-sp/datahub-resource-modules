@@ -145,4 +145,5 @@ variable "enable_defender" {
 }
 
 variable "is_dev" { default = false }
+variable "dev_source_ip" { default = "" }
 
