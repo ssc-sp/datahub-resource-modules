@@ -128,7 +128,7 @@ resource "databricks_grants" "grants_catalog" {
     privileges = ["USE_CATALOG", "SELECT", "USE_SCHEMA"]
   }
   grant {
-    principal  = jsondecode(data.http.get_ado_user.response_body).Resources[0].applicationId
+    principal  = data.azuread_service_principal.datahub_ado_sp.client_id
     privileges = ["MANAGE"]
   }
 }
