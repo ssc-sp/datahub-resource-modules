@@ -10,5 +10,6 @@
 **/test-*/azure-batch*.tf*
 **/test-*/azure-container-app*.tf*
 **/test-*/azure-container-instance*.tf*
+**/test-*/env*.tf*
 .vscode
 settings.json
