@@ -120,12 +120,6 @@ variable "budget_start_date" {
   default     = ""
 }
 
-variable "log_workspace_id" {
-  description = "The object ID of the pre-existing centrally managed Azure Log Analytics Workspace"
-  type        = string
-  default     = ""
-}
-
 variable "enable_ml_cluster" { default = false }
 variable "enable_ml_gpu_cluster" { default = false }
 variable "ml_compute" { default = "Standard_D4ds_v5" }

@@ -1,9 +1,9 @@
 resource "azurerm_monitor_diagnostic_setting" "log_databricks" {
-  count = var.log_workspace_id != "" ? 1 : 0
+  count = var.log_analytics_workspace_id != "" ? 1 : 0
 
   name                       = "datahub-log-dbr"
   target_resource_id         = azurerm_databricks_workspace.datahub_databricks_workspace.id
-  log_analytics_workspace_id = var.log_workspace_id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
 
   enabled_log { category = "clusters" }
   enabled_log { category = "accounts" }

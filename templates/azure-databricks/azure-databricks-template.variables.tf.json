@@ -19,10 +19,6 @@
     "azure_databricks_enterprise_oid": {
       "type": "string"
     },
-    "log_workspace_id": {
-      "type": "string",
-      "default": ""
-    },
     "enable_ml_cluster": {
       "type": "bool",
       "default": false
