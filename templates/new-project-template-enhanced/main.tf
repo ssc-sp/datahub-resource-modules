@@ -52,16 +52,16 @@ locals {
 
 module "resource_group_module" {
   source                      = "github.com/ssc-sp/datahub-resource-modules//modules/azure-resource-group-enhanced{{tag}}"
-  az_tenant_id                = var.az_tenant_id
+  az_tenant_id                = local.az_tenant_id
   az_subscription_id          = var.az_subscription_id
   project_cd                  = var.project_cd
-  environment_name            = var.environment_name
-  datahub_app_sp_oid          = var.datahub_app_sp_oid
-  datahub_ado_sp_oid          = var.datahub_ado_sp_oid
-  automation_account_uai_name = var.automation_account_uai_name
-  automation_account_uai_rg   = var.automation_account_uai_rg
-  automation_account_uai_sub  = var.automation_account_uai_sub
-  log_analytics_workspace_id  = var.log_analytics_workspace_id
+  environment_name            = local.environment_name
+  datahub_app_sp_oid          = local.datahub_app_sp_oid
+  datahub_ado_sp_oid          = local.datahub_ado_sp_oid
+  automation_account_uai_name = local.automation_account_uai_name
+  automation_account_uai_rg   = local.automation_account_uai_rg
+  automation_account_uai_sub  = local.automation_account_uai_sub
+  log_analytics_workspace_id  = local.log_analytics_workspace_id
   enable_clamav               = var.enable_clamav
   is_dev                      = var.is_dev
   dev_source_ip               = var.dev_source_ip
@@ -70,11 +70,11 @@ module "resource_group_module" {
   budget_amount       = var.budget_amount
   common_tags         = var.common_tags
   ssc_cbrid           = var.ssc_cbrid
-  aad_admin_group_oid = var.aad_admin_group_oid
+  aad_admin_group_oid = local.aad_admin_group_oid
   subnet_group_number = var.subnet_group_number
   subnet_name_prefix  = var.subnet_name_prefix
-  vnet_name           = var.vnet_name
-  vnet_rg             = var.vnet_rg
+  vnet_name           = local.vnet_name
+  vnet_rg             = local.vnet_rg
 
   blob_scan_image = "ghcr.io/ssc-sp/clamav-blobavscan@sha256:f22d2c0ab5b938e2f3a68045ec0566c239da146b25363a9c55fb9442dbd30f7b"
 }

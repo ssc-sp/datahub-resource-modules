@@ -10,7 +10,7 @@ module "azure_databricks_module" {
   storage_acct_id            = module.resource_group_module.storage_acct_id
   aad_admin_group_oid        = var.aad_admin_group_oid
   budget_amount              = var.budget_amount
-  log_analytics_workspace_id = var.log_analytics_workspace_id
+  log_analytics_workspace_id = local.log_analytics_workspace_id
   enable_ml_cluster          = var.enable_ml_cluster
   enable_ml_gpu_cluster      = var.enable_ml_gpu_cluster
   ml_compute                 = var.ml_compute
@@ -23,12 +23,12 @@ module "azure_databricks_module" {
   subnet_id_pep              = module.resource_group_module.subnet_id_pep
 
   # optional variables
-  az_tenant_id       = var.az_tenant_id
+  az_tenant_id       = local.az_tenant_id
   az_subscription_id = var.az_subscription_id
   project_cd         = var.project_cd
 
-  environment_name           = var.environment_name
-  environment_classification = var.environment_classification
+  environment_name           = local.environment_name
+  environment_classification = local.environment_classification
   resource_prefix            = var.resource_prefix
 
   admin_users         = var.databricks_admin_users
@@ -37,8 +37,8 @@ module "azure_databricks_module" {
   project_guest_users = var.databricks_project_guests
   project_tags        = module.resource_group_module.project_tags
 
-  azure_databricks_enterprise_oid = var.azure_databricks_enterprise_oid
-  datahub_ado_sp_oid              = var.datahub_ado_sp_oid
+  azure_databricks_enterprise_oid = local.azure_databricks_enterprise_oid
+  datahub_ado_sp_oid              = local.datahub_ado_sp_oid
   run_in_devops                   = false
 }
 
