@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.2.1](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.0...v7.2.1) (2026-10-28)
+
+
+### Bug Fixes
+
+* duplicate parameter for log analytics workspace id ([#311](https://github.com/ssc-sp/datahub-resource-modules/issues/311)) ([a3c8e28](https://github.com/ssc-sp/datahub-resource-modules/commit/a3c8e2869733c25e0ab32a1710c0171614fd0973))
+
 ## [7.2.0](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.1.13...v7.2.0) (2026-10-22)
 
 
