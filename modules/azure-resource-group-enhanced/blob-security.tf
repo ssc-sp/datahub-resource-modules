@@ -34,7 +34,7 @@ data "azurerm_storage_account_blob_container_sas" "datahub_container_sas" {
 }
 
 resource "azurerm_role_assignment" "proj_storage_creator_role" {
-  for_each = toset(["Storage Blob Data Contributor"])
+  for_each = data.azurerm_client_config.current.object_id == var.datahub_ado_sp_oid ? toset([]) : toset(["Storage Blob Data Contributor"])
 
   scope                = azurerm_storage_account.datahub_storageaccount.id
   role_definition_name = each.key
