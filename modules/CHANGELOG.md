@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.2.2](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.1...v7.2.2) (2026-11-04)
+
+
+### Bug Fixes
+
+* remove duplicate grants ([#313](https://github.com/ssc-sp/datahub-resource-modules/issues/313)) ([6d8c9f8](https://github.com/ssc-sp/datahub-resource-modules/commit/6d8c9f817596c305e5b2b5b50be98a44c69a823d))
+
 ## [7.2.1](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.0...v7.2.1) (2026-10-28)
 
 
