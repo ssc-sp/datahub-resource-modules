@@ -1,5 +1,13 @@
 # Changelog
 
+## [7.2.3](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.2...v7.2.3) (2026-11-04)
+
+
+### Bug Fixes
+
+* pipeline error when run as ado sp ([9266e82](https://github.com/ssc-sp/datahub-resource-modules/commit/9266e82bf82a3547904828ba5472d3a9d8306a51))
+* pipeline error when run as ado sp ([#315](https://github.com/ssc-sp/datahub-resource-modules/issues/315)) ([9266e82](https://github.com/ssc-sp/datahub-resource-modules/commit/9266e82bf82a3547904828ba5472d3a9d8306a51))
+
 ## [7.2.2](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.1...v7.2.2) (2026-11-04)
 
 
