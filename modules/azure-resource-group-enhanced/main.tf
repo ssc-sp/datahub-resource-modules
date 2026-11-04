@@ -45,11 +45,13 @@ resource "azurerm_key_vault_key" "az_proj_cmk" {
   key_size     = 2048
   key_opts     = ["decrypt", "encrypt", "sign", "unwrapKey", "verify", "wrapKey"]
 
-  depends_on = [azurerm_key_vault_access_policy.current_runner_access_policy]
+  depends_on = [azurerm_key_vault_access_policy.current_runner_access_policy, azurerm_key_vault_access_policy.kv_policy_datahub_ado_sp]
 }
 
 
 resource "azurerm_key_vault_access_policy" "current_runner_access_policy" {
+  count = data.azurerm_client_config.current.object_id == var.datahub_ado_sp_oid ? 0 : 1
+
   key_vault_id = azurerm_key_vault.az_proj_kv.id
   tenant_id    = var.az_tenant_id
   object_id    = data.azurerm_client_config.current.object_id
@@ -91,7 +93,7 @@ resource "azurerm_key_vault_access_policy" "kv_policy_datahub_ado_sp" {
   object_id    = var.datahub_ado_sp_oid
 
   secret_permissions = ["List", "Get", "Set", "Delete"]
-  key_permissions    = ["Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey"]
+  key_permissions    = ["Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "GetRotationPolicy"]
 }
 
 resource "null_resource" "set_default_resource_group" {
