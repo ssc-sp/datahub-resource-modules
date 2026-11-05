@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.2.4](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.3...v7.2.4) (2026-11-05)
+
+
+### Bug Fixes
+
+* open dev to the entire vnet ([#317](https://github.com/ssc-sp/datahub-resource-modules/issues/317)) ([ec816f6](https://github.com/ssc-sp/datahub-resource-modules/commit/ec816f63a5572f10bd30af8e3abc497b1c121138))
+
 ## [7.2.3](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.2...v7.2.3) (2026-11-04)
 
 
