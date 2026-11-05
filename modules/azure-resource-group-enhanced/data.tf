@@ -21,6 +21,14 @@ data "azurerm_virtual_network" "datahub_vnet" {
   resource_group_name = var.vnet_rg
 }
 
+data "azurerm_subnet" "datahub_subnet_all" {
+  for_each = toset(data.azurerm_virtual_network.datahub_vnet.subnets)
+
+  name                 = each.value
+  virtual_network_name = var.vnet_name
+  resource_group_name  = var.vnet_rg
+}
+
 data "azurerm_subnet" "datahub_subnet_app" {
   name                 = local.subnet_app_name
   virtual_network_name = var.vnet_name
@@ -112,16 +120,7 @@ locals {
   storage_size_limit_bytes  = 1024 * 1024 * 1024 * 1024 * var.storage_size_limit_tb
   log_keep_days             = 90
 
-  subnet_all = [
-    data.azurerm_subnet.datahub_subnet_app.id,
-    data.azurerm_subnet.datahub_subnet_ph1.id,
-    data.azurerm_subnet.datahub_subnet_ph2.id,
-    data.azurerm_subnet.datahub_subnet_cae.id,
-    data.azurerm_subnet.datahub_subnet_pep.id,
-    data.azurerm_subnet.datahub_subnet_psql.id,
-    data.azurerm_subnet.datahub_subnet_dbrprv.id,
-    data.azurerm_subnet.datahub_subnet_dbrpub.id
-  ]
+  subnet_all = [for subnet in data.azurerm_subnet.datahub_subnet_all : subnet.id]
 }
 
 resource "null_resource" "current_fiscal_year_start" {
