@@ -146,4 +146,4 @@ variable "enable_defender" {
 
 variable "is_dev" { default = false }
 variable "dev_source_ip" { default = "" }
-variable "gc_blob_domain" { default = "blob.c.ent.cloud-nuage.canada.ca" } # DEV: blob.dev.c.ent.cloud-nuage.canada.ca
+variable "gc_dns_domain" { default = "c.ent.cloud-nuage.canada.ca" }
