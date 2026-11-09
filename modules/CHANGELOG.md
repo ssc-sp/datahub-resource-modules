@@ -1,5 +1,27 @@
 # Changelog
 
+## [7.2.4](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.3...v7.2.4) (2026-11-05)
+
+
+### Bug Fixes
+
+* open dev to the entire vnet ([#317](https://github.com/ssc-sp/datahub-resource-modules/issues/317)) ([ec816f6](https://github.com/ssc-sp/datahub-resource-modules/commit/ec816f63a5572f10bd30af8e3abc497b1c121138))
+
+## [7.2.3](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.2...v7.2.3) (2026-11-04)
+
+
+### Bug Fixes
+
+* pipeline error when run as ado sp ([9266e82](https://github.com/ssc-sp/datahub-resource-modules/commit/9266e82bf82a3547904828ba5472d3a9d8306a51))
+* pipeline error when run as ado sp ([#315](https://github.com/ssc-sp/datahub-resource-modules/issues/315)) ([9266e82](https://github.com/ssc-sp/datahub-resource-modules/commit/9266e82bf82a3547904828ba5472d3a9d8306a51))
+
+## [7.2.2](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.1...v7.2.2) (2026-11-04)
+
+
+### Bug Fixes
+
+* remove duplicate grants ([#313](https://github.com/ssc-sp/datahub-resource-modules/issues/313)) ([6d8c9f8](https://github.com/ssc-sp/datahub-resource-modules/commit/6d8c9f817596c305e5b2b5b50be98a44c69a823d))
+
 ## [7.2.1](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.0...v7.2.1) (2026-10-28)
 
 
