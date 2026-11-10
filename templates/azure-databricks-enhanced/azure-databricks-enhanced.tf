@@ -58,6 +58,10 @@ output "azure_databricks_workspace_name" {
   value = module.azure_databricks_module.azure_databricks_workspace_name
 }
 
+output "azure_databricks_managed_rg_name" {
+  value = module.azure_databricks_module.azure_databricks_managed_rg_name
+}
+
 output "azure_databricks_group_lead_id" {
   value = module.azure_databricks_module.azure_databricks_group_lead_id
 }

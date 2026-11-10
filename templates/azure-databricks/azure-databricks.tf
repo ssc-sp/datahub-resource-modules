@@ -53,3 +53,7 @@ output "azure_databricks_workspace_name" {
 output "azure_databricks_catalog_name" {
   value = module.azure_databricks_module.azure_databricks_catalog_name
 }
+
+output "azure_databricks_managed_rg_name" {
+  value = module.azure_databricks_module.azure_databricks_managed_rg_name
+}

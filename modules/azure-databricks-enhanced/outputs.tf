@@ -15,6 +15,10 @@ output "azure_databricks_workspace_url" {
   value = azapi_resource.fsdh_databricks.output.properties.workspaceUrl
 }
 
+output "azure_databricks_managed_rg_name" {
+  value = element(split("/", azapi_resource.fsdh_databricks.output.properties.managedResourceGroupId), 4)
+}
+
 output "azure_databricks_managed_rg_id" {
   value = azapi_resource.fsdh_databricks.output.properties.managedResourceGroupId
 }
