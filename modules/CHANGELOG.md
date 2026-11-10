@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.2.5](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.4...v7.2.5) (2026-11-10)
+
+
+### Bug Fixes
+
+* add domain suffix for resources with GoC DNS domain ([#320](https://github.com/ssc-sp/datahub-resource-modules/issues/320)) ([727cd54](https://github.com/ssc-sp/datahub-resource-modules/commit/727cd545cec2110264d4d405d64f1b3d6578825f))
+
 ## [7.2.4](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.3...v7.2.4) (2026-11-05)
 
 
