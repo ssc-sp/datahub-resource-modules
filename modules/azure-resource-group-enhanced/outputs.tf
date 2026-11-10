@@ -83,6 +83,14 @@ output "azure_storage_account_name" {
   value = azurerm_storage_account.datahub_storageaccount.name
 }
 
+output "azure_storage_account_blob_dns" {
+  value = azurerm_storage_account.datahub_storageaccount.primary_blob_host
+}
+
+output "azure_storage_account_blob_dns_gc" {
+  value = var.is_dev ? azurerm_storage_account.datahub_storageaccount.primary_blob_host : "${azurerm_storage_account.datahub_storageaccount.name}.blob.${var.gc_dns_domain}"
+}
+
 output "azure_storage_account_id" {
   value = azurerm_storage_account.datahub_storageaccount.id
 }

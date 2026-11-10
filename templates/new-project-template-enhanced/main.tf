@@ -75,6 +75,7 @@ module "resource_group_module" {
   subnet_name_prefix  = var.subnet_name_prefix
   vnet_name           = var.vnet_name
   vnet_rg             = var.vnet_rg
+  gc_dns_domain       = var.gc_resource_domain
 
   blob_scan_image = "ghcr.io/ssc-sp/clamav-blobavscan@sha256:f22d2c0ab5b938e2f3a68045ec0566c239da146b25363a9c55fb9442dbd30f7b"
 }
@@ -93,6 +94,10 @@ output "azure_resource_group_name" {
 
 output "azure_storage_account_name" {
   value = module.resource_group_module.azure_storage_account_name
+}
+
+output "azure_storage_account_blob_dns_gc" {
+  value = module.resource_group_module.azure_storage_account_blob_dns_gc
 }
 
 output "azure_storage_container_name" {
