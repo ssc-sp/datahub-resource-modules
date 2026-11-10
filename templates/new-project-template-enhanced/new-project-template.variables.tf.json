@@ -84,6 +84,10 @@
     "dev_source_ip": {
       "type": "string",
       "default": ""
+    },
+    "gc_resource_domain": {
+      "type": "string",
+      "default": "c.ent.cloud-nuage.canada.ca"
     }
   }
 }
