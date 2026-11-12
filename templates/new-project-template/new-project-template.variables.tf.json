@@ -17,7 +17,7 @@
     },
     "environment_classification": {
       "type": "string",
-      "default": "PA"
+      "default": "Unclassified"
     },
     "environment_name": {
       "type": "string",

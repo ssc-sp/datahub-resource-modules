@@ -56,6 +56,7 @@ module "resource_group_module" {
   az_subscription_id          = var.az_subscription_id
   project_cd                  = var.project_cd
   environment_name            = var.environment_name
+  environment_classification  = var.environment_classification
   datahub_app_sp_oid          = var.datahub_app_sp_oid
   datahub_ado_sp_oid          = var.datahub_ado_sp_oid
   automation_account_uai_name = var.automation_account_uai_name
