@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.2.6](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.5...v7.2.6) (2026-11-12)
+
+
+### Bug Fixes
+
+* mark pb classification with tag ([#322](https://github.com/ssc-sp/datahub-resource-modules/issues/322)) ([651add9](https://github.com/ssc-sp/datahub-resource-modules/commit/651add9fa1ef9bd7a8743d3835994a6e6168488a))
+
 ## [7.2.5](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.4...v7.2.5) (2026-11-10)
 
 
