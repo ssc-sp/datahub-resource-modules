@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.2.7](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.6...v7.2.7) (2026-11-16)
+
+
+### Bug Fixes
+
+* correct workspace classification tag ([#324](https://github.com/ssc-sp/datahub-resource-modules/issues/324)) ([276e51a](https://github.com/ssc-sp/datahub-resource-modules/commit/276e51aec0d893ad48bc1840ca09113b9d6cd106))
+
 ## [7.2.6](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.5...v7.2.6) (2026-11-12)
 
 
