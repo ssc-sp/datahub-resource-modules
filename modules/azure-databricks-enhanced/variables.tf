@@ -5,12 +5,6 @@ variable "environment_name" {
   default     = "dev"
 }
 
-variable "environment_classification" {
-  description = "Max level of security the environment hosts"
-  type        = string
-  default     = "PA"
-}
-
 variable "project_cd" {
   description = "Project short code"
   type        = string
