@@ -15,7 +15,7 @@
     "datahub_ado_sp_oid": {
       "type": "string"
     },
-    "environment_classification": {
+    "workspace_classification": {
       "type": "string",
       "default": "Unclassified"
     },

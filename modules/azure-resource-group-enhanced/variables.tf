@@ -50,7 +50,7 @@ variable "log_analytics_workspace_id" {
 # ==============================================
 #     Optional Variables
 # ==============================================
-variable "environment_classification" {
+variable "workspace_classification" {
   description = "Max level of security the environment hosts"
   type        = string
   default     = "U"
