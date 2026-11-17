@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.2.8](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.7...v7.2.8) (2026-11-17)
+
+
+### Bug Fixes
+
+* correct network acl for kv in pbmm ([#326](https://github.com/ssc-sp/datahub-resource-modules/issues/326)) ([5b2d461](https://github.com/ssc-sp/datahub-resource-modules/commit/5b2d461cd850db60cd20aff4bffaf016d25a02bd))
+
 ## [7.2.7](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.6...v7.2.7) (2026-11-16)
 
 
