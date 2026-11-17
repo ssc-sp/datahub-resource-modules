@@ -37,6 +37,7 @@ resource "databricks_cluster" "dbk_proj_cluster" {
   autotermination_minutes = 10
   num_workers             = 1
   is_pinned               = true
+  data_security_mode      = "USER_ISOLATION"
 
   autoscale {
     min_workers = 0
