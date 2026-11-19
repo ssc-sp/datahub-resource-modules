@@ -22,7 +22,7 @@ data "azurerm_virtual_network" "datahub_vnet" {
 }
 
 data "azurerm_subnet" "datahub_subnet_all" {
-  for_each = toset(data.azurerm_virtual_network.datahub_vnet.subnets)
+  for_each = toset(var.is_dev ? data.azurerm_virtual_network.datahub_vnet.subnets : [])
 
   name                 = each.value
   virtual_network_name = var.vnet_name
