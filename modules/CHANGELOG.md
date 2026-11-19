@@ -1,5 +1,13 @@
 # Changelog
 
+## [7.2.9](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.8...v7.2.9) (2026-11-19)
+
+
+### Bug Fixes
+
+* Not to scan all subnet if not in dev ([6c3243d](https://github.com/ssc-sp/datahub-resource-modules/commit/6c3243dd044731192d7561c02c23d4b4874fe768))
+* Not to scan all subnet if not in dev ([#328](https://github.com/ssc-sp/datahub-resource-modules/issues/328)) ([6c3243d](https://github.com/ssc-sp/datahub-resource-modules/commit/6c3243dd044731192d7561c02c23d4b4874fe768))
+
 ## [7.2.8](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.7...v7.2.8) (2026-11-17)
 
 
