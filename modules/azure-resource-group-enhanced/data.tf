@@ -120,7 +120,7 @@ locals {
   storage_size_limit_bytes  = 1024 * 1024 * 1024 * 1024 * var.storage_size_limit_tb
   log_keep_days             = 90
 
-  subnet_dev_ids = [for subnet in data.azurerm_subnet.datahub_subnet_dev : subnet.id]
+  subnet_dev_ids        = [for subnet in data.azurerm_subnet.datahub_subnet_dev : subnet.id]
   subnet_core_dev_names = [for name in data.azurerm_virtual_network.datahub_vnet.subnets : name if !can(regex(".*-[0-9]+-snet", name))]
   subnet_group_all = [
     data.azurerm_subnet.datahub_subnet_app.id,
