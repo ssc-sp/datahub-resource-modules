@@ -21,8 +21,8 @@ data "azurerm_virtual_network" "datahub_vnet" {
   resource_group_name = var.vnet_rg
 }
 
-data "azurerm_subnet" "datahub_subnet_all" {
-  for_each = toset(var.is_dev ? data.azurerm_virtual_network.datahub_vnet.subnets : [])
+data "azurerm_subnet" "datahub_subnet_dev" {
+  for_each = toset(var.is_dev ? concat(local.subnet_core_dev_names, [local.subnet_app_name, local.subnet_ph1_name, local.subnet_ph2_name, local.subnet_psql_name, local.subnet_pep_name, local.subnet_cae_name, local.subnet_dbrprv_name, local.subnet_dbrpub_name]) : [])
 
   name                 = each.value
   virtual_network_name = var.vnet_name
@@ -120,7 +120,8 @@ locals {
   storage_size_limit_bytes  = 1024 * 1024 * 1024 * 1024 * var.storage_size_limit_tb
   log_keep_days             = 90
 
-  subnet_vnet_all = [for subnet in data.azurerm_subnet.datahub_subnet_all : subnet.id]
+  subnet_dev_ids = [for subnet in data.azurerm_subnet.datahub_subnet_dev : subnet.id]
+  subnet_core_dev_names = [for name in data.azurerm_virtual_network.datahub_vnet.subnets : name if !can(regex(".*-[0-9]+-snet", name))]
   subnet_group_all = [
     data.azurerm_subnet.datahub_subnet_app.id,
     data.azurerm_subnet.datahub_subnet_ph1.id,
