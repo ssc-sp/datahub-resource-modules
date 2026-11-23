@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.2.10](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.9...v7.2.10) (2026-11-23)
+
+
+### Bug Fixes
+
+* reduce subnet acl for kv in dev only ([#330](https://github.com/ssc-sp/datahub-resource-modules/issues/330)) ([cae3b2a](https://github.com/ssc-sp/datahub-resource-modules/commit/cae3b2af4dc98fbe844d06dad388a6ac8db4488f))
+
 ## [7.2.9](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.8...v7.2.9) (2026-11-19)
 
 
