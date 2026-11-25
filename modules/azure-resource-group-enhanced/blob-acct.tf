@@ -44,81 +44,96 @@ resource "azurerm_storage_account_network_rules" "datahub_storageaccount_runner_
     endpoint_resource_id = azurerm_eventgrid_system_topic.project_blob_created_system_topic.id
     endpoint_tenant_id   = var.az_tenant_id
   }
+
+  depends_on = [time_sleep.wait_for_permission]
 }
 
 resource "azurerm_storage_container" "datahub_default" {
   name                  = local.datahub_mount_name
   storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
+  depends_on            = [time_sleep.wait_for_permission]
 }
 
 resource "azurerm_storage_container" "datahub_backup" {
   name                  = local.datahub_backup_name
   storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
+  depends_on            = [time_sleep.wait_for_permission]
 }
 
 resource "azurerm_storage_container" "datahub_log" {
   name                  = local.datahub_log_name
   storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
+  depends_on            = [time_sleep.wait_for_permission]
 }
 
 resource "azurerm_storage_share" "file_share_default" {
   name               = local.datahub_mount_name
   storage_account_id = azurerm_storage_account.datahub_storageaccount.id
   quota              = 64
+  depends_on         = [time_sleep.wait_for_permission]
 }
 
 resource "azurerm_storage_share" "file_share_clamav_temp" {
   name               = local.datahub_temp_name
   storage_account_id = azurerm_storage_account.datahub_storageaccount.id
   quota              = 128
+  depends_on         = [time_sleep.wait_for_permission]
 }
 
 resource "azurerm_storage_container" "datahub_quarantine" {
   name                  = local.datahub_quarantine
   storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
+  depends_on            = [time_sleep.wait_for_permission]
 }
 
 resource "azurerm_storage_container" "datahub_stage" {
   name                  = local.datahub_stage_name
   storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
+  depends_on            = [time_sleep.wait_for_permission]
 }
 
 resource "azurerm_storage_container" "datahub_catalog" {
   name                  = local.datahub_catalog_container
   storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
+  depends_on            = [time_sleep.wait_for_permission]
 }
 
 resource "azurerm_storage_container" "datahub_external_uploads" {
   name                  = local.datahub_upload_name
   storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
+  depends_on            = [time_sleep.wait_for_permission]
 }
 
 resource "azurerm_storage_container" "datahub_shared" {
   name                  = local.datahub_shared_name
   storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
+  depends_on            = [time_sleep.wait_for_permission]
 }
 
 resource "azurerm_storage_container" "datahub_users" {
   name                  = local.datahub_users_name
   storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
+  depends_on            = [time_sleep.wait_for_permission]
 }
 
 resource "azurerm_storage_container" "datahub_av_evidence" {
   name                  = "virus-scan-evidence"
   storage_account_id    = azurerm_storage_account.datahub_storageaccount.id
   container_access_type = "private"
+  depends_on            = [time_sleep.wait_for_permission]
 }
 
 resource "azurerm_storage_table" "datahub_clamav_infected" {
   name               = "infectedfiles"
   storage_account_id = azurerm_storage_account.datahub_storageaccount.id
+  depends_on         = [time_sleep.wait_for_permission]
 }

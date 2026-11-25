@@ -59,3 +59,8 @@ resource "azurerm_role_assignment" "proj_storage_clamav_job_role" {
   role_definition_name = each.key
   principal_id         = azurerm_user_assigned_identity.datahub_proj_clamav_job_uai.principal_id
 }
+
+resource "time_sleep" "wait_for_permission" {
+  depends_on      = [azurerm_role_assignment.blob_ado_sp_role, azurerm_role_assignment.proj_storage_creator_role, azurerm_key_vault_access_policy.current_runner_access_policy, azurerm_key_vault_access_policy.kv_policy_datahub_ado_sp]
+  create_duration = "120s"
+}
