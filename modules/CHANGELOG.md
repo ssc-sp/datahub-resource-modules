@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.2.11](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.10...v7.2.11) (2026-11-25)
+
+
+### Bug Fixes
+
+* improve pipeline reliability due to DNS delay and racing conditions ([#332](https://github.com/ssc-sp/datahub-resource-modules/issues/332)) ([24b1071](https://github.com/ssc-sp/datahub-resource-modules/commit/24b10711d1d560f7e0ac0c959b052e0dbda44296))
+
 ## [7.2.10](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.9...v7.2.10) (2026-11-23)
 
 
