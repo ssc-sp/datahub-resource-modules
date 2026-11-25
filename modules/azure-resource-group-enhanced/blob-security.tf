@@ -34,7 +34,7 @@ data "azurerm_storage_account_blob_container_sas" "datahub_container_sas" {
 }
 
 resource "azurerm_role_assignment" "proj_storage_creator_role" {
-  for_each = data.azurerm_client_config.current.object_id == var.datahub_ado_sp_oid ? toset([]) : toset(["Storage Blob Data Contributor"])
+  for_each = data.azurerm_client_config.current.object_id == var.datahub_ado_sp_oid ? toset([]) : toset(["Contributor", "Storage Blob Data Contributor", "Storage Table Data Contributor", "Storage Queue Data Contributor"])
 
   scope                = azurerm_storage_account.datahub_storageaccount.id
   role_definition_name = each.key
@@ -92,7 +92,9 @@ resource "azurerm_role_assignment" "blob_app_sp_role" {
 }
 
 resource "azurerm_role_assignment" "blob_ado_sp_role" {
+  for_each = toset(["Contributor", "Storage Blob Data Contributor", "Storage Table Data Contributor", "Storage Queue Data Contributor"])
+
   scope                = azurerm_storage_account.datahub_storageaccount.id
-  role_definition_name = "Storage Blob Data Contributor"
+  role_definition_name = each.value
   principal_id         = var.datahub_ado_sp_oid
 }
