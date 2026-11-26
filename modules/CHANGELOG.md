@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.2.12](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.11...v7.2.12) (2026-11-26)
+
+
+### Bug Fixes
+
+* reduce warning for terraform run ([#334](https://github.com/ssc-sp/datahub-resource-modules/issues/334)) ([c051a44](https://github.com/ssc-sp/datahub-resource-modules/commit/c051a444df15394ebf6274c4cc98cc90fb4bed06))
+
 ## [7.2.11](https://github.com/ssc-sp/datahub-resource-modules/compare/v7.2.10...v7.2.11) (2026-11-25)
 
 
