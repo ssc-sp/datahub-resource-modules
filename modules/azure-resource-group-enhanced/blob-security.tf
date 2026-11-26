@@ -9,8 +9,7 @@ resource "azurerm_key_vault_access_policy" "kv_policy_storage" {
 
 resource "azurerm_storage_account_customer_managed_key" "datahub_storageaccount_key" {
   storage_account_id = azurerm_storage_account.datahub_storageaccount.id
-  key_vault_id       = azurerm_key_vault.az_proj_kv.id
-  key_name           = azurerm_key_vault_key.az_proj_cmk.name
+  key_vault_key_id   = azurerm_key_vault_key.az_proj_cmk.id
 
   depends_on = [azurerm_key_vault_access_policy.kv_policy_storage]
 }
