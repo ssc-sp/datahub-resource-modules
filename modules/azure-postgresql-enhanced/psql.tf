@@ -29,7 +29,7 @@ resource "azurerm_postgresql_flexible_server" "datahub_psql_server" {
   backup_retention_days         = 7
   sku_name                      = var.psql_sku
   zone                          = 3
-  public_network_access_enabled = var.is_dev
+  public_network_access_enabled = false
   delegated_subnet_id           = var.subnet_id_psql
   private_dns_zone_id           = var.psql_dns_zone_id
   tags                          = var.project_tags
