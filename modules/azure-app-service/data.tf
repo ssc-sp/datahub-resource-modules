@@ -9,24 +9,6 @@ data "azurerm_storage_account" "datahub_storageaccount" {
   resource_group_name = var.resource_group_name
 }
 
-data "azurerm_storage_account_blob_container_sas" "datahub_app_log_sas" {
-  connection_string = data.azurerm_storage_account.datahub_storageaccount.primary_connection_string
-  container_name    = local.datahub_log_name
-  https_only        = true
-
-  start  = local.sas_start_now
-  expiry = local.sas_expiry_3m
-
-  permissions {
-    read   = true
-    add    = true
-    create = true
-    write  = true
-    delete = true
-    list   = true
-  }
-}
-
 data "azurerm_storage_account_blob_container_sas" "datahub_backup_sas" {
   connection_string = data.azurerm_storage_account.datahub_storageaccount.primary_connection_string
   container_name    = local.datahub_backup_name
@@ -59,7 +41,7 @@ locals {
   dns_record_name         = lower("${var.project_cd}-app")
   sas_start_now           = formatdate("YYYY-MM-DD", timeadd(timestamp(), "-24h"))
   sas_expiry_3m           = formatdate("YYYY-MM-DD", timeadd(timestamp(), "2184h"))
-  allow_source_ip_list = [
+  allow_source_ip_list = var.allow_source_ip != "" ? [
     for ip in split(",", var.allow_source_ip) : {
       name      = "fsdh-app-${index(split(",", var.allow_source_ip), ip)}"
       action    = "Allow"
@@ -67,5 +49,5 @@ locals {
       name      = "fsdh-app-${index(split(",", var.allow_source_ip), ip)}"
       priority  = (100 + index(split(",", var.allow_source_ip), ip))
     }
-  ]
+  ] : []
 }
